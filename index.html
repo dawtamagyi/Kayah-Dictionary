@@ -3,39 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Kay+Pho+Du:wght@600;700&display=swap" rel="stylesheet">
-    <title>ꤊ Dictionary</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Kay+Pho+Du:wght@600;700&display=swap" rel="stylesheet">
+    <title>ꤊ dictionary</title>
     <style>
         body {
-		    font-family: "Kay Pho Du", serif;
+            font-family: "Kay Pho Du", serif;
             max-width: 800px;
             margin: 0 auto;
             padding: 0px;
-			background-color: white;
+            background-color: white;
         }
-		.kay-pho-du-semibold {
-            font-family: "Kay Pho Du", serif;
-            font-weight: 600;
-            font-style: normal;
-       }
-      .kay-pho-du-bold {
-           font-family: "Kay Pho Du", serif;
-           font-weight: 700;
-           font-style: normal;
-       }
-
         
         h1 {
             color: black;
             text-align: center;
-			}
+        }
 
         .search-container {
             margin: 2px 1px;
-			margin-right: 20px;
-			margin-left: 20px;
+            margin-right: 20px;
+            margin-left: 20px;
             display: flex;
             gap: 10px;
             position: relative;
@@ -45,13 +34,13 @@
             flex-grow: 1;
         }
         input {
-		    font-family: "Kay Pho Du", serif;
+            font-family: "Kay Pho Du", serif;
             padding: 10px;
             padding-right: 30px;
             width: 100%;
             box-sizing: border-box;
             font-size: 16px;
-			background-color: #FFFFFF;
+            background-color: #FFFFFF;
         }
         .clear-symbol {
             position: absolute;
@@ -67,7 +56,7 @@
             color: #f44336;
         }
         button {
-		    font-family: "Kay Pho Du", serif;
+            font-family: "Kay Pho Du", serif;
             padding: 10px 20px;
             background-color: green;
             color: white;
@@ -98,7 +87,7 @@
             background-color: #f0f0f0;
         }
         .results {
-		    font-family: "Kay Pho Du", serif;
+            font-family: "Kay Pho Du", serif;
             margin-top: 0px;
             display: none;
         }
@@ -107,56 +96,70 @@
             padding: 15px;
             margin: 10px 0;
             border-radius: 5px;
-            position: relative;
-			background-color: #FFFFFF;
+            background-color: #FFFFFF;
         }
         .speaker {
-            position: absolute;
-            right: 15px;
-            top: 15px;
+            display: inline-block;
+            margin-left: 5px;
             cursor: pointer;
             font-size: 20px;
             color: #666;
+            vertical-align: middle;
         }
         .speaker:hover {
             color: #4CAF50;
         }
+        .english-line {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .karenni-line {
+            display: block;
+            margin-left: 20px;
+            line-height: 1.5;
+        }
+        .pos {
+            color: #666;
+            font-size: 0.9em;
+            margin-left: 5px;
+            font-weight: normal;
+        }
         footer {
-		    margin-top: 1px;
+            margin-top: 1px;
             text-align: center;
-			font-size: 10px;
+            font-size: 10px;
             padding: 3px;
             color: grey;
         }
-</style>
+    </style>
 </head>
 <body>
 <div class="header">
-  <h1>English - Kayah Dictionary</h1>
+    <h1>English - Kayah Dictionary</h1>
 </div>
     
-    <div class="search-container">
-        <div class="input-wrapper">
-            <input type="text" id="searchInput" placeholder="Enter English or Kayah word here...">
-            <span class="clear-symbol" id="clearSymbol" onclick="clearSearch()">✖</span>
-            <div class="related-words" id="relatedWords"></div>
-        </div>
-        <button id="translateBtn">Go</button>
+<div class="search-container">
+    <div class="input-wrapper">
+        <input type="text" id="searchInput" placeholder="Enter English or Kayah word here...">
+        <span class="clear-symbol" id="clearSymbol" onclick="clearSearch()">✖</span>
+        <div class="related-words" id="relatedWords"></div>
     </div>
+    <button id="translateBtn">Go</button>
+</div>
 
-    <div class="results" id="results">
-        <div class="translation-box" id="translation">
-            <span id="translationText"></span>
-            <span class="speaker" id="speakBtn">🔊</span>
-        </div>
-        <div class="examples-box" id="examples"></div>
+<div class="results" id="results">
+    <div class="translation-box" id="translation">
+        <div id="translationContent"></div>
     </div>
-	<footer>
-  <p>Created: Ko Reh ꤘꤢꤪ꤭ꤒꤢ꤬ꤗꤢꤘꤢꤨ꤬<br>
+    <div class="examples-box" id="examples"></div>
+</div>
+<footer>
+    <p>Created: Ko Reh ꤘꤢꤪ꤭ꤒꤢ꤬ꤗꤢꤘꤢꤨ꤬<br>
 </footer>
 
-    <script>
-        const dictionary = {
+<script>
+    const dictionary = {
 "abalone": {
   english: "abalone",
   karenni: "ꤒꤢ꤬ꤗꤟꤛꤢꤩ/ꤊꤜꤢꤨ꤬, ꤕꤢ꤭ꤜꤢꤧ꤭ꤒꤢ꤬ꤗꤟꤛꤢꤩ ꤘꤣ ꤢꤩ꤬ꤔꤟꤤꤡꤟꤛꤢ",
@@ -5191,7 +5194,7 @@
 "compliment": { 
   "english": "compliment",
   "karenni": "ꤍꤟꤥꤓꤢꤨ꤬ꤞꤢꤧ /v/ ꤓꤢꤨ꤬ꤞꤢꤧ",
-  "translation": "compliment /n/ /v/",
+  "translation": "compliment /n/",
   "examples": []
 },
 "comply": { 
@@ -59569,14 +59572,13 @@
     "translation": "ꤗꤤ꤭ꤟꤢꤪ /adj/",
     "examples": ["ꤘꤤ꤭ꤊꤜꤝꤤ꤭ꤞꤢꤧ꤬ ꤗꤤ꤭ꤟꤢꤪ꤯ The bananas are ripe."]
   }};
-    const searchInput = document.getElementById('searchInput');
+     const searchInput = document.getElementById('searchInput');
     const translateBtn = document.getElementById('translateBtn');
     const clearSymbol = document.getElementById('clearSymbol');
     const relatedWordsDiv = document.getElementById('relatedWords');
     const resultsDiv = document.getElementById('results');
-    const translationTextSpan = document.getElementById('translationText');
+    const translationContentDiv = document.getElementById('translationContent');
     const examplesDiv = document.getElementById('examples');
-    const speakBtn = document.getElementById('speakBtn');
 
     function isKayahli(text) {
         return /[\uA900-\uA92F]/.test(text);
@@ -59588,9 +59590,8 @@
         
         if (!searchTerm) {
             resultsDiv.style.display = 'none';
-            translationTextSpan.innerHTML = '';
+            translationContentDiv.innerHTML = '';
             examplesDiv.innerHTML = '';
-            speakBtn.style.display = 'block';
             return;
         }
 
@@ -59608,26 +59609,37 @@
         if (entry) {
             resultsDiv.style.display = 'block';
             const [word, pos] = entry.translation.split(' ');
+            
             if (isKayahli(searchTerm)) {
-                translationTextSpan.textContent = `${entry.karenni} ${pos} ${entry.english}`;
+                translationContentDiv.innerHTML = `
+                    <div class="english-line">
+                        <strong>${entry.english}</strong>
+                        <span class="pos">${pos}</span>
+                    </div>
+                    <div class="karenni-line">${entry.karenni}</div>
+                `;
             } else {
-                translationTextSpan.textContent = `${entry.english} ${pos} ${entry.karenni}`;
+                translationContentDiv.innerHTML = `
+                    <div class="english-line">
+                        <strong>${entry.english}</strong>
+                        <span class="speaker" onclick="speakEnglish('${entry.english.replace(/'/g, "\\'")}')">🔊</span>
+                        <span class="pos">${pos}</span>
+                    </div>
+                    <div class="karenni-line">${entry.karenni}</div>
+                `;
             }
+            
             examplesDiv.innerHTML = entry.examples.map(example => `<p>${example}</p>`).join('');
-            speakBtn.style.display = isKayahli(searchTerm) ? 'none' : 'block';
         } else {
             resultsDiv.style.display = 'block';
-            translationTextSpan.textContent = 'Word not found-ꤗꤛꤢꤓꤛꤢꤩ꤬ꤜꤤ꤬ꤕꤜꤢꤪ꤬ ꤒꤥ꤬!';
+            translationContentDiv.innerHTML = 'Word not found';
             examplesDiv.innerHTML = '';
-            speakBtn.style.display = 'none';
         }
         relatedWordsDiv.style.display = 'none';
     }
 
-    function speakEnglish() {
-        const textParts = translationTextSpan.textContent.split(' ');
-        const englishText = textParts[0]; // Adjusted for new format without dash
-        const utterance = new SpeechSynthesisUtterance(englishText);
+    function speakEnglish(text) {
+        const utterance = new SpeechSynthesisUtterance(text);
         utterance.lang = 'en-US';
         speechSynthesis.speak(utterance);
     }
@@ -59635,11 +59647,10 @@
     function clearSearch() {
         searchInput.value = '';
         resultsDiv.style.display = 'none';
-        translationTextSpan.innerHTML = '';
+        translationContentDiv.innerHTML = '';
         examplesDiv.innerHTML = '';
         clearSymbol.style.display = 'none';
         relatedWordsDiv.style.display = 'none';
-        speakBtn.style.display = 'block';
     }
 
     function showRelatedWords() {
@@ -59700,7 +59711,7 @@
         showRelatedWords();
         if (!searchInput.value.trim()) {
             resultsDiv.style.display = 'none';
-            translationTextSpan.innerHTML = '';
+            translationContentDiv.innerHTML = '';
             examplesDiv.innerHTML = '';
         }
     });
@@ -59712,7 +59723,6 @@
     });
 
     translateBtn.addEventListener('click', translate);
-    speakBtn.addEventListener('click', speakEnglish);
 </script>
 </body>
-</html>
+</html>      
