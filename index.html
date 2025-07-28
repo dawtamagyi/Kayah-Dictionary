@@ -1,165 +1,326 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Kay+Pho+Du:wght@600;700&display=swap" rel="stylesheet">
-    <title>ꤊ dictionary</title>
-    <style>
-        body {
-            font-family: "Kay Pho Du", serif;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 0px;
-            background-color: white;
-        }
-        
-        h1 {
-            color: black;
-            text-align: center;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Kay+Pho+Du:wght@600;700&display=swap" rel="stylesheet">
+<title>ꤊ Dictionary</title>
+<style>
+html, body {
+  height: 100%;
+  margin: 0;
+}
+body {
+  font-family: "Kay Pho Du", serif;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+main {
+  flex: 1 0 auto;
+}
+.kay-pho-du-semibold {
+  font-family: "Kay Pho Du", serif;
+  font-weight: 600;
+  font-style: normal;
+}
+.kay-pho-du-bold {
+  font-family: "Kay Pho Du", serif;
+  font-weight: 700;
+  font-style: normal;
+}
+h1 {
+  color: black;
+  text-align: center;
+}
+.search-container {
+  margin: 2px 1px;
+  margin-right: 20px;
+  margin-left: 20px;
+  display: flex;
+  gap: 10px;
+  position: relative;
+}
+.input-wrapper {
+  position: relative;
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+}
+input {
+  font-family: "Kay Pho Du", serif;
+  padding: 10px;
+  padding-right: 60px;
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 16px;
+  background-color: #FFFFFF;
+}
+.clear-symbol {
+  position: absolute;
+  right: 30px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 16px;
+  color: #666;
+  display: none;
+}
+.clear-symbol:hover {
+  color: #f44336;
+}
+.keyboard-toggle {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 16px;
+  color: #666;
+  border: none;
+  background: none;
+  padding: 0;
+}
+.keyboard-toggle:hover {
+  color: #4CAF50;
+}
+button {
+  font-family: "Kay Pho Du", serif;
+  padding: 10px 20px;
+  background-color: green;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+button:hover {
+  background-color: red;
+}
+.keyboard {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 6px;
+  z-index: 2;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+.keyboard-row {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 3px;
+}
+.keyboard-key {
+  font-family: "Kay Pho Du", serif;
+  padding: 6px;
+  margin: 2px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: center;
+  user-select: none;
+}
+.keyboard-key:hover {
+  background-color: #e0e0e0;
+}
+.keyboard-key.backspace {
+  width: auto;
+  padding: 6px 12px;
+}
+.related-words {
+    position: absolute;
+    top: calc(100% + 1px); /* Reduced from 35px to 5px */
+    left: 0;
+    width: 100%;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    max-height: 200px;
+    overflow-y: auto;
+    display: none;
+    z-index: 1;
+}
+.related-word {
+  padding: 8px;
+  cursor: pointer;
+}
+.related-word:hover {
+  background-color: #f0f0f0;
+}
+.results {
+  font-family: "Kay Pho Du", serif;
+  margin-top: 0px;
+  display: none;
+}
+.translation-box, .examples-box {
+  border: 0px solid #ddd;
+  padding: 15px;
+  margin: 10px 0;
+  border-radius: 5px;
+  background-color: #FFFFFF;
+}
+.speaker {
+  display: inline-block;
+  margin-left: 3px;
+  cursor: pointer;
+  font-size: 20px;
+  color: #666;
+  vertical-align: middle;
+}
+.speaker:hover {
+  color: #4CAF50;
+}
+.english-line {
+  display: block;
+  margin-bottom: 3px;
+  font-weight: bold;
+}
+.karenni-line {
+  display: block;
+  margin-left: 10px;
+}
+.pos {
+  color: #666;
+  font-size: 0.9em;
+  margin-left: 5px;
+  font-weight: normal;
+}
+footer {
+  flex-shrink: 0;
+  text-align: center;
+  font-size: 10px;
+  padding: 3px;
+  color: grey;
+}
 
-        .search-container {
-            margin: 2px 1px;
-            margin-right: 20px;
-            margin-left: 20px;
-            display: flex;
-            gap: 10px;
-            position: relative;
-        }
-        .input-wrapper {
-            position: relative;
-            flex-grow: 1;
-        }
-        input {
-            font-family: "Kay Pho Du", serif;
-            padding: 10px;
-            padding-right: 30px;
-            width: 100%;
-            box-sizing: border-box;
-            font-size: 16px;
-            background-color: #FFFFFF;
-        }
-        .clear-symbol {
-            position: absolute;
-            right: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-            cursor: pointer;
-            font-size: 16px;
-            color: #666;
-            display: none;
-        }
-        .clear-symbol:hover {
-            color: #f44336;
-        }
-        button {
-            font-family: "Kay Pho Du", serif;
-            padding: 10px 20px;
-            background-color: green;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: red;
-        }
-        .related-words {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            width: 100%;
-            background: white;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            max-height: 200px;
-            overflow-y: auto;
-            display: none;
-            z-index: 1;
-        }
-        .related-word {
-            padding: 8px;
-            cursor: pointer;
-        }
-        .related-word:hover {
-            background-color: #f0f0f0;
-        }
-        .results {
-            font-family: "Kay Pho Du", serif;
-            margin-top: 0px;
-            display: none;
-        }
-        .translation-box, .examples-box {
-            border: 0px solid #ddd;
-            padding: 15px;
-            margin: 10px 0;
-            border-radius: 5px;
-            background-color: #FFFFFF;
-        }
-        .speaker {
-            display: inline-block;
-            margin-left: 5px;
-            cursor: pointer;
-            font-size: 20px;
-            color: #666;
-            vertical-align: middle;
-        }
-        .speaker:hover {
-            color: #4CAF50;
-        }
-        .english-line {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-        .karenni-line {
-            display: block;
-            margin-left: 20px;
-            line-height: 1.5;
-        }
-        .pos {
-            color: #666;
-            font-size: 0.9em;
-            margin-left: 5px;
-            font-weight: normal;
-        }
-        footer {
-            margin-top: 1px;
-            text-align: center;
-            font-size: 10px;
-            padding: 3px;
-            color: grey;
-        }
-    </style>
+/* Responsive keyboard sizing */
+@media only screen and (max-width: 480px) { /* Smartphone */
+  .keyboard {
+    width: 100%;
+  }
+  .keyboard-key {
+    width: 20px;
+    height: 20px;
+    font-size: 10px;
+    padding: 3px;
+  }
+  .keyboard-key.backspace {
+    font-size: 8px;
+    padding: 3px 6px;
+  }
+}
+@media only screen and (min-width: 481px) and (max-width: 768px) { /* Tablet/iPad */
+  .keyboard {
+    width: 80%;
+  }
+  .keyboard-key {
+    width: 28px;
+    height: 28px;
+    font-size: 12px;
+    padding: 4px;
+  }
+  .keyboard-key.backspace {
+    font-size: 10px;
+    padding: 4px 8px;
+  }
+}
+@media only screen and (min-width: 769px) { /* Computer */
+  .keyboard {
+    width: 60%;
+  }
+  .keyboard-key {
+    width: 34px;
+    height: 34px;
+    font-size: 14px;
+    padding: 5px;
+  }
+  .keyboard-key.backspace {
+    font-size: 12px;
+    padding: 5px 10px;
+  }
+}
+</style>
 </head>
 <body>
+<main>
 <div class="header">
-    <h1>English - Kayah Dictionary</h1>
+  <h1>English - ꤊꤢ꤬ꤛꤢ꤭ꤜꤟꤤ꤬ Dictionary</h1>
 </div>
-    
 <div class="search-container">
-    <div class="input-wrapper">
-        <input type="text" id="searchInput" placeholder="Enter English or Kayah word here...">
-        <span class="clear-symbol" id="clearSymbol" onclick="clearSearch()">✖</span>
-        <div class="related-words" id="relatedWords"></div>
+  <div class="input-wrapper">
+    <input type="text" id="searchInput" placeholder="Enter English or Kayah word here...">
+    <span class="clear-symbol" id="clearSymbol" onclick="clearSearch()">✖</span>
+    <button class="keyboard-toggle" id="keyboardToggle">ꤊ</button>
+    <div class="keyboard" id="keyboard">
+      <div class="keyboard-row">
+        <div class="keyboard-key">ꤠ</div>
+        <div class="keyboard-key">ꤎ</div>
+        <div class="keyboard-key">ꤙ</div>
+        <div class="keyboard-key">ꤚ</div>
+        <div class="keyboard-key">ꤣ</div>
+        <div class="keyboard-key">ꤤ</div>
+        <div class="keyboard-key">ꤥ</div>
+        <div class="keyboard-key">ꤞ</div>
+        <div class="keyboard-key">ꤓ</div>
+        <div class="keyboard-key">ꤑ</div>
+        <div class="keyboard-key">ꤘ</div>
+      </div>
+      <div class="keyboard-row">
+        <div class="keyboard-key">ꤊ</div>
+        <div class="keyboard-key">ꤔ</div>
+        <div class="keyboard-key">ꤛ</div>
+        <div class="keyboard-key">ꤢ</div>
+        <div class="keyboard-key">꤬</div>
+        <div class="keyboard-key">꤭</div>
+        <div class="keyboard-key">ꤒ</div>
+        <div class="keyboard-key">ꤟ</div>
+        <div class="keyboard-key">ꤕ</div>
+        <div class="keyboard-key">ꤜ</div>
+        <div class="keyboard-key">ꤍ</div>
+      </div>
+      <div class="keyboard-row">
+        <div class="keyboard-key">ꤡ</div>
+        <div class="keyboard-key">ꤌ</div>
+        <div class="keyboard-key">ꤏ</div>
+        <div class="keyboard-key">ꤋ</div>
+        <div class="keyboard-key">ꤗ</div>
+        <div class="keyboard-key">ꤖ</div>
+        <div class="keyboard-key">꤉</div>
+        <div class="keyboard-key">ꤐ</div>
+        <div class="keyboard-key">ꤦ</div>
+        <div class="keyboard-key">ꤧ</div>
+        <div class="keyboard-key">ꤨ</div>
+        <div class="keyboard-key">ꤩ</div>
+        <div class="keyboard-key">ꤪ</div>
+        <div class="keyboard-key">꤫</div>
+      </div>
+      <div class="keyboard-row">
+        <div class="keyboard-key backspace">Backspace</div>
+      </div>
     </div>
-    <button id="translateBtn">Go</button>
+    <div class="related-words" id="relatedWords"></div>
+  </div>
+  <button id="translateBtn">Go</button>
 </div>
-
 <div class="results" id="results">
-    <div class="translation-box" id="translation">
-        <div id="translationContent"></div>
-    </div>
-    <div class="examples-box" id="examples"></div>
+  <div class="translation-box" id="translation">
+    <div id="translationContent"></div>
+  </div>
+  <div class="examples-box" id="examples"></div>
 </div>
+</main>
 <footer>
-    <p>Created: Ko Reh ꤘꤢꤪ꤭ꤒꤢ꤬ꤗꤢꤘꤢꤨ꤬<br>
+  <p>Created: Ko Reh ꤘꤢꤪ꤭ꤒꤢ꤬ꤗꤢꤘꤢꤨ꤬</p>
 </footer>
-
 <script>
-    const dictionary = {
+const dictionary = {
 "abalone": {
   english: "abalone",
   karenni: "ꤒꤢ꤬ꤗꤟꤛꤢꤩ/ꤊꤜꤢꤨ꤬, ꤕꤢ꤭ꤜꤢꤧ꤭ꤒꤢ꤬ꤗꤟꤛꤢꤩ ꤘꤣ ꤢꤩ꤬ꤔꤟꤤꤡꤟꤛꤢ",
@@ -27749,8 +27910,7 @@
     "examples": [
       "Where are you going?: ꤔꤟꤢꤧ꤬ꤡꤛꤣ ꤙꤤꤒꤢꤩ꤭?",
       "Where are you at?: ꤔꤟꤢꤧ꤬ꤥ꤬ꤘꤣꤙꤤꤒꤢꤩ꤭?",
-      "Where can I see you?: ꤠꤢ꤭ꤗꤛꤢꤓꤛꤢꤩ꤬ꤔꤟꤢꤧ꤬ ꤙꤤꤒꤢꤩ꤭ ꤢ꤬ꤡꤟꤛꤢꤟꤟꤢꤧ꤭?"
-    ]
+      "Where can I see you?: ꤠꤢ꤭ꤗꤛꤢꤓꤛꤢꤩ꤬ꤔꤟꤢꤧ꤬ ꤙꤤꤒꤢꤩ꤭ ꤢ꤬ꤡꤟꤛꤢꤟꤟꤢꤧ꤭?"]
   },
   "wherever": {
     "english": "wherever",
@@ -27768,10 +27928,14 @@
     "english": "which",
     "karenni": "ꤙꤤꤒꤢꤩ꤭---ꤒꤢꤩ꤭?, ꤊꤚꤛꤢꤒꤤ꤭ꤒꤢꤩ꤭, ꤊꤚꤛꤢ, ꤙꤤꤒꤢꤩ꤭ꤒꤣ꤬ꤊꤟꤌꤣ꤬",
     "translation": "which /pron/",
-    "examples": [
-      "Which one?: ꤙꤤꤒꤢꤩ꤭ ꤒꤣ꤬ꤊꤟꤌꤣ꤬ꤒꤢꤩ꤭?",
-      "Which one do you want?: ꤔꤟꤢꤧ꤬ꤞꤢꤧꤐꤟꤢꤦꤙꤤꤒꤢꤩ꤭ꤒꤣ꤬ꤊꤟꤌꤣ꤬ꤒꤢꤩ꤭?"
-    ]
+    "examples": ["Which one?: ꤙꤤꤒꤢꤩ꤭ ꤒꤣ꤬ꤊꤟꤌꤣ꤬ꤒꤢꤩ꤭?",
+      "Which one do you want?: ꤔꤟꤢꤧ꤬ꤞꤢꤧꤐꤟꤢꤦꤙꤤꤒꤢꤩ꤭ꤒꤣ꤬ꤊꤟꤌꤣ꤬ꤒꤢꤩ꤭?"]
+  },
+  "whichever": {
+    "english": "whichever",
+    "karenni": "ꤙꤤꤒꤢꤩ꤭---ꤒꤢꤩ꤭ꤙꤢꤧ꤬ꤙꤢꤧ꤬?, ꤊꤚꤛꤢꤒꤤ꤭ꤒꤢꤩ꤭ꤙꤢꤧ꤬ꤙꤢꤧ꤬, ꤙꤤꤒꤢꤩ꤭ꤒꤣ꤬ꤊꤟꤌꤣ꤬ꤙꤢꤧ꤬ꤙꤢꤧ꤬",
+    "translation": "whichever /pron/",
+    "examples": []
   },
   "whip": {
     "english": "whip",
@@ -59572,157 +59736,166 @@
     "translation": "ꤗꤤ꤭ꤟꤢꤪ /adj/",
     "examples": ["ꤘꤤ꤭ꤊꤜꤝꤤ꤭ꤞꤢꤧ꤬ ꤗꤤ꤭ꤟꤢꤪ꤯ The bananas are ripe."]
   }};
-     const searchInput = document.getElementById('searchInput');
-    const translateBtn = document.getElementById('translateBtn');
-    const clearSymbol = document.getElementById('clearSymbol');
-    const relatedWordsDiv = document.getElementById('relatedWords');
-    const resultsDiv = document.getElementById('results');
-    const translationContentDiv = document.getElementById('translationContent');
-    const examplesDiv = document.getElementById('examples');
-
-    function isKayahli(text) {
-        return /[\uA900-\uA92F]/.test(text);
+  const searchInput = document.getElementById('searchInput');
+const translateBtn = document.getElementById('translateBtn');
+const clearSymbol = document.getElementById('clearSymbol');
+const relatedWordsDiv = document.getElementById('relatedWords');
+const resultsDiv = document.getElementById('results');
+const translationContentDiv = document.getElementById('translationContent');
+const examplesDiv = document.getElementById('examples');
+const keyboardToggle = document.getElementById('keyboardToggle');
+const keyboard = document.getElementById('keyboard');
+function isKayahli(text) {
+  return /[\uA900-\uA92F]/.test(text);
+}
+function translate() {
+  const searchTerm = searchInput.value.trim();
+  const searchTermLower = searchTerm.toLowerCase();
+  if (!searchTerm) {
+    resultsDiv.style.display = 'none';
+    translationContentDiv.innerHTML = '';
+    examplesDiv.innerHTML = '';
+    return;
+  }
+  let entry = dictionary[searchTerm];
+  if (!entry) {
+    entry = dictionary[searchTermLower];
+  }
+  if (!entry) {
+    entry = Object.values(dictionary).find(item =>
+      item.translation.includes(searchTerm) ||
+      item.english.includes(searchTermLower)
+    );
+  }
+  if (entry) {
+    resultsDiv.style.display = 'block';
+    const [word, pos] = entry.translation.split(' ');
+    if (isKayahli(searchTerm)) {
+      translationContentDiv.innerHTML = `
+        <div class="english-line">
+          <strong>${entry.english}</strong>
+          <span class="pos">${pos}</span>
+        </div>
+        <div class="karenni-line">/${entry.karenni}</div>
+      `;
+    } else {
+      translationContentDiv.innerHTML = `
+        <div class="english-line">
+          <strong>${entry.english}</strong>
+          <span class="speaker" onclick="speakEnglish('${entry.english.replace(/'/g, "\\'")}')">🔊</span>
+          <span class="pos">${pos}</span>
+        </div>
+        <div class="karenni-line">/${entry.karenni}</div>
+      `;
     }
-
-    function translate() {
-        const searchTerm = searchInput.value.trim();
-        const searchTermLower = searchTerm.toLowerCase();
-        
-        if (!searchTerm) {
-            resultsDiv.style.display = 'none';
-            translationContentDiv.innerHTML = '';
-            examplesDiv.innerHTML = '';
-            return;
-        }
-
-        let entry = dictionary[searchTerm];
-        if (!entry) {
-            entry = dictionary[searchTermLower];
-        }
-        if (!entry) {
-            entry = Object.values(dictionary).find(item => 
-                item.translation.includes(searchTerm) || 
-                item.english.includes(searchTermLower)
-            );
-        }
-
-        if (entry) {
-            resultsDiv.style.display = 'block';
-            const [word, pos] = entry.translation.split(' ');
-            
-            if (isKayahli(searchTerm)) {
-                translationContentDiv.innerHTML = `
-                    <div class="english-line">
-                        <strong>${entry.english}</strong>
-                        <span class="pos">${pos}</span>
-                    </div>
-                    <div class="karenni-line">${entry.karenni}</div>
-                `;
-            } else {
-                translationContentDiv.innerHTML = `
-                    <div class="english-line">
-                        <strong>${entry.english}</strong>
-                        <span class="speaker" onclick="speakEnglish('${entry.english.replace(/'/g, "\\'")}')">🔊</span>
-                        <span class="pos">${pos}</span>
-                    </div>
-                    <div class="karenni-line">${entry.karenni}</div>
-                `;
-            }
-            
-            examplesDiv.innerHTML = entry.examples.map(example => `<p>${example}</p>`).join('');
-        } else {
-            resultsDiv.style.display = 'block';
-            translationContentDiv.innerHTML = 'Word not found';
-            examplesDiv.innerHTML = '';
-        }
-        relatedWordsDiv.style.display = 'none';
+    examplesDiv.innerHTML = entry.examples.map(example => `<p>${example}</p>`).join('');
+  } else {
+    resultsDiv.style.display = 'block';
+    translationContentDiv.innerHTML = 'Word not found';
+    examplesDiv.innerHTML = '';
+  }
+  relatedWordsDiv.style.display = 'none';
+}
+function speakEnglish(text) {
+  const utterance = new SpeechSynthesisUtterance(text);
+  utterance.lang = 'en-US';
+  speechSynthesis.speak(utterance);
+}
+function clearSearch() {
+  searchInput.value = '';
+  resultsDiv.style.display = 'none';
+  translationContentDiv.innerHTML = '';
+  examplesDiv.innerHTML = '';
+  clearSymbol.style.display = 'none';
+  relatedWordsDiv.style.display = 'none';
+}
+function showRelatedWords() {
+  const searchTerm = searchInput.value.trim();
+  relatedWordsDiv.innerHTML = '';
+  if (!searchTerm) {
+    relatedWordsDiv.style.display = 'none';
+    clearSymbol.style.display = 'none';
+    return;
+  }
+  clearSymbol.style.display = 'block';
+  const related = [];
+  const searchLower = searchTerm.toLowerCase();
+  const isInputKayahli = isKayahli(searchTerm);
+  Object.entries(dictionary).forEach(([key, value]) => {
+    if (isInputKayahli) {
+      if (isKayahli(key) && key.toLowerCase().includes(searchLower)) {
+        related.push(key);
+      }
+    } else {
+      if (!isKayahli(key) && key.toLowerCase().includes(searchLower)) {
+        related.push(key);
+      }
     }
-
-    function speakEnglish(text) {
-        const utterance = new SpeechSynthesisUtterance(text);
-        utterance.lang = 'en-US';
-        speechSynthesis.speak(utterance);
-    }
-
-    function clearSearch() {
-        searchInput.value = '';
-        resultsDiv.style.display = 'none';
-        translationContentDiv.innerHTML = '';
-        examplesDiv.innerHTML = '';
-        clearSymbol.style.display = 'none';
-        relatedWordsDiv.style.display = 'none';
-    }
-
-    function showRelatedWords() {
-        const searchTerm = searchInput.value.trim();
-        relatedWordsDiv.innerHTML = '';
-        
-        if (!searchTerm) {
-            relatedWordsDiv.style.display = 'none';
-            clearSymbol.style.display = 'none';
-            return;
-        }
-
-        clearSymbol.style.display = 'block';
-        const related = [];
-        const searchLower = searchTerm.toLowerCase();
-        const isInputKayahli = isKayahli(searchTerm);
-
-        Object.entries(dictionary).forEach(([key, value]) => {
-            if (isInputKayahli) {
-                if (isKayahli(key) && key.toLowerCase().includes(searchLower)) {
-                    related.push(key);
-                }
-            } else {
-                if (!isKayahli(key) && key.toLowerCase().includes(searchLower)) {
-                    related.push(key);
-                }
-            }
-        });
-
-        if (related.length > 0) {
-            related.sort((a, b) => {
-                const aStartsWith = a.toLowerCase().startsWith(searchLower);
-                const bStartsWith = b.toLowerCase().startsWith(searchLower);
-                
-                if (aStartsWith && !bStartsWith) return -1;
-                if (!aStartsWith && bStartsWith) return 1;
-                return a.localeCompare(b);
-            });
-
-            relatedWordsDiv.style.display = 'block';
-            related.slice(0, 20).forEach(word => {
-                const div = document.createElement('div');
-                div.className = 'related-word';
-                div.textContent = word;
-                div.onclick = () => {
-                    searchInput.value = word;
-                    relatedWordsDiv.style.display = 'none';
-                    translate();
-                };
-                relatedWordsDiv.appendChild(div);
-            });
-        } else {
-            relatedWordsDiv.style.display = 'none';
-        }
-    }
-
-    searchInput.addEventListener('input', function() {
-        showRelatedWords();
-        if (!searchInput.value.trim()) {
-            resultsDiv.style.display = 'none';
-            translationContentDiv.innerHTML = '';
-            examplesDiv.innerHTML = '';
-        }
+  });
+  if (related.length > 0) {
+    related.sort((a, b) => {
+      const aStartsWith = a.toLowerCase().startsWith(searchLower);
+      const bStartsWith = b.toLowerCase().startsWith(searchLower);
+      if (aStartsWith && !bStartsWith) return -1;
+      if (!aStartsWith && bStartsWith) return 1;
+      return a.localeCompare(b);
     });
-
-    searchInput.addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
-            translate();
-        }
+    relatedWordsDiv.style.display = 'block';
+    related.slice(0, 20).forEach(word => {
+      const div = document.createElement('div');
+      div.className = 'related-word';
+      div.textContent = word;
+      div.onclick = () => {
+        searchInput.value = word;
+        relatedWordsDiv.style.display = 'none';
+        translate();
+      };
+      relatedWordsDiv.appendChild(div);
     });
-
-    translateBtn.addEventListener('click', translate);
+  } else {
+    relatedWordsDiv.style.display = 'none';
+  }
+}
+function toggleKeyboard() {
+  keyboard.style.display = keyboard.style.display === 'block' ? 'none' : 'block';
+}
+function handleKeyClick(char) {
+  if (char === 'Backspace') {
+    searchInput.value = searchInput.value.slice(0, -1);
+  } else {
+    searchInput.value += char;
+  }
+  searchInput.focus();
+  showRelatedWords();
+}
+function hideKeyboardOnOutsideClick(event) {
+  if (!keyboard.contains(event.target) && !keyboardToggle.contains(event.target)) {
+    keyboard.style.display = 'none';
+  }
+}
+searchInput.addEventListener('input', function() {
+  showRelatedWords();
+  if (!searchInput.value.trim()) {
+    resultsDiv.style.display = 'none';
+    translationContentDiv.innerHTML = '';
+    examplesDiv.innerHTML = '';
+  }
+});
+searchInput.addEventListener('keypress', function(e) {
+  if (e.key === 'Enter') {
+    translate();
+  }
+});
+translateBtn.addEventListener('click', translate);
+keyboardToggle.addEventListener('click', toggleKeyboard);
+document.querySelectorAll('.keyboard-key').forEach(key => {
+  key.addEventListener('click', () => {
+    const char = key.textContent;
+    handleKeyClick(char);
+  });
+});
+document.addEventListener('click', hideKeyboardOnOutsideClick);
+document.addEventListener('touchstart', hideKeyboardOnOutsideClick);
 </script>
 </body>
-</html>      
+</html>
