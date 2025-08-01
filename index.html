@@ -6,7 +6,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Kay+Pho+Du:wght@600;700&display=swap" rel="stylesheet">
-<title>ꤊ dictionary</title>
+<title>ꤊ Dictionary</title>
 <style>
 html, body {
   height: 100%;
@@ -56,7 +56,6 @@ h1 {
 input {
   font-family: "Kay Pho Du", serif;
   padding: 10px;
-  padding-left: 40px;
   padding-right: 60px;
   width: 100%;
   box-sizing: border-box;
@@ -137,13 +136,13 @@ button:hover {
 }
 .related-words {
     position: absolute;
-    top: calc(100% + 1px);
+    top: calc(100% + 1px); /* Reduced from 35px to 5px */
     left: 0;
     width: 100%;
     background: white;
     border: 1px solid #ddd;
     border-radius: 5px;
-    max-height: 500px;
+    max-height: 200px;
     overflow-y: auto;
     display: none;
     z-index: 1;
@@ -200,50 +199,9 @@ footer {
   padding: 3px;
   color: grey;
 }
-.menu-toggle {
-  position: absolute;
-  left: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  cursor: pointer;
-  font-size: 16px;
-  color: #666;
-  border: none;
-  background: none;
-  padding: 0;
-  z-index: 1;
-}
-.menu-toggle:hover {
-  color: #4CAF50;
-}
-.menu-popup {
-  display: none;
-  position: absolute;
-  top: 100%;
-  left: 0;
-  background: white;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  padding: 10px;
-  z-index: 3;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-}
-.contact-btn {
-  display: block;
-  padding: 8px 16px;
-  background: #4CAF50;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-family: "Kay Pho Du", serif;
-  text-decoration: none;
-  text-align: center;
-}
-.contact-btn:hover {
-  background: #45a049;
-}
-@media only screen and (max-width: 480px) {
+
+/* Responsive keyboard sizing */
+@media only screen and (max-width: 480px) { /* Smartphone */
   .keyboard {
     width: 100%;
   }
@@ -258,7 +216,7 @@ footer {
     padding: 3px 6px;
   }
 }
-@media only screen and (min-width: 481px) and (max-width: 768px) {
+@media only screen and (min-width: 481px) and (max-width: 768px) { /* Tablet/iPad */
   .keyboard {
     width: 80%;
   }
@@ -273,7 +231,7 @@ footer {
     padding: 4px 8px;
   }
 }
-@media only screen and (min-width: 769px) {
+@media only screen and (min-width: 769px) { /* Computer */
   .keyboard {
     width: 60%;
   }
@@ -293,13 +251,9 @@ footer {
 <body>
 <main>
 <div class="header">
-  <h1>English - Kayah Dictionary</h1>
+  <h1>English - ꤊꤢ꤬ꤛꤢ꤭ꤜꤟꤤ꤬ Dictionary</h1>
 </div>
 <div class="search-container">
-  <button class="menu-toggle" id="menuToggle">☰</button>
-  <div class="menu-popup" id="menuPopup">
-    <a href="contact.html" class="contact-btn" id="contactBtn">Contact</a>
-  </div>
   <div class="input-wrapper">
     <input type="text" id="searchInput" placeholder="Enter English or Kayah word here...">
     <span class="clear-symbol" id="clearSymbol" onclick="clearSearch()">✖</span>
@@ -59845,14 +59799,9 @@ const translationContentDiv = document.getElementById('translationContent');
 const examplesDiv = document.getElementById('examples');
 const keyboardToggle = document.getElementById('keyboardToggle');
 const keyboard = document.getElementById('keyboard');
-const menuToggle = document.getElementById('menuToggle');
-const menuPopup = document.getElementById('menuPopup');
-const contactBtn = document.getElementById('contactBtn');
-
 function isKayahli(text) {
   return /[\uA900-\uA92F]/.test(text);
 }
-
 function translate() {
   const searchTerm = searchInput.value.trim();
   const searchTermLower = searchTerm.toLowerCase();
@@ -59901,13 +59850,11 @@ function translate() {
   }
   relatedWordsDiv.style.display = 'none';
 }
-
 function speakEnglish(text) {
   const utterance = new SpeechSynthesisUtterance(text);
   utterance.lang = 'en-US';
   speechSynthesis.speak(utterance);
 }
-
 function clearSearch() {
   searchInput.value = '';
   resultsDiv.style.display = 'none';
@@ -59916,7 +59863,6 @@ function clearSearch() {
   clearSymbol.style.display = 'none';
   relatedWordsDiv.style.display = 'none';
 }
-
 function showRelatedWords() {
   const searchTerm = searchInput.value.trim();
   relatedWordsDiv.innerHTML = '';
@@ -59964,17 +59910,9 @@ function showRelatedWords() {
     relatedWordsDiv.style.display = 'none';
   }
 }
-
 function toggleKeyboard() {
   keyboard.style.display = keyboard.style.display === 'block' ? 'none' : 'block';
-  menuPopup.style.display = 'none';
 }
-
-function toggleMenu() {
-  menuPopup.style.display = menuPopup.style.display === 'block' ? 'none' : 'block';
-  keyboard.style.display = 'none';
-}
-
 function handleKeyClick(char) {
   if (char === 'Backspace') {
     searchInput.value = searchInput.value.slice(0, -1);
@@ -59984,16 +59922,11 @@ function handleKeyClick(char) {
   searchInput.focus();
   showRelatedWords();
 }
-
-function hidePopupsOnOutsideClick(event) {
-  if (!menuPopup.contains(event.target) && !menuToggle.contains(event.target)) {
-    menuPopup.style.display = 'none';
-  }
+function hideKeyboardOnOutsideClick(event) {
   if (!keyboard.contains(event.target) && !keyboardToggle.contains(event.target)) {
     keyboard.style.display = 'none';
   }
 }
-
 searchInput.addEventListener('input', function() {
   showRelatedWords();
   if (!searchInput.value.trim()) {
@@ -60002,26 +59935,21 @@ searchInput.addEventListener('input', function() {
     examplesDiv.innerHTML = '';
   }
 });
-
 searchInput.addEventListener('keypress', function(e) {
   if (e.key === 'Enter') {
     translate();
   }
 });
-
 translateBtn.addEventListener('click', translate);
 keyboardToggle.addEventListener('click', toggleKeyboard);
-menuToggle.addEventListener('click', toggleMenu);
-
 document.querySelectorAll('.keyboard-key').forEach(key => {
   key.addEventListener('click', () => {
     const char = key.textContent;
     handleKeyClick(char);
   });
 });
-
-document.addEventListener('click', hidePopupsOnOutsideClick);
-document.addEventListener('touchstart', hidePopupsOnOutsideClick);
+document.addEventListener('click', hideKeyboardOnOutsideClick);
+document.addEventListener('touchstart', hideKeyboardOnOutsideClick);
 </script>
 </body>
 </html>
