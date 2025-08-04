@@ -5,7 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Kay+Pho+Du:wght@600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kay+Pho+Du:wght@600;700&family=Noto+Serif+Myanmar:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
 <title>ꤍꤟꤥ꤫ꤡꤟꤢꤪꤐꤟꤢ꤭</title>
 <style>
 html, body {
@@ -14,7 +16,7 @@ html, body {
 }
 body {
   font-family: "Kay Pho Du", serif;
-  max-width: 800px;
+  max-width: 1000px;
   margin: 0 auto;
   padding: 0px;
   background-color: white;
@@ -30,11 +32,13 @@ main {
   font-weight: 600;
   font-style: normal;
 }
+
 .kay-pho-du-bold {
   font-family: "Kay Pho Du", serif;
   font-weight: 700;
   font-style: normal;
 }
+
 h1 {
   color: black;
   text-align: center;
@@ -69,7 +73,7 @@ input {
   top: 50%;
   transform: translateY(-50%);
   cursor: pointer;
-  font-size: 16px;
+  font-size: 14px;
   color: #666;
   display: none;
 }
@@ -93,8 +97,9 @@ input {
 }
 button {
   font-family: "Kay Pho Du", serif;
+  font-size: 16px;
   padding: 10px 15px;
-  background-color: green;
+  background-color: blue;
   color: white;
   border: none;
   cursor: pointer;
@@ -171,7 +176,7 @@ button:hover {
   display: inline-block;
   margin-left: 3px;
   cursor: pointer;
-  font-size: 20px;
+  font-size: 12px;
   color: #666;
   vertical-align: middle;
 }
@@ -185,11 +190,11 @@ button:hover {
 }
 .karenni-line {
   display: block;
-  margin-left: 10px;
+  margin-left: 20px;
 }
 .burmese-line {
   display: block;
-  margin-left: 10px;
+  margin-left: 20px;
 }
 .pos {
   color: #666;
@@ -210,7 +215,7 @@ footer {
   top: 50%;
   transform: translateY(-50%);
   cursor: pointer;
-  font-size: 16px;
+  font-size: 20px;
   color: #666;
   border: none;
   background: none;
@@ -235,7 +240,7 @@ footer {
 .contact-btn {
   display: block;
   padding: 8px 16px;
-  background: #4CAF50;
+  background: blue;
   color: white;
   border: none;
   border-radius: 4px;
@@ -245,7 +250,7 @@ footer {
   text-align: center;
 }
 .contact-btn:hover {
-  background: #45a049;
+  background: red;
 }
 @media only screen and (max-width: 480px) {
   .keyboard {
@@ -283,8 +288,8 @@ footer {
   }
   .keyboard-key {
     width: 34px;
-    height: 34px;
-    font-size: 14px;
+    height: 20px;
+    font-size: 16px;
     padding: 5px;
   }
   .keyboard-key.backspace {
@@ -305,7 +310,7 @@ footer {
     <a href="contact.html" class="contact-btn" id="contactBtn">ꤕꤜ꤉ꤥ꤭ꤓꤢꤦ꤭</a>
   </div>
   <div class="input-wrapper">
-    <input type="text" id="searchInput" placeholder="ꤗꤛꤢꤕꤟꤢꤨ꤭ꤙꤤꤛꤢꤩ꤭...">
+    <input type="text" id="searchInput" placeholder="ꤗꤛꤢꤕꤟꤢꤨ꤭ꤜꤤ꤬ꤕꤜꤢꤪ꤬ꤙꤤꤛꤢꤩ꤭...">
     <span class="clear-symbol" id="clearSymbol" onclick="clearSearch()">✖</span>
     <button class="keyboard-toggle" id="keyboardToggle">ꤊ</button>
     <div class="keyboard" id="keyboard">
@@ -1039,7 +1044,7 @@ const dictionary = {
 },
 "am": { 
   "english": "am",
-  "karenni": "ꤗꤢ꤬, ꤥ꤬",
+  "karenni": "ꤗꤢ꤬, ꤥ꤬, ꤓ꤉ꤟꤥ꤭",
   "translation": "am /verb-to-be/",
   "examples": ["I am living in Daw Ta Ma Gyi village. ꤠꤢ꤭ꤥ꤬ꤘꤣ ꤘꤢꤪ꤭ꤒꤢ꤬ꤗꤢꤘꤢꤨ꤬ ꤘꤢꤪ꤭꤯",
   "I am here. ꤠꤢ꤭ ꤥ꤬ ꤙꤤꤛꤢꤩ꤭꤯",
@@ -1985,6 +1990,24 @@ const dictionary = {
   english: "bait",
   karenni: "ꤒꤟꤢꤧ꤭ꤏꤢꤧ꤬",
   translation: "bait /n/",
+  examples: []
+},
+"bake": {
+  english: "bake",
+  karenni: "ꤞ꤉ꤤ꤉ꤥ꤭ꤢꤩ꤬, ꤞ꤉ꤤ꤉ꤥ꤭, ꤞ꤉ꤤꤢꤩ꤬, ꤤ꤬ꤏꤢꤦꤊꤚꤢ꤭, ꤕꤜꤢꤦ꤭꤉ꤥ꤭ꤢꤩ꤬",
+  translation: "bake /v/",
+  examples: []
+},
+"baker": {
+  english: "baker",
+  karenni: "ꤕꤚꤟꤢꤧ꤬ꤞ꤉ꤤ꤉ꤥ꤭ꤊꤢꤪꤗꤢꤨ꤭",
+  translation: "baker /n/",
+  examples: []
+},
+"bakery": {
+  english: "bakery",
+  karenni: "ꤞ꤉ꤤ꤉ꤥ꤭ꤊꤢꤪꤗꤢꤨ꤭ꤟꤤ꤬",
+  translation: "bakery /n/",
   examples: []
 },
 "balance": {
@@ -18413,10 +18436,22 @@ const dictionary = {
     "translation": "origin /n/",
     "examples": []
   },
+  "ox": {
+    "english": "ox",
+    "karenni": "ꤕꤟꤢꤨꤖꤢꤧ꤭",
+    "translation": "ox /n/",
+    "examples": []
+  },
   "oxen": {
     "english": "oxen",
     "karenni": "ꤕꤟꤢꤨꤖꤢꤧ꤭ꤘꤢꤨ꤬",
     "translation": "oxen /n/",
+    "examples": []
+  },
+    "oxtail": {
+    "english": "oxtail",
+    "karenni": "ꤕꤟꤢꤨꤋꤢ꤭ꤗꤟꤤ",
+    "translation": "oxtail /n/",
     "examples": []
   },
   "orphan": {
@@ -18454,6 +18489,12 @@ const dictionary = {
     "karenni": "ꤊꤢꤪ꤬, ꤊꤢꤪ꤬ꤙꤢꤧ꤬, ꤒꤥ꤭ꤊꤢꤪ꤬",
     "translation": "ought /v/",
     "examples": []
+  },
+  "ounce": {
+    "english": "ounce",
+    "karenni": "oz=Ounce, ꤢꤪ꤬ꤎꤢ",
+    "translation": "ounce /n/",
+    "examples": ["Add 4 oz sugar ꤘꤛꤢ꤬ꤔꤟꤌꤣ꤭ꤤ꤬ꤞꤢꤧ꤬ꤏꤢꤦ꤭ (꤄)ꤢꤪ꤬ꤎꤢ꤯"]
   },
   "outdated": {
     "english": "outdated",
@@ -18578,6 +18619,12 @@ const dictionary = {
     "karenni": "ꤙꤛꤢ꤬ꤡꤢꤧ꤬, ꤔꤟꤢꤩꤙꤛꤢ꤬ꤡꤢꤧ꤬",
     "translation": "owner /n/",
     "examples": []
+  },
+  "oz": {
+    "english": "oz",
+    "karenni": "oz=Ounce, ꤢꤪ꤬ꤎꤢ",
+    "translation": "oz /abbr/",
+    "examples": ["Add 4 oz sugar ꤘꤛꤢ꤬ꤔꤟꤌꤣ꤭ꤤ꤬ꤞꤢꤧ꤬ꤏꤢꤦ꤭ (꤄)ꤢꤪ꤬ꤎꤢ꤯"]
   },
   "pa": {
     "english": "pa",
