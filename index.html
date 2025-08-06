@@ -4,10 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com">
-<link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Kay+Pho+Du:wght@600;700&family=Noto+Serif+Myanmar:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Kay+Pho+Du:wght@600;700&family=Padauk:wght@400;700&display=swap" rel="stylesheet">
 <title>ꤍꤟꤥ꤫ꤡꤟꤢꤪꤐꤟꤢ꤭</title>
 <style>
 html, body {
@@ -110,13 +108,14 @@ button:hover {
 .keyboard {
   display: none;
   position: absolute;
-  top: 100%;
+  top: 800%;
   left: 0;
   border: 1px solid #ddd;
   border-radius: 5px;
   padding: 6px;
   z-index: 2;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  background: black;
 }
 .keyboard-row {
   display: flex;
@@ -132,6 +131,7 @@ button:hover {
   cursor: pointer;
   text-align: center;
   user-select: none;
+  background: white;
 }
 .keyboard-key:hover {
   background-color: #e0e0e0;
@@ -187,6 +187,7 @@ button:hover {
   display: block;
   margin-bottom: 3px;
   font-weight: bold;
+  font-size: 1.3em;
 }
 .karenni-line {
   display: block;
@@ -198,7 +199,7 @@ button:hover {
 }
 .pos {
   color: #666;
-  font-size: 0.9em;
+  font-size: 0.7em;
   margin-left: 5px;
   font-weight: normal;
 }
@@ -240,6 +241,7 @@ footer {
 .contact-btn {
   display: block;
   padding: 8px 16px;
+  margin: 1px;
   background: blue;
   color: white;
   border: none;
@@ -255,6 +257,7 @@ footer {
 .introduction-btn {
   display: block;
   padding: 8px 16px;
+  margin: 1px;
   background: blue;
   color: white;
   border: none;
@@ -285,6 +288,7 @@ footer {
 @media only screen and (min-width: 481px) and (max-width: 768px) {
   .keyboard {
     width: 80%;
+	background: white;
   }
   .keyboard-key {
     width: 28px;
@@ -300,6 +304,7 @@ footer {
 @media only screen and (min-width: 769px) {
   .keyboard {
     width: 60%;
+	background: white;
   }
   .keyboard-key {
     width: 34px;
