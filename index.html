@@ -198,13 +198,6 @@ button:hover {
   margin-left: 5px;
   font-weight: normal;
 }
-footer {
-  flex-shrink: 0;
-  text-align: center;
-  font-size: 7px;
-  padding: 100px;
-  color: grey;
-}
 .menu-toggle {
   position: absolute;
   left: 0px;
@@ -278,6 +271,22 @@ footer {
 .learning-btn:hover {
   background: red;
 }
+.proverb-btn {
+  display: block;
+  padding: 8px 16px;
+  margin: 1px;
+  background: blue;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: "Kay Pho Du", serif;
+  text-decoration: none;
+  text-align: center;
+}
+.proverb-btn:hover {
+  background: red;
+}
 @media only screen and (max-width: 480px) {
   .keyboard {
     width: 100%;
@@ -338,6 +347,7 @@ footer {
   <div class="menu-popup" id="menuPopup">
     <a href="introduction.html" class="introduction-btn" id="introductionBtn">ꤒꤟꤢꤧ꤬ꤟꤢꤩꤙꤢꤧ꤬ꤋꤢ꤭ꤏꤛꤢꤩ</a>
 	<a href="learning.html" class="learning-btn" id="learningBtn">ꤟꤢꤩꤞꤛꤥ ꤜꤤ꤬ꤊꤢ꤬ꤛꤢ꤭ꤜꤟꤤ꤬</a>
+	<a href="proverb.html" class="proverb-btn" id="proverbBtn">ꤍꤟꤥꤋꤢꤋꤥ꤬</a>
 	<a href="contact.html" class="contact-btn" id="contactBtn">ꤕꤜ꤉ꤥ꤭ꤓꤢꤦ꤭</a>
   </div>
   <div class="input-wrapper">
@@ -402,9 +412,6 @@ footer {
   <div class="examples-box" id="examples"></div>
 </div>
 </main>
-<footer>
-  <p>Created by: Ko Reh ꤘꤢꤪ꤭ꤒꤢ꤬ꤗꤢꤘꤢꤨ꤬</p>
-</footer>
 <script>
 const dictionary = {
 "abalone": {
