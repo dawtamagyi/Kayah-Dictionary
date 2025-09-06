@@ -12,14 +12,14 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            height: 100vh;
+            justify-content: flex-start;
+            min-height: 100vh;
             margin: 0;
             background-color: #f0f0f0;
         }
-		.back-arrow {
+        .back-arrow {
             position: absolute;
-            top: 5px;
+            top: 10px;
             left: 10px;
             font-size: 24px;
             text-decoration: none;
@@ -28,24 +28,35 @@
         .back-arrow:hover {
             color: #555;
         }
+        h1 {
+            margin: 20px 0;
+            font-size: 2em;
+            color: #333;
+        }
         .slide-container {
             text-align: center;
-            max-width: 600px;
+            width: 100%;
+            height: calc(100vh - 80px); /* Adjust for title and buttons */
             padding: 20px;
             background-color: white;
-            border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
         .slide {
             display: none;
             font-size: 1.1em;
             padding: 20px;
+            margin: 10px 0;
+            transition: all 0.3s ease;
         }
         .slide.active {
             display: block;
         }
         button {
-		    font-family: "Kay Pho Du", serif;
+            font-family: "Kay Pho Du", serif;
             margin: 10px;
             padding: 10px 20px;
             font-size: 0.8em;
@@ -60,13 +71,13 @@
         }
         button:disabled {
             background-color: #cccccc;
-            cursor: not-allowed;
+            cursor: allowed;
         }
     </style>
 </head>
 <body>
-<a href="index.html" class="back-arrow">←</a>
-<h1>ꤍꤟꤥꤋꤢꤋꤥ꤬</h1>
+    <a href="index.html" class="back-arrow">←</a>
+    <h1>ꤍꤟꤥꤋꤢꤋꤥ꤬</h1>
     <div class="slide-container">
         <div class="slide active" id="slide-1">
             ꤊꤢꤪꤘꤛꤢꤩꤖꤢꤨ ꤖꤢꤨꤏꤛꤢꤩ꤭ꤗꤟꤌꤣ, ꤙꤛꤢ꤭ꤒꤢ꤬ꤊꤟꤢꤧ꤬ꤖꤢꤨ ꤖꤢꤨꤋꤤ꤭ꤖꤢꤧ꤭ꤊꤛꤢꤩ꤬꤯
