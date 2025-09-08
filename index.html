@@ -18,7 +18,7 @@ body {
   font-family: "Kay Pho Du", serif;
   margin: 0;
   padding: 0;
-  background-color: white;
+  background-color: #FFC0CB;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -94,7 +94,7 @@ main {
 .header-row {
   display: flex;
   width: 100%;
-  height: 45px;
+  height: 30px;
   align-items: center;
   justify-content: center;
   position: relative;
@@ -111,17 +111,18 @@ main {
 h1 {
   color: #008000;
   text-align: center;
-  font-size: 30px;
+  font-size: 22px;
   margin: 0;
   padding: 10px;
 }
 .search-container {
-  margin: 0px 1px;
+  margin: 5px 1px;
   margin-right: 10px;
   margin-left: 10px;
   display: flex;
   gap: 10px;
   position: relative;
+  border-radius: 10px;
 }
 .input-wrapper {
   position: relative;
@@ -138,10 +139,11 @@ input {
   box-sizing: border-box;
   font-size: 16px;
   background-color: #FFFFFF;
+  border-radius: 50px;
 }
 .clear-symbol {
   position: absolute;
-  right: 90px;
+  right: 80px;
   top: 50%;
   transform: translateY(-50%);
   cursor: pointer;
@@ -155,7 +157,7 @@ input {
 .keyboard-toggle {
   font-family: "Kay Pho Du", serif;
   position: absolute;
-  right: 60px;
+  right: 50px;
   top: 50%;
   transform: translateY(-50%);
   cursor: pointer;
@@ -170,20 +172,24 @@ input {
 }
 .translate-btn {
   position: absolute;
-  right: 0px;
+  right: 2px;
   top: 50%;
   transform: translateY(-50%);
   font-family: "Kay Pho Du", serif;
-  font-size: 15px;
-  padding: 10px 15px;
+  font-size: 20px;
+  padding: 5px 10px;
   background-color: white;
   color: gray;
   border: none;
   cursor: pointer;
-  border: 1px solid gray;
+  border: 0px solid gray;
+  border-radius: 50px;
 }
 .translate-btn:hover {
-  background-color: red;
+  background-color: none;
+}
+.translate-btn::before {
+  content: "🔍";
 }
 .keyboard {
   display: none;
@@ -222,7 +228,7 @@ input {
 }
 .related-words {
   position: absolute;
-  top: calc(100% + 1px);
+  top: calc(100% + 0px);
   left: 0;
   width: 100%;
   background: white;
@@ -248,9 +254,11 @@ input {
 .translation-box, .examples-box {
   border: 0px solid #ddd;
   padding: 20px;
-  margin: 4px 0;
-  border-radius: 5px;
+  margin: 0px 0;
+  border-radius: 10px;
   background-color: white;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 .speaker {
   display: inline-block;
@@ -282,7 +290,7 @@ input {
 }
 .menu-toggle {
   position: fixed;
-  top: 1px;
+  top: -1px;
   left: 10px;
   cursor: pointer;
   font-size: 20px;
@@ -440,7 +448,7 @@ input {
     <input type="text" id="searchInput" placeholder="ꤗꤛꤢꤕꤟꤢꤨ꤭ꤜꤤ꤬ꤕꤜꤢꤪ꤬ꤙꤤꤛꤢꤩ꤭...">
     <span class="clear-symbol" id="clearSymbol" onclick="clearSearch()">✖</span>
     <button class="keyboard-toggle" id="keyboardToggle">ꤊ</button>
-    <button class="translate-btn" id="translateBtn">ꤕꤟꤢꤨ꤭</button>
+    <button class="translate-btn" id="translateBtn"></button>
     <div class="keyboard" id="keyboard">
       <div class="keyboard-row">
         <div class="keyboard-key">ꤠ</div>
@@ -4437,7 +4445,7 @@ const dictionary = {
   },
   "bus": {
     "english": "bus",
-    "karenni": "ꤜꤟꤥꤙꤢ, ꤙꤢꤎ ꤜꤟꤥꤡꤢꤧ",
+    "karenni": "ꤜꤟꤥꤙꤢ, ꤜꤟꤥꤡꤢꤧꤙꤢ, ꤙꤢꤎ ꤜꤟꤥꤡꤢꤧ",
     "translation": "bus /n/",
     "examples": []
   },
@@ -5090,8 +5098,14 @@ const dictionary = {
 },
 "cement": { 
   "english": "cement",
-  "karenni": "ꤜꤟꤢꤪꤒꤢ꤬ꤗꤢꤙꤢꤦ꤬, ꤜꤟꤢꤪꤓ꤉ꤤꤤ꤭ꤗꤢꤦ꤬, ꤟꤢꤩꤋꤢꤨ꤬ꤊꤢꤨ꤭ꤜꤢ꤭",
+  "karenni": "ꤜꤟꤢꤪꤓ꤉ꤤꤤ꤭ꤗꤢꤦ꤬, ꤜꤟꤢꤪꤒꤢ꤬ꤗꤢꤙꤢꤦ꤬, ꤟꤢꤩꤋꤢꤨ꤬ꤊꤢꤨ꤭ꤜꤢ꤭",
   "translation": "cement /n/",
+  "examples": []
+},
+"cement mixer": { 
+  "english": "cement mixer",
+  "karenni": "ꤜꤟꤥꤡꤢꤧꤘꤣ ꤓꤢꤨ꤬ꤜꤟꤢꤪ꤭ꤒꤢ꤬ꤕꤜꤢꤩ꤬ ꤜꤟꤢꤪꤒꤢ꤬ꤗꤢ꤬ꤗꤢꤦ꤬ ꤔꤢ ꤜꤟꤢꤪꤓ꤉ꤤꤤ꤭ꤗꤢꤦ꤬",
+  "translation": "cement-mixer /n/",
   "examples": []
 },
 "cemetery": { 
@@ -6938,7 +6952,7 @@ const dictionary = {
 },
 "couple": { 
   "english": "couple",
-  "karenni": "ꤔꤛꤢꤩ꤭ꤞꤛꤣ꤭, ꤗꤢꤩ꤭ꤠꤟꤢꤧ꤬",
+  "karenni": "ꤗꤢꤩ꤭ꤠꤟꤢꤧ꤬, ꤔꤛꤢꤩ꤭ꤕꤚꤟꤢꤧ꤬, ꤕꤚꤟꤢꤧ꤬ꤗꤢꤪ꤬ꤔꤢꤕꤚꤟꤢꤧ꤬ꤋꤢꤨ꤭, ꤙꤢꤧꤖꤢꤨ꤬, ꤗꤢꤩ꤭ꤔꤢꤠꤟꤢꤧ꤬",
   "translation": "couple /n/",
   "examples": []
 },
@@ -10610,6 +10624,18 @@ const dictionary = {
   "translation": "example /n/",
   "examples": []
 },
+"excavate": { 
+  "english": "excavate",
+  "karenni": "ꤠꤟꤢꤧ꤭, ꤠꤟꤢꤧ꤭ꤟꤢꤩ꤬, ꤠꤟꤢꤧ꤭ꤜꤟꤢꤪ",
+  "translation": "excavate /v/",
+  "examples": []
+},
+"excavator": { 
+  "english": "excavator",
+  "karenni": "ꤡꤢꤧꤠꤟꤢꤧ꤭ꤜꤟꤢꤪ, ꤡꤢꤧꤠꤟꤢꤧ꤭ꤟꤢꤩ꤬, ꤜꤟꤥꤡꤢꤧꤠꤟꤢꤧ꤭ꤟꤢꤩ꤬ꤠꤟꤢꤧ꤭ꤜꤟꤢꤪ",
+  "translation": "excavator /n/",
+  "examples": []
+},
 "except": { 
   "english": "except",
   "karenni": "ꤗꤟꤢꤒꤥ꤬ꤗꤢ꤬, ꤕꤟꤢ꤬ꤒꤥ꤬",
@@ -11557,6 +11583,12 @@ const dictionary = {
   "english": "firefly",
   "karenni": "ꤜꤤ꤭ꤜꤢꤦ",
   "translation": "firefly /n/",
+  "examples": []
+},
+"fire hydrant": {
+  "english": "fire hydrant",
+  "karenni": "ꤓꤛꤢꤩ꤭ꤙꤥ꤭ꤋꤢꤨ꤬ꤊꤜꤢꤪꤜꤟꤢꤩꤠꤟꤤ꤭ꤓꤢꤩ꤬ ꤓꤛꤢꤩ꤭ ꤓꤌꤣ꤭ ꤗꤟꤢꤩ꤬ꤕꤟꤤ꤭ꤔꤢꤗꤤ꤬",
+  "translation": "fire-hydrant /n/",
   "examples": []
 },
 "firelight": {
@@ -12652,7 +12684,7 @@ const dictionary = {
   },
   "gasoline": {
     "english": "gasoline",
-    "karenni": "ꤔꤢ꤬ꤗꤟꤤ꤬ꤞꤢꤨ, ꤔꤢ꤬ꤗꤤ꤬ꤋꤟꤊꤣ꤬ꤓꤛꤢꤩ꤭",
+    "karenni": "ꤔꤢ꤬ꤗꤤ꤬ꤓꤛꤢꤩ꤭, ꤔꤢ꤬ꤗꤤ꤬ꤋꤟꤊꤣ꤬ꤓꤛꤢꤩ꤭",
     "translation": "gasoline /n/",
     "examples": []
   },
@@ -18813,7 +18845,7 @@ const dictionary = {
   },
   "mind": {
     "english": "mind",
-    "karenni": "ꤞꤢꤧꤕꤜꤢꤪ꤬ꤒꤢ꤬ꤔꤟꤢꤩ꤬",
+    "karenni": "ꤞꤢꤧꤕꤜꤢꤪ꤬, ꤒꤟꤢꤧ꤬ꤒꤢ꤬ꤔꤟꤢꤩ꤬ /v/ ꤜꤟꤢꤩꤟꤢꤩꤥ꤬",
     "translation": "mind /n/",
     "examples": []
   },
@@ -29016,8 +29048,8 @@ const dictionary = {
   },
   "thought": {
     "english": "thought",
-    "karenni": "ꤒꤢ꤬ꤔꤟꤢꤩ꤬, ꤒꤢ꤬ꤔꤟꤢꤩ꤬ꤔꤌꤣ꤬, /n/ꤒꤟꤢꤧ꤬ꤒꤢ꤬ꤔꤟꤢꤩ꤬, ꤞꤢꤧꤕꤜꤢꤪ꤬ꤒꤟꤢꤧ꤬ꤒꤢ꤬ꤔꤟꤢꤩ꤬, ꤒꤟꤢ꤭ꤏꤢꤒꤢ꤬ꤔꤟꤢꤩ꤬",
-    "translation": "thought /v/",
+    "karenni": "ꤒꤟꤢꤧ꤬ꤒꤢ꤬ꤔꤟꤢꤩ꤬ /v/ ꤒꤢ꤬ꤔꤟꤢꤩ꤬, ꤒꤢ꤬ꤔꤟꤢꤩ꤬ꤔꤌꤣ꤬, /n/ꤒꤟꤢꤧ꤬ꤒꤢ꤬ꤔꤟꤢꤩ꤬, ꤞꤢꤧꤕꤜꤢꤪ꤬ꤒꤟꤢꤧ꤬ꤒꤢ꤬ꤔꤟꤢꤩ꤬, ꤒꤟꤢ꤭ꤏꤢꤒꤢ꤬ꤔꤟꤢꤩ꤬",
+    "translation": "thought /n/",
     "examples": []
   },
   "thousand": {
@@ -29757,7 +29789,7 @@ const dictionary = {
   },
   "truck": {
     "english": "truck",
-    "karenni": "ꤜꤟꤥꤡꤢꤧꤘꤢꤨ꤬, ꤜꤟꤥ, ꤞꤎꤢꤪ꤬ꤜꤢꤧ꤬ꤞꤎꤢꤪ꤬ꤒꤟꤢꤪ꤭",
+    "karenni": "ꤜꤟꤥꤡꤢꤧꤘꤢꤨ꤬, ꤜꤟꤥꤡꤢꤧꤘꤢꤨ꤬ꤘꤛꤢ꤬ ꤒꤟꤢ꤭ꤗꤟꤌꤣꤒꤤ꤭ꤒꤟꤢꤧ꤬",
     "translation": "truck /n/",
     "examples": []
   },
@@ -31933,7 +31965,7 @@ const dictionary = {
   },
   "worker": {
     "english": "worker",
-    "karenni": "ꤕꤚꤟꤢꤧ꤬ꤢꤩ꤬ꤚꤟꤛꤢ꤬, ꤕꤚꤟꤢꤧ꤬ꤗꤟꤢꤩ꤬ꤒꤟꤢꤧ꤬ꤖꤢꤨ, ꤕꤚꤟꤢꤧ꤬ꤘꤢ꤬ꤊꤢꤧ꤬",
+    "karenni": "ꤕꤚꤟꤢꤧ꤬ꤢꤩ꤬ꤚꤟꤛꤢ꤬, ꤕꤚꤟꤢꤧ꤬ꤗꤟꤢꤩ꤬ꤒꤟꤢꤧ꤬ꤖꤢꤨ, ꤒꤟꤢꤧ꤬ꤗꤟꤢꤩ꤬ꤖꤢꤨ, ꤕꤚꤟꤢꤧ꤬ꤘꤢ꤬ꤊꤢꤧ꤬",
     "translation": "worker /n/",
     "examples": []
   },
@@ -33901,7 +33933,7 @@ const dictionary = {
     "english": "yeah",
     "karenni": "ꤗꤟꤢ, ꤢꤪ꤬, ꤢ꤬ꤗꤟꤢ, ꤣ꤬",
     "translation": "yeah /adv/",
-    "examples": ["I'm going to rich one day, Oh yeah! ꤠꤢ꤭ ꤘꤢꤨ꤬ꤐꤟꤢꤓꤛꤢ꤬ ꤒꤢ꤬ꤑꤢꤩ꤭ꤋꤢꤧ꤭ꤕꤢ꤭, ꤥ~ꤢ꤬ꤗꤟꤢ!"]
+    "examples": ["I'm going to be rich one day, Oh yeah! ꤠꤢ꤭ ꤘꤢꤨ꤬ꤐꤟꤢꤓꤛꤢ꤬ ꤒꤢ꤬ꤑꤢꤩ꤭ꤋꤢꤧ꤭ꤕꤢ꤭, ꤥ~ꤢ꤬ꤗꤟꤢ!"]
   },
   "yes": {
     "english": "yes",
@@ -49036,6 +49068,12 @@ const dictionary = {
     "translation": "ꤕꤚꤟꤢꤧ꤬ꤋꤥ꤭ꤗꤟꤢꤧ꤭ꤕꤚꤟꤢꤧ꤬ꤋꤢꤨ꤭ /n/",
     "examples": []
   },
+  "ꤕꤚꤟꤢꤧ꤬ꤏꤢꤪꤓꤛꤢ꤬ꤒꤟꤢꤧ꤬ꤗꤟꤢꤩ꤬ꤖꤢꤨ": {
+    "karenni": "ꤕꤚꤟꤢꤧ꤬ꤏꤢꤪꤓꤛꤢ꤬ꤒꤟꤢꤧ꤬ꤗꤟꤢꤩ꤬ꤖꤢꤨ",
+    "english": "construction worker",
+    "translation": "ꤕꤚꤟꤢꤧ꤬ꤏꤢꤪꤓꤛꤢ꤬ꤒꤟꤢꤧ꤬ꤗꤟꤢꤩ꤬ꤖꤢꤨ /n/",
+    "examples": []
+  },
   "ꤕꤚꤟꤢꤧ꤬ꤐꤟꤢꤦꤑꤟꤢꤡꤢꤪꤗꤢ꤬ꤚꤛꤢ꤬": {
     "karenni": "ꤕꤚꤟꤢꤧ꤬ꤐꤟꤢꤦꤑꤟꤢꤡꤢꤪꤗꤢ꤬ꤚꤛꤢ꤬",
     "english": "saint",
@@ -56674,10 +56712,112 @@ const dictionary = {
     "translation": "ꤜꤟꤥꤡꤢꤧ /n/",
     "examples": []
   },
+  "ꤊꤜꤛꤢꤩ꤭ꤠꤟꤤ꤭ꤊꤢꤨ꤭ꤜꤟꤥꤡꤢꤧ": {
+    "karenni": "ꤊꤜꤛꤢꤩ꤭ꤠꤟꤤ꤭ꤊꤢꤨ꤭ꤜꤟꤥꤡꤢꤧ",
+    "english": "police van",
+    "translation": "ꤊꤜꤛꤢꤩ꤭ꤠꤟꤤ꤭ꤊꤢꤨ꤭ꤜꤟꤥꤡꤢꤧ /n/",
+    "examples": []
+  },
+  "ꤜꤟꤥꤡꤢꤧ": {
+    "karenni": "ꤜꤟꤥꤡꤢꤧ",
+    "english": "car",
+    "translation": "ꤜꤟꤥꤡꤢꤧ /n/",
+    "examples": []
+  },
+  "ꤜꤟꤥꤡꤢꤧꤤ꤬ꤏꤢꤧ꤭ꤓꤛꤢꤩ꤭ꤋꤛꤢ": {
+    "karenni": "ꤜꤟꤥꤡꤢꤧꤤ꤬ꤏꤢꤧ꤭ꤓꤛꤢꤩ꤭ꤋꤛꤢ",
+    "english": "ice cream truck",
+    "translation": "ꤜꤟꤥꤡꤢꤧꤤ꤬ꤏꤢꤧ꤭ꤓꤛꤢꤩ꤭ꤋꤛꤢ /n/",
+    "examples": []
+  },
+  "ꤞꤛꤥꤜꤤ꤬ꤟꤥ꤭ꤜꤟꤥꤡꤢꤧꤙꤢ(ꤎ)": {
+    "karenni": "ꤞꤛꤥꤜꤤ꤬ꤟꤥ꤭ꤜꤟꤥꤡꤢꤧꤙꤢ(ꤎ)",
+    "english": "school bus",
+    "translation": "ꤞꤛꤥꤜꤤ꤬ꤟꤥ꤭ꤜꤟꤥꤡꤢꤧꤙꤢ(ꤎ) /n/",
+    "examples": []
+  },
+  "ꤜꤟꤥꤡꤢꤧꤘꤢꤨ꤬": {
+    "karenni": "ꤜꤟꤥꤡꤢꤧꤘꤢꤨ꤬",
+    "english": "big truck, truck",
+    "translation": "ꤜꤟꤥꤡꤢꤧꤘꤢꤨ꤬ /n/",
+    "examples": []
+  },
+  "ꤡꤢꤧꤒꤟꤢꤧ꤬ꤗꤟꤢꤩ꤬ꤓꤛꤢ꤬ꤜꤣ꤭": {
+    "karenni": "ꤡꤢꤧꤒꤟꤢꤧ꤬ꤗꤟꤢꤩ꤬ꤓꤛꤢ꤬ꤜꤣ꤭",
+    "english": "bucket truck",
+    "translation": "ꤡꤢꤧꤒꤟꤢꤧ꤬ꤗꤟꤢꤩ꤬ꤓꤛꤢ꤬ꤜꤣ꤭ /n/",
+    "examples": []
+  },
+  "ꤜꤟꤥꤡꤢꤧꤘꤢꤨ꤬ꤘꤛꤢ꤬ꤙꤟꤌꤣꤜꤟꤥꤊꤚꤢ꤭": {
+    "karenni": "ꤜꤟꤥꤡꤢꤧꤘꤢꤨ꤬ꤘꤛꤢ꤬ꤙꤟꤌꤣꤜꤟꤥꤊꤚꤢ꤭",
+    "english": "hay truck",
+    "translation": "ꤜꤟꤥꤡꤢꤧꤘꤢꤨ꤬ꤘꤛꤢ꤬ꤙꤟꤌꤣꤜꤟꤥꤊꤚꤢ꤭ /n/",
+    "examples": []
+  },
+  "ꤜꤟꤥꤡꤢꤧꤡ꤉ꤤ꤬ꤒꤟꤢꤧ꤬": {
+    "karenni": "ꤜꤟꤥꤡꤢꤧꤡ꤉ꤤ꤬ꤒꤟꤢꤧ꤬",
+    "english": "tow truck",
+    "translation": "ꤜꤟꤥꤡꤢꤧꤡ꤉ꤤ꤬ꤒꤟꤢꤧ꤬ /n/",
+    "examples": []
+  },
+  "ꤜꤟꤥꤡꤢꤧꤘꤢꤨ꤬ꤡ꤉ꤤꤕꤜꤤ꤭ꤊꤜꤛꤢ": {
+    "karenni": "ꤜꤟꤥꤡꤢꤧꤘꤢꤨ꤬ꤡ꤉ꤤꤕꤜꤤ꤭ꤊꤜꤛꤢ",
+    "english": "road sweeper",
+    "translation": "ꤜꤟꤥꤡꤢꤧꤘꤢꤨ꤬ꤡ꤉ꤤꤕꤜꤤ꤭ꤊꤜꤛꤢ /n/",
+    "examples": []
+  },
+  "ꤜꤟꤥꤡꤢꤧꤘꤢꤨ꤬ꤘꤛꤢ꤬ꤜꤟꤢꤪꤒꤢ꤬ꤗꤢꤗꤢꤦ꤬": {
+    "karenni": "ꤜꤟꤥꤡꤢꤧꤘꤢꤨ꤬ꤘꤛꤢ꤬ꤜꤟꤢꤪꤒꤢ꤬ꤗꤢꤗꤢꤦ꤬",
+    "english": "dump truck",
+    "translation": "ꤜꤟꤥꤡꤢꤧꤘꤢꤨ꤬ꤘꤛꤢ꤬ꤜꤟꤢꤪꤒꤢ꤬ꤗꤢꤗꤢꤦ꤬ /n/",
+    "examples": []
+  },
+  "ꤜꤟꤥꤡꤢꤧꤘꤢꤨ꤬ꤘꤛꤢ꤬ꤜꤟꤥꤡꤢꤧꤖꤢꤨ": {
+    "karenni": "ꤜꤟꤥꤡꤢꤧꤘꤢꤨ꤬ꤘꤛꤢ꤬ꤜꤟꤥꤡꤢꤧꤖꤢꤨ",
+    "english": "car transporter",
+    "translation": "ꤜꤟꤥꤡꤢꤧꤘꤢꤨ꤬ꤘꤛꤢ꤬ꤜꤟꤥꤡꤢꤧꤖꤢꤨ /n/",
+    "examples": []
+  },
+  "ꤜꤟꤥꤡꤢꤧꤘꤛꤢ꤬ꤒꤟꤢꤧ꤬ꤖꤢꤨꤜꤟꤛꤢꤩ꤬": {
+    "karenni": "ꤜꤟꤥꤡꤢꤧꤘꤛꤢ꤬ꤒꤟꤢꤧ꤬ꤖꤢꤨꤜꤟꤛꤢꤩ꤬",
+    "english": "animal transporter",
+    "translation": "ꤜꤟꤥꤡꤢꤧꤘꤛꤢ꤬ꤒꤟꤢꤧ꤬ꤖꤢꤨꤜꤟꤛꤢꤩ꤬ /n/",
+    "examples": []
+  },
+  "ꤜꤟꤥꤡꤢꤧꤘꤢꤨ꤬ꤘꤛꤢ꤬ꤞꤎꤢꤪ꤬": {
+    "karenni": "ꤜꤟꤥꤡꤢꤧꤘꤢꤨ꤬ꤘꤛꤢ꤬ꤞꤎꤢꤪ꤬",
+    "english": "logging truck",
+    "translation": "ꤜꤟꤥꤡꤢꤧꤘꤢꤨ꤬ꤘꤛꤢ꤬ꤞꤎꤢꤪ꤬ /n/",
+    "examples": []
+  },
+  "ꤜꤟꤥꤡꤢꤧꤘꤢꤨ꤬ꤘꤛꤢ꤬ꤢ꤬ꤒꤢ꤬ꤞꤢꤪ": {
+    "karenni": "ꤜꤟꤥꤡꤢꤧꤘꤢꤨ꤬ꤘꤛꤢ꤬ꤢ꤬ꤒꤢ꤬ꤞꤢꤪ",
+    "english": "garbage truck",
+    "translation": "ꤜꤟꤥꤡꤢꤧꤘꤢꤨ꤬ꤘꤛꤢ꤬ꤢ꤬ꤒꤢ꤬ꤞꤢꤪ /n/",
+    "examples": []
+  },
+  "ꤜꤟꤥꤡꤢꤧꤘꤢꤨ꤬ꤞꤢꤨ꤭ꤒꤟꤢꤧ꤬ꤊꤟꤢꤦ": {
+    "karenni": "ꤜꤟꤥꤡꤢꤧꤘꤢꤨ꤬ꤞꤢꤨ꤭ꤒꤟꤢꤧ꤬ꤊꤟꤢꤦ",
+    "english": "delivery truck",
+    "translation": "ꤜꤟꤥꤡꤢꤧꤘꤢꤨ꤬ꤞꤢꤨ꤭ꤒꤟꤢꤧ꤬ꤊꤟꤢꤦ /n/",
+    "examples": []
+  },
+   "ꤜꤟꤥꤡꤢꤧꤘꤢꤨ꤬ꤘꤛꤢ꤬ꤗꤤ꤬ꤓꤛꤢꤩ꤭": {
+    "karenni": "ꤜꤟꤥꤡꤢꤧꤘꤢꤨ꤬ꤘꤛꤢ꤬ꤗꤤ꤬ꤓꤛꤢꤩ꤭",
+    "english": "tanker",
+    "translation": "ꤜꤟꤥꤡꤢꤧꤘꤢꤨ꤬ꤘꤛꤢ꤬ꤗꤤ꤬ꤓꤛꤢꤩ꤭ /n/",
+    "examples": []
+  },
   "ꤜꤟꤥꤡꤢꤧꤊꤢꤧ꤬": {
     "karenni": "ꤜꤟꤥꤡꤢꤧꤊꤢꤧ꤬",
     "english": "fare",
     "translation": "ꤜꤟꤥꤡꤢꤧꤊꤢꤧ꤬ /n/",
+    "examples": []
+  },
+  "ꤜꤟꤥꤡꤢꤧꤠꤟꤢꤧ꤭ꤟꤢꤩ꤬": {
+    "karenni": "ꤜꤟꤥꤡꤢꤧꤠꤟꤢꤧ꤭ꤟꤢꤩ꤬",
+    "english": "Compact digger, excavator",
+    "translation": "ꤜꤟꤥꤡꤢꤧꤠꤟꤢꤧ꤭ꤟꤢꤩ꤬ /n/",
     "examples": []
   },
   "ꤜꤟꤥꤤ꤬ꤐꤟꤤ": {
@@ -57626,6 +57766,12 @@ const dictionary = {
     "karenni": "ꤞꤎꤢꤪ꤬ꤞꤢꤧ꤬ꤠꤢꤧ꤬ꤖꤥ꤭",
     "english": "fruit",
     "translation": "ꤞꤎꤢꤪ꤬ꤞꤢꤧ꤬ꤠꤢꤧ꤬ꤖꤥ꤭ /n/",
+    "examples": []
+  },
+  "ꤞꤎꤢꤪ꤬ꤞ꤉ꤤꤕꤢꤨꤘꤢꤨ꤬": {
+    "karenni": "ꤞꤎꤢꤪ꤬ꤞ꤉ꤤꤕꤢꤨꤘꤢꤨ꤬",
+    "english": "garbage collector",
+    "translation": "ꤞꤎꤢꤪ꤬ꤞ꤉ꤤꤕꤢꤨꤘꤢꤨ꤬ /n/",
     "examples": []
   },
   "ꤞꤎꤤꤗꤤ꤬ꤊꤟꤢꤨ": {
@@ -63404,19 +63550,19 @@ const dictionary = {
   },
    "ꤍꤟꤥꤒꤟꤢ꤭ꤒꤟꤢꤩ꤬": {
     "karenni": "ꤍꤟꤥꤒꤟꤢ꤭ꤒꤟꤢꤩ꤬",
-    "english": "adjective (adj)",
+    "english": "adjective",
     "translation": "ꤍꤟꤥꤒꤟꤢ꤭ꤒꤟꤢꤩ꤬ /n/",
     "examples": []
   },
   "ꤍꤟꤥꤗꤟꤢꤩ꤬ꤙꤢ꤭": {
     "karenni": "ꤍꤟꤥꤗꤟꤢꤩ꤬ꤙꤢ꤭",
-    "english": "adverb (adv)",
+    "english": "adverb",
     "translation": "ꤍꤟꤥꤗꤟꤢꤩ꤬ꤙꤢ꤭ /n/",
     "examples": []
   },
   "ꤍꤟꤥꤒꤢ꤬ꤓ꤉ꤥ": {
     "karenni": "ꤍꤟꤥꤒꤢ꤬ꤓ꤉ꤥ",
-    "english": "auxiliary (aux)",
+    "english": "auxiliary",
     "translation": "ꤍꤟꤥꤒꤢ꤬ꤓ꤉ꤥ /n/",
     "examples": []
   },
@@ -63428,13 +63574,13 @@ const dictionary = {
   },
   "ꤍꤟꤥꤘꤣ꤬ꤜꤟꤛꤣ꤭": {
     "karenni": "ꤍꤟꤥꤘꤣ꤬ꤜꤟꤛꤣ꤭",
-    "english": "demonstrative (dem)",
+    "english": "demonstrative",
     "translation": "ꤍꤟꤥꤘꤣ꤬ꤜꤟꤛꤣ꤭ /n/",
     "examples": []
   },
   "ꤒꤟꤢꤧ꤬ꤗꤢꤕꤜꤢꤩ꤬ꤟꤛꤢ꤭": {
     "karenni": "ꤒꤟꤢꤧ꤬ꤗꤢꤕꤜꤢꤩ꤬ꤟꤛꤢ꤭",
-    "english": "future marker (fut mker)",
+    "english": "future marker",
     "translation": "ꤒꤟꤢꤧ꤬ꤗꤢꤕꤜꤢꤩ꤬ꤟꤛꤢ꤭ /n/",
     "examples": []
   },
@@ -63446,31 +63592,31 @@ const dictionary = {
   },
   "ꤍꤟꤥꤢꤧꤗ꤉ꤟꤤ꤭ꤘꤥ꤭ꤒꤟꤥ": {
     "karenni": "ꤍꤟꤥꤢꤧꤗ꤉ꤟꤤ꤭ꤘꤥ꤭ꤒꤟꤥ",
-    "english": "pronoun (pron)",
+    "english": "pronoun",
     "translation": "ꤍꤟꤥꤢꤧꤗ꤉ꤟꤤ꤭ꤘꤥ꤭ꤒꤟꤥ /n/",
     "examples": []
   },
   "ꤍꤟꤥꤏꤢꤊꤥ꤬": {
     "karenni": "ꤍꤟꤥꤏꤢꤊꤥ꤬",
-    "english": "negative (neg)",
+    "english": "negative",
     "translation": "ꤍꤟꤥꤏꤢꤊꤥ꤬ /n/",
     "examples": []
   },
   "ꤜꤟꤢ꤭ꤍꤟꤥꤖꤢꤨ": {
     "karenni": "ꤜꤟꤢ꤭ꤍꤟꤥꤖꤢꤨ",
-    "english": "particle (part)",
+    "english": "particle",
     "translation": "ꤜꤟꤢ꤭ꤍꤟꤥꤖꤢꤨ /n/",
     "examples": []
   },
   "ꤍꤟꤥꤐꤟꤢꤨ꤭": {
     "karenni": "ꤍꤟꤥꤐꤟꤢꤨ꤭",
-    "english": "preposition (prep)",
+    "english": "preposition",
     "translation": "ꤍꤟꤥꤐꤟꤢꤨ꤭ /n/",
     "examples": []
   },
   "ꤘꤛꤢꤙꤢꤧ꤬": {
     "karenni": "ꤘꤛꤢꤙꤢꤧ꤬",
-    "english": "quantity (qnt)",
+    "english": "quantity",
     "translation": "ꤘꤛꤢꤙꤢꤧ꤬ /n/",
     "examples": []
   },
@@ -63482,13 +63628,13 @@ const dictionary = {
   },
   "ꤍꤟꤥꤋꤛꤢꤩ": {
     "karenni": "ꤍꤟꤥꤋꤛꤢꤩ꤫",
-    "english": "interjection (intj)",
+    "english": "interjection",
     "translation": "ꤍꤟꤥꤋꤛꤢꤩ꤫ /n/",
     "examples": []
   },
   "ꤍꤟꤥꤕꤜ꤉ꤥ꤭ꤓꤢꤦ꤭": {
     "karenni": "ꤍꤟꤥꤕꤜ꤉ꤥ꤭ꤓꤢꤦ꤭",
-    "english": "conjunction (conj)",
+    "english": "conjunction",
     "translation": "ꤍꤟꤥꤕꤜ꤉ꤥ꤭ꤓꤢꤦ꤭ /n/",
     "examples": []
   },
