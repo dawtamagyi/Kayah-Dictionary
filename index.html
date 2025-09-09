@@ -150,6 +150,8 @@ input {
   font-size: 13px;
   color: #666;
   display: none;
+  background: none;
+  padding: 10px;
 }
 .clear-symbol:hover {
   color: #f44336;
@@ -157,7 +159,7 @@ input {
 .keyboard-toggle {
   font-family: "Kay Pho Du", serif;
   position: absolute;
-  right: 40px;
+  right: 38px;
   top: 50%;
   transform: translateY(-50%);
   cursor: pointer;
@@ -447,7 +449,7 @@ input {
   <div class="input-wrapper">
     <input type="text" id="searchInput" placeholder="ꤗꤛꤢꤕꤟꤢꤨ꤭ꤜꤤ꤬ꤕꤜꤢꤪ꤬ꤙꤤꤛꤢꤩ꤭...">
     <span class="clear-symbol" id="clearSymbol" onclick="clearSearch()">✖</span>
-    <button class="keyboard-toggle" id="keyboardToggle">ꤊ</button>
+    <button class="keyboard-toggle" id="keyboardToggle">⌨️</button>
     <button class="translate-btn" id="translateBtn"></button>
     <div class="keyboard" id="keyboard">
       <div class="keyboard-row">
@@ -1769,6 +1771,12 @@ const dictionary = {
   "english": "appointment",
   "karenni": "ꤒꤟꤢꤧ꤬ꤔꤝꤥꤓꤛꤢ꤬",
   "translation": "appointment /n/",
+  "examples": []
+},
+"appreciate": { 
+  "english": "appreciate",
+  "karenni": "ꤋꤛꤢꤙꤢꤧ꤬ꤢ꤬ꤞꤥ꤭ꤚꤥ꤭, ꤢꤩ꤬ꤊꤜꤟꤢꤪ꤭꤬ꤗꤢ꤬ꤔꤟꤤ ꤊꤌꤣ꤭, ꤢ꤬ꤒꤥ꤭ꤞꤢꤧꤕꤜꤢꤪ꤬, ꤞꤢꤧꤑꤢꤩ꤭, ꤞꤢꤧꤑꤢꤩ꤭ꤕꤜꤥ꤭, ꤞꤢꤧꤔꤟꤢꤩꤗꤛꤢ, ꤟꤢꤩꤙ꤉ꤤꤒꤢ꤬ꤚꤛꤢꤩ꤭, ꤢꤧꤗꤟꤥ꤭ꤏꤢꤦ꤬, ꤞꤢꤧꤐꤟꤢꤦ ꤊꤌꤣ꤭, ꤘꤛꤢ꤬ꤞꤢꤨ꤬ꤘꤛꤢ꤬ꤖꤥ꤭ꤔꤟꤤ",
+  "translation": "appreciate /v/",
   "examples": []
 },
 "approach": { 
