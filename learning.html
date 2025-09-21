@@ -92,18 +92,7 @@
         .contact-btn:hover, .introduction-btn:hover, .learning-btn:hover, .proverb-btn:hover {
             background: red;
         }
-        .back-arrow {
-            position: fixed;
-            top: 1px;
-            left: 40px; /* Adjusted to avoid overlap with menu-toggle */
-            font-size: 24px;
-            text-decoration: none;
-            color: #fff; /* Matches menu-toggle color */
-            z-index: 1001; /* Above header */
-        }
-        .back-arrow:hover {
-            color: #ccc; /* Lighter shade for hover */
-        }
+        
         .video-container {
             text-align: center;
             display: flex;
@@ -170,10 +159,7 @@
             }
         }
         @media (max-width: 600px) {
-            .back-arrow {
-                top: 0px;
-                left: 40px;
-            }
+            
             .menu-toggle {
                 top: 0px;
                 left: 5px;
@@ -191,12 +177,13 @@
     </div>
     <button class="menu-toggle" id="menuToggle">☰</button>
     <div class="menu-popup" id="menuPopup">
+	    <a href="index.html" class="contact-btn" id="contactBtn">ꤍꤟꤥꤡꤟꤢꤪꤐꤟꤢ꤭</a>
         <a href="introduction.html" class="introduction-btn" id="introductionBtn">ꤒꤟꤢꤧ꤬ꤟꤢꤩꤙꤢꤧ꤬ꤋꤢ꤭ꤏꤛꤢꤩ</a>
         <a href="learning.html" class="learning-btn" id="learningBtn">ꤟꤢꤩꤞꤛꤥ ꤜꤤ꤬ꤊꤢ꤬ꤛꤢ꤭ꤜꤟꤤ꤬</a>
         <a href="proverb.html" class="proverb-btn" id="proverbBtn">ꤍꤟꤥꤋꤢꤋꤥ꤬</a>
         <a href="contact.html" class="contact-btn" id="contactBtn">ꤕꤜꤝꤥ꤭ꤓꤢꤦ꤭</a>
     </div>
-    <a href="index.html" class="back-arrow">←</a>
+    
     <div class="video-container">
         <div class="video-items-row">
             <div class="video-item">

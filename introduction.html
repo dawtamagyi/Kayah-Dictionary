@@ -24,18 +24,7 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
         }
-        .back-arrow {
-            position: fixed;
-            top: -4px;
-            left: 40px; /* Adjusted to avoid overlap with menu-toggle */
-            font-size: 24px;
-            text-decoration: none;
-            color: #fff; /* Matches menu-toggle color */
-            z-index: 1001; /* Above header */
-        }
-        .back-arrow:hover {
-            color: #ccc; /* Lighter shade for hover */
-        }
+       
         .header-container {
             width: 100vw;
             position: relative;
@@ -128,10 +117,7 @@
                 margin: 20px;
                 padding: 15px;
             }
-            .back-arrow {
-                top: 0px;
-                left: 40px; /* Adjusted for mobile */
-            }
+            
             .menu-toggle {
                 top: 0px;
                 left: 5px;
@@ -149,12 +135,12 @@
     </div>
     <button class="menu-toggle" id="menuToggle">☰</button>
     <div class="menu-popup" id="menuPopup">
+	    <a href="index.html" class="contact-btn" id="contactBtn">ꤍꤟꤥꤡꤟꤢꤪꤐꤟꤢ꤭</a>
         <a href="introduction.html" class="introduction-btn" id="introductionBtn">ꤒꤟꤢꤧ꤬ꤟꤢꤩꤙꤢꤧ꤬ꤋꤢ꤭ꤏꤛꤢꤩ</a>
         <a href="learning.html" class="learning-btn" id="learningBtn">ꤟꤢꤩꤞꤛꤥ ꤜꤤ꤬ꤊꤢ꤬ꤛꤢ꤭ꤜꤟꤤ꤬</a>
         <a href="proverb.html" class="proverb-btn" id="proverbBtn">ꤍꤟꤥꤋꤢꤋꤥ꤬</a>
         <a href="contact.html" class="contact-btn" id="contactBtn">ꤕꤜꤝꤥ꤭ꤓꤢꤦ꤭</a>
     </div>
-    <a href="index.html" class="back-arrow">←</a>
     <div class="container">
         <div class="acknowledgments">
             <p>The author wishes to thank Payap University and the Payap Linguistics Institute, Chiang Mai, Thailand, for sponsoring the English - Kayah Dictionary section of this book. Payap University is a strong advocate for language communities in Mainland Southeast Asia. A special thanks to the Payap Language Software Group (Palaso Group) in the Linguistics Institute for their technical assistance. As the creators of the WeSay dictionary program, they helped to transfer data, program the mapping to incorporate the IPA phonetic entry, and format the final typeset copy.</p>
