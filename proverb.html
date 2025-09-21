@@ -1,42 +1,118 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="kyu">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ꤍꤟꤥꤋꤢꤋꤥ꤬</title>
-    <link href="https://fonts.googleapis.com/css2?family=Kay+Pho+Du:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kay+Pho+Du:wght@600;700&family=Noto+Serif+Myanmar:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
         body {
             font-family: "Kay Pho Du", serif;
+            background-color: #FFC0CB;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
+            position: relative;
+        }
+        .header-container {
+            width: 100vw;
+            position: relative;
+            left: 50%;
+            right: 50%;
+            margin-left: -50vw;
+            margin-right: -50vw;
+            display: flex;
+            flex-direction: column;
+        }
+        .header-row {
+            display: flex;
+            width: 100%;
+            height: 30px;
             align-items: center;
-            justify-content: flex-start;
-            min-height: 100vh;
-            margin: 0;
-            background-color: #FFC0CB;
+            justify-content: center;
+            position: relative;
         }
-        .back-arrow {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            font-size: 24px;
-            text-decoration: none;
-            color: #000;
+        .header-row-1 {
+            background-color: red;
         }
-        .back-arrow:hover {
-            color: #555;
+        .header-row-2 {
+            background-color: white;
+        }
+        .header-row-3 {
+            background-color: blue;
         }
         h1 {
-            margin: 20px 0;
-            font-size: 2em;
-            color: #333;
+            color: #008000;
+            text-align: center;
+            font-size: 22px;
+            margin: 0;
+            padding: 10px;
+        }
+        .menu-toggle {
+            position: fixed;
+            top: -14px;
+            left: -5px;
+            cursor: pointer;
+            font-size: 20px;
+            color: white;
+            border: none;
+            background: none;
+            padding: 4px;
+            z-index: 1000;
+        }
+        .menu-popup {
+            display: none;
+            position: fixed;
+            top: 40px;
+            left: 10px;
+            background: #FEFEFA;
+            border: 2px solid #ddd;
+            border-radius: 20px;
+            padding: 10px;
+            z-index: 1000;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .contact-btn, .introduction-btn, .learning-btn, .proverb-btn {
+            display: block;
+            padding: 8px 16px;
+            margin: 1px;
+            background: blue;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: "Kay Pho Du", serif;
+            text-decoration: none;
+            text-align: center;
+        }
+        .contact-btn:hover, .introduction-btn:hover, .learning-btn:hover, .proverb-btn:hover {
+            background: red;
+        }
+        .back-arrow {
+            position: fixed;
+            top: 1px;
+            left: 40px;
+            font-size: 24px;
+            text-decoration: none;
+            color: #fff;
+            z-index: 1001;
+        }
+        .back-arrow:hover {
+            color: #ccc;
         }
         .slide-container {
             text-align: center;
             width: 100%;
-            height: calc(100vh - 80px); /* Adjust for title and buttons */
+            height: calc(100vh - 80px);
             padding: 20px;
             background-color: #FFC0CB;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -73,11 +149,30 @@
             background-color: #cccccc;
             cursor: allowed;
         }
+        @media (max-width: 600px) {
+            .back-arrow {
+                top: 0px;
+                left: 40px;
+            }
+        }
     </style>
 </head>
 <body>
+    <div class="header-container">
+        <div class="header-row header-row-1"></div>
+        <div class="header-row header-row-2">
+            <h1>ꤍꤟꤥꤋꤢꤋꤥ꤬</h1>
+        </div>
+        <div class="header-row header-row-3"></div>
+    </div>
+    <button class="menu-toggle" id="menuToggle">☰</button>
+    <div class="menu-popup" id="menuPopup">
+        <a href="introduction.html" class="introduction-btn" id="introductionBtn">ꤒꤟꤢꤧ꤬ꤟꤢꤩꤙꤢꤧ꤬ꤋꤢ꤭ꤏꤛꤢꤩ</a>
+        <a href="learning.html" class="learning-btn" id="learningBtn">ꤟꤢꤩꤞꤛꤥ ꤜꤤ꤬ꤊꤢ꤬ꤛꤢ꤭ꤜꤟꤤ꤬</a>
+        <a href="proverb.html" class="proverb-btn" id="proverbBtn">ꤍꤟꤥꤋꤢꤋꤥ꤬</a>
+        <a href="contact.html" class="contact-btn" id="contactBtn">ꤕꤜꤝꤥ꤭ꤓꤢꤦ꤭</a>
+    </div>
     <a href="index.html" class="back-arrow">←</a>
-    <h1>ꤍꤟꤥꤋꤢꤋꤥ꤬</h1>
     <div class="slide-container">
         <div class="slide active" id="slide-1">
             ꤊꤢꤪꤘꤛꤢꤩꤖꤢꤨ ꤖꤢꤨꤏꤛꤢꤩ꤭ꤗꤟꤌꤣ, ꤙꤛꤢ꤭ꤒꤢ꤬ꤊꤟꤢꤧ꤬ꤖꤢꤨ ꤖꤢꤨꤋꤤ꤭ꤖꤢꤧ꤭ꤊꤛꤢꤩ꤬꤯
@@ -97,219 +192,6 @@
         <div class="slide" id="slide-6">
             ꤍꤟꤥꤞꤛꤢꤩ꤭ ꤔꤢ ꤗꤟꤌꤣꤕꤚꤟꤢꤧ, ꤗꤤ꤬ꤕꤟꤤ꤭ ꤔꤢ ꤒꤢ꤬ꤔꤢꤪ꤭꤯
         </div>
-        <div class="slide" id="slide-7">
-            ꤍꤟꤥꤓꤢꤨ꤬ꤞꤢꤧ ꤟꤛꤢ꤭ꤕꤟꤢꤩ ꤋꤝꤤ, ꤍꤟꤥꤋꤢꤋꤥ꤬ ꤟꤛꤢ꤭ꤕꤟꤢꤩ ꤊꤜꤛꤢꤩ꤭, ꤍꤟꤥ ꤓꤢꤨ꤬ꤞꤢꤧ ꤟꤛꤢ꤭ꤕꤟꤢꤩ ꤕꤚꤟꤢꤧ꤬ꤗꤢꤪ꤬꤯
-        </div>
-        <div class="slide" id="slide-8">
-            ꤏꤛꤢꤩ꤭ꤖꤢꤨ ꤥ꤬ꤊꤚꤛꤢ ꤢ꤬ꤓꤝꤟꤥ꤭ ꤊꤜꤝꤤ꤭, ꤕꤚꤟꤢꤧ꤬ꤥ꤬ꤊꤚꤛꤢ ꤢ꤬ꤓꤝꤟꤥ꤭ ꤘꤢꤨ꤬꤯
-        </div>
-        <div class="slide" id="slide-9">
-            ꤏꤛꤢꤩ꤭ꤗꤟꤤ꤬ ꤔꤟꤌꤣ꤭ ꤕꤟꤢꤩ ꤘꤢꤪ꤭ꤊꤢꤨ꤭ꤒꤥ꤬, ꤕꤚꤟꤢꤧ꤬ꤗꤟꤤ꤬ ꤔꤟꤌꤣ꤭ ꤕꤟꤢꤩ ꤘꤢꤪ꤭ꤡꤟꤢꤧꤒꤥ꤬꤯
-        </div>
-        <div class="slide" id="slide-10">
-            ꤏꤛꤢꤩ꤭ꤖꤢꤨ ꤥ꤬ꤊꤚꤛꤢ ꤢ꤬ꤋꤥ꤭ ꤖꤟꤌꤣ꤭ꤜꤢꤨ꤭, ꤕꤚꤟꤢꤧ꤬ ꤥ꤬ꤊꤚꤛꤢ ꤢ꤬ꤋꤥ꤭ ꤗꤟꤢꤩ꤬ꤐꤢꤪꤜꤢꤨ꤭꤯
-        </div>
-        <div class="slide" id="slide-11">
-            ꤏꤢꤨ꤬ꤏꤢꤧ ꤔꤟꤢꤩꤜꤟꤥ꤬ ꤏꤥ꤭ꤚꤟꤛꤢ꤬ ꤟꤤ꤬ꤘꤢꤪ꤯
-        </div>
-        <div class="slide" id="slide-12">
-            ꤏꤛꤢꤩ꤬ꤜꤟꤤ꤬ꤙꤢꤪ ꤙꤢꤪꤔꤟꤤ ꤓꤛꤢꤩ꤭, ꤜꤤ꤭ꤜꤢꤦ ꤐꤟꤌꤣ꤬ ꤏꤤ꤭ꤔꤟꤤꤗꤤ꤬꤯
-        </div>
-        <div class="slide" id="slide-13">
-            ꤒꤢ꤬ꤚꤟꤢꤧ꤭ ꤢꤩ꤬ꤏꤢꤧ꤬ꤒꤥ꤬, ꤏꤢꤨ꤬ꤥ꤬ ꤒꤢ꤬ꤏꤛꤢ꤭ꤒꤥ꤬꤯
-        </div>
-        <div class="slide" id="slide-14">
-            ꤒꤢ꤬ꤜꤟꤢꤧꤜꤢꤧ꤬ ꤡꤢꤪ꤬ ꤔꤢ ꤘꤤ꤭, ꤏꤤ꤭ꤜꤢꤪ꤭ꤜꤢꤧ꤬ ꤕꤟꤢꤪ꤬ ꤔꤢ ꤙꤟꤌꤣ꤯
-        </div>
-        <div class="slide" id="slide-15">
-            ꤒꤢ꤬ꤔꤟꤢꤩ꤬ ꤏꤢꤧ꤭ꤕꤜꤢ꤭, ꤒꤢ꤬ꤕꤟꤢꤦ꤭ ꤏꤢꤧ꤭ꤑꤟꤢ꤯
-        </div>
-        <div class="slide" id="slide-16">
-            ꤒꤢ꤬ꤜꤢꤧꤖꤥ꤭ ꤢ꤬ꤖꤥ꤭ ꤡꤛꤣ꤭ꤊꤟꤛꤢ꤭, ꤗꤢꤪ꤬ꤗꤟꤌꤣꤒꤝꤟꤥ ꤢ꤬ ꤟꤢꤪꤊꤢꤨ꤭ ꤞꤢꤪ꤭, ꤘꤛꤢꤩ꤭ꤞꤢꤧ꤬ꤒꤝꤟꤥ ꤢ꤬ ꤟꤢꤪꤊꤢꤨ꤭ ꤋꤢꤧ꤬꤯
-        </div>
-        <div class="slide" id="slide-17">
-            ꤒꤥ꤭ ꤞꤢꤧꤕꤜꤢꤪ꤬ ꤋꤢ꤭ꤢꤨ꤬ ꤞꤢꤧꤑꤢꤩ꤭, ꤙꤢꤧ꤬ ꤞꤌꤣ꤬ꤓꤛꤢꤩ꤭ ꤗꤢꤧ꤬ꤞꤢꤧ꤬ ꤞꤢꤧꤗꤛꤢ꤯
-        </div>
-        <div class="slide" id="slide-18">
-            ꤓꤢꤩ ꤗꤟꤌꤣꤕꤚꤟꤢꤧꤒꤥ꤬, ꤋꤢꤧ ꤓꤢꤨ꤬ꤊꤢꤧ꤬ꤒꤥ꤬꤯
-        </div>
-        <div class="slide" id="slide-19">
-            ꤓꤛꤢꤩ꤭ꤘꤢꤨ꤬ ꤔꤢ ꤞꤢꤪ꤬ꤞꤝꤤ, ꤋꤝꤤꤘꤢꤨ꤬ ꤔꤢ ꤕꤚꤟꤢꤧ꤬ꤜꤟꤢꤨ꤬꤯
-        </div>
-        <div class="slide" id="slide-20">
-            ꤓꤢꤨ꤬ ꤒꤢ꤬ꤊꤜꤢꤩ꤭ ꤐꤟꤌꤣ꤬ꤚꤛꤥ ꤔꤢ ꤜꤟꤛꤢ꤭, ꤕꤚꤟꤢꤧ꤬ꤜꤟꤢꤨ꤬ ꤒꤢ꤬ꤊꤜꤢꤩ꤭ ꤡꤛꤣꤚꤛꤥ ꤔꤢ ꤊꤜꤛꤢ꤯
-        </div>
-        <div class="slide" id="slide-21">
-            ꤓꤢꤨ꤬ꤞꤢꤧ꤬ ꤗꤢ꤬ ꤠꤤ꤭ꤊꤛꤢ꤭, ꤕꤢ꤬ꤡꤟꤛꤢꤩ ꤗꤢ꤬ ꤖꤛꤢꤩꤘꤝꤥ꤯
-        </div>
-        <div class="slide" id="slide-22">
-            ꤓꤝꤤ꤬ ꤥ꤬ꤚꤟꤥ ꤢ꤬ꤕꤟꤢꤩ ꤐꤟꤢꤪ꤭, ꤐꤟꤢ꤭ꤪ ꤥ꤬ꤚꤟꤥ ꤢ꤬ꤕꤟꤢꤩ ꤓꤝꤤ꤬꤯
-        </div>
-        <div class="slide" id="slide-23">
-            ꤓꤛꤢ꤬ꤜꤢꤨ ꤟꤤ꤬ ꤢ꤬ꤒꤢ꤬ꤕꤟꤢ꤬ ꤞꤢꤧꤕꤜꤢꤪ꤬, ꤔꤟꤌꤣ꤭ꤜꤢꤨ ꤘꤢꤪ꤭ ꤢ꤬ꤒꤢ꤬ꤊꤜꤢꤦ꤭ ꤞꤌꤣ꤬ꤓꤛꤢꤩ꤭꤯
-        </div>
-        <div class="slide" id="slide-24">
-            ꤓꤢꤨ꤬ ꤜꤟꤛꤢ꤭ꤗꤟꤌꤣ ꤐꤟꤌꤣ꤬ ꤜꤟꤛꤢ꤭ꤖꤢꤧ꤭꤯
-        </div>
-        <div class="slide" id="slide-25">
-            ꤓꤢꤨ꤬ ꤥ꤬ꤚꤟꤥ ꤢ꤬ꤕꤝꤟꤤ꤬ ꤓꤛꤢ꤬ꤢꤧ꤭, ꤐꤟꤌꤣ ꤥ꤬ꤢꤧ ꤢ꤬ꤊꤢꤨ꤭ ꤒꤢ꤬ꤊꤜꤢꤦ꤯
-        </div>
-        <div class="slide" id="slide-26">
-            ꤓꤝꤤ꤬ ꤏꤢ꤭ꤕꤚꤟꤢꤧ ꤢꤩ꤬ꤟꤌꤣ꤬, ꤊꤢ꤬ꤛꤢ꤭ ꤏꤢ꤭ꤕꤚꤟꤢꤧ ꤙꤢꤪ ꤘꤤ꤭ꤕꤟꤢꤪ꤬꤯
-        </div>
-        <div class="slide" id="slide-27">
-            ꤓꤛꤢꤖꤢꤧ꤭ ꤏꤤ꤭ꤘꤛꤢꤩ꤬ ꤢ꤬ꤜꤢꤩ꤭ ꤘꤢꤪ꤭, ꤕꤟꤢꤨꤖꤢꤧ꤭ ꤏꤤ꤭ꤘꤛꤢꤩ꤬ ꤢ꤬ꤜꤢꤩ꤭ ꤊꤟꤢꤩ꤯
-        </div>
-        <div class="slide" id="slide-28">
-            ꤓꤛꤢ꤬ ꤢꤧꤏꤥ꤬ ꤋꤢ꤭ꤘꤟꤌꤣ꤬ ꤗꤟꤌꤣꤘꤢꤪ꤭, ꤜꤟꤛꤢ꤬ꤢꤧ ꤜꤟꤛꤢ꤭ ꤋꤢ꤬ꤔꤢꤪ꤭ ꤖꤢꤨꤥ꤬꤯
-        </div>
-        <div class="slide" id="slide-29">
-            ꤓꤢꤨ꤬ꤚꤝꤤ ꤔꤢꤧꤥ꤬ ꤞꤢꤪ꤬ꤖꤛꤢ꤭ꤒꤥ꤬, ꤐꤟꤢꤪ꤭ꤊꤟꤢꤦ ꤜꤟꤛꤢ꤬ꤊꤜꤟꤛꤢ꤬ ꤟꤢꤩ꤬ꤋꤢꤨ꤬ꤒꤥ꤬꤯
-        </div>
-        <div class="slide" id="slide-30">
-            ꤓꤢꤨ꤬ꤕꤜꤢ ꤗꤢ꤬ ꤓꤢꤦꤞꤢꤨ꤭, ꤏꤛꤢ꤬ꤋꤢꤦ ꤗꤢ꤬ ꤊꤢ꤬ꤓꤢꤪ꤬꤯
-        </div>
-        <div class="slide" id="slide-31">
-            ꤔꤢꤩ ꤥ꤬ ꤢ꤬ꤓꤝꤟꤥ꤭ ꤘꤢꤪ꤭, ꤏꤛꤢꤩ꤭ꤓꤢꤩ꤭ ꤥ꤬ ꤢ꤬ꤒꤝꤟꤥ ꤟꤤ꤬꤯
-        </div>
-        <div class="slide" id="slide-32">
-            ꤔꤟꤢꤧ꤬ ꤐꤟꤢꤪ ꤠꤢ꤭ ꤒꤣ꤬ꤘꤟꤌꤣ꤭ ꤓꤝꤤ꤬ꤊꤚꤥ꤭, ꤔꤟꤢꤧ꤬ ꤒꤢ꤬ꤋꤥ꤭ ꤠꤢ꤭ ꤖꤢꤨ ꤏꤛꤢꤩ꤭ꤒꤢ꤬ꤓꤢ꤯
-        </div>
-        <div class="slide" id="slide-33">
-            ꤔꤢꤧ ꤚꤢ꤭ꤔꤟꤤ ꤢ꤬ꤊꤜꤥ꤬, ꤟꤤꤘꤢꤦ꤬ ꤕꤟꤢ꤭ꤔꤟꤤ ꤢ꤬ꤒꤟꤢꤨ꤯
-        </div>
-        <div class="slide" id="slide-34">
-            ꤔꤟꤢꤧ꤬ ꤗꤛꤢꤓꤛꤢꤩ꤬ ꤙꤟꤌꤣꤜꤟꤌꤣ ꤘꤛꤢꤞꤢꤧ꤭ ꤔꤟꤢꤧ꤬ ꤋꤢꤧꤊꤛꤢ꤭ ꤒꤢ꤬ꤏꤢꤨ꤭ ꤘꤛꤢꤚꤟꤢꤩ꤯
-        </div>
-        <div class="slide" id="slide-35">
-            ꤕꤟꤢ꤭ ꤞꤢꤪ꤬ꤖꤢꤨ ꤗꤢ꤬ ꤐꤢꤪꤐꤝꤤ꤬ ꤟꤢꤩꤙꤢꤧ꤬ ꤕꤢ꤬ꤡꤟꤢꤧ ꤗꤢ꤬ ꤤ꤬ꤜꤢꤪ꤭꤯
-        </div>
-        <div class="slide" id="slide-36">
-            ꤕꤚꤟꤢꤧ꤬ꤗꤢꤪ꤬ ꤋꤢꤦ ꤔꤢ ꤢ꤬ꤠꤟꤢꤧ꤬ ꤒꤢ꤬ꤙꤛꤢ꤭ ꤓꤛꤢ꤭ ꤔꤢ ꤢ꤬ꤒꤟꤢꤨ꤯
-        </div>
-        <div class="slide" id="slide-37">
-            ꤕꤚꤟꤢꤧ꤬ꤗꤢꤪ꤬ ꤒꤝꤟꤥ ꤔꤢ ꤋꤢꤨ꤬ꤜꤟꤌꤣ꤬, ꤏꤛꤢꤩ꤭ꤖꤢꤧ꤭ ꤒꤝꤟꤥ ꤔꤢ ꤋꤢ꤭ꤗꤟꤤ꤯
-        </div>
-        <div class="slide" id="slide-38">
-            ꤕꤚꤟꤢꤧ꤬ꤋꤢꤨ꤭ ꤔꤢ ꤕꤟꤛꤢꤩ꤭, ꤕꤚꤟꤢꤧ꤬ꤗꤢꤪ꤬ ꤔꤢ ꤊꤚꤟꤤ, ꤒꤢ꤬ꤗꤟꤛꤢꤩ꤬ ꤔꤢ ꤊꤢꤪ꤭꤯
-        </div>
-        <div class="slide" id="slide-39">
-            ꤕꤢ꤬ꤡꤟꤢꤧ ꤒꤢ꤬ꤜꤟꤛꤢꤩ꤭ ꤔꤢ ꤜꤢꤧ꤭, ꤗꤟꤌꤣꤕꤚꤟꤢꤧ ꤊꤢ꤬ꤜꤟꤛꤢ꤬ ꤔꤢ ꤔꤢ꤬꤯
-        </div>
-        <div class="slide" id="slide-40">
-            ꤖꤢꤨ ꤒꤢ꤬ꤜꤝꤥ ꤗꤟꤌꤣꤖꤢꤧ꤭, ꤡꤟꤢꤦ ꤒꤢ꤬ꤜꤝꤥ ꤙꤛꤢ꤬ꤡꤢꤧ꤬꤯
-        </div>
-        <div class="slide" id="slide-41">
-            ꤖꤢꤨꤡꤟꤛꤢ ꤤ꤬ꤞꤛꤥ ꤗꤟꤌꤣꤖꤢꤧ꤭, ꤡꤟꤢꤦꤡꤟꤛꤢ ꤤ꤬ꤞꤛꤥ ꤙꤛꤢ꤬ꤡꤢꤧ꤬꤯
-        </div>
-        <div class="slide" id="slide-42">
-            ꤖꤢꤨ ꤚꤛꤢꤗꤢ꤬ ꤗꤟꤌꤣꤖꤢꤧ꤭, ꤡꤟꤢꤦ ꤚꤛꤢꤗꤢ꤬ ꤙꤛꤢ꤬ꤡꤢꤧ꤬꤯
-        </div>
-        <div class="slide" id="slide-43">
-            ꤖꤢꤨꤘꤢꤨ꤬ ꤢꤩ꤬ꤘꤤ꤭, ꤓꤛꤢꤩ꤭ꤘꤢꤨ꤬ ꤢꤩ꤬ꤒꤟꤢꤧ꤭꤯
-        </div>
-        <div class="slide" id="slide-44">
-            ꤖꤢꤨꤋꤢꤨ꤭ꤚꤢꤧ꤬ ꤍꤟꤌꤣ ꤢꤩ꤬ꤚꤛꤢ꤬, ꤖꤢꤨꤗꤢꤪ꤬ꤗꤟꤌꤣ ꤍꤟꤌꤣ ꤘꤛꤢ ꤒꤢ꤬ꤏꤛꤢ꤭꤯
-        </div>
-        <div class="slide" id="slide-45">
-            ꤗꤤ꤬ ꤒꤣ꤬ꤊꤟꤌꤣ ꤢ꤬ꤝꤥ꤭ ꤘꤤ꤭ꤒꤥ꤬, ꤓꤢ꤬ ꤒꤣ꤬ꤕꤜꤢꤪ꤬ ꤢ꤬ꤓꤝꤟꤥ꤭ ꤓꤢ꤬ꤓꤛꤢꤩ꤭ꤒꤥ꤬꤯
-        </div>
-        <div class="slide" id="slide-46">
-            ꤗꤟꤥ꤬ꤘꤛꤢꤩꤋꤥ꤭ ꤗꤢ꤬ ꤞꤛꤥ ꤥ꤬ꤘꤌꤣ꤭, ꤙꤢꤪꤡꤟꤛꤢꤍꤟꤥ ꤗꤢ꤬ ꤋꤥ꤭ ꤥ꤬ꤚꤟꤥ꤯
-        </div>
-        <div class="slide" id="slide-47">
-            ꤗꤟꤌꤣ ꤏꤥ꤭ꤚꤟꤛꤢ꤬ ꤘꤛꤢꤩ ꤙꤟꤌꤣꤖꤤ꤭, ꤖꤢꤧ꤭ ꤏꤥ꤭ꤚꤟꤛꤢ꤬ ꤘꤛꤢꤩ ꤙꤟꤌꤣꤞꤢꤨ꤬꤯
-        </div>
-        <div class="slide" id="slide-48">
-            ꤗꤢꤨ꤭ꤗꤟꤛꤢ ꤚꤢꤪ ꤘꤛꤢꤔꤢꤩ, ꤒꤢ꤬ꤊꤜꤢꤩ꤭ ꤗꤢ꤬ ꤢꤨ꤭ꤐꤟꤢꤧ꤭ ꤢꤩ꤬ꤟꤌꤣ꤬꤯
-        </div>
-        <div class="slide" id="slide-49">
-            ꤗꤟꤌꤣꤥ꤬ꤒꤥ꤬ ꤞꤢꤧꤢꤩ꤬ ꤢ꤬ꤞꤢꤪ꤭, ꤖꤢꤧ꤭ꤥ꤬ꤒꤥ꤬ ꤞꤢꤧꤢꤩ꤬ ꤤ꤬ꤋꤢꤧ꤬꤯
-        </div>
-        <div class="slide" id="slide-50">
-            ꤗꤛꤢꤙꤢꤦ꤭ ꤓꤢꤨ꤬ꤊꤢꤧ꤬ ꤖꤢꤧ꤭ꤜꤟꤤ꤬, ꤗꤛꤢꤙꤢꤦ꤭ ꤡꤢꤪꤊꤢ꤬ꤚꤢꤩ꤬ ꤓꤛꤢꤩ꤭ꤙꤢꤨ꤭꤯
-        </div>
-        <div class="slide" id="slide-51">
-            ꤕꤜꤢꤪꤜꤢꤨ꤭ꤖꤢꤨ ꤕꤜꤢꤦ꤭ꤘꤢꤨ꤬ ꤙꤛꤢꤕꤜꤌꤣ꤬, ꤘꤝꤥ꤭ꤜꤢꤨ꤭ꤖꤢꤨ ꤕꤟꤢꤨꤝꤥ꤭ ꤙꤛꤢꤕꤜꤢꤪ꤬꤯
-        </div>
-        <div class="slide" id="slide-52">
-            ꤗꤟꤢꤪꤟꤢꤩ ꤏꤛꤢꤩ꤭ꤖꤢꤧ꤭, ꤗꤟꤢꤪꤜꤤ꤭ ꤏꤛꤢꤩ꤭ꤗꤟꤌꤣ꤯
-        </div>
-        <div class="slide" id="slide-53">
-            ꤘꤛꤢꤔꤢꤩꤐꤟꤥ꤬ ꤗꤟꤢꤪꤋꤤꤒꤥ꤬, ꤘꤛꤢꤋꤤ꤭ꤐꤟꤥ꤬ ꤗꤟꤢꤪꤏꤢꤧ꤭ꤒꤥ꤬꤯
-        </div>
-        <div class="slide" id="slide-54">
-            ꤘꤢꤨ꤬ꤓꤛꤢ꤬ꤜꤢꤨ ꤞꤢꤧꤕꤜꤢꤪ꤬ ꤒꤢ꤬ꤏꤢꤨ꤭, ꤘꤢꤨ꤬ꤓꤛꤢ꤬ꤞꤢꤧ꤭ ꤞꤢꤧꤕꤜꤢꤪ꤬ ꤕꤟꤢꤪ꤬ꤕꤟꤢꤧ꤬꤯
-        </div>
-        <div class="slide" id="slide-55">
-            ꤘꤢꤪ꤭ ꤒꤣ꤬ꤘꤢꤪ꤭ ꤕꤟꤢꤩ ꤒꤣ꤬ꤊꤟꤢꤩꤒꤥ꤬, ꤒꤣ꤬ꤕꤚꤟꤢꤧ꤬ ꤕꤟꤢꤩ ꤒꤣ꤬ꤘꤢꤪ꤭ꤒꤥ꤬꤯
-        </div>
-        <div class="slide" id="slide-56">
-            ꤙꤢꤪꤞꤛꤥ ꤗꤟꤌꤣꤕꤚꤟꤢꤧ ꤥ꤭ꤙꤢꤧ꤬ ꤓꤛꤢꤩ꤭, ꤘꤥ꤬ ꤞꤢꤩꤪꤊꤚꤢ꤭ ꤢꤩ꤬ꤔꤢꤪ ꤊꤟꤛꤢꤩ꤭꤯
-        </div>
-        <div class="slide" id="slide-57">
-            ꤙꤢꤖꤢ ꤘꤢꤨ꤬ꤐꤟꤢꤒꤥ꤬, ꤢꤩ꤬ꤟꤌꤣ꤬ ꤊꤢꤪꤟꤢꤪꤒꤥ꤬꤯
-        </div>
-        <div class="slide" id="slide-58">
-            ꤚꤟꤢꤨꤘꤢꤨ꤬ ꤥ꤬ ꤞꤌꤣ꤭ꤊꤜꤤ꤭ꤒꤥ꤬, ꤕꤚꤟꤢꤧ꤬ꤘꤢꤨ꤬ ꤥ꤬ ꤞꤌꤣ꤭ꤡꤟꤢꤨꤒꤥ꤬꤯
-        </div>
-        <div class="slide" id="slide-59">
-            ꤜꤟꤢ ꤗꤢ꤬ ꤢ꤬ꤕꤣ ꤕꤚꤢꤧꤔꤢ ꤜꤟꤢꤪ, ꤏꤥ꤬ ꤗꤢ꤬ ꤢ꤬ꤒꤝꤟꤥ ꤕꤚꤢꤧꤔꤢ ꤞꤢꤪ꤬꤯
-        </div>
-        <div class="slide" id="slide-60">
-            ꤞꤢꤪ꤬ꤡꤢꤪ ꤗꤢ꤬ ꤊꤢ꤬ꤓꤢꤩꤪ, ꤜꤟꤢꤪꤡꤢꤪ ꤗꤢ ꤥ꤬ꤔꤛꤢ꤭꤯
-        </div>
-        <div class="slide" id="slide-61">
-            ꤞꤢꤧꤒꤢ꤬ꤏꤢꤨ꤭ ꤢ꤬ꤒꤟꤢ꤭ꤊꤛꤢ꤭, ꤕꤚꤛꤢ꤭ꤒꤢ꤬ꤜꤝꤥ ꤢ꤬ꤒꤟꤢ꤭ꤕꤜꤢꤧ꤯
-        </div>
-        <div class="slide" id="slide-62">
-            ꤞꤢꤧꤐꤟꤢꤦ ꤙꤟꤌꤣꤚꤤ꤬ ꤓꤥ꤬ꤓꤌꤣ꤭ꤒꤥ꤬, ꤞꤢꤧꤒꤢ꤬ꤙꤛꤢ꤭ ꤢꤨ꤭ꤚꤟꤌꤣ꤬ ꤖꤢꤨꤒꤥ꤬꤯
-        </div>
-        <div class="slide" id="slide-63">
-            ꤞꤢꤧꤐꤟꤢꤦ ꤔꤟꤤꤍꤟꤥ ꤥ꤬ꤔꤛꤢ꤭ ꤗꤟꤌꤣꤕꤚꤟꤢꤧ ꤋꤛꤢ꤬ꤘꤢ꤭, ꤞꤢꤧꤒꤟꤥ꤭ ꤔꤟꤤꤍꤟꤥ ꤐꤢꤪꤐꤝꤤ꤬ ꤗꤟꤌꤣꤕꤚꤟꤢꤧ, ꤞꤢꤧꤜꤟꤢꤪ꤭ ꤖꤛꤢꤩꤜꤟꤢ꤭ ꤊꤢ꤬ꤓꤢꤪ꤬ ꤗꤟꤌꤣꤕꤚꤟꤢꤧ ꤋꤛꤢ꤬ꤕꤜꤢꤧ꤬꤯
-        </div>
-        <div class="slide" id="slide-64">
-            ꤠꤢꤧ꤬ꤜꤟꤢꤩ꤬ ꤒꤣ꤬ꤊꤚꤟꤢꤪ꤬ ꤢ꤬ꤥ꤬ꤊꤛꤢ꤭ ꤒꤣ꤬ꤙꤥ꤭, ꤠꤢꤧ꤬ ꤒꤣ꤬ꤙꤥ꤭ ꤢ꤬ꤊꤢꤨ꤭ ꤢꤪ ꤒꤣ꤬ꤗꤟꤢ꤭꤯
-        </div>
-        <div class="slide" id="slide-65">
-            ꤡꤟꤢꤨ꤭ ꤗꤟꤌꤣꤍꤟꤥ ꤕꤤ꤬ꤕꤟꤌꤣ ꤢ꤬ꤖꤝꤟꤤ꤭, ꤖꤛꤢꤩ ꤖꤢꤧ꤭ꤜꤟꤢ꤭ ꤚꤟꤛꤢ꤬ꤒꤟꤢꤧ꤬ ꤢ꤬ꤡꤟꤢꤧ꤯
-        </div>
-        <div class="slide" id="slide-66">
-            ꤡꤟꤢꤨ꤭ ꤗꤟꤌꤣꤍꤟꤥꤒꤥ꤬ ꤢ꤬ꤏꤢꤧ꤭, ꤖꤛꤢꤩ ꤖꤢꤧ꤭ꤜꤟꤢ꤭ꤒꤥ꤬ ꤢ꤬ꤕꤟꤛꤢ꤯
-        </div>
-        <div class="slide" id="slide-67">
-            ꤡꤟꤢꤩ꤭ꤢꤧ ꤤ꤬ꤡꤛꤢ ꤏꤢꤧ꤭ꤕꤜꤢ꤭, ꤊꤜꤛꤢ꤬ꤢꤧ ꤊꤟꤢꤩ ꤏꤥ꤭ꤚꤟꤛꤢ꤬꤯
-        </div>
-        <div class="slide" id="slide-68">
-            ꤗꤟꤌꤣꤕꤚꤟꤢꤧ ꤥ꤬ꤒꤥ꤬ ꤊꤟꤢꤩꤊꤛꤢ꤭, ꤒꤢ꤬ꤕꤜꤛꤢ꤬ ꤥ꤬ꤒꤥ꤬ ꤓꤛꤢꤩ꤭ꤞꤤ꤯
-        </div>
-        <div class="slide" id="slide-69">
-            ꤢ꤬ꤖꤢꤧꤕꤝꤟꤥ꤭ ꤊꤢ꤬ꤘꤝꤤ ꤕꤜꤢꤩ꤬ꤒꤥ꤬, ꤕꤢ꤬ꤡꤟꤛꤢꤨ ꤙꤛꤢꤩ꤬ ꤋꤥ꤭ꤒꤥ꤬꤯
-        </div>
-        <div class="slide" id="slide-70">
-            ꤢꤩ꤬ꤔꤢꤪ ꤏꤢꤧ꤬ꤒꤥ꤬ ꤢꤨ꤭ꤘꤛꤢ ꤠꤤ꤬, ꤡꤛꤣꤔꤢꤪ ꤊꤜꤛꤢꤒꤥ꤬ ꤢꤨ꤭ꤘꤛꤢ ꤗꤟꤥ꤬꤯
-        </div>
-        <div class="slide" id="slide-71">
-            ꤢꤩ꤬ꤏꤢꤧ꤬ ꤢ꤬ꤛꤝꤥ꤭ ꤗꤢ꤬ ꤤ꤬ꤏꤛꤢ꤭, ꤢꤩ꤬ꤏꤢꤧ꤬ ꤢ꤬ꤊꤟꤢꤨ ꤗꤢ꤬ ꤔꤟꤤ꤬ꤘꤢ꤭꤯
-        </div>
-        <div class="slide" id="slide-72">
-            ꤢꤩ꤬ꤏꤢꤧ꤬ ꤘꤛꤢ ꤏꤢꤧ꤭ꤟꤢꤪꤒꤥ꤬, ꤔꤟꤤꤗꤢꤩ꤭ ꤘꤛꤢ ꤒꤢ꤬ꤙꤥ꤭ꤒꤥ꤬꤯
-        </div>
-        <div class="slide" id="slide-73">
-            ꤢꤩ꤬ꤞꤢꤦꤏꤢꤧ꤬ ꤒꤤꤒꤢꤧ ꤗꤢ꤬ ꤞꤛꤢꤩ꤭, ꤙꤢꤧ꤬ꤞꤢꤦ ꤍꤟꤥ ꤒꤣ꤬ꤗꤢꤦ꤭ ꤏꤢꤨ꤬ꤥ꤬꤯
-        </div>
-        <div class="slide" id="slide-74">
-            ꤢꤩ꤬ꤡꤟꤛꤢ ꤏꤢꤧ꤬ꤒꤥ꤬ ꤗꤛꤢꤙꤢꤦ꤭ ꤋꤥ꤭, ꤚꤟꤛꤢ꤬ꤡꤟꤛꤢ ꤒꤟꤢꤧ꤬ꤒꤥ꤬ ꤗꤛꤢꤒꤟꤢꤨ ꤞꤛꤥ꤯
-        </div>
-        <div class="slide" id="slide-75">
-            ꤢꤩ꤬ꤘꤢꤦ꤬ ꤘꤤ꤭ ꤢ꤬ꤠꤤ꤬ꤒ�25꤬, ꤡꤛꤣꤘꤢꤦ꤬ ꤊꤜꤛꤢ ꤢ꤬ꤗꤟꤥ꤬ꤒ�25꤬꤯
-        </div>
-        <div class="slide" id="slide-76">
-            ꤥ ꤢꤨ꤭ꤓꤝꤤ꤬ ꤢ꤬ꤊꤜꤛꤢ꤬ ꤒꤢ꤬ꤖꤢ꤭, ꤙꤢꤧ꤬ꤢꤨ꤭ꤖꤢꤨ ꤢ꤬ꤗꤛꤢ ꤗꤢꤧ꤬ꤞꤢꤧ꤬꤯
-        </div>
-        <div class="slide" id="slide-77">
-            ꤥ꤬ꤖꤢꤦ꤬ ꤗꤤ꤬ ꤢ꤬ꤜꤟꤢꤧ꤬, ꤥ꤬ꤖꤢꤦ꤬ ꤓꤛꤢꤩ꤭ ꤢ꤬ꤊꤢ꤬ꤡꤟꤢꤨ꤯
-        </div>
         <div class="slide" id="slide-78">
             ꤕꤟꤢꤨ ꤒꤟꤢ꤭ꤔꤥ꤬ ꤙꤢꤧ꤬ꤤ꤬ꤕꤜꤤ, ꤕꤚꤟꤢꤧ꤬ꤜꤟꤢꤨ꤬ ꤒꤟꤢ꤭ꤔꤥ꤬ ꤙꤢꤧ꤬ꤢꤨ꤭ꤋꤢꤨ꤬꤯
         </div>
@@ -321,7 +203,6 @@
             <button id="nextBtn" onclick="changeSlide(1)">ꤘꤣꤑꤢꤩ꤭</button>
         </div>
     </div>
-
     <script>
         let currentSlide = 1;
         const totalSlides = 79;
@@ -331,10 +212,26 @@
             currentSlide += direction;
             document.getElementById(`slide-${currentSlide}`).classList.add('active');
 
-            // Update button states
             document.getElementById('prevBtn').disabled = currentSlide === 1;
             document.getElementById('nextBtn').disabled = currentSlide === totalSlides;
         }
+
+        const menuToggle = document.getElementById('menuToggle');
+        const menuPopup = document.getElementById('menuPopup');
+
+        function toggleMenu() {
+            menuPopup.style.display = menuPopup.style.display === 'block' ? 'none' : 'block';
+        }
+
+        function hideMenuOnOutsideClick(event) {
+            if (!menuPopup.contains(event.target) && !menuToggle.contains(event.target)) {
+                menuPopup.style.display = 'none';
+            }
+        }
+
+        menuToggle.addEventListener('click', toggleMenu);
+        document.addEventListener('click', hideMenuOnOutsideClick);
+        document.addEventListener('touchstart', hideMenuOnOutsideClick);
     </script>
 </body>
 </html>

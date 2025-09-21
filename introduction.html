@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="kyu">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ꤍꤟꤥ꤫ꤟꤢꤩꤙꤢꤧ꤬ꤋꤢ꤭ꤏꤛꤢꤩ</title>
-    <link href="https://fonts.googleapis.com/css2?family=Kay+Pho+Du:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kay+Pho+Du:wght@600;700&family=Noto+Serif+Myanmar:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: "Kay Pho Du", sans-serif;
+            font-family: "Kay Pho Du", serif;
             margin: 0;
             padding: 0;
             min-height: 100vh;
@@ -23,30 +25,90 @@
             border-radius: 8px;
         }
         .back-arrow {
-            position: fixed; /* Changed from absolute to fixed */
-            top: 10px;
-            left: 10px;
+            position: fixed;
+            top: -4px;
+            left: 40px; /* Adjusted to avoid overlap with menu-toggle */
             font-size: 24px;
             text-decoration: none;
-            color: #000;
+            color: #fff; /* Matches menu-toggle color */
+            z-index: 1001; /* Above header */
         }
         .back-arrow:hover {
-            color: #555;
+            color: #ccc; /* Lighter shade for hover */
+        }
+        .header-container {
+            width: 100vw;
+            position: relative;
+            left: 50%;
+            right: 50%;
+            margin-left: -50vw;
+            margin-right: -50vw;
+            display: flex;
+            flex-direction: column;
+        }
+        .header-row {
+            display: flex;
+            width: 100%;
+            height: 30px;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        .header-row-1 {
+            background-color: red;
+        }
+        .header-row-2 {
+            background-color: white;
+        }
+        .header-row-3 {
+            background-color: blue;
         }
         h1 {
-            color: #2c3e50;
+            color: #008000;
             text-align: center;
-            margin-bottom: 10px;
+            font-size: 22px;
+            margin: 0;
+            padding: 10px;
         }
-        h2 {
-            color: #34495e;
+        .menu-toggle {
+            position: fixed;
+            top: -4px;
+            left: 5px;
+            cursor: pointer;
+            font-size: 20px;
+            color: white;
+            border: none;
+            background: none;
+            padding: 4px;
+            z-index: 1000;
+        }
+        .menu-popup {
+            display: none;
+            position: fixed;
+            top: 40px;
+            left: 10px;
+            background: #FEFEFA;
+            border: 2px solid #ddd;
+            border-radius: 20px;
+            padding: 10px;
+            z-index: 1000;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .contact-btn, .introduction-btn, .learning-btn, .proverb-btn {
+            display: block;
+            padding: 8px 16px;
+            margin: 1px;
+            background: blue;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: "Kay Pho Du", serif;
+            text-decoration: none;
             text-align: center;
-            margin-bottom: 20px;
         }
-        p {
-            margin: 0 0 20px 0;
-            color: #333;
-            text-align: justify;
+        .contact-btn:hover, .introduction-btn:hover, .learning-btn:hover, .proverb-btn:hover {
+            background: red;
         }
         .acknowledgments {
             margin-top: 30px;
@@ -56,6 +118,11 @@
         .introduction {
             margin-top: 30px;
         }
+        p {
+            margin: 0 0 20px 0;
+            color: #333;
+            text-align: justify;
+        }
         @media (max-width: 600px) {
             .container {
                 margin: 20px;
@@ -63,16 +130,32 @@
             }
             .back-arrow {
                 top: 0px;
-                left: 10px;
+                left: 40px; /* Adjusted for mobile */
+            }
+            .menu-toggle {
+                top: 0px;
+                left: 5px;
             }
         }
     </style>
 </head>
 <body>
+    <div class="header-container">
+        <div class="header-row header-row-1"></div>
+        <div class="header-row header-row-2">
+            <h1><span>ꤒꤟꤢꤧ꤬ꤟꤢꤩꤙꤢꤧ꤬ꤋꤢ꤭ꤏꤛꤢꤩ</h1>
+        </div>
+        <div class="header-row header-row-3"></div>
+    </div>
+    <button class="menu-toggle" id="menuToggle">☰</button>
+    <div class="menu-popup" id="menuPopup">
+        <a href="introduction.html" class="introduction-btn" id="introductionBtn">ꤒꤟꤢꤧ꤬ꤟꤢꤩꤙꤢꤧ꤬ꤋꤢ꤭ꤏꤛꤢꤩ</a>
+        <a href="learning.html" class="learning-btn" id="learningBtn">ꤟꤢꤩꤞꤛꤥ ꤜꤤ꤬ꤊꤢ꤬ꤛꤢ꤭ꤜꤟꤤ꤬</a>
+        <a href="proverb.html" class="proverb-btn" id="proverbBtn">ꤍꤟꤥꤋꤢꤋꤥ꤬</a>
+        <a href="contact.html" class="contact-btn" id="contactBtn">ꤕꤜꤝꤥ꤭ꤓꤢꤦ꤭</a>
+    </div>
     <a href="index.html" class="back-arrow">←</a>
     <div class="container">
-        <h1>English - Kayah Dictionary</h1>
-        <h2>Khu Hte Bu Phe</h2>
         <div class="acknowledgments">
             <p>The author wishes to thank Payap University and the Payap Linguistics Institute, Chiang Mai, Thailand, for sponsoring the English - Kayah Dictionary section of this book. Payap University is a strong advocate for language communities in Mainland Southeast Asia. A special thanks to the Payap Language Software Group (Palaso Group) in the Linguistics Institute for their technical assistance. As the creators of the WeSay dictionary program, they helped to transfer data, program the mapping to incorporate the IPA phonetic entry, and format the final typeset copy.</p>
             <p>Finally, this dictionary is the result of the efforts of the Kayah Li people themselves who in recent years have resettled throughout the world. The author wishes to thank those living in Winston Salem, North Carolina, for their help in filling in the dictionary gaps and Khu Myar Reh for his help on the grammar section.</p>
@@ -91,6 +174,24 @@
             <p>The reader will surely find mistakes within the pages of this first edition. Despite this, the author trusts that this will be a helpful foundation for the Kayah Li people to use as they develop resources in their language.</p>
         </div>
     </div>
-	<p style="text-align: center; color: orange;">This webpage was created by Ko Reh ꤘꤢꤪ꤭ꤒꤢ꤬ꤗꤢꤘꤢꤨ꤬</p>
+    <p style="text-align: center; color: red;">This webpage was created by: Ko Reh [ꤘꤢꤪ꤭ꤒꤢ꤬ꤗꤢꤘꤢꤨ꤬]</p>
+    <script>
+        const menuToggle = document.getElementById('menuToggle');
+        const menuPopup = document.getElementById('menuPopup');
+
+        function toggleMenu() {
+            menuPopup.style.display = menuPopup.style.display === 'block' ? 'none' : 'block';
+        }
+
+        function hideMenuOnOutsideClick(event) {
+            if (!menuPopup.contains(event.target) && !menuToggle.contains(event.target)) {
+                menuPopup.style.display = 'none';
+            }
+        }
+
+        menuToggle.addEventListener('click', toggleMenu);
+        document.addEventListener('click', hideMenuOnOutsideClick);
+        document.addEventListener('touchstart', hideMenuOnOutsideClick);
+    </script>
 </body>
 </html>
