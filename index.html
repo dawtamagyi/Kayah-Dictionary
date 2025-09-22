@@ -3,16 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Kay+Pho+Du:wght@600;700&family=Noto+Serif+Myanmar:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-
 <title>ꤍꤟꤥꤡꤟꤢꤪꤐꤟꤢ꤭</title>
 <style>
 html, body {
   height: 100%;
-  margin: 0;
+  margin: 0px;
 }
 body {
   font-family: "Kay Pho Du", serif;
@@ -82,6 +80,7 @@ main {
   font-style: normal;
 }
 .header-container {
+  box-shadow: 0px 2px 15px black;
   width: 100vw;
   position: relative;
   left: 50%;
@@ -109,14 +108,14 @@ main {
   background-color: blue;
 }
 h1 {
-  color: #008000;
+  color: green;
   text-align: center;
-  font-size: 22px;
+  font-size: 23px;
   margin: 0;
-  padding: 10px;
+  padding: 100px;
 }
 .search-container {
-  margin: 10px 1px;
+  margin: 30px 1px;
   margin-right: 10px;
   margin-left: 10px;
   display: flex;
@@ -234,7 +233,7 @@ input {
   left: 0;
   width: 100%;
   background: white;
-  border: 1px solid #ddd;
+  border: 2px solid #ddd;
   border-radius: 5px;
   max-height: 500px;
   overflow-y: auto;
@@ -244,13 +243,15 @@ input {
 .related-word {
   padding: 8px;
   cursor: pointer;
+  box-shadow: 0px 1px 0px #FFC0CB;
+  border-radius: 10px;
 }
 .related-word:hover {
   background-color: #f0f0f0;
 }
 .results {
   font-family: "Kay Pho Du", serif;
-  margin-top: 0px;
+  margin-top: -29px;
   display: none;
 }
 .translation-box, .examples-box {
@@ -269,24 +270,31 @@ input {
   font-size: 12px;
   color: #666;
   vertical-align: middle;
+  box-shadow: 2px 2px 2px grey;
 }
 .speaker:hover {
   color: #4CAF50;
 }
 .english-line {
+  color: blue;
+  box-shadow: 2px 2px 2px grey;
   display: block;
   margin-bottom: 3px;
   font-weight: bold;
+  padding: 5px;
   font-size: 1.3em;
 }
 .karenni-line {
+  color: black;
+  box-shadow: 2px 2px 2px grey;
   display: block;
   margin-left: 20px;
+  padding: 5px;
   font-size: 1.1em;
 }
 .pos {
-  color: #666;
-  font-size: 0.7em;
+  color: black;
+  font-size: 0.9em;
   margin-left: 5px;
   font-weight: normal;
 }
@@ -433,7 +441,7 @@ input {
 <div class="header-container">
   <div class="header-row header-row-1"></div>
   <div class="header-row header-row-2">
-    <h1><span>ꤊꤢ꤬ꤛꤢ꤭<span style="color: red; font-size: 0.5em;">ꤜꤟꤤ꤬</span>Dictionary</span></h1>
+    <h1><span>ꤊꤢ꤬ꤛꤢ꤭<span style="color: red; font-size: 0.6em;">ꤜꤟꤤ꤬</span>Dictionary</span></h1>
   </div>
   <div class="header-row header-row-3"></div>
 </div>
@@ -16653,7 +16661,7 @@ const dictionary = {
     "translation": "kapok-tree /n/",
     "examples": []
   },
-  "karenni": {
+  "Karenni": {
     "english": "Karenni",
     "karenni": "ꤊꤢ꤬ꤛꤢ꤭ꤜꤟꤤ꤬, ꤊꤢ꤬ꤛꤢ꤭ꤜꤟꤤ꤬-ꤊꤟꤢꤩ, ꤊꤢ꤬ꤛꤢ꤭ꤜꤟꤤ꤬-ꤖꤢꤨ, ꤊꤢ꤬ꤛꤢ꤭ꤜꤟꤤ꤬ꤍꤟꤥ",
     "translation": "Karenni /n/",
@@ -63937,7 +63945,7 @@ async function showRelatedWords() {
       return a.localeCompare(b);
     });
     relatedWordsDiv.style.display = 'block';
-    related.slice(0, 20).forEach(word => {
+    related.slice(0, 15).forEach(word => {
       const div = document.createElement('div');
       div.className = 'related-word';
       div.textContent = word;
