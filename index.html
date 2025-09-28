@@ -187,7 +187,7 @@ input {
   border-radius: 50px;
 }
 .translate-btn:hover {
-  background-color: yellow;
+  background-color: none;
 }
 .translate-btn::before {
   content: "🔍";
@@ -230,28 +230,31 @@ input {
   padding: 6px 12px;
 }
 .related-words {
+  margin-top: 3px;
   position: absolute;
   top: calc(100% + 0px);
   left: 0;
   width: 100%;
-  background: white;
-  border: 2px solid #ddd;
+  background: #FFC0CB;
+  border: 0px solid #FFC0CB;
   border-radius: 5px;
   max-height: 500px;
   overflow-y: auto;
   display: none;
   z-index: 1;
-  box-shadow: 0px 1px 1px black;
+  box-shadow: 0px 1px 1px #FFC0CB;
 }
 .related-word {
+  background: white;
   padding: 10px;
+  padding-left: 18px;
   margin: 3px;
   cursor: pointer;
   border-radius: 5px;
   box-shadow: 0px 0px 3px black;
 }
 .related-word:hover {
-  background-color: #f0f0f0;
+  background-color: #FFC0CB;
 }
 .results {
   font-family: "Kay Pho Du", serif;
@@ -319,7 +322,7 @@ input {
   position: fixed;
   top: 40px;
   left: 10px;
-  background: #FEFEFA;
+  backdrop-filter: blur(10px);
   border: 2px solid #ddd;
   border-radius: 20px;
   padding: 10px;
@@ -1304,7 +1307,7 @@ const dictionary = {
 },
 "alright": { 
   "english": "alright",
-  "karenni": "Allright, OK, fine, good, nice,okay, pleasing, satisfactory",
+  "karenni": "Allright, OK, fine, good, nice,okay, pleasing, satisfactory, ok",
   "translation": "alright /adv/",
   "examples": []
 },
@@ -20495,6 +20498,14 @@ const dictionary = {
     "karenni": "ꤗꤤ꤬ꤊꤢꤪ꤭",
     "translation": "oil-lamp /n/",
     "examples": []
+  },
+  "OK": {
+    "english": "OK",
+    "karenni": "all right, right, very well, yes /adj/ all right, fine, satisfactory, in order, accepter /adv/ all right, fine, well, well enough, satisfactorilly, passably /n/ authorization, approval, seal of approval, agreement, consent /v/ authorize, approve, sanction, pass",
+    "translation": "OK /informal/",
+    "examples": ["OK=orl korrect=all correct",
+	"OK=Old Kinderhook",
+	"OK=Oklahoma"]
   },
   "okay": {
     "english": "okay",
@@ -62215,9 +62226,10 @@ const dictionary = {
   },
   "ꤤ꤬ꤕꤚꤟꤤ꤬": {
     "karenni": "ꤤ꤬ꤕꤚꤟꤤ꤬",
-    "english": "buy",
+    "english": "buy, book",
     "translation": "ꤤ꤬ꤕꤚꤟꤤ꤬ /v/",
-    "examples": ["ꤤ꤬ꤕꤚꤟꤤ꤬ ꤜꤤ꤬ꤢꤨ꤯ Buy a book."]
+    "examples": ["ꤤ꤬ꤕꤚꤟꤤ꤬ ꤜꤤ꤬ꤢꤨ꤯ Buy a book.",
+	"We booked a hotel room for our vacation."]
   },
   "ꤤ꤬ꤕꤚꤢ꤬": {
     "karenni": "ꤤ꤬ꤕꤚꤢ꤬",
@@ -63848,6 +63860,7 @@ const dictionary = {
     "translation": "ꤗꤤ꤭ꤟꤢꤪ /adj/",
     "examples": ["ꤘꤤ꤭ꤊꤜꤝꤤ꤭ꤞꤢꤧ꤬ ꤗꤤ꤭ꤟꤢꤪ꤯ The bananas are ripe."]
   }};
+
 const searchInput = document.getElementById('searchInput');
 const translateBtn = document.getElementById('translateBtn');
 const clearSymbol = document.getElementById('clearSymbol');
@@ -63876,41 +63889,110 @@ async function translate() {
   }
 
   let entries = [];
+  let exactMatch = false;
+  
   if (dictionary[searchTerm]) {
     entries.push(dictionary[searchTerm]);
+    exactMatch = true;
   } else if (dictionary[searchTermLower]) {
     entries.push(dictionary[searchTermLower]);
+    exactMatch = true;
   } else {
-    entries = Object.values(dictionary).filter(item =>
-      item.translation.toLowerCase().includes(searchTermLower) ||
-      item.english.toLowerCase().includes(searchTermLower) ||
-      item.karenni.toLowerCase().includes(searchTermLower)
-    );
+ 
+    const matches = [];
+    
+    for (const [key, value] of Object.entries(dictionary)) {
+      let score = 0;
+      
+      const inKey = key.toLowerCase().includes(searchTermLower);
+      const inEnglish = value.english.toLowerCase().includes(searchTermLower);
+      const inKarenni = value.karenni.toLowerCase().includes(searchTermLower);
+      const inTranslation = value.translation.toLowerCase().includes(searchTermLower);
+      
+      let inExamples = false;
+      let exampleMatches = [];
+      if (value.examples && value.examples.length > 0) {
+        value.examples.forEach(example => {
+          if (example.toLowerCase().includes(searchTermLower)) {
+            inExamples = true;
+            exampleMatches.push(example);
+          }
+        });
+      }
+      
+      if (inKey) score += 4;
+      if (inEnglish) score += 3;
+      if (inKarenni) score += 3;
+      if (inTranslation) score += 2;
+      if (inExamples) score += 1;
+      
+      if (score > 0) {
+        matches.push({
+          entry: value,
+          key: key,
+          score: score,
+          exampleMatches: exampleMatches
+        });
+      }
+    }
+    
+    matches.sort((a, b) => b.score - a.score);
+    const topMatches = matches.slice(0, 5);
+    
+    if (topMatches.length > 0) {
+      entries = topMatches.map(match => ({
+        ...match.entry,
+        matchedExamples: match.exampleMatches
+      }));
+      
+      translationContentDiv.innerHTML = `<div style="color: #666; margin-bottom: 15px; font-style: italic;">
+        ꤗꤛꤢꤓꤛꤢꤩ꤬ꤒꤥ꤭ꤒꤢꤦ "${searchTerm}" ꤒꤥ꤬꤯ Word not found exactly.
+      </div>`;
+    }
   }
 
   if (entries.length) {
     resultsDiv.style.display = 'block';
     let translationHTML = '';
+    
     for (const entry of entries) {
       const [word, pos] = entry.translation.split(' ');
       translationHTML += `
-        <div>
+        <div style="margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 10px;">
           <div class="english-line">
             <strong>${entry.english}</strong>
             <span class="speaker" onclick="speakEnglish('${entry.english.replace(/'/g, "\\'")}')">🔊</span>
             <span class="pos">${pos}</span>
           </div>
-          <div class="karenni-line"> ${entry.karenni} </div>
+          <div class="karenni-line">${entry.karenni}</div>
         </div>
       `;
     }
-    translationContentDiv.innerHTML = translationHTML;
-    const allExamples = entries.flatMap(entry => entry.examples);
-    examplesDiv.innerHTML = allExamples.map(example => `<p>[ ${example} ]</p>`).join('');
+    
+    if (exactMatch) {
+      translationContentDiv.innerHTML = translationHTML;
+    } else {
+      translationContentDiv.innerHTML += translationHTML;
+    }
+    
+    let allExamples = [];
+    if (exactMatch) {
+      allExamples = entries.flatMap(entry => entry.examples);
+    } else {
+      
+      allExamples = entries.flatMap(entry => entry.matchedExamples || []);
+    }
+    
+    if (allExamples.length > 0) {
+      examplesDiv.innerHTML = '<h3>ꤢ꤬ꤚꤢꤪꤒꤢ꤬ꤟꤢꤩ꤬꤯ Examples:</h3>' + allExamples.map(example => `<p>[ ${example} ]</p>`).join('');
+    } else {
+      examplesDiv.innerHTML = '';
+    }
   } else {
     resultsDiv.style.display = 'block';
-    translationContentDiv.innerHTML = 'ꤗꤛꤢꤓꤛꤢꤩ꤬ ꤜꤤ꤬ꤕꤜꤢꤪ꤬ꤒꤥ꤬꤯ Word not found.';
-    examplesDiv.innerHTML = '';
+    translationContentDiv.innerHTML = `<div style="color: red; margin-bottom: 15px; font-style: italic;">
+        ꤋꤛꤢꤞꤢꤧꤘꤥ꤭! ꤠꤢ꤭ ꤗꤛꤢꤓꤛꤢꤩ꤬ꤜꤤ꤬ꤕꤜꤢꤪ꤬ "${searchTerm}" ꤥ꤬ꤒꤥ꤬ꤔꤤ~꤯
+      </div>`;
   }
   relatedWordsDiv.style.display = 'none';
 }
