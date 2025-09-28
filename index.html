@@ -136,7 +136,7 @@ input {
   padding-right: 100px;
   width: 100%;
   box-sizing: border-box;
-  font-size: 16px;
+  font-size: 17px;
   background-color: #FFFFFF;
   border-radius: 50px;
 }
@@ -238,7 +238,7 @@ input {
   background: #FFC0CB;
   border: 0px solid #FFC0CB;
   border-radius: 5px;
-  max-height: 570px;
+  max-height: 600px;
   overflow-y: auto;
   display: none;
   z-index: 1;
@@ -248,7 +248,7 @@ input {
   background: white;
   padding: 10px;
   padding-left: 18px;
-  margin: 5px;
+  margin: 3px;
   cursor: pointer;
   border-radius: 5px;
   box-shadow: 0px 0px 3px black;
@@ -265,7 +265,7 @@ input {
   border: 0px solid #ddd;
   padding: 20px;
   margin: 0px 0;
-  border-radius: 3px;
+  border-radius: 10px;
   background-color: white;
   margin-left: 10px;
   margin-right: 10px;
@@ -288,16 +288,15 @@ input {
   margin-bottom: 0px;
   font-weight: bold;
   padding: 5px;
-  font-size: 1.3em;
+  font-size: 1.4em;
 }
 .karenni-line {
   color: black;
-  box-shadow: -2px 2px 0px grey;
   margin-bottom: 3px;
   display: block;
   margin-left: 20px;
   padding: 5px;
-  font-size: 1.1em;
+  font-size: 1.2em;
 }
 .pos {
   color: black;
@@ -582,7 +581,38 @@ const dictionary = {
   english: "ability",
   karenni: "ꤔꤟꤢꤩꤒꤟꤢꤧ꤬ꤡꤟꤛꤢꤘꤢꤧ꤬, ꤒꤟꤢꤧ꤬ꤡꤟꤛꤢꤒꤟꤢꤧ꤬ꤘꤢꤧ꤬, ꤒꤟꤢꤧ꤬ꤡꤟꤛꤢꤘꤢꤧ꤬, ꤒꤟꤢꤧ꤬ꤡꤟꤛꤢꤔꤟꤢꤩꤘꤢꤧ꤬, ꤒꤟꤢꤧ꤬ꤡꤟꤛꤢꤘꤢꤧ꤬ꤗꤟꤢꤩ꤬ꤔꤢꤪ",
   translation: "ability /n/",
-  examples: []
+  examples: ["DESCRIBING ABILITIES",
+"I can do it.ꤠꤢ꤭ ꤗꤟꤢꤩ꤬ꤡꤟꤛꤢ ꤕꤚꤢꤧ꤯",
+"I cannot do it. ꤠꤢ꤭ ꤗꤟꤢꤩ꤬ꤡꤟꤛꤢ ꤒꤥ꤬꤯",
+"You can do it. ꤔꤟꤢꤧ꤬ ꤗꤟꤢꤩ꤬ꤡꤟꤛꤢ ꤕꤚꤢꤧ꤯",
+"I give up. ꤠꤢ꤭ ꤋꤛꤢꤜꤢ꤬ꤡꤟꤢꤨ꤯",
+"Don't give up. ꤋꤢ꤬ꤜꤢ꤬ꤡꤟꤢꤨ ꤒꤢꤧ꤭ꤗꤟꤢꤩ꤯",
+"Try it again. ꤛꤢꤡꤢꤦꤕꤟꤥꤞꤛꤢ꤯",
+"I couldn't understand it. ꤠꤢ꤭ ꤞꤢꤧꤑꤢꤩ꤭ꤕꤢ꤭ ꤒꤥ꤬ꤟꤢꤪ꤯",
+"I'm afraid I won't be able to go. ꤠꤢ꤭ꤞꤢꤧꤤ꤬ꤏꤢꤩ꤭ ꤠꤢ꤭ꤡꤛꤣꤔꤟꤤꤕꤢ꤭ꤒꤥ꤬꤯",
+"Can you play any musical instrument? ꤔꤟꤢꤧ꤬ ꤜꤢ꤬ꤠꤢꤪ꤭ꤡꤟꤛꤢ ꤒꤟꤢꤧ꤬ꤘꤢꤪ꤬ꤒꤟꤢꤧ꤬ꤢꤟꤌꤣ ꤟꤟꤢꤧ꤭?",
+"Can you drive a car? ꤔꤟꤢꤧ꤬ ꤠꤟꤢꤧꤡꤟꤛꤢ ꤜꤟꤥꤡꤢꤧꤟꤟꤢꤧ꤭?",
+"Do you think I can do it? ꤔꤟꤢꤧ꤬ꤒꤢ꤬ꤔꤟꤢꤩ꤬ ꤔꤢ ꤠꤢ꤭ꤗꤟꤢꤩ꤬ꤡꤟꤛꤢꤟꤟꤢꤧ꤭?",
+"Of cause you can. ꤢꤪ꤬ꤔꤤ~ꤔꤟꤢꤧ꤬ꤡꤟꤛꤢꤕꤚꤢꤧ꤯",
+"If I can do it, you can do it too. ꤊꤤ꤬ ꤠꤢ꤭ꤗꤟꤢꤩ꤬ꤡꤟꤛꤢ, ꤔꤟꤢꤧ꤬ꤙꤢꤧ꤬ꤙꤢꤧ꤬ ꤗꤟꤢꤩ꤬ꤡꤟꤛꤢꤕꤚꤢꤧ꤯",
+"Believe me it's not that hard. ꤐꤟꤢꤦꤢꤩ꤬ꤠꤢ꤭ ꤔꤛꤣ꤬ꤢ꤬ꤛꤛꤢꤔꤢꤒꤥ꤬꤯",
+"You can do it just as well as I can. ꤠꤢ꤭ꤡꤟꤛꤢꤚꤛꤢꤖꤢꤨꤒꤢꤩ꤭ ꤔꤟꤢꤧ꤬ꤗꤟꤢꤩ꤬ꤡꤟꤛꤢꤕꤚꤢꤧ꤯",
+"Can you speak English? ꤔꤟꤢꤧ꤬ ꤟꤢꤩꤙꤢꤧ꤬ꤡꤟꤛꤢ ꤊꤢꤨ꤭ꤜꤢ꤭ꤍꤟꤥ ꤟꤟꤢꤧ꤭?",
+"Of cause I can. ꤢꤪ꤬ꤔꤤ~ꤠꤢ꤭ꤡꤟꤛꤢ",
+"Just a little. ꤒꤤ꤬ꤊꤤ꤬ꤖꤢꤨꤕꤚꤢꤧ꤯",
+"Not very well. ꤚꤛꤢꤚꤛꤢꤒꤥ꤬꤯",
+"Not at all. ꤒꤤ꤬ꤊꤤꤒꤥ꤬꤯",
+"It's my native language. ꤗꤟꤢꤠꤢ꤭ ꤘꤢꤪ꤭ꤏꤥ꤬ꤍꤟꤥꤟꤢꤩꤙꤢꤧ꤬꤯",
+"I was born in America. ꤠꤢ꤭ ꤥ꤬ꤜꤟꤛꤢ꤬ ꤘꤣ ꤢ꤬ꤗꤢꤩ꤬ꤚꤤꤊꤢ꤬꤯",
+"How well do you speak Spanish? ꤔꤟꤢꤧ꤬ ꤟꤢꤩꤙꤢꤧ꤬ ꤎꤕꤢꤧ꤭ꤔꤟꤤ꤭ꤍꤟꤥ ꤡꤟꤛꤢꤙꤢꤒꤢꤩ꤭?",
+"Pretty well. ꤡꤟꤛꤢꤜꤢ꤭ (ꤚꤛꤢꤜꤢ꤭)",
+"Quite well. ꤚꤛꤢꤙꤢꤧ꤬ꤗꤢꤧꤕꤚꤢꤧ꤯",
+"Are you good at math? ꤔꤟꤢꤧ꤬ ꤡꤟꤛꤢꤚꤛꤢ ꤘꤝꤢ ꤟꤟꤢꤧ꤭?",
+"Yes, I think so. ꤗꤟꤢ, ꤠꤢ꤭ ꤒꤢ꤬ꤔꤟꤢꤩ꤬ꤔꤛꤣ꤬꤯",
+"No, not really. ꤒꤥ꤬, ꤔꤟꤤꤔꤛꤢ꤬ꤒꤥ꤬꤯",
+"Will I ever learn to speak Japanese? ꤠꤢ꤭ ꤤ꤬ꤞꤛꤥꤟꤢꤩꤙꤢꤧ꤬ꤔꤢꤪ ꤡꤟꤢ꤬ꤕꤢ꤬ꤍꤟꤥ ꤕꤢ꤭ꤟꤟꤢꤧ꤭?",
+"Of cause you will. ꤢꤪ꤬ꤔꤤ~ ꤔꤟꤢꤧ꤬ꤕꤢ꤭꤯",
+"You're getting better all the time. ꤔꤟꤢꤧ꤬ ꤚꤛꤢꤟꤛꤢ꤭ ꤕꤝꤟꤥ꤭ꤑꤢꤩ꤭ꤕꤝꤟꤥ꤭ꤞꤢꤧ꤭ꤟꤢꤪ꤯"]
 },
 "able": {
   english: "able",
@@ -618,7 +648,9 @@ const dictionary = {
   english: "about",
   karenni: "ꤢ꤬ꤚꤤ꤬ꤢ꤬ꤊꤛꤢ꤭꤯ ꤥ꤬ꤡꤟꤛꤢ  /adv/ ꤙꤢꤧ꤬ꤊꤛꤢꤔꤢ",
   translation: "about /prep/",
-  examples: ["about to die ꤊꤟꤢꤦꤚꤟꤢꤩ ꤞꤛꤢꤩ꤭ꤒꤢ꤬ꤜꤤ"]
+  examples: ["about to die ꤊꤟꤢꤦꤚꤟꤢꤩ ꤞꤛꤢꤩ꤭ꤒꤢ꤬ꤜꤤ",
+  "I've heard so much about you. ꤠꤢ꤭ ꤔꤟꤤꤟꤌꤣ꤭ꤢꤧꤓꤛꤣ꤭ ꤔꤟꤢꤧ꤬ꤢ꤬ꤚꤤ꤬ꤢ꤬ꤊꤛꤢ꤭ ꤟꤢꤪ꤯",
+"I've heard many nice things about you. ꤠꤢ꤭ ꤔꤟꤤꤟꤌꤣ꤭ꤢꤧꤓꤛꤣ꤭ ꤔꤟꤢꤧ꤬ꤚꤤ꤬ꤊꤛꤢ꤭ꤒꤟꤢꤧ꤬ꤒꤝꤟꤥꤚꤛꤢ ꤟꤢꤪ꤯"]
 },
 "above": {
   english: "above",
@@ -666,6 +698,12 @@ const dictionary = {
   english: "abyss",
   karenni: "ꤊꤚꤢꤪ꤭, ꤊꤚꤢꤪ꤭ꤊꤢꤨ꤭ꤐꤟꤢ꤭, ꤗꤤ꤬ꤕꤟꤥ꤬ꤘꤢꤨ꤬ꤊꤢꤨ꤭",
   translation: "abyss /n/",
+  examples: []
+},
+"AC": {
+  english: "AC",
+  karenni: "alternating current, air conditioning, appellation contrôlée, athletic club, North American English acre, before Christ",
+  translation: "AC /abbr/",
   examples: []
 },
 "accept": {
@@ -1737,6 +1775,12 @@ const dictionary = {
   "english": "apologize",
   "karenni": "ꤊꤝꤤ꤭ꤞꤢꤧꤐꤟꤢꤪ꤬",
   "translation": "apologize /v/",
+  "examples": []
+},
+"app": { 
+  "english": "app",
+  "karenni": "an application or application form, a piece of software designed to perform a particular function, especially one designed specifically to run on a mobile phone or similar device",
+  "translation": "app /n/",
   "examples": []
 },
 "apparition": { 
@@ -3063,9 +3107,10 @@ const dictionary = {
   },
   "been": {
     "english": "been",
-    "karenni": "pp of BE",
+    "karenni": "pp of BE, ꤥ꤬, ꤡꤛꤣꤥ꤬, ꤓꤝꤟꤥ꤭, ꤟꤛꤢ꤭",
     "translation": "been /v3/",
-    "examples": ["ꤥ꤬, ꤡꤛꤣꤥ꤬, ꤓꤝꤟꤥ꤭, ꤟꤛꤢ꤭"]
+    "examples": ["How long have you been here? ꤔꤟꤢꤧ꤬ ꤟꤛꤢ꤭ꤥ꤬ꤙꤤꤛꤢꤩ꤭ ꤢ꤬ꤑꤟꤢꤩ꤭ꤟꤢꤪ ꤙꤢꤒꤢꤩ꤭?",
+    "I've been here for 2 years. ꤠꤢ꤭ ꤟꤛꤢ꤭ꤥ꤬ꤙꤤꤛꤢꤩ꤭ ꤔꤛꤢꤩ꤭ꤔꤢ꤬ ꤟꤢꤪ꤯"]
   },
   "beer": {
     "english": "beer",
@@ -4568,8 +4613,12 @@ const dictionary = {
     "translation": "by /prep/",
     "examples": ["by oneself ꤔꤟꤤꤘꤢꤦ꤬"]
   },
-  
-  
+  "bye": {
+    "english": "bye",
+    "karenni": "ꤡꤛꤣꤟꤢꤪ, ꤡꤛꤣꤟꤢꤪꤔꤤ",
+    "translation": "bye /interj/",
+    "examples": []
+  },
   "curriculum": { 
   "english": "curriculum",
   "karenni": "ꤜꤤ꤬ꤒꤢ꤬ꤚꤤ꤬ꤔꤢꤩ꤬ ꤜꤟꤢꤩꤞꤛꤥꤒꤟꤢ꤭",
@@ -4812,6 +4861,12 @@ const dictionary = {
   "english": "canvass",
   "karenni": "ꤡꤝꤤ꤬ꤗꤟꤢꤧ",
   "translation": "canvass /v/",
+  "examples": []
+},
+"cap": { 
+  "english": "cap",
+  "karenni": "ꤋꤢꤨ꤬ꤊꤜꤝꤟꤥ꤭, ꤊꤢꤨꤕꤋꤢꤨ꤬ꤊꤜꤝꤟꤥ꤭",
+  "translation": "cap /n/",
   "examples": []
 },
 "cape": { 
@@ -5152,7 +5207,7 @@ const dictionary = {
 },
 "center": { 
   "english": "center",
-  "karenni": "ꤊꤜꤢ꤭ꤗꤢꤩ꤭, ꤊꤜꤢ꤭ꤗꤢꤩ꤭ꤊꤜꤢ꤭ꤗꤢꤦ, ꤊꤜꤢ꤭ꤗꤢꤩ꤭ꤊꤢꤨ꤭",
+  "karenni": "ꤊꤜꤢ꤭ꤗꤢꤩ꤭, ꤊꤜꤢ꤭ꤗꤢꤩ꤭ꤊꤜꤢ꤭ꤗꤢꤦ, ꤊꤜꤢ꤭ꤗꤢꤩ꤭ꤊꤢꤨ꤭, ꤌꤤꤊꤢꤨ꤭",
   "translation": "center /n/",
   "examples": []
 },
@@ -6858,7 +6913,7 @@ const dictionary = {
 },
 "core": { 
   "english": "core",
-  "karenni": "(ꤞꤎꤢꤪ꤬ꤞꤢꤧ꤬)ꤊꤤ, ꤊꤜꤢ꤭ꤗꤢꤩ꤭ꤊꤤ, ꤢ꤬ꤋꤢ꤭ꤏꤛꤢꤩꤜꤣ, ꤢ꤬ꤚꤢꤩ꤬ꤘꤢꤨ꤬ꤜꤣ, ꤢ꤬ꤜꤥ꤬ꤘꤢꤨ꤬ꤜꤣ, ꤢ꤬ꤒꤥ꤭ꤘꤢꤨ꤬ꤜꤣ /v/ ꤖꤛꤢꤩꤓꤢꤩ꤬ꤊꤛꤢ꤭ ꤢ꤬ꤊꤤ",
+  "karenni": "(ꤞꤎꤢꤪ꤬ꤞꤢꤧ꤬)ꤌꤤ, ꤊꤜꤢ꤭ꤗꤢꤩ꤭ꤌꤤ, ꤢ꤬ꤋꤢ꤭ꤏꤛꤢꤩꤜꤣ, ꤢ꤬ꤚꤢꤩ꤬ꤘꤢꤨ꤬ꤜꤣ, ꤢ꤬ꤜꤥ꤬ꤘꤢꤨ꤬ꤜꤣ, ꤢ꤬ꤒꤥ꤭ꤘꤢꤨ꤬ꤜꤣ /v/ ꤖꤛꤢꤩꤓꤢꤩ꤬ꤊꤛꤢ꤭ ꤢ꤬ꤌꤤ",
   "translation": "core /n/",
   "examples": []
 },
@@ -8187,7 +8242,39 @@ const dictionary = {
     "english": "describe", 
     "karenni": "ꤟꤢꤩꤜꤟꤌꤣ꤭, ꤘꤛꤢ꤬ꤜꤟꤌꤣ꤭, ꤒꤥ꤭ꤗꤢ꤬ꤊꤛꤢ꤭", 
     "translation": "describe /v/", 
-    "examples": [] 
+    "examples": ["DESCRIBING THINGS",
+	"What does it look like? ꤢ꤬ ꤞꤛꤢꤔꤢ ꤖꤢꤨꤒꤢꤩ꤭?",
+"What is it like? ꤞꤛꤢꤢꤛꤢ ꤖꤢꤨꤒꤢꤩ꤭?",
+"It's quite new. ꤢ꤬ꤞꤢꤧ꤭ ꤔꤛꤢ꤬ꤡꤢꤪ꤯",
+"It's rather old.  ꤢ꤬ꤜꤟꤛꤢꤩ꤬ ꤒꤤ꤬ꤊꤤ꤬ꤟꤢꤪ꤯",
+"It's about three years old. ꤢ꤬ ꤥ꤬ꤡꤟꤛꤢ ꤞꤛꤣ꤭ꤔꤢ꤬ ꤟꤢꤪ꤯",
+"It's quite a small watch with a leather strap. ꤗꤢꤦ꤭ꤒꤥ꤭ꤕꤢ꤬ꤒꤤ ꤥ꤬ꤔꤢ ꤖꤢꤊꤚꤢ꤭ꤕꤜꤛꤢꤩ꤬꤯",
+"What sort is your watch? ꤔꤟꤢꤧ꤬ ꤗꤢꤦ꤭ꤒꤥ꤭ ꤗꤢ꤬ ꤖꤢꤨꤒꤢꤩ꤭ꤊꤜꤢꤪꤒꤢꤩ꤭?",
+"It's a Seiko digital man's watch. ꤢ꤬ꤗꤢ꤬ ꤎꤢꤧ꤬ꤊꤥ꤬ꤘꤤ꤭ꤡꤤ꤭ꤓꤥ꤭ ꤕꤚꤟꤢꤧ꤬ꤋꤢꤨ꤭ꤗꤢꤦ꤭ꤒꤥ꤭꤯",
+"What condition is it in? ꤢ꤬ꤊꤢꤨ꤭ ꤏꤛꤣꤋꤢꤧ꤭ꤗꤢ꤬ ꤗꤟꤢꤩ꤬ꤖꤢꤨꤒꤢꤩ꤭?",
+"It is in excellent condition. ꤏꤛꤣꤋꤢꤧ꤭ ꤚꤛꤢꤜꤣꤊꤜꤢꤪ꤭꤯",
+"It is in poor condition. ꤏꤛꤣꤋꤢꤧ꤭ ꤚꤛꤢꤕꤢ꤭ꤒꤥ꤬꤯",
+"It is slightly damaged. ꤢ꤬ꤕꤛꤢꤩ ꤒꤤ꤬ꤊꤤ꤬ꤟꤢꤪ",
+"It is slightly scratched. ꤢ꤬ꤊꤚꤢꤩ꤬ ꤒꤤ꤬ꤊꤤ꤬ꤟꤢꤪ꤯",
+"The strap is ripped. ꤏꤢꤨ꤬ꤕꤜꤛꤢꤩ꤬ꤖꤢ ꤊꤛꤢꤩ꤭ꤟꤢꤪ꤯",
+"The strap is very old. ꤋꤢꤨ꤬ꤕꤜꤛꤢꤩ꤬ꤖꤢ ꤢ꤬ꤜꤟꤛꤢꤩꤜꤢ꤭ꤟꤢꤪ꤯",
+"What is it made of? ꤢ꤬ꤗꤢ꤬ ꤙꤛꤢꤓꤢꤩ꤬ꤔꤢ ꤒꤤ꤭ꤢꤩ꤭?",
+"What are they made of? ꤢꤧ꤬ꤞꤤ꤭ꤗꤢ꤬ ꤙꤛꤢꤓꤢꤩ꤬ꤔꤢ ꤒꤤ꤭ꤒꤢꤩ꤭?",
+"It is made of gold. ꤢ꤬ꤗꤢ꤬ ꤙꤛꤢꤓꤢꤩ꤬ꤔꤢ ꤓꤢꤧ꤭꤯",
+"They are made of wood. ꤢꤧ꤬ꤞꤤ꤭ꤗꤢ꤬ ꤙꤛꤢꤓꤢꤩ꤬ꤔꤢ ꤞꤎꤢꤪ꤬꤯",
+"Which one is yours? ꤔꤟꤢꤧ꤬ꤒꤢꤧ꤭ꤗꤢ꤬ ꤙꤤꤒꤢꤩ꤭ꤒꤣ꤬ꤊꤟꤌꤣ꤬ꤒꤢꤩ꤭?",
+"The one with the zip.ꤒꤣ꤬ꤊꤟꤌꤣ꤬ ꤕꤢ꤬ꤔꤢ ꤡꤟꤢ꤬ꤐꤢ꤭ꤙꤤ",
+"Which of them are in Japan? ꤡꤛꤢ꤬ꤕꤢ꤬ ꤗꤟꤢꤩ꤬ꤗꤢ꤬ ꤙꤤꤒꤢꤩ꤭ꤒꤣ꤬ꤊꤟꤌꤣ꤬ꤟꤟꤢꤧ꤭?",
+"They all are. ꤥ꤬ ꤜꤟꤢꤪ꤭ꤕꤜꤤ꤭ꤕꤚꤢꤧ꤯",
+"All of them are. ꤢꤧ꤬ꤞꤤ꤭ ꤥ꤬ ꤜꤟꤢꤪ꤭ꤕꤜꤤ꤭ꤕꤚꤢꤧ",
+"None of them are. ꤥ꤬ ꤒꤣ꤬ꤊꤟꤌꤣꤒꤥ꤬",
+"Which of them have guarantees? ꤙꤤꤒꤢꤩ꤭ꤒꤣ꤬ꤊꤟꤌꤣ꤬ ꤕꤛꤢꤩꤕꤛꤢꤩꤒꤥ꤬ꤞꤢꤧꤑꤢꤩ꤭ ꤟꤟꤢꤧ꤭?",
+"Are any of them made of silver? ꤙꤛꤢꤔꤢꤚꤢꤦ꤭ ꤥ꤬ꤒꤣ꤬ꤟꤢꤩ꤬ꤟꤢꤩ꤬ ꤟꤟꤢꤧ꤭?",
+"Can you describe your bag? ꤔꤟꤢꤧ꤬ ꤟꤢꤩ꤬ꤏꤥ꤬ꤔꤟꤢꤧ꤬ ꤕꤟꤛꤢꤩ꤭ ꤡꤟꤛꤢꤙꤢꤧꤟꤟꤢꤧ꤭?",
+"It is a man's bag. ꤢ꤬ꤗꤢ꤬ ꤕꤚꤟꤢꤧ꤬ꤋꤢꤨ꤭ꤕꤟꤛꤢꤩ꤭꤯",
+"It is a big brown bag with a lock. ꤢ꤬ꤗꤢ꤬ ꤕꤟꤛꤢꤩ꤭ꤘꤢꤨ꤬ꤢꤪ ꤕꤢ꤬ꤔꤢ ꤞꤢꤪ꤯",
+"What sort of shirt is she wearing? ꤢꤧ꤬ꤗꤢ꤬ ꤞꤛꤢꤡꤟꤢ꤬ ꤖꤢꤨꤒꤢꤩ꤭ ꤒꤢ꤬ꤟꤢꤩ꤬ꤒꤢꤩ꤭?",
+"It is a green with buttons up the front. ꤢ꤬ꤗꤢ꤬ ꤢ꤬ꤞꤛꤣ꤭ ꤕꤢ꤬ꤔꤢ ꤡꤟꤢ꤬ꤞꤢꤧ꤬ꤕꤜꤢꤪ꤬꤯"] 
   },
   "description": { 
     "english": "description", 
@@ -9026,11 +9113,14 @@ const dictionary = {
 },
 "does": { 
   "english": "does",
-  "karenni": "ꤗꤟꤢꤩ꤬ /question/ ꤟꤟꤢꤧ꤭",
+  "karenni": "ꤗꤟꤢꤩ꤬ /question/ ꤟꤟꤢꤧ꤭?",
   "translation": "does /v/",
   "examples": ["She does her homework. ꤢꤧ꤬ꤗꤟꤢꤩ꤬ ꤢꤧ꤬ꤜꤤ꤬ꤟꤤ꤬ꤘꤢꤪ꤯",
   "Does he know? ꤢꤧ꤬ ꤞꤢꤧꤑꤢꤩ꤭ ꤟꤢꤧ꤭?",
-  "Does it work? ꤢ꤬ ꤗꤟꤢꤩ꤬ꤒꤟꤢꤧ꤬ ꤕꤚꤢꤧꤟꤟꤢꤧ꤭?"]
+  "Does it work? ꤢ꤬ ꤗꤟꤢꤩ꤬ꤒꤟꤢꤧ꤬ ꤕꤚꤢꤧꤟꤟꤢꤧ꤭?",
+  "What does she look like? ꤢꤧ꤬ ꤞꤛꤢꤔꤢ ꤖꤢꤨꤒꤢꤩ꤭?",
+"Does he wear glasses? ꤢꤧ꤬ ꤊꤛꤢ ꤗꤟꤢ꤭ꤘꤟꤌꤣ꤬ꤊꤛꤢ ꤟꤟꤢꤧ꤭?",
+"No, he doesn't. He wears contact lens. ꤒꤥ꤬, ꤢꤧ꤬ꤔꤢꤪꤒꤥ꤬꤯ ꤢꤧ꤬ ꤊꤛꤢ ꤗꤢꤧ꤬ꤞꤢꤧ꤬ꤕꤜꤢꤪ꤬ꤊꤢꤪ꤭꤯"]
 },
 "doesn't": { 
   "english": "doesn't",
@@ -9799,7 +9889,7 @@ const dictionary = {
 },
 "egg yolk": { 
   "english": "egg yolk",
-  "karenni": "ꤓꤢꤨ꤬ꤘꤛꤢꤩ꤬ꤊꤟꤤ",
+  "karenni": "ꤓꤢꤨ꤬ꤘꤛꤢꤩ꤬ꤌꤤ",
   "translation": "egg yolk /n/",
   "examples": []
 },
@@ -11578,7 +11668,8 @@ const dictionary = {
   "english": "fine",
   "karenni": "ꤒꤟꤢꤧ꤬ꤙꤢꤧ꤬ꤏꤢꤧ꤭ꤡꤟꤛꤢꤩ꤭ꤚꤢꤦ꤭ꤒꤛꤢ, ꤚꤢꤦ꤭ꤗꤟꤢꤩ꤬ꤜꤛꤢꤢꤩ꤬ /adj/ ꤥ꤬ꤗꤟꤥ꤬, ꤢ꤬ꤚꤛꤢ, ꤢ꤬ꤒꤝꤟꤥ, ꤢ꤬ꤚꤛꤢꤞꤢ꤭ꤚꤛꤢ꤭ /v/ ꤗꤟꤢꤦ꤭ꤢꤩ꤬ꤋꤢꤨ꤬",
   "translation": "fine /n/",
-  "examples": []
+  "examples": ["Fine, thanks. And you? ꤥ꤬ꤗꤟꤥ꤬ꤕꤚꤢꤧ, ꤒꤟꤢꤧ꤬ꤙ꤉ꤤ꤯ ꤔꤟꤢꤧ꤬ꤜꤢꤩ꤭?",
+"I'm fine, thank you. And you? ꤠꤢ꤭ ꤥ꤬ꤗꤟꤥ꤬ꤕꤚꤢꤧ, ꤒꤟꤢꤧ꤬ꤙ꤉ꤤ꤯ ꤔꤟꤢꤧ꤬ꤜꤢꤩ꤭?"]
 },
 "finger": {
   "english": "finger",
@@ -11936,21 +12027,21 @@ const dictionary = {
 "flow down": {
   "english": "flow down",
   "karenni": "ꤓꤝꤤꤒꤟꤢ꤭, ꤓꤝꤤꤜꤟꤛꤢ꤬",
-  "translation": "flow down /phr/",
+  "translation": "flow-down /phr/",
   "examples": []
 },
 
 "flow out": {
   "english": "flow out",
   "karenni": "ꤓꤝꤤꤓꤢꤩ꤬",
-  "translation": "flow out /phr/",
+  "translation": "flow-out /phr/",
   "examples": []
 },
 
 "flow in": {
   "english": "flow in",
   "karenni": "ꤓꤝꤤꤔꤟꤌꤣ꤭",
-  "translation": "flow in /phr/",
+  "translation": "flow-in /phr/",
   "examples": []
 },
 
@@ -12500,7 +12591,11 @@ const dictionary = {
     "karenni": "ꤘꤣꤢ꤬ꤥ꤬, ꤘꤣ, ꤘꤣꤙꤤ",
     "translation": "from /prep/",
     "examples": ["from now on ꤒꤟꤢ꤭ꤕꤢ꤬ꤟꤛꤢ꤭, ꤒꤟꤢ꤭ꤟꤛꤢ꤭ꤑꤢꤩ꤭",
-	"from top to bottom ꤊꤢ꤬ꤓꤛꤢ꤬ꤊꤢ꤬ꤜꤟꤛꤢ"]
+	"from top to bottom ꤊꤢ꤬ꤓꤛꤢ꤬ꤊꤢ꤬ꤜꤟꤛꤢ",
+	"Where are you from? ꤔꤟꤢꤧ꤬ ꤥ꤬ꤙꤤꤒꤢꤩ꤭ ꤟꤛꤢ꤭ꤟꤟꤢꤧ꤭?",
+    "I'm from America. ꤠꤢ꤭ꤥ꤬ ꤢ꤬ꤗꤢꤩ꤬ꤚꤤꤊꤢ꤬ ꤟꤛꤢ꤭꤯",
+    "Where do you come from? ꤔꤟꤢꤧ꤬ ꤥ꤬ꤘꤣꤙꤤꤒꤢꤩ꤭ ꤟꤛꤢ꤭ꤟꤟꤢꤧ꤭?",
+    "I come from Thailand. ꤠꤢ꤭ ꤥ꤬ꤘꤣ ꤕꤚꤟꤢꤩꤐ꤉ꤤ꤬-ꤊꤟꤢꤩ ꤟꤛꤢ꤭꤯"]
   },
   "front": {
     "english": "front",
@@ -13064,7 +13159,7 @@ const dictionary = {
     "english": "glad",
     "karenni": "ꤞꤢꤧꤊꤚꤟꤢꤦ꤭ꤞꤢꤧꤜꤟꤢꤪ꤭",
     "translation": "glad /adj/",
-    "examples": []
+    "examples": ["I'm so glad to see you again. ꤗꤛꤢꤓꤛꤢꤩ꤬ ꤞꤛꤢꤔꤟꤢꤧ꤬ ꤠꤢ꤭ ꤞꤢꤧꤊꤚꤟꤢꤦ꤭ꤞꤢꤧꤜꤟꤢꤪ꤭ ꤜꤢ꤭꤯"]
   },
   "gladden": {
     "english": "gladden",
@@ -13362,8 +13457,21 @@ const dictionary = {
       "good place ꤋꤢ꤭ꤜꤟꤢꤩꤚꤛꤢ",
       "good things ꤒꤟꤢꤧ꤬ꤒꤝꤟꤥꤒꤟꤢꤧ꤬ꤚꤛꤢ",
       "good luck ꤙꤝꤤꤘꤢꤨ꤬ꤒꤢ꤬ꤚꤛꤢꤩ꤭ꤓꤢꤨ꤭",
-      "very good ꤚꤛꤢꤔꤛꤢ꤬ꤡꤢꤪ(ꤚꤛꤢꤜꤢ꤭)"
-    ]
+      "very good ꤚꤛꤢꤔꤛꤢ꤬ꤡꤢꤪ(ꤚꤛꤢꤜꤢ꤭)",
+	  "Good morning! ꤒꤟꤢꤧ꤬ꤚꤛꤢꤙꤢꤧ꤬ ꤗꤟꤢꤪꤜꤤ꤭꤯",
+      "Good afternoon! ꤒꤟꤢꤧ꤬ꤚꤛꤢꤙꤢꤧ꤬ ꤗꤟꤢꤪꤓꤌꤣ꤬꤯",
+      "Good evening! ꤒꤟꤢꤧ꤬ꤚꤛꤢꤙꤢꤧ꤬ ꤗꤟꤢꤪꤟꤢꤩ꤯",
+	  "Good, thanks ꤚꤛꤢꤕꤚꤢꤧ꤯ ꤒꤟꤢꤧ꤬ꤙ꤉ꤤ꤯",
+	  "It's good to see you again. ꤗꤛꤢꤓꤛꤢꤩ꤬ ꤞꤛꤢꤔꤟꤢꤧ꤬ ꤢ꤬ꤚꤛꤢꤕꤚꤢꤧ꤯",
+	  "Good night. ꤒꤟꤢꤧ꤬ꤚꤛꤢꤙꤢꤧ꤬ ꤗꤟꤢꤪꤋꤤ꤯",
+      "Have a good day. ꤗꤟꤢꤪꤑꤢꤩ꤭ ꤚꤛꤢꤘꤢꤦ꤬ꤔꤤ꤯",
+      "Have a good evening. ꤗꤟꤢꤪꤟꤢꤩ ꤚꤛꤢꤘꤢꤦ꤬ꤔꤤ꤯"]
+  },
+  "goodbye": {
+    "english": "goodbye",
+    "karenni": "ꤡꤛꤣꤟꤢꤪ, ꤡꤛꤣꤟꤢꤪꤔꤤ",
+    "translation": "goodbye /interj/",
+    "examples": []
   },
   "goof": {
     "english": "goof",
@@ -14226,6 +14334,14 @@ const dictionary = {
     "examples": [
       "don't have ꤥ꤬ꤒꤥ꤬"]
   },
+    "haven't": {
+    "english": "haven't",
+    "karenni": "ꤔꤢꤪꤒꤥ꤬",
+    "translation": "haven't /neg/",
+    "examples": ["haven't=have not",
+      "I haven't seen you for a long time. ꤠꤢ꤭ ꤗꤛꤢꤓꤛꤢꤩ꤬ꤔꤢꤪꤔꤟꤢꤧ꤬ꤒꤥ꤬ ꤢ꤬ꤑꤟꤢꤩ꤭ꤜꤢ꤭ꤟꤢꤪ꤯",
+	  "I haven't seen you in ages. ꤠꤢ꤭ ꤗꤛꤢꤓꤛꤢꤩ꤬ ꤔꤟꤢꤧ꤬ꤒꤥ꤬ ꤢ꤬ꤑꤟꤢꤩ꤭ꤜꤢ꤭ꤟꤢꤪꤟꤢꤧ꤯"]
+  },
   "hawk": {
     "english": "hawk",
     "karenni": "ꤜꤟꤢ꤭, ꤓꤢꤨ꤬ꤜꤟꤢ꤭",
@@ -15033,8 +15149,12 @@ const dictionary = {
 	"How many? ꤙꤢꤒꤢꤩ꤭?",
 	"How much ꤙꤢꤒꤢꤩ꤭?",
 	"how many days? ꤙꤢꤔꤛꤢꤩ꤭ꤒꤢꤩ꤭?",
-      "how many years? ꤙꤢꤔꤢ꤬ꤒꤢꤩ꤭?",
-      "how many people? ꤙꤢꤕꤚꤟꤢꤧ꤬ꤒꤢꤩ꤭?"]
+    "how many years? ꤙꤢꤔꤢ꤬ꤒꤢꤩ꤭?",
+    "how many people? ꤙꤢꤕꤚꤟꤢꤧ꤬ꤒꤢꤩ꤭?",
+	"How have you been? ꤔꤟꤢꤧ꤬ ꤏꤛꤣꤋꤢꤧ꤭ ꤗꤟꤢꤩ꤬ꤖꤢꤨꤒꤢꤩ꤭?",
+    "How's everything? (informal) ꤒꤟꤢꤧ꤬ꤜꤟꤢꤪ꤭ꤕꤜꤤ꤭ ꤚꤛꤢꤕꤚꤢꤧꤟꤟꤢꤧ꤭?",
+    "How's it going? (informal) ꤏꤛꤣꤋꤢꤧ꤭ ꤗꤟꤢꤩ꤬ꤖꤢꤨꤒꤢꤩ꤭?",
+    "How's your day? (informal) ꤔꤟꤢꤧ꤬ ꤒꤟꤢꤧ꤬ꤖꤛꤢꤩꤒꤟꤢꤧ꤬ꤗꤟꤢꤩ꤬ ꤗꤟꤢꤩ꤬ꤖꤢꤨꤒꤢꤩ꤭?"]
   },
   "however": {
     "english": "however",
@@ -16511,7 +16631,38 @@ const dictionary = {
     "english": "job",
     "karenni": "ꤒꤟꤢꤧ꤬ꤗꤟꤢꤩ꤬, ꤒꤟꤢꤧ꤬ꤖꤛꤢꤩꤒꤟꤢꤧ꤬ꤗꤟꤢꤩ꤬, ꤒꤟꤢꤧ꤬ꤗꤟꤢꤩ꤬ꤕꤝꤟꤥ꤭ꤑꤢꤩ꤭, ꤜꤢꤧ꤭ꤋꤝꤥꤜꤢꤧ꤭ꤊꤢꤧ꤬ꤒꤟꤢꤧ꤬ꤗꤟꤢꤩ꤬",
     "translation": "job /n/",
-    "examples": []
+    "examples": ["JOB INTERVIEW",
+"Do you have any working experience? ꤔꤟꤢꤧ꤬ ꤒꤟꤢꤧ꤬ꤗꤟꤢꤩ꤬ꤡꤟꤛꤢꤘꤢꤧ꤬ ꤥ꤬ꤒꤢ꤬ꤟꤢꤩ꤬ ꤟꤟꤢꤧ꤭?",
+"Do you have a driving licence? ꤔꤟꤢꤧ꤬ ꤜꤟꤢꤩꤠꤟꤢꤧꤜꤟꤢꤧ꤬ꤎꤢꤩ꤬ ꤥ꤬ꤕꤚꤢꤧꤟꤟꤢꤧ꤭?",
+"Do you have letters of recommendation? ꤔꤟꤢꤧ꤬ ꤜꤤ꤬ꤒꤢ꤬ꤓꤝꤟꤥꤓꤛꤢ꤬ꤜꤤ꤬ꤙꤢ꤬ ꤥ꤬ꤕꤚꤢꤧꤟꤟꤢꤧ꤭?",
+"No, but I think I can get them. ꤒꤥ꤬, ꤗꤢ꤬ꤔꤢ ꤠꤢ꤭ꤖꤛꤢꤩꤡꤟꤛꤢꤕꤚꤢꤧ ꤒꤢ꤬ꤔꤟꤢꤩ꤬ꤔꤛꤣ꤬꤯",
+"Do you know how to type? ꤔꤟꤢꤧ꤬ꤗꤟꤢꤦ꤭ ꤞꤢꤧꤑꤢꤩ꤭ ꤜꤤ꤬ꤕꤜꤢꤪ꤬ꤟꤟꤢꤧ꤭?",
+"How fast can you type? ꤔꤟꤢꤧ꤬ꤗꤟꤢꤦ꤭ꤕꤚꤛꤢ꤭ ꤡꤟꤛꤢꤙꤢꤒꤢꤩ꤭?",
+"About 70 words a minute. ꤒꤣ꤬ꤕꤚꤤꤗꤢ꤬ ꤕꤜꤢꤪ꤬꤇꤀ ꤙꤢꤔꤛꤣ꤬꤯",
+"I am not sure. ꤞꤢꤧꤑꤢꤩ꤭ ꤒꤟꤢ꤭ꤒꤟꤢꤩ꤬ꤒꤥ꤬꤯",
+"Can you work overtime? ꤔꤟꤢꤧ꤬ ꤗꤟꤢꤩ꤬ꤕꤟꤥꤜꤣ ꤡꤟꤛꤢꤕꤚꤢꤧ ꤒꤟꤢꤧ꤬ꤗꤟꤢꤩ꤬ꤟꤟꤢꤧ꤭?",
+"Would you be able to work on Saturday? ꤔꤟꤢꤧ꤬ ꤗꤟꤢꤩ꤬ꤡꤟꤛꤢꤙꤢꤧꤕꤢ꤭ꤕꤚꤢꤧ ꤗꤟꤢꤪꤊꤢ꤬ꤒꤟꤢꤪ꤬ ꤟꤟꤢꤧ꤭?",
+"How many language do you speak? ꤔꤟꤢꤧ꤬ ꤟꤢꤩꤙꤢꤧ꤬ ꤍꤟꤥꤙꤢꤡꤣ꤬ꤒꤢꤩ꤭?",
+"Three languages. English, Chinese and Italy. ꤍꤟꤥꤞꤛꤣ꤭ꤡꤣ꤬꤯ ꤊꤢꤨ꤭ꤜꤢ꤭, ꤟꤢꤩ꤭, ꤤ꤬ꤒꤢ꤭ꤜꤤ꤬꤯",
+"Do you know anything about management? ꤔꤟꤢꤧ꤬ꤞꤢꤧꤑꤢꤩ꤭ ꤒꤟꤢꤧ꤬ꤕꤣꤒꤢ꤬ꤚꤤ꤬ ꤒꤢ꤬ꤟꤢꤩ꤬ꤟꤢꤩ꤬ ꤟꤟꤢꤧ꤭?",
+"Yes, I studied it at university. ꤗꤟꤢ, ꤠꤢ꤭ ꤤ꤬ꤞꤛꤥꤔꤢꤪ ꤘꤣ ꤒꤟꤥꤘꤢꤨ꤬ꤒꤟꤥꤓꤢꤨ꤭",
+"No, I don't. ꤒꤥ꤬, ꤠꤢ꤭ꤒꤥ꤬꤯",
+"Are you interested in Business? ꤔꤟꤢꤧ꤬ ꤞꤢꤧꤕꤜꤢꤪ꤬ꤥ꤬ꤊꤟꤌꤣ꤭ ꤤ꤬ꤏꤢꤧ꤭ꤤ꤬ꤕꤚꤟꤤ꤬ ꤟꤟꤢꤧ꤭?",
+"Yes, I'm very interested in it. ꤗꤟꤢ, ꤠꤢ꤭ ꤞꤢꤧꤕꤜꤢꤪ꤬ꤥ꤬ ꤑꤢ꤬ꤡꤢꤪ꤯",
+"No, Not very much. ꤒꤥ꤬, ꤒꤢ꤬ꤜꤝꤥꤒꤥ꤬꤯ ꤢꤧꤙꤢꤔꤌꤣ꤬ꤒꤥ꤬꤯",
+"Would you be interested in a full-time or a part-time position? ꤔꤟꤢꤧ꤬ ꤞꤢꤧꤕꤜꤢꤪ꤬ꤥ꤬ ꤏꤛꤣꤋꤢꤧ꤭ꤜꤣꤙꤢ꤭ ꤕꤢ꤭ꤟꤟꤢꤧ꤭ ꤒꤥ꤬ꤗꤢ꤬ꤔꤢ ꤏꤛꤣꤋꤢꤧ꤭ꤊꤜꤛꤢ꤭ꤗꤢꤩ꤭ ꤟꤟꤢꤧ꤭?",
+"Can you work in the evening? ꤔꤟꤢꤧ꤬ ꤗꤟꤢꤩ꤬ꤡꤟꤛꤢꤕꤚꤢꤧ ꤗꤟꤢꤪꤟꤢꤩ ꤟꤟꤢꤧ꤭?",
+"What department would you be interested in working in? ꤗꤢꤙꤥ꤭ꤒꤤ꤭ꤒꤢꤩ꤭ ꤔꤟꤢꤧ꤬ ꤞꤢꤧꤕꤜꤢꤪ꤬ꤗꤟꤢꤩ꤬ꤟꤟꤢꤧ꤭?",
+"I would like to work in the sales department. ꤠꤢ꤭ ꤞꤢꤧꤗꤟꤢꤩ꤬ꤘꤣ ꤤ꤬ꤏꤢꤧ꤭ꤒꤟꤢꤧ꤬ꤗꤢꤙꤥ꤭꤯",
+"When would you be able to start? ꤔꤟꤢꤧ꤬ ꤡꤢꤓꤛꤢ꤬ ꤗꤟꤢꤩ꤬ꤡꤟꤛꤢꤕꤢ꤭ ꤙꤢꤪꤒꤢꤩ꤭?",
+"Within a week. ꤒꤣ꤬ꤊꤜꤢꤧꤢ꤬ꤊꤢꤨ꤭꤯",
+"I could start immediately. ꤠꤢ꤭ ꤡꤢꤓꤛꤢ꤬ꤡꤟꤛꤢ ꤒꤣ꤬ꤖꤟꤌꤣꤒꤟꤌꤣ꤭꤯",
+"Can you tell me more about the job? ꤔꤟꤢꤧ꤬ ꤟꤢꤩꤏꤥ꤬ꤜꤣꤕꤟꤥ ꤠꤢ꤭ ꤒꤟꤢꤧ꤬ꤗꤟꤢꤩ꤬ꤚꤤ꤬ꤊꤛꤢ꤭ ꤔꤟꤤꤕꤚꤢꤧꤟꤟꤢꤧ꤭?",
+"What are my responsibilities? ꤠꤢ꤭ ꤒꤟꤢꤧ꤬ꤘꤛꤢ꤬ꤋꤢꤨ꤬ꤗꤢ꤬ ꤒꤤ꤭ꤒꤢꤩ꤭?",
+"What's the salary? ꤜꤢꤧ꤭ꤊꤢꤧ꤬ꤗꤢ꤬ ꤙꤢꤒꤢꤩ꤭?",
+"What are the hours? ꤒꤣ꤬ꤗꤢꤦ꤭ꤗꤢ꤬ ꤙꤢꤒꤢꤩ꤭?",
+"How much would you expect to earn? ꤔꤟꤢꤧ꤬ ꤋꤥꤊꤢꤧ꤬ ꤊꤣꤔꤟꤤꤙꤢꤒꤢꤩ꤭ ꤥ꤬ꤒꤢ꤬ꤔꤟꤢꤩ꤬ꤟꤟꤢꤧ꤭?",
+"Oh! about $1800 a month. ꤥ! ꤒꤣ꤬ꤜꤢꤧ꤭ꤗꤢ꤬ $꤁꤈꤀꤀ ꤙꤢꤔꤛꤣ꤬꤯"]
   },
   "jog": { 
   "english": "jog",
@@ -16667,7 +16818,7 @@ const dictionary = {
     "english": "just",
     "karenni": "ꤕꤚꤢꤧ, ꤡꤢꤪꤒꤟꤢꤩ꤬, ꤒꤢꤦ, ꤗꤟꤢ",
     "translation": "just /particle/, /adj/",
-    "examples": [
+    "examples": ["Just fine ꤢ꤬ꤚꤛꤢꤕꤚꤢꤧ꤯",
       "just happened ꤗꤥꤕꤢ꤭",
 	  "I just finished writing these sentences for you.",
 "She’s just a beginner, so be patient with her.",
@@ -18649,9 +18800,12 @@ const dictionary = {
     "english": "meet",
     "karenni": "ꤥ꤬ꤊꤢꤨ, ꤥ꤬ꤊꤢꤨꤥ꤬ꤊꤛꤢ, ꤗꤛꤢꤓꤛꤢꤩ꤬ꤏꤢꤦ꤬, ꤡꤛꤣꤗꤛꤢꤓꤛꤢꤩ꤬",
     "translation": "meet /v/",
-    "examples": [
-      "meet together ꤒꤟꤢ꤭ꤏꤢꤦ꤬ꤒꤟꤢ꤭ꤕꤜꤢꤪ"
-    ]
+    "examples": ["meet together ꤒꤟꤢ꤭ꤏꤢꤦ꤬ꤒꤟꤢ꤭ꤕꤜꤢꤪ",
+	"Nice to meet you. ꤗꤛꤢꤓꤛꤢꤩ꤬ꤏꤢꤦ꤬ ꤔꤟꤢꤧ꤬ ꤗꤟꤥ꤬ꤞꤢꤧꤕꤜꤢꤪ꤬꤯",
+    "Pleased to meet you. ꤗꤛꤢꤓꤛꤢꤩ꤬ꤏꤢꤦ꤬ꤔꤟꤢꤧ꤬ ꤞꤢꤧꤊꤚꤟꤢꤦ꤭ꤞꤢꤧꤜꤟꤢꤪ꤭꤯",
+    "I'm glad to meet you. ꤗꤛꤢꤓꤛꤢꤩ꤬ꤏꤢꤦ꤬ ꤔꤟꤢꤧ꤬ ꤠꤢ꤭ ꤞꤢꤧꤊꤚꤟꤢꤦ꤭ꤞꤢꤧꤜꤟꤢꤪ꤭꤯",
+    "It's wonderful to meet you. ꤗꤛꤢꤓꤛꤢꤩ꤬ꤏꤢꤦ꤬ ꤔꤟꤢꤧ꤬ ꤢ꤬ꤋꤥꤒꤣ꤬ꤡꤣ꤬ꤡꤢꤪ꤯",
+    "Bu Reh, I'd like you to meet my friend, Boe Reh.  ꤙꤢꤨ꤭ꤚꤢꤧ꤬, ꤠꤢ꤭ ꤞꤢꤧꤔꤢꤪ꤭ ꤗꤛꤢꤓꤛꤢꤩ꤬ꤏꤢꤦ꤬ ꤔꤟꤢꤧ꤬ꤔꤢ ꤠꤢ꤭ꤋꤥ꤭, ꤙꤥꤚꤢꤧ꤬꤯"]
   },
   "meeting": {
     "english": "meeting",
@@ -19537,7 +19691,8 @@ const dictionary = {
     "english": "much",
     "karenni": "ꤢꤧꤑꤢ꤬ꤡꤢꤪ",
     "translation": "much /adj/",
-    "examples": []
+    "examples": ["Not much. And you? ꤒꤣ꤬ꤡꤣꤒꤥ꤬꤯ ꤔꤟꤢꤧ꤬ꤜꤢꤩ꤭?",
+    "Nothing much. What's up? ꤙꤢꤔꤛꤣ꤬ꤒꤥ꤬꤯ ꤗꤟꤢꤩ꤬ꤒꤢꤩ꤭?"]
   },
   "mucus": {
     "english": "mucus",
@@ -19735,10 +19890,13 @@ const dictionary = {
   "name": {
     "english": "name",
     "karenni": "ꤗꤝꤟꤤ꤭ /v/ ꤘꤛꤢꤩꤗꤝꤟꤤ꤭",
-    "translation": "name /n/, /v/",
+    "translation": "name /n/",
     "examples": [
-      "What is your name? ꤔꤟꤢꤧ꤬ꤗꤝꤟꤤ꤭ꤔꤢ ꤢꤨ꤭ꤕꤢꤩ꤭?"
-    ]
+      "What is your name? ꤔꤟꤢꤧ꤬ꤗꤝꤟꤤ꤭ꤗꤢ꤬ ꤒꤤ꤭ꤒꤢꤩ꤭?",
+      "My name is --. ꤠꤢ꤭ ꤗ꤉ꤟꤤ꤭ꤗꤢ꤬ --꤯",
+	  "My name is Ko Reh. But please call me Ku Reh.ꤠꤢ꤭ ꤗ꤉ꤟꤤ꤭ ꤔꤢ ꤊꤥ꤬ꤚꤢꤧ꤬꤯ ꤗꤢ꤬ꤔꤢ ꤢꤧꤠꤢ꤭ꤔꤢ ꤊꤢꤨ꤭ꤚꤢꤧ꤬ ꤗꤢ꤬ ꤢ꤬ꤔꤟꤤꤕꤚꤢꤧ꤯",
+	  "How do you spell your name? ꤟꤣꤙꤢꤧꤕꤜꤢꤪ꤬ ꤔꤟꤢꤧ꤬ꤗ꤉ꤟꤤ꤭ ꤖꤢꤨꤒꤢꤩ꤭?",
+      "How do you pronounce your name? ꤟꤣꤕꤚꤟꤢ꤬ꤓꤢꤩ꤬ ꤔꤟꤢꤧ꤬ꤗ꤉ꤟꤤ꤭ ꤖꤢꤨꤒꤢꤩ꤭?"]
   },
   "nameless": {
     "english": "nameless",
@@ -20031,7 +20189,7 @@ const dictionary = {
     "english": "nice",
     "karenni": "ꤗꤟꤥ꤬ꤞꤢꤧꤕꤜꤢꤪ꤬, ꤚꤛꤢ, ꤒꤝꤟꤥꤚꤛꤢ, ꤗꤟꤥ꤬ꤚꤛꤢ",
     "translation": "nice /adj/",
-    "examples": []
+    "examples": ["Nice to see you again. ꤗꤛꤢꤓꤛꤢꤩ꤬ ꤞꤛꤢꤔꤟꤢꤧ꤬ ꤗꤟꤥ꤬ꤞꤢꤧꤕꤜꤢꤪ꤬"]
   },
   "nick": {
     "english": "nick",
@@ -20043,7 +20201,7 @@ const dictionary = {
     "english": "nickname",
     "karenni": "ꤗꤝꤟꤤ꤭ꤢꤧꤜꤢ꤬ꤠꤟꤢꤪ꤭, ꤗꤝꤟꤤ꤭ꤏꤢꤨ꤬ꤙꤢꤧ",
     "translation": "nickname /n/",
-    "examples": []
+    "examples": ["My nickname is Kay Reh.ꤠꤢ꤭ꤗ꤉ꤟꤤ꤭ ꤢꤧꤚꤢꤪ꤭ꤢꤧꤚꤢꤩ꤬ꤗꤢ꤬ ꤊꤢꤩꤚꤢꤧ꤬꤯"]
   },
   "niece": {
     "english": "niece",
@@ -25518,7 +25676,11 @@ const dictionary = {
     "english": "see",
     "karenni": "ꤗꤛꤢꤓꤛꤢꤩ꤬, ꤗꤛꤢ",
     "translation": "see /v/",
-    "examples": ["See you tomorrow. ꤗꤛꤢ꤬ꤓꤛꤢꤩ꤬ꤔꤟꤢꤧ꤬ ꤏꤛꤢꤩꤕꤢ꤬ꤚꤥ꤭ꤕꤢ꤭꤯"]
+    "examples": ["See you tomorrow. ꤗꤛꤢ꤬ꤓꤛꤢꤩ꤬ꤔꤟꤢꤧ꤬ ꤏꤛꤢꤩꤕꤢ꤬ꤚꤥ꤭ꤕꤢ꤭꤯",
+	"See you later. ꤗꤛꤢꤓꤛꤢꤩ꤬ꤔꤥ꤬ꤕꤢ꤭",
+"See you tomorrow. ꤗꤛꤢꤓꤛꤢꤩ꤬ ꤏꤛꤢꤩꤕꤢ꤬ꤚꤥ꤭ ꤕꤢ꤭",
+"See you on Friday. ꤗꤛꤢꤓꤛꤢꤩ꤬ ꤗꤟꤢꤪꤑꤟꤢ꤭ꤑꤢꤩ꤭ ꤕꤢ꤭꤯",
+"See you at church on Sunday. ꤗꤛꤢꤓꤛꤢꤩ꤬ ꤗꤟꤢꤪꤑꤢꤩ꤭ꤘꤟꤌꤣ꤬ ꤞꤢꤪꤚꤢꤪꤊꤢꤨ꤭ ꤕꤢ꤭꤯"]
   },
   "seeable": {
     "english": "seeable",
@@ -26847,7 +27009,7 @@ const dictionary = {
     "english": "somewhere",
     "karenni": "ꤒꤣ꤬ꤖꤥ꤬ꤖꤥ꤬",
     "translation": "somewhere /adv/",
-    "examples": []
+    "examples": ["Have I met you somewhere before? ꤢ꤬ꤚꤟꤢꤩꤋꤢꤧ꤭ ꤠꤢ꤭ ꤗꤛꤢꤓꤛꤢꤩ꤬ꤔꤢꤪꤔꤟꤢꤧ꤬ ꤒꤣ꤬ꤖꤥ꤬ꤖꤥ꤬ ꤟꤟꤢꤧ꤭?"]
   },
   "son": {
     "english": "son",
@@ -28233,7 +28395,7 @@ const dictionary = {
   },
   "super": {
     "english": "super",
-    "karenni": "ꤢ꤬ꤋꤢꤨ꤬, ꤋꤢꤨ꤬ꤘꤢꤦ꤭, ꤏꤝꤥ꤬ꤏꤢꤪ꤭ꤜꤣ /n/ ꤕꤚꤟꤢꤧ꤬ꤗꤛꤢꤕꤣꤋꤝꤢꤧ꤬ꤔꤟꤤ",
+    "karenni": "ꤢ꤬ꤋꤢꤨ꤬, ꤋꤢꤨ꤬ꤘꤢꤦ꤭, ꤏꤝꤥ꤬ꤏꤢꤪ꤭ꤜꤣ, ꤚꤛꤢꤏꤢꤦꤜꤢꤦ꤭ /n/ ꤕꤚꤟꤢꤧ꤬ꤗꤛꤢꤕꤣꤋꤝꤢꤧ꤬ꤔꤟꤤ",
     "translation": "super /adj/",
     "examples": []
   },
@@ -30891,8 +31053,8 @@ const dictionary = {
     "karenni": "ꤔꤛꤢ꤬ꤡꤢꤪ, ꤑꤢ꤬ꤡꤢꤪ, ꤜꤢ꤭, ꤊꤢ꤬ꤔꤟꤥꤒꤥ꤬, ꤒꤢ꤬ꤜꤝꤥ",
     "translation": "very /adv/",
     "examples": [
-      "Very good: ꤚꤛꤢ꤬ꤔꤛꤢ꤬ꤡꤢꤪ"
-    ]
+      "Very good: ꤚꤛꤢ꤬ꤔꤛꤢ꤬ꤡꤢꤪ",
+	  "Very well, thank you ꤚꤛꤢꤑꤢ꤬ꤡꤢꤪ꤯ ꤒꤟꤢꤧ꤬ꤙ꤉ꤤ꤯"]
   },
   "vest": {
     "english": "vest",
@@ -31611,10 +31773,17 @@ const dictionary = {
     "english": "what",
     "karenni": "ꤒꤤ꤭ꤒꤢꤩ꤭?, ꤤ꤭ꤒꤢꤩ꤭?, ꤗꤢ꤬ꤒꤢꤩ꤭?, ꤗꤢ꤬ꤒꤤ꤭ꤒꤢꤩ꤭?",
     "translation": "what /pron/",
-    "examples": [
+    "examples": ["What's up? (informal)ꤗꤟꤢꤩ꤬ꤒꤢꤩ꤭?",
       "What are you doing?: ꤔꤟꤢꤧ꤬ꤗꤟꤢꤩ꤬ꤒꤤ꤭ꤒꤢꤩ꤭?",
-      "What did you say?: ꤔꤟꤢꤧ꤬ꤟꤢꤩꤒꤤ꤭ꤒꤢꤩ꤭?"
-    ]
+      "What did you say?: ꤔꤟꤢꤧ꤬ꤟꤢꤩꤒꤤ꤭ꤒꤢꤩ꤭?"]
+  },
+   "what's": {
+    "english": "what's",
+    "karenni": "ꤗꤢ꤬--ꤒꤤ꤭ꤒꤢꤩ꤭?, ꤗꤢ꤬--ꤤ꤭ꤒꤢꤩ꤭?, ꤗꤢ꤬--ꤒꤢꤩ꤭?",
+    "translation": "what's /pron/",
+    "examples": ["what's=what is",
+	"What's up? (informal)ꤗꤟꤢꤩ꤬ꤤ꤭ꤒꤢꤩ꤭?",
+     "What's your name? ꤔꤟꤢꤧ꤬ ꤗ꤉ꤟꤤ꤭ꤗꤢ꤬ ꤒꤤ꤭ꤒꤢꤩ꤭?"]
   },
   "whatever": {
     "english": "whatever",
@@ -31707,11 +31876,20 @@ const dictionary = {
   },
   "who": {
     "english": "who",
-    "karenni": "ꤢꤨ꤭ꤕꤢꤩ꤭-ꤕꤢꤩ꤭?, ꤗꤢ꤬ꤢꤨ꤭ꤕꤢꤩ꤭? ꤘꤣꤢꤨ꤭ꤕꤢꤩ꤭?",
+    "karenni": "ꤢꤨ꤭ꤕꤢꤩ꤭?, ꤢꤨ꤭ꤕꤢꤩ꤭-ꤕꤢꤩ꤭?, ꤗꤢ꤬ꤢꤨ꤭ꤕꤢꤩ꤭?",
     "translation": "who /pron/",
     "examples": [
       "Who are you?: ꤔꤟꤢꤧ꤬ꤗꤢ꤬ ꤢꤨ꤭ꤕꤢꤩ꤭?",
       "Who talked to you?: ꤢꤨ꤭ꤕꤢꤩ꤭ ꤟꤢꤩꤙꤢꤧ꤬ ꤔꤟꤢꤧ꤬ꤕꤢꤩ꤭?"]
+  },
+  "who is": {
+    "english": "who is",
+    "karenni": "ꤗꤢ꤬ꤢꤨ꤭ꤕꤢꤩ꤭?",
+    "translation": "who is /pron/",
+    "examples": ["who is=who's ꤗꤢ꤬ꤢꤨ꤭ꤕꤢꤩ꤭",
+	"Who is Mr. LeeReh? ꤜꤤ꤭ꤚꤢꤧ꤬ ꤗꤢ꤬ ꤢꤨ꤭ꤕꤢꤩ꤭?",
+	"Who's the man next to the Mrs. Maw Moe? ꤕꤚꤟꤢꤧ꤬ꤋꤢꤨ꤭ ꤥ꤬ꤘꤣ ꤗꤢꤪ꤬ꤗꤟꤌꤣꤋꤢ꤭ꤏꤛꤢꤩ ꤗꤢ꤬ ꤢꤨ꤭ꤕꤢꤩ꤭?",
+"Who's the woman eating durian? ꤕꤚꤟꤢꤧ꤬ꤗꤢꤪ꤬ ꤢꤩ꤬ ꤕꤢ꤬ꤜꤟꤛꤢ꤭ꤔꤟꤌꤣ꤬ꤞꤢꤧ꤬ ꤗꤢ꤬ ꤢꤨ꤭ꤕꤢꤩ꤭?"]
   },
    "whom": {
     "english": "whom",
@@ -32263,7 +32441,7 @@ const dictionary = {
     "english": "write",
     "karenni": "ꤚꤢ꤭",
     "translation": "write /v/",
-    "examples": []
+    "examples": ["Write down your name here. ꤚꤢ꤭ꤒꤟꤢ꤭ ꤔꤟꤢꤧ꤬ꤗꤝꤟꤤ꤭ ꤙꤤꤛꤢꤩ꤭꤯"]
   },
   "writer": {
     "english": "writer",
@@ -34881,7 +35059,10 @@ const dictionary = {
     "english": "he",
     "karenni": "ꤢꤧ꤬, ꤢ꤬",
     "translation": "he /sub-pron/",
-    "examples": []
+    "examples": ["He's the one wearing a red jacket. ꤢꤧ꤬ꤗꤢ꤬ ꤕꤚꤟꤢꤧ꤬ꤘꤣ ꤞꤛꤢꤡꤟꤢ꤬ꤘꤢꤨ꤬ ꤒꤣ꤬ꤕꤚꤟꤢꤧ꤬꤯",
+    "He's the one with blond hair. ꤢꤧ꤬ꤗꤢ꤬ ꤕꤚꤟꤢꤧ꤬ꤘꤣ ꤕꤢ꤬ꤔꤢ ꤋꤢꤨ꤬ꤜꤟꤌꤣ꤬ꤒꤝꤟꤥ ꤒꤣ꤬ꤕꤚꤟꤢꤧ꤬꤯",
+	"How much does he weight? ꤢꤧ꤬ ꤢ꤬ꤓꤟꤌꤣ꤬ ꤥ꤬ꤙꤢꤒꤢꤩ꤭?",
+   "He weight about 170 lbs? ꤢꤧ꤬ ꤢ꤬ꤓꤟꤌꤣ꤬ ꤥ꤬ꤡꤟꤛꤢ ꤁꤇꤀ ꤕꤢꤪ꤬꤯"]
   },
   "him": {
     "english": "him",
@@ -34893,22 +35074,22 @@ const dictionary = {
     "english": "his",
     "karenni": "ꤢꤧ꤬, ꤢ꤬ /possess-pron/ ꤢꤧ꤬ꤒꤢꤧ꤭, ꤢ꤬ꤒꤢꤧ꤭",
     "translation": "his /adj/",
-    "examples": []
+    "examples": ["What color are his eyes? ꤢꤧ꤬ ꤗꤢꤧ꤬ꤞꤢꤧ꤬ꤕꤜꤢꤪ꤬ ꤢ꤬ꤜꤢ꤬ꤗꤢ꤬ ꤒꤤ꤭ꤒꤢꤩ꤭?",
+    "His eyes are blue.ꤢꤧ꤬ ꤗꤢꤧ꤬ꤞꤢꤧ꤬ꤕꤜꤢꤪ꤬ ꤗꤢ꤬ ꤢ꤬ꤒꤢ꤬ꤖꤢꤧ꤬꤯"]
   },
   "she": {
     "english": "she",
     "karenni": "ꤢꤧ꤬, ꤢ꤬, ꤗꤢꤪ꤬ꤗꤟꤌꤣ",
     "translation": "she /sub-pron/",
-    "examples": ["1. She is my sister.",
-"2. She loves to sing.",
-"3. She went to the store.",
-"4. She cooks delicious food.",
-"5. She reads a book.",
-"6. She is very young.",
-"7. She helps her friend.",
-"8. She watches TV every day.",
-"9. She runs fast.",
-"10. She smiles at me."]
+    "examples": ["She's the one wearing a short skirt. ꤢꤧ꤬ꤗꤢ꤬ ꤕꤚꤟꤢꤧ꤬ꤘꤣ ꤞꤛꤢꤟꤛꤢꤩ꤬ꤡꤟꤢ꤬ꤡꤝꤟꤥ꤬ ꤒꤣ꤬ꤕꤚꤟꤢꤧ꤬꤯",
+    "She's the one with sunglasses. ꤢꤧ꤬ꤗꤢ꤬ ꤕꤢ꤬ꤔꤢ ꤗꤟꤢ꤭ꤘꤟꤌꤣ꤬ꤊꤛꤢ ꤒꤣ꤬ꤕꤚꤟꤢꤧ꤬꤯",
+	"She's very good looking. ꤢꤧ꤬ꤗꤢ꤬ ꤕꤚꤟꤢꤧ꤬ꤗꤛꤢꤒꤝꤟꤥꤚꤛꤢ ꤜꤢ꤭꤯",
+    "She is very pretty. ꤢꤧ꤬ꤗꤢ꤬ ꤢ꤬ꤒꤝꤟꤥꤚꤛꤢ ꤜꤢ꤭꤯",
+    "She's not very attractive.  ꤢꤧ꤬ꤗꤢ꤬ ꤢ꤬ꤒꤝꤟꤥꤚꤛꤢ ꤒꤢ꤬ꤜꤝꤥꤒꤥ꤬꤯",
+   "He's very handsome. ꤢꤧ꤬ꤗꤢ꤬ ꤖꤢꤧ꤭ꤒꤝꤟꤥꤚꤛꤢ ꤜꤢ꤭꤯",
+   "How old do you think she is? ꤢꤧ꤬ꤗꤢ꤬ ꤔꤢ꤬ꤥ꤬ꤟꤢꤪ ꤙꤢꤒꤢꤩ꤭ ꤔꤟꤢꤧ꤬ꤒꤢ꤬ꤔꤟꤢꤩ꤬ ꤟꤟꤢꤧ꤭?",
+   "She's about thirty. ꤢꤧ꤬ ꤥ꤬ꤡꤟꤛꤢ ꤞꤛꤣ꤭ꤏꤛꤢꤩ꤭꤯",
+   "She's in her forties. ꤢꤧ꤬ꤗꤢ꤬ ꤢ꤬ꤥ꤬ ꤜꤝꤟꤤ꤭ꤏꤛꤢꤩ꤭ ꤢ꤬ꤊꤢꤨ꤭꤯"]
   },
   "her": {
     "english": "her",
@@ -40050,7 +40231,7 @@ const dictionary = {
   },
   "ꤋꤢꤨ꤬ꤊꤜꤝꤟꤥ꤭": {
     "karenni": "ꤋꤢꤨ꤬ꤊꤜꤝꤟꤥ꤭",
-    "english": "hat",
+    "english": "hat, cap",
     "translation": "ꤋꤢꤨ꤬ꤊꤜꤝꤟꤥ꤭ /n/",
     "examples": ["ꤠꤢ꤭ ꤊꤜꤝꤟꤥ꤭ ꤋꤢꤨ꤬ꤊꤜꤝꤟꤥ꤭꤯ I wear a hat."]
   },
@@ -56117,7 +56298,7 @@ const dictionary = {
   },
   "ꤛꤢꤡꤢꤦ": {
     "karenni": "ꤛꤢꤡꤢꤦ",
-    "english": "try, exert effort",
+    "english": "try, tries, tried, exert effort",
     "translation": "ꤛꤢꤡꤢꤦ /v/",
     "examples": ["ꤛꤢꤡꤢꤦ ꤗꤟꤢꤩ꤬ꤒꤟꤢꤧ꤬꤯ Try to work."]
   },
