@@ -80,7 +80,7 @@ main {
   font-style: normal;
 }
 .header-container {
-  box-shadow: 0px 2px 15px black;
+  
   width: 100vw;
   position: relative;
   left: 50%;
@@ -100,12 +100,15 @@ main {
 }
 .header-row-1 {
   background-color: red;
+  box-shadow: 0px 2px 10px black;
 }
 .header-row-2 {
   background-color: white;
+  box-shadow: 0px 2px 10px black;
 }
 .header-row-3 {
   background-color: blue;
+  box-shadow: 0px 2px 10px black;
 }
 h1 {
   color: green;
@@ -336,7 +339,6 @@ input {
   border-radius: 20px;
   padding: 10px;
   z-index: 1000;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 .contact-btn {
   display: block;
@@ -536,7 +538,9 @@ input {
   <div class="examples-box" id="examples"></div>
 </div>
 </main>
-<p style="text-align: center; color: white; text-shadow: 1px 1px 2px black, 0 0 25px blue, 0 0 5px red; font-size: 12px;">©2025 DTMG ꤒꤟꤢꤧ꤬ꤒꤢꤧ꤭ꤔꤟꤤꤘꤢꤦ꤬ </p>
+    <p style="text-align: center; margin: 0;">
+        <span style="color: white; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5), 0 0 25px rgba(0, 0, 255, 0.3), 0 0 5px rgba(255, 0, 0, 0.3); font-size: 12px; background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(10px); border-radius: 15px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); padding: 4px 8px; border: 1px solid rgba(255, 255, 255, 0.3); display: inline-block;">©2025 DTMG ꤒꤟꤢꤧ꤬ꤒꤢꤧ꤭ꤔꤟꤤꤘꤢꤦ꤬</span>
+    </p>
 <script>
 const dictionary = {
 "abalone": {
@@ -3029,7 +3033,9 @@ const dictionary = {
     "english": "beautiful",
     "karenni": "ꤢ꤬ꤒꤝꤟꤥ, ꤒꤝꤟꤥ, ꤒꤝꤟꤥꤕꤣꤞꤢ꤭ꤚꤛꤢ꤭",
     "translation": "beautiful /adj/",
-    "examples": ["You're beautiful. ꤔꤟꤢꤧ꤬ (ꤗꤟꤌꤣ)ꤒꤝꤟꤥꤜꤢ꤭꤯"]
+    "examples": ["beautiful girl ꤗꤢꤪ꤬ꤗꤟꤌꤣꤒꤝꤟꤥ",
+	"You're beautiful. ꤔꤟꤢꤧ꤬ (ꤗꤟꤌꤣ)ꤒꤝꤟꤥꤜꤢ꤭꤯",
+	"beautiful thing ꤒꤟꤢꤧ꤬ꤒꤝꤟꤥꤒꤟꤢꤧ꤬ꤚꤛꤢ"]
   },
   "beautify": {
     "english": "beautify",
@@ -9175,7 +9181,7 @@ const dictionary = {
   "english": "don't",
   "karenni": "ꤒꤢꤧ꤭ꤗꤟꤢꤩ, ꤗꤟꤢꤩ, ꤒꤥ꤬ (don't=do not)",
   "translation": "don't /contraction/",
-  "examples": ["I don't know. ꤠꤢ꤭ꤞꤢꤧꤑꤢꤩ꤭ꤒꤥ꤬꤯",
+  "examples": ["I don't do it. ꤠꤢ꤭ꤗꤟꤢꤩ꤬ꤒꤥ꤬꤯",
   "Don't do it! ꤗꤟꤢꤩ꤬ꤒꤢꤧ꤭ꤗꤟꤢꤩ(ꤗꤟꤢꤩ꤬ꤒꤥ꤬)",
   "They don't go. ꤢꤧ꤬ꤞꤤ꤭ ꤡꤛꤣꤒꤥ꤬꤯",
   "We don't eat. ꤕꤟꤢꤧ꤬ ꤢꤩ꤬ꤒꤥ꤬꤯"]
@@ -15410,10 +15416,7 @@ const dictionary = {
     "english": "I",
     "karenni": "ꤠꤢ꤭ /n/ ꤊꤢꤨ꤭ꤜꤢ꤭ ꤜꤤ꤬ꤕꤜꤢꤪ꤬ꤗꤟꤌꤣ ꤘꤢ꤬ꤕꤜꤢꤪ꤬ꤒꤣ꤬ꤕꤜꤢꤪ꤬",
     "translation": "I /sub-pron/",
-    "examples": ["I love you. ꤠꤢ꤭ ꤗꤟꤥ꤬ꤔꤟꤤ ꤔꤟꤢꤧ꤬꤯",
-      "I miss you. ꤠꤢ꤭ ꤔꤟꤢꤩ꤬ꤞꤛꤣ꤬ꤙꤢꤧ꤬ ꤔꤟꤢꤧ꤬꤯",
-      "I don't know. ꤠꤢ꤭ ꤞꤢꤧꤑꤢꤩ꤭ꤒꤥ꤬꤯",
-      "Who am I? ꤠꤢ꤭ꤗꤢ꤬ ꤢꤨ꤭ꤕꤢꤩ꤭?",
+    "examples": ["Who am I? ꤠꤢ꤭ꤗꤢ꤬ ꤢꤨ꤭ꤕꤢꤩ꤭?",
       "I hate you ꤠꤢ꤭ꤞꤢꤧꤒꤢ꤬ꤋꤥ꤭ꤔꤟꤢꤧ꤬꤯",	  
 	  "I am going to school.",
  "I like to play soccer.",
@@ -21691,15 +21694,15 @@ const dictionary = {
   },
   "pen": {
     "english": "pen",
-    "karenni": "ꤜꤤ꤬ꤙꤥ꤭, ꤕꤟꤥ꤬",
+    "karenni": "ꤜꤤ꤬ꤙꤥ꤭, ꤜꤤ꤬ꤙꤥ꤭ꤓꤛꤢꤩ꤭, ꤕꤟꤥ꤬",
     "translation": "pen /n/",
-    "examples": []
+    "examples": ["Do you have any pens? ꤔꤟꤢꤧ꤬ ꤜꤤ꤬ꤙꤥ꤭ꤓꤛꤢꤩ꤭ ꤥ꤬ꤒꤢ꤬ꤟꤢꤩ꤬ꤟꤟꤢꤧ꤭?"]
   },
   "pencil": {
     "english": "pencil",
     "karenni": "ꤜꤤ꤬ꤙꤥ꤭ꤞꤎꤢꤪ꤬, ꤡꤟꤢꤩ꤬ꤙꤥ꤭",
     "translation": "pencil /n/",
-    "examples": []
+    "examples": ["Do you have any pencils? ꤔꤟꤢꤧ꤬ ꤜꤤ꤬ꤙꤥ꤭ꤞꤎꤢꤪ꤬ ꤥ꤬ꤒꤢ꤬ꤟꤢꤩ꤬ꤟꤟꤢꤧ꤭?"]
   },
   "penetrate": {
     "english": "penetrate",
@@ -31874,9 +31877,9 @@ const dictionary = {
   },
   "white": {
     "english": "white",
-    "karenni": "ꤙꤢꤨ꤭",
+    "karenni": "ꤙꤢꤨ꤭, ꤢ꤬ꤙꤢꤨ꤭",
     "translation": "white /adj/",
-    "examples": []
+    "examples": ["white shirt ꤡꤟꤢ꤬ꤕꤜꤢ꤭ꤒꤟꤢꤦ꤭ ꤙꤢꤨ꤭"]
   },
   "whitewash": {
     "english": "whitewash",
@@ -49132,7 +49135,7 @@ const dictionary = {
     "karenni": "ꤔꤢꤩ꤬ꤞꤛꤣ꤬",
     "english": "miss",
     "translation": "ꤔꤢꤩ꤬ꤞꤛꤣ꤬ /v/",
-    "examples": ["ꤠꤢ꤭ ꤔꤢꤩ꤬ꤞꤛꤣ꤬ ꤔꤟꤤꤔꤟꤢꤧ꤬꤯ I miss you."]
+    "examples": []
   },
   "ꤔꤢꤪ": {
     "karenni": "ꤔꤢꤪ",
@@ -53547,7 +53550,7 @@ const dictionary = {
     "karenni": "ꤗꤟꤥ꤬",
     "english": "love /n/ gong /adj/ comfortable",
     "translation": "ꤗꤟꤥ꤬ /v/",
-    "examples": ["ꤠꤢ꤭ ꤗꤟꤥ꤬ꤔꤟꤤ ꤔꤟꤢꤧ꤬꤯ I love you."]
+    "examples": []
   },
   "ꤗꤟꤥ꤬ꤔꤟꤤ": {
     "karenni": "ꤗꤟꤥ꤬ꤔꤟꤤ",
@@ -58606,7 +58609,7 @@ const dictionary = {
     "karenni": "ꤞꤢꤧꤑꤢꤩ꤭",
     "english": "know, understand",
     "translation": "ꤞꤢꤧꤑꤢꤩ꤭ /v/",
-    "examples": ["ꤠꤢ꤭ ꤞꤢꤧꤑꤢꤩ꤭ ꤔꤟꤢꤧ꤬ ꤒꤥ꤬꤯ I don't know you."]
+    "examples": []
   },
   "ꤞꤢꤧꤑꤢꤩ꤭ꤊꤟꤢ꤬ꤋꤛꤢꤩ꤭": {
     "karenni": "ꤞꤢꤧꤑꤢꤩ꤭ꤊꤟꤢ꤬ꤋꤛꤢꤩ꤭",
@@ -64199,7 +64202,7 @@ async function translate() {
     }
     
     if (allExamples.length > 0) {
-      examplesDiv.innerHTML = '<h3>ꤢ꤬ꤚꤢꤪꤒꤢ꤬ꤟꤢꤩ꤬꤯ Examples:</h3>' + allExamples.map(example => `<p>🔹 ${example} </p>`).join('');
+      examplesDiv.innerHTML = '<h3>ꤢ꤬ꤚꤢꤪꤒꤢ꤬ꤟꤢꤩ꤬꤯ Examples:</h3>' + allExamples.map(example => `<p>▪️${example}</p>`).join('');
     } else {
       examplesDiv.innerHTML = '';
     }
