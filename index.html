@@ -261,11 +261,21 @@ input {
   margin-top: -29px;
   display: none;
 }
-.translation-box, .examples-box {
+.translation-box {
   border: 0px solid #ddd;
   padding: 20px;
   margin: 0px 0;
-  border-radius: 10px;
+  border-radius: 5px;
+  background-color: white;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.examples-box {
+  font-style: italic;
+  border: 0px solid #ddd;
+  padding: 25px;
+  margin: 0px 0;
+  border-radius: 5px;
   background-color: white;
   margin-left: 10px;
   margin-right: 10px;
@@ -64189,7 +64199,7 @@ async function translate() {
     }
     
     if (allExamples.length > 0) {
-      examplesDiv.innerHTML = '<h3>ꤢ꤬ꤚꤢꤪꤒꤢ꤬ꤟꤢꤩ꤬꤯ Examples:</h3>' + allExamples.map(example => `<p>[ ${example} ]</p>`).join('');
+      examplesDiv.innerHTML = '<h3>ꤢ꤬ꤚꤢꤪꤒꤢ꤬ꤟꤢꤩ꤬꤯ Examples:</h3>' + allExamples.map(example => `<p>🔴 ${example} </p>`).join('');
     } else {
       examplesDiv.innerHTML = '';
     }
