@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="kyu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ꤜꤤ꤬ꤔꤢ꤬ꤜꤢꤧ꤭</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kay+Pho+Du:wght@600;700&family=Noto+Serif+Myanmar:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+        body {
+            font-family: "Kay Pho Du", serif;
+            background-color: #FFC0CB;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+        main {
+            flex: 1 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .header-container {
+            box-shadow: 0px 2px 15px black;
+            width: 100vw;
+            position: relative;
+            left: 50%;
+            right: 50%;
+            margin-left: -50vw;
+            margin-right: -50vw;
+            display: flex;
+            flex-direction: column;
+        }
+        .header-row {
+            display: flex;
+            width: 100%;
+            height: 30px;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        .header-row-1 {
+            background-color: red;
+        }
+        .header-row-2 {
+            background-color: white;
+        }
+        .header-row-3 {
+            background-color: blue;
+        }
+        h1 {
+            color: #008000;
+            text-align: center;
+            font-size: 22px;
+            margin: 0;
+            padding: 10px;
+        }
+        .menu-toggle {
+            position: fixed;
+            top: -4px;
+            left: 5px;
+            cursor: pointer;
+            font-size: 20px;
+            color: white;
+            border: none;
+            background: none;
+            padding: 4px;
+            z-index: 1000;
+        }
+        .menu-popup {
+            display: none;
+            position: fixed;
+            top: 40px;
+            left: 10px;
+            backdrop-filter: blur(10px);
+            border: 2px solid #ddd;
+            border-radius: 20px;
+            padding: 10px;
+            z-index: 1000;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+		 .contact-btn, .introduction-btn, .learning-btn, .proverb-btn, .calendar-btn {
+		    box-shadow: 0px 2px 5px black;
+            display: block;
+            padding: 8px 16px;
+            margin: 1px;
+            background: blue;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: "Kay Pho Du", serif;
+            text-decoration: none;
+            text-align: center;
+        }
+        .contact-btn:hover, .introduction-btn:hover, .learning-btn:hover, .proverb-btn:hover, .calendar-btn:hover {
+            background: red;
+        }
+        input {
+            margin: 8px;
+            padding: 6px;
+            border: none;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.9); /* White background */
+            backdrop-filter: blur(10px);
+            color: #333;
+            font-size: 14px;
+            width: 80%;
+            max-width: 300px;
+        }
+        input::placeholder {
+            color: #666;
+        }
+        table {
+            border-collapse: collapse;
+            margin: 15px auto;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+            width: 100%;
+            max-width: 350px;
+        }
+        th, td {
+            border: 1px solid rgba(200, 200, 200, 0.3);
+            padding: 6px;
+            text-align: center;
+            color: #333;
+        }
+        th {
+            background: rgba(255, 255, 255, 1); 
+            color: #222;
+            font-size: 12px;
+        }
+        td {
+            background: rgba(255, 255, 255, 0.8); 
+            font-size: 12px;
+        }
+        .holiday {
+            background: rgba(255, 0, 0, 0.4) !important; /* Red highlight for holidays */
+            color: #d00;
+            font-weight: bold;
+            cursor: pointer;
+            position: relative;
+        }
+        .tooltip {
+            visibility: hidden;
+            background: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            white-space: nowrap;
+            font-size: 12px;
+        }
+        .holiday:hover .tooltip {
+            visibility: visible;
+        }
+        h2 {
+            margin: 20px 0 10px;
+            color: #333;
+            background: rgba(255, 255, 255, 0.9); 
+            backdrop-filter: blur(10px);
+            display: inline-block;
+            padding: 8px 15px;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+        .inputs {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .input-group {
+            display: flex;
+            gap: 10px;
+            margin: 5px;
+        }
+        @media (min-width: 400px) {
+            .input-group {
+                flex-direction: row;
+            }
+            input {
+                width: 120px;
+            }
+        }
+        @media (max-width: 600px) {
+            .menu-toggle {
+                top: 0px;
+                left: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header-container">
+        <div class="header-row header-row-1"></div>
+        <div class="header-row header-row-2">
+            <h1>ꤜꤤ꤬ꤔꤢ꤬ꤜꤢꤧ꤭</h1>
+        </div>
+        <div class="header-row header-row-3"></div>
+    </div>
+    <button class="menu-toggle" id="menuToggle">☰</button>
+    <div class="menu-popup" id="menuPopup">
+	    <a href="index.html" class="contact-btn" id="contactBtn">ꤍꤟꤥꤡꤟꤢꤪꤐꤟꤢ꤭</a>
+        <a href="introduction.html" class="introduction-btn" id="introductionBtn">ꤒꤟꤢꤧ꤬ꤟꤢꤩꤙꤢꤧ꤬ꤋꤢ꤭ꤏꤛꤢꤩ</a>
+        <a href="learning.html" class="learning-btn" id="learningBtn">ꤟꤢꤩꤞꤛꤥ ꤜꤤ꤬ꤊꤢ꤬ꤛꤢ꤭ꤜꤟꤤ꤬</a>
+        <a href="proverb.html" class="proverb-btn" id="proverbBtn">ꤍꤟꤥꤋꤢꤋꤥ꤬</a>
+		<a href="calendar.html" class="calendar-btn" id="calendarBtn">ꤜꤤ꤬ꤔꤢ꤬ꤜꤢꤧ꤭</a>
+        <a href="contact.html" class="contact-btn" id="contactBtn">ꤕꤜꤝꤥ꤭ꤓꤢꤦ꤭</a>
+    </div>
+    <main>
+        <div class="inputs">
+            <div class="input-group">
+                <input type="number" id="monthInput" min="1" max="12" placeholder="ꤜꤢꤧ꤭ 1-12" oninput="generateCalendar()">
+                <input type="number" id="yearInput" placeholder="ꤔꤢ꤬ 2025..." oninput="generateCalendar()">
+            </div>
+        </div>
+        <div id="calendarContainer"></div>
+    </main>
+    <script>
+        let currentYear = new Date().getFullYear();
+        let currentMonth = new Date().getMonth(); 
+
+        function getNthWeekday(nth, weekday, month, year) {
+            const firstDate = new Date(year, month, 1);
+            const firstDay = firstDate.getDay();
+            if (nth > 0) {
+                let daysOffset = (weekday - firstDay + 7) % 7;
+                if (daysOffset === 0) daysOffset = 7;
+                return daysOffset + (nth - 1) * 7;
+            } else {
+                const lastDate = new Date(year, month + 1, 0);
+                const lastDay = lastDate.getDate();
+                const lastWeekday = lastDate.getDay();
+                let daysOffset = (lastWeekday - weekday + 7) % 7;
+                return lastDay - daysOffset;
+            }
+        }
+
+        function getHolidays(year) {
+            return [
+                {month: 0, day: 1, name: "New Year's Day"},
+                {month: 0, day: getNthWeekday(3, 1, 0, year), name: "Martin Luther King Jr. Day"},
+                {month: 1, day: getNthWeekday(3, 1, 1, year), name: "Presidents' Day"},
+                {month: 4, day: getNthWeekday(-1, 1, 4, year), name: "Memorial Day"},
+                {month: 5, day: 19, name: "Juneteenth"},
+                {month: 6, day: 4, name: "Independence Day"},
+                {month: 8, day: getNthWeekday(1, 1, 8, year), name: "Labor Day"},
+                {month: 9, day: getNthWeekday(2, 1, 9, year), name: "Columbus Day"},
+                {month: 10, day: 11, name: "Veterans Day"},
+                {month: 10, day: getNthWeekday(4, 4, 10, year), name: "Thanksgiving"},
+                {month: 11, day: 25, name: "Christmas"}
+            ];
+        }
+
+        function getHolidayName(month, day, year) {
+            const holidays = getHolidays(year);
+            const holiday = holidays.find(h => h.month === month && h.day === day);
+            return holiday ? holiday.name : null;
+        }
+
+        function generateCalendar() {
+            let year = parseInt(document.getElementById('yearInput').value) || currentYear;
+            let month = (parseInt(document.getElementById('monthInput').value) || currentMonth + 1) - 1;
+            const container = document.getElementById('calendarContainer');
+            container.innerHTML = ''; 
+
+            const monthName = new Date(year, month, 1).toLocaleString('default', { month: 'long' });
+            const header = document.createElement('h2');
+            header.textContent = monthName + ' ' + toKarenni(year);
+            container.appendChild(header);
+
+            const table = generateMonthTable(year, month);
+            container.appendChild(table);
+        }
+
+        function generateMonthTable(year, month) {
+            const table = document.createElement('table');
+            const headerRow = table.insertRow();
+            const daysOfWeek = ['ꤗꤟꤢꤪꤑꤢꤩ꤭ꤘꤟꤌꤣ꤬', 'ꤗꤟꤢꤪꤒꤣ꤬ꤑꤢꤩ꤭', 'ꤗꤟꤢꤪꤔꤛꤢꤩ꤭ꤑꤢꤩ꤭', 'ꤗꤟꤢꤪꤞꤌꤣ꤭ꤑꤢꤩ꤭', 'ꤗꤟꤢꤪꤜꤝꤟꤤ꤭ꤑꤢꤩ꤭', 'ꤗꤟꤢꤪꤑꤟꤢ꤭ꤒꤟꤢꤪ꤬', 'ꤗꤟꤢꤪꤊꤢ꤬ꤒꤟꤢꤪ꤬'];
+            daysOfWeek.forEach(day => {
+                const th = document.createElement('th');
+                th.textContent = day;
+                headerRow.appendChild(th);
+            });
+
+            const firstDay = new Date(year, month, 1).getDay();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+            let row = table.insertRow();
+            for (let i = 0; i < firstDay; i++) {
+                const cell = row.insertCell();
+                cell.style.visibility = 'hidden'; 
+            }
+
+            for (let day = 1; day <= daysInMonth; day++) {
+                const cell = row.insertCell();
+                cell.textContent = toKarenni(day);
+                const holidayName = getHolidayName(month, day, year);
+                if (holidayName) {
+                    cell.classList.add('holiday');
+                    const tooltip = document.createElement('span');
+                    tooltip.className = 'tooltip';
+                    tooltip.textContent = holidayName;
+                    cell.appendChild(tooltip);
+                }
+                if ((day + firstDay) % 7 === 0 && day < daysInMonth) {
+                    row = table.insertRow();
+                }
+            }
+
+            return table;
+        }
+
+        function toKarenni(num) {
+            const digits = {
+                '0': '꤀',
+                '1': '꤁',
+                '2': '꤂',
+                '3': '꤃',
+                '4': '꤄',
+                '5': '꤅',
+                '6': '꤆',
+                '7': '꤇',
+                '8': '꤈',
+                '9': '꤉'
+            };
+            return num.toString().split('').map(d => digits[d] || d).join('');
+        }
+
+        function updateCalendar() {
+            const now = new Date();
+            const newYear = now.getFullYear();
+            const newMonth = now.getMonth();
+
+            if (newYear !== currentYear || newMonth !== currentMonth) {
+                currentYear = newYear;
+                currentMonth = newMonth;
+                document.getElementById('monthInput').value = '';
+                document.getElementById('yearInput').value = '';
+                generateCalendar();
+            }
+        }
+
+        window.onload = generateCalendar;
+
+        setInterval(() => {
+            const now = new Date();
+            const today = now.getDate();
+            const currentHour = now.getHours();
+            const currentMinute = now.getMinutes();
+           
+            if (today === 1 && currentHour === 0 && currentMinute < 2) {
+                updateCalendar();
+            }
+        }, 60 * 1000); 
+
+        const menuToggle = document.getElementById('menuToggle');
+        const menuPopup = document.getElementById('menuPopup');
+
+        function toggleMenu() {
+            menuPopup.style.display = menuPopup.style.display === 'block' ? 'none' : 'block';
+        }
+
+        function hideMenuOnOutsideClick(event) {
+            if (!menuPopup.contains(event.target) && !menuToggle.contains(event.target)) {
+                menuPopup.style.display = 'none';
+            }
+        }
+
+        menuToggle.addEventListener('click', toggleMenu);
+        document.addEventListener('click', hideMenuOnOutsideClick);
+        document.addEventListener('touchstart', hideMenuOnOutsideClick);
+    </script>
+</body>
+</html>
