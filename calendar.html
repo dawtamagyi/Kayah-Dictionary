@@ -89,8 +89,8 @@
             z-index: 1000;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
-		 .contact-btn, .introduction-btn, .learning-btn, .proverb-btn, .calendar-btn {
-		    box-shadow: 0px 2px 5px black;
+        .contact-btn, .introduction-btn, .learning-btn, .proverb-btn, .calendar-btn {
+            box-shadow: 0px 2px 5px black;
             display: block;
             padding: 8px 16px;
             margin: 1px;
@@ -126,28 +126,28 @@
             margin: 15px auto;
             background: rgba(255, 255, 255, 0.9);
             backdrop-filter: blur(10px);
-            border-radius: 10px;
+            border-radius: 0px;
             box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
-            width: 100%;
-            max-width: 350px;
+            width: 95%;
+            max-width: 330px;
         }
         th, td {
             border: 1px solid rgba(200, 200, 200, 0.3);
-            padding: 2px;
+            padding: 1px;
             text-align: center;
             color: #333;
         }
         th {
             background: rgba(255, 255, 255, 1); 
             color: #222;
-            font-size: 12px;
+            font-size: 10px;
         }
         td {
             background: rgba(255, 255, 255, 0.8); 
-            font-size: 12px;
+            font-size: 10px;
         }
         .holiday {
-            background: rgba(255, 0, 0, 0.4) !important; /* Red highlight for holidays */
+            background: rgba(255, 0, 0, 0.4) !important;
             color: #d00;
             font-weight: bold;
             cursor: pointer;
@@ -169,6 +169,11 @@
         }
         .holiday:hover .tooltip {
             visibility: visible;
+        }
+        .today {
+            border: 2px solid green !important;
+            border-radius: 0%;
+            background: rgba(0, 255, 0, 0.1);
         }
         h2 {
             margin: 20px 0 10px;
@@ -216,11 +221,11 @@
     </div>
     <button class="menu-toggle" id="menuToggle">☰</button>
     <div class="menu-popup" id="menuPopup">
-	    <a href="index.html" class="contact-btn" id="contactBtn">ꤍꤟꤥꤡꤟꤢꤪꤐꤟꤢ꤭</a>
+        <a href="index.html" class="contact-btn" id="contactBtn">ꤍꤟꤥꤡꤟꤢꤪꤐꤟꤢ꤭</a>
         <a href="introduction.html" class="introduction-btn" id="introductionBtn">ꤒꤟꤢꤧ꤬ꤟꤢꤩꤙꤢꤧ꤬ꤋꤢ꤭ꤏꤛꤢꤩ</a>
         <a href="learning.html" class="learning-btn" id="learningBtn">ꤟꤢꤩꤞꤛꤥ ꤜꤤ꤬ꤊꤢ꤬ꤛꤢ꤭ꤜꤟꤤ꤬</a>
         <a href="proverb.html" class="proverb-btn" id="proverbBtn">ꤍꤟꤥꤋꤢꤋꤥ꤬</a>
-		<a href="calendar.html" class="calendar-btn" id="calendarBtn">ꤜꤤ꤬ꤔꤢ꤬ꤜꤢꤧ꤭</a>
+        <a href="calendar.html" class="calendar-btn" id="calendarBtn">ꤜꤤ꤬ꤔꤢ꤬ꤜꤢꤧ꤭</a>
         <a href="contact.html" class="contact-btn" id="contactBtn">ꤕꤜꤝꤥ꤭ꤓꤢꤦ꤭</a>
     </div>
     <main>
@@ -292,7 +297,7 @@
         function generateMonthTable(year, month) {
             const table = document.createElement('table');
             const headerRow = table.insertRow();
-            const daysOfWeek = ['ꤗꤟꤢꤪꤑꤢꤩ꤭ꤘꤟꤌꤣ꤬', 'ꤗꤟꤢꤪꤒꤣ꤬ꤑꤢꤩ꤭', 'ꤗꤟꤢꤪꤔꤛꤢꤩ꤭ꤑꤢꤩ꤭', 'ꤗꤟꤢꤪꤞꤌꤣ꤭ꤑꤢꤩ꤭', 'ꤗꤟꤢꤪꤜꤝꤟꤤ꤭ꤑꤢꤩ꤭', 'ꤗꤟꤢꤪꤑꤟꤢ꤭ꤒꤟꤢꤪ꤬', 'ꤗꤟꤢꤪꤊꤢ꤬ꤒꤟꤢꤪ꤬'];
+            const daysOfWeek = ['ꤗꤟꤢꤪꤑꤢꤩ꤭ꤘꤟꤌꤣ꤬', 'ꤗꤟꤢꤪꤒꤣ꤬ꤑꤢꤩ꤭', 'ꤗꤟꤢꤪꤔꤛꤢꤩ꤭ꤑꤢꤩ꤭', 'ꤗꤟꤢꤪꤞꤌꤣ꤭ꤑꤢꤩ꤭', 'ꤗꤟꤢꤪꤜꤝꤟꤤ꤭ꤑꤢꤩ꤭', 'ꤗꤟꤢꤪꤑꤟꤢ꤭ꤑꤢꤩ꤭', 'ꤗꤟꤢꤪꤊꤢ꤬ꤒꤟꤢꤪ꤬'];
             daysOfWeek.forEach(day => {
                 const th = document.createElement('th');
                 th.textContent = day;
@@ -301,6 +306,10 @@
 
             const firstDay = new Date(year, month, 1).getDay();
             const daysInMonth = new Date(year, month + 1, 0).getDate();
+            const today = new Date();
+            const todayDate = today.getDate();
+            const todayMonth = today.getMonth();
+            const todayYear = today.getFullYear();
 
             let row = table.insertRow();
             for (let i = 0; i < firstDay; i++) {
@@ -318,6 +327,10 @@
                     tooltip.className = 'tooltip';
                     tooltip.textContent = holidayName;
                     cell.appendChild(tooltip);
+                }
+                // Highlight today's date if it matches
+                if (day === todayDate && month === todayMonth && year === todayYear) {
+                    cell.classList.add('today');
                 }
                 if ((day + firstDay) % 7 === 0 && day < daysInMonth) {
                     row = table.insertRow();
