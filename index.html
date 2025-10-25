@@ -64196,6 +64196,27 @@ function isKayahli(text) {
   return /[\uA900-\uA92F]/.test(text);
 }
 
+function isMainDictionaryWord(searchTerm) {
+  const searchLower = searchTerm.toLowerCase();
+  
+  // Check if it's an exact match for main dictionary entries
+  if (dictionary[searchTerm] || dictionary[searchLower]) {
+    return true;
+  }
+  
+  // Check if it matches English words
+  for (const [key, value] of Object.entries(dictionary)) {
+    if (value.english.toLowerCase() === searchLower) {
+      return true;
+    }
+    if (value.karenni.toLowerCase().includes(searchLower)) {
+      return true;
+    }
+  }
+  
+  return false;
+}
+
 async function translate() {
   const searchTerm = searchInput.value.trim();
   const searchTermLower = searchTerm.toLowerCase();
@@ -64206,112 +64227,142 @@ async function translate() {
     return;
   }
 
-  let entries = [];
-  let exactMatch = false;
+  // Check if search is for a main dictionary word (English or Karenni)
+  const isMainWord = isMainDictionaryWord(searchTerm);
   
-  if (dictionary[searchTerm]) {
-    entries.push(dictionary[searchTerm]);
-    exactMatch = true;
-  } else if (dictionary[searchTermLower]) {
-    entries.push(dictionary[searchTermLower]);
-    exactMatch = true;
+  if (isMainWord) {
+    // Show full translation for main words
+    let entries = [];
+    let exactMatch = false;
+    
+    if (dictionary[searchTerm]) {
+      entries.push(dictionary[searchTerm]);
+      exactMatch = true;
+    } else if (dictionary[searchTermLower]) {
+      entries.push(dictionary[searchTermLower]);
+      exactMatch = true;
+    } else {
+      // Search in English and Karenni fields
+      for (const [key, value] of Object.entries(dictionary)) {
+        if (value.english.toLowerCase() === searchTermLower || 
+            value.karenni.toLowerCase().includes(searchTermLower)) {
+          entries.push(value);
+          exactMatch = true;
+        }
+      }
+      
+      // If no exact match, do fuzzy search
+      if (entries.length === 0) {
+        const matches = [];
+        for (const [key, value] of Object.entries(dictionary)) {
+          let score = 0;
+          
+          const inKey = key.toLowerCase().includes(searchTermLower);
+          const inEnglish = value.english.toLowerCase().includes(searchTermLower);
+          const inKarenni = value.karenni.toLowerCase().includes(searchTermLower);
+          const inTranslation = value.translation.toLowerCase().includes(searchTermLower);
+          
+          if (inKey) score += 4;
+          if (inEnglish) score += 3;
+          if (inKarenni) score += 3;
+          if (inTranslation) score += 2;
+          
+          if (score > 0) {
+            matches.push({
+              entry: value,
+              key: key,
+              score: score
+            });
+          }
+        }
+        
+        matches.sort((a, b) => b.score - a.score);
+        const topMatches = matches.slice(0, 5);
+        
+        if (topMatches.length > 0) {
+          entries = topMatches.map(match => match.entry);
+          translationContentDiv.innerHTML = `<div style="color: #666; margin-bottom: 15px; font-style: italic;">
+            ꤗꤛꤢꤓꤛꤢꤩ꤬ꤒꤥ꤭ꤒꤢꤦ "${searchTerm}" ꤒꤥ꤬꤯ Word not found exactly.
+          </div>`;
+        }
+      }
+    }
+
+    if (entries.length) {
+      resultsDiv.style.display = 'block';
+      translationContentDiv.style.display = 'block';
+      let translationHTML = '';
+      
+      for (const entry of entries) {
+        const [word, pos] = entry.translation.split(' ');
+        translationHTML += `
+          <div style="margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 10px;">
+            <div class="english-line">
+              <strong>${entry.english}</strong>
+              <span class="speaker" onclick="speakEnglish('${entry.english.replace(/'/g, "\\'")}')">🔊</span>
+              <span class="pos">${pos}</span>
+            </div>
+            <div class="karenni-line">${entry.karenni}</div>
+          </div>
+        `;
+      }
+      
+      if (exactMatch) {
+        translationContentDiv.innerHTML = translationHTML;
+      } else {
+        translationContentDiv.innerHTML += translationHTML;
+      }
+      
+      // Show all examples for the main word
+      let allExamples = [];
+      if (exactMatch) {
+        allExamples = entries.flatMap(entry => entry.examples);
+      } else {
+        allExamples = entries.flatMap(entry => entry.examples || []);
+      }
+      
+      if (allExamples.length > 0) {
+        examplesDiv.innerHTML = '<h3>ꤢ꤬ꤚꤢꤪꤒꤢ꤬ꤟꤢꤩ꤬꤯ Examples:</h3>' + allExamples.map(example => `<p>▪️${example}</p>`).join('');
+      } else {
+        examplesDiv.innerHTML = '';
+      }
+    } else {
+      resultsDiv.style.display = 'block';
+      translationContentDiv.style.display = 'block';
+      translationContentDiv.innerHTML = `<div style="color: red; margin-bottom: 15px; font-style: italic;">
+          ꤋꤛꤢꤞꤢꤧꤘꤥ꤭! ꤠꤢ꤭ ꤗꤛꤢꤓꤛꤢꤩ꤬ꤜꤤ꤬ꤕꤜꤢꤪ꤬ "${searchTerm}" ꤥ꤬ꤒꤥ꤬ꤔꤤ~꤯
+        </div>`;
+    }
   } else {
- 
-    const matches = [];
+    // Search in examples only (phrases)
+    let foundInExamples = false;
+    let exampleMatches = [];
     
     for (const [key, value] of Object.entries(dictionary)) {
-      let score = 0;
-      
-      const inKey = key.toLowerCase().includes(searchTermLower);
-      const inEnglish = value.english.toLowerCase().includes(searchTermLower);
-      const inKarenni = value.karenni.toLowerCase().includes(searchTermLower);
-      const inTranslation = value.translation.toLowerCase().includes(searchTermLower);
-      
-      let inExamples = false;
-      let exampleMatches = [];
       if (value.examples && value.examples.length > 0) {
         value.examples.forEach(example => {
           if (example.toLowerCase().includes(searchTermLower)) {
-            inExamples = true;
+            foundInExamples = true;
             exampleMatches.push(example);
           }
         });
       }
-      
-      if (inKey) score += 4;
-      if (inEnglish) score += 3;
-      if (inKarenni) score += 3;
-      if (inTranslation) score += 2;
-      if (inExamples) score += 1;
-      
-      if (score > 0) {
-        matches.push({
-          entry: value,
-          key: key,
-          score: score,
-          exampleMatches: exampleMatches
-        });
-      }
     }
-    
-    matches.sort((a, b) => b.score - a.score);
-    const topMatches = matches.slice(0, 5);
-    
-    if (topMatches.length > 0) {
-      entries = topMatches.map(match => ({
-        ...match.entry,
-        matchedExamples: match.exampleMatches
-      }));
-      
-      translationContentDiv.innerHTML = `<div style="color: #666; margin-bottom: 15px; font-style: italic;">
-        ꤗꤛꤢꤓꤛꤢꤩ꤬ꤒꤥ꤭ꤒꤢꤦ "${searchTerm}" ꤒꤥ꤬꤯ Word not found exactly.
-      </div>`;
-    }
-  }
 
-  if (entries.length) {
-    resultsDiv.style.display = 'block';
-    let translationHTML = '';
-    
-    for (const entry of entries) {
-      const [word, pos] = entry.translation.split(' ');
-      translationHTML += `
-        <div style="margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 10px;">
-          <div class="english-line">
-            <strong>${entry.english}</strong>
-            <span class="speaker" onclick="speakEnglish('${entry.english.replace(/'/g, "\\'")}')">🔊</span>
-            <span class="pos">${pos}</span>
-          </div>
-          <div class="karenni-line">${entry.karenni}</div>
-        </div>
-      `;
-    }
-    
-    if (exactMatch) {
-      translationContentDiv.innerHTML = translationHTML;
+    if (foundInExamples) {
+      resultsDiv.style.display = 'block';
+      translationContentDiv.style.display = 'none';
+      examplesDiv.innerHTML = exampleMatches.map(example => `<p>${example}</p>`).join('');
     } else {
-      translationContentDiv.innerHTML += translationHTML;
-    }
-    
-    let allExamples = [];
-    if (exactMatch) {
-      allExamples = entries.flatMap(entry => entry.examples);
-    } else {
-      
-      allExamples = entries.flatMap(entry => entry.matchedExamples || []);
-    }
-    
-    if (allExamples.length > 0) {
-      examplesDiv.innerHTML = '<h3>ꤢ꤬ꤚꤢꤪꤒꤢ꤬ꤟꤢꤩ꤬꤯ Examples:</h3>' + allExamples.map(example => `<p>▪️${example}</p>`).join('');
-    } else {
+      resultsDiv.style.display = 'block';
+      translationContentDiv.style.display = 'block';
+      translationContentDiv.innerHTML = `<div style="color: red; margin-bottom: 15px; font-style: italic;">
+          ꤋꤛꤢꤞꤢꤧꤘꤥ꤭! ꤠꤢ꤭ ꤗꤛꤢꤓꤛꤢꤩ꤬ꤜꤤ꤬ꤕꤜꤢꤪ꤬ "${searchTerm}" ꤥ꤬ꤒꤥ꤬ꤔꤤ~꤯
+        </div>`;
       examplesDiv.innerHTML = '';
     }
-  } else {
-    resultsDiv.style.display = 'block';
-    translationContentDiv.innerHTML = `<div style="color: red; margin-bottom: 15px; font-style: italic;">
-        ꤋꤛꤢꤞꤢꤧꤘꤥ꤭! ꤠꤢ꤭ ꤗꤛꤢꤓꤛꤢꤩ꤬ꤜꤤ꤬ꤕꤜꤢꤪ꤬ "${searchTerm}" ꤥ꤬ꤒꤥ꤬ꤔꤤ~꤯
-      </div>`;
   }
+  
   relatedWordsDiv.style.display = 'none';
 }
 
@@ -64328,6 +64379,7 @@ function clearSearch() {
   examplesDiv.innerHTML = '';
   clearSymbol.style.display = 'none';
   relatedWordsDiv.style.display = 'none';
+  translationContentDiv.style.display = 'block';
 }
 
 async function showRelatedWords() {
