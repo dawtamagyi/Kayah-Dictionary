@@ -33,7 +33,7 @@
             position: fixed;
             top: 0;
             left: 0;
-            z-index: 1000;
+            z-index: 999;
         }
         .header-row {
             display: flex;
@@ -69,7 +69,7 @@
             border: none;
             background: none;
             padding: 4px;
-            z-index: 1001;
+            z-index: 1000;
         }
         .menu-popup {
             display: none;
@@ -80,7 +80,7 @@
             border: 2px solid #ddd;
             border-radius: 20px;
             padding: 10px;
-            z-index: 1001;
+            z-index: 1000;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
         .contact-btn, .introduction-btn, .learning-btn, .proverb-btn, .calendar-btn {
@@ -113,8 +113,10 @@
             color: #333;
             text-align: justify;
         }
-        .content-wrapper {
-            margin-top: 90px; /* Add margin to account for fixed header */
+
+        /* Add padding to body to account for fixed header */
+        body {
+            padding-top: 90px; /* Height of header rows + some extra space */
         }
 
         @media (max-width: 600px) {
@@ -127,8 +129,10 @@
                 top: 0px;
                 left: 5px;
             }
-            .content-wrapper {
-                margin-top: 80px; /* Adjust for smaller screens if needed */
+            
+            /* Adjust padding for smaller screens */
+            body {
+                padding-top: 80px;
             }
         }
     </style>
@@ -141,40 +145,35 @@
         </div>
         <div class="header-row header-row-3"></div>
     </div>
-    
     <button class="menu-toggle" id="menuToggle">☰</button>
     <div class="menu-popup" id="menuPopup">
-        <a href="index.html" class="contact-btn" id="contactBtn">ꤍꤟꤥꤡꤟꤢꤪꤐꤟꤢ꤭</a>
+	    <a href="index.html" class="contact-btn" id="contactBtn">ꤍꤟꤥꤡꤟꤢꤪꤐꤟꤢ꤭</a>
         <a href="introduction.html" class="introduction-btn" id="introductionBtn">ꤒꤟꤢꤧ꤬ꤟꤢꤩꤙꤢꤧ꤬ꤋꤢ꤭ꤏꤛꤢꤩ</a>
         <a href="learning.html" class="learning-btn" id="learningBtn">ꤟꤢꤩꤞꤛꤥ ꤜꤤ꤬ꤊꤢ꤬ꤛꤢ꤭ꤜꤟꤤ꤬</a>
         <a href="proverb.html" class="proverb-btn" id="proverbBtn">ꤍꤟꤥꤋꤢꤋꤥ꤬</a>
-        <a href="calendar.html" class="calendar-btn" id="calendarBtn">ꤜꤤ꤬ꤔꤢ꤬ꤜꤢꤧ꤭</a>
+		<a href="calendar.html" class="calendar-btn" id="calendarBtn">ꤜꤤ꤬ꤔꤢ꤬ꤜꤢꤧ꤭</a>
         <a href="contact.html" class="contact-btn" id="contactBtn">ꤕꤜꤝꤥ꤭ꤓꤢꤦ꤭</a>
     </div>
-    
-    <div class="content-wrapper">
-        <div class="container">
-            <div class="acknowledgments">
-                <p>The author wishes to thank Payap University and the Payap Linguistics Institute, Chiang Mai, Thailand, for sponsoring the English - Kayah Dictionary section of this book. Payap University is a strong advocate for language communities in Mainland Southeast Asia. A special thanks to the Payap Language Software Group (Palaso Group) in the Linguistics Institute for their technical assistance. As the creators of the WeSay dictionary program, they helped to transfer data, program the mapping to incorporate the IPA phonetic entry, and format the final typeset copy.</p>
-                <p>Finally, this dictionary is the result of the efforts of the Kayah Li people themselves who in recent years have resettled throughout the world. The author wishes to thank those living in Winston Salem, North Carolina, for their help in filling in the dictionary gaps and Khu Myar Reh for his help on the grammar section.</p>
-                <p>The author also acknowledges the following resources:</p>
-                <ul>
-                    <li><em>The Modern Kayah Li – English Lexicon</em>, pub. by the Karenni Literature Department, 1994.</li>
-                    <li>Nolan, Dr. Stephen with assistance from Nyi Nyi Lwin, <em>Pocket Burmese Dictionary: Burmese-English, English-Burmese</em>, Periplus Editions, 2008.</li>
-                </ul>
-            </div>
-            <div class="introduction">
-                <h1>Introduction</h1>
-                <p>Kayah Li (Red Karen) is a Central Karenic language of the Tibeto-Burman Language family. It is spoken by the Kayah Li people from Myanmar. (Li means "red") The Kayah people live predominantly in Kayah State, Shan State, and along Thailand's northwestern border. In more recent years, Kayah Li people have been given the opportunity to immigrate all over the world from New Zealand and Australia to Finland, the USA, and other countries. While there is no recent census data to draw official figures from, an estimate of the Kayah Li speaking population is over 100,000 people.</p>
-                <p>While the Kayah language has three dialects—western, eastern, and northern—the reality is that different speech varieties can be found from village to village. One man illustrated the richness of varieties with some hyperbole, complaining that even in one household, the Kayah spoke differently from each other.</p>
-                <p>In the following pages, the English-Kayah Dictionary with Helps is based on the Western Kayah Li dialect from the Keliya area of Kayah State. The Keliya area might be called the "royal" dialect or the prestige dialect due to its history as the home of the historically famous Chief Kephodu. While the population of speakers is small, Chief Kephodu's fame, the prominent history of the Keliya area, and a decision by the Kayah leadership have impacted the choice to base language development on the Western Kayah Li dialect. Furthermore, while there are three different scripts and fonts used by the Kayah people, the author has chosen to use the Kebogyi Script, developed by Thara Hta Bu Phae in the 1950s. It is the most accessible and familiar to the Kayah who are living outside the homeland area.</p>
-                <p>The Dictionary and Helps are written with three audiences in mind. The first is the Kayah people themselves who are interested in learning English and need resources or help to understand a word in English. The second audience is the non-linguist who has an interest or need to communicate with the Kayah. Whether they are a volunteer, case-worker helping the Kayah in their resettlement to a third country, or just a friend interested in learning to speak Kayah, the author hopes they will find this resource helpful. The third audience is the linguist who would like to understand more about the Kayah language sound system along with some descriptive examples of its grammatical functions. That said, to make the Helps accessible to a wider audience, I have intentionally sought to explain the linguistic aspects in an easier-to-understand format.</p>
-                <p>The reader will surely find mistakes within the pages of this first edition. Despite this, the author trusts that this will be a helpful foundation for the Kayah Li people to use as they develop resources in their language.</p>
-            </div>
+    <div class="container">
+        <div class="acknowledgments">
+            <p>The author wishes to thank Payap University and the Payap Linguistics Institute, Chiang Mai, Thailand, for sponsoring the English - Kayah Dictionary section of this book. Payap University is a strong advocate for language communities in Mainland Southeast Asia. A special thanks to the Payap Language Software Group (Palaso Group) in the Linguistics Institute for their technical assistance. As the creators of the WeSay dictionary program, they helped to transfer data, program the mapping to incorporate the IPA phonetic entry, and format the final typeset copy.</p>
+            <p>Finally, this dictionary is the result of the efforts of the Kayah Li people themselves who in recent years have resettled throughout the world. The author wishes to thank those living in Winston Salem, North Carolina, for their help in filling in the dictionary gaps and Khu Myar Reh for his help on the grammar section.</p>
+            <p>The author also acknowledges the following resources:</p>
+            <ul>
+                <li><em>The Modern Kayah Li – English Lexicon</em>, pub. by the Karenni Literature Department, 1994.</li>
+                <li>Nolan, Dr. Stephen with assistance from Nyi Nyi Lwin, <em>Pocket Burmese Dictionary: Burmese-English, English-Burmese</em>, Periplus Editions, 2008.</li>
+            </ul>
         </div>
-        <p style="text-align: center; color: white; text-shadow: 1px 1px 2px black, 0 0 25px blue, 0 0 5px red;">This webpage was created by: Ko Reh [ꤘꤢꤪ꤭ꤒꤢ꤬ꤗꤢꤘꤢꤨ꤬] 2025</p>
+        <div class="introduction">
+            <h1>Introduction</h1>
+            <p>Kayah Li (Red Karen) is a Central Karenic language of the Tibeto-Burman Language family. It is spoken by the Kayah Li people from Myanmar. (Li means "red") The Kayah people live predominantly in Kayah State, Shan State, and along Thailand's northwestern border. In more recent years, Kayah Li people have been given the opportunity to immigrate all over the world from New Zealand and Australia to Finland, the USA, and other countries. While there is no recent census data to draw official figures from, an estimate of the Kayah Li speaking population is over 100,000 people.</p>
+            <p>While the Kayah language has three dialects—western, eastern, and northern—the reality is that different speech varieties can be found from village to village. One man illustrated the richness of varieties with some hyperbole, complaining that even in one household, the Kayah spoke differently from each other.</p>
+            <p>In the following pages, the English-Kayah Dictionary with Helps is based on the Western Kayah Li dialect from the Keliya area of Kayah State. The Keliya area might be called the "royal" dialect or the prestige dialect due to its history as the home of the historically famous Chief Kephodu. While the population of speakers is small, Chief Kephodu's fame, the prominent history of the Keliya area, and a decision by the Kayah leadership have impacted the choice to base language development on the Western Kayah Li dialect. Furthermore, while there are three different scripts and fonts used by the Kayah people, the author has chosen to use the Kebogyi Script, developed by Thara Hta Bu Phae in the 1950s. It is the most accessible and familiar to the Kayah who are living outside the homeland area.</p>
+            <p>The Dictionary and Helps are written with three audiences in mind. The first is the Kayah people themselves who are interested in learning English and need resources or help to understand a word in English. The second audience is the non-linguist who has an interest or need to communicate with the Kayah. Whether they are a volunteer, case-worker helping the Kayah in their resettlement to a third country, or just a friend interested in learning to speak Kayah, the author hopes they will find this resource helpful. The third audience is the linguist who would like to understand more about the Kayah language sound system along with some descriptive examples of its grammatical functions. That said, to make the Helps accessible to a wider audience, I have intentionally sought to explain the linguistic aspects in an easier-to-understand format.</p>
+            <p>The reader will surely find mistakes within the pages of this first edition. Despite this, the author trusts that this will be a helpful foundation for the Kayah Li people to use as they develop resources in their language.</p>
+        </div>
     </div>
-    
+    <p style="text-align: center; color: white; text-shadow: 1px 1px 2px black, 0 0 25px blue, 0 0 5px red;">This webpage was created by: Ko Reh [ꤘꤢꤪ꤭ꤒꤢ꤬ꤗꤢꤘꤢꤨ꤬] 2025</p>
     <script>
         const menuToggle = document.getElementById('menuToggle');
         const menuPopup = document.getElementById('menuPopup');
