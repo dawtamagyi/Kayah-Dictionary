@@ -238,7 +238,7 @@ input {
   background: #FFC0CB;
   border: 0px solid #FFC0CB;
   border-radius: 5px;
-  max-height: 300px;
+  max-height: 300px auto;
   overflow-y: auto;
   display: none;
   z-index: 1;
@@ -637,6 +637,7 @@ const dictionary = {
 "Pretty well. ꤡꤟꤛꤢꤜꤢ꤭ (ꤚꤛꤢꤜꤢ꤭)",
 "Quite well. ꤚꤛꤢꤙꤢꤧ꤬ꤗꤢꤧꤕꤚꤢꤧ꤯",
 "Are you good at math? ꤔꤟꤢꤧ꤬ ꤡꤟꤛꤢꤚꤛꤢ ꤘꤝꤢ ꤟꤟꤢꤧ꤭?",
+"I think so ꤢ꤬ꤗꤟꤢꤡꤟꤛꤢꤊꤥ꤭ꤜꤢꤩ꤬꤯",
 "Yes, I think so. ꤗꤟꤢ, ꤠꤢ꤭ ꤒꤢ꤬ꤔꤟꤢꤩ꤬ꤔꤛꤣ꤬꤯",
 "No, not really. ꤒꤥ꤬, ꤔꤟꤤꤔꤛꤢ꤬ꤒꤥ꤬꤯",
 "Will I ever learn to speak Japanese? ꤠꤢ꤭ ꤤ꤬ꤞꤛꤥꤟꤢꤩꤙꤢꤧ꤬ꤔꤢꤪ ꤡꤟꤢ꤬ꤕꤢ꤬ꤍꤟꤥ ꤕꤢ꤭ꤟꤟꤢꤧ꤭?",
@@ -677,7 +678,8 @@ const dictionary = {
   english: "about",
   karenni: "ꤢ꤬ꤚꤤ꤬ꤢ꤬ꤊꤛꤢ꤭꤯ ꤥ꤬ꤡꤟꤛꤢ  /adv/ ꤙꤢꤧ꤬ꤊꤛꤢꤔꤢ",
   translation: "about /prep/",
-  examples: ["about to die ꤊꤟꤢꤦꤚꤟꤢꤩ ꤞꤛꤢꤩ꤭ꤒꤢ꤬ꤜꤤ",
+  examples: ["About when? ꤘꤣꤙꤤꤋꤢꤧ꤭ꤒꤢꤩ꤭?",
+  "about to die ꤊꤟꤢꤦꤚꤟꤢꤩ ꤞꤛꤢꤩ꤭ꤒꤢ꤬ꤜꤤ",
   "I've heard so much about you. ꤠꤢ꤭ ꤔꤟꤤꤟꤌꤣ꤭ꤢꤧꤓꤛꤣ꤭ ꤔꤟꤢꤧ꤬ꤢ꤬ꤚꤤ꤬ꤢ꤬ꤊꤛꤢ꤭ ꤟꤢꤪ꤯",
 "I've heard many nice things about you. ꤠꤢ꤭ ꤔꤟꤤꤟꤌꤣ꤭ꤢꤧꤓꤛꤣ꤭ ꤔꤟꤢꤧ꤬ꤚꤤ꤬ꤊꤛꤢ꤭ꤒꤟꤢꤧ꤬ꤒꤝꤟꤥꤚꤛꤢ ꤟꤢꤪ꤯"]
 },
@@ -697,7 +699,7 @@ const dictionary = {
   english: "absent",
   karenni: "ꤥ꤬ꤒꤥ꤬",
   translation: "absent /adj/",
-  examples: []
+  examples: ["Absent minded ꤏꤥ꤭ꤒꤢ꤬ꤕꤟꤢ꤬ꤚꤛꤢꤡꤢꤪ"]
 },
 "abstain": {
   english: "abstain",
@@ -821,7 +823,7 @@ const dictionary = {
 },
 "accuse": {
   english: "accuse",
-  karenni: "ꤊꤢꤧ꤬, ꤕꤟꤢꤨ꤭ꤊꤢꤧ꤬ꤕꤟꤢꤨ꤭ꤔꤢꤧ꤭, ꤔꤢꤧ꤭, ꤘꤛꤢ꤬ꤒꤟꤢꤧ꤬ꤞꤢꤦ, ꤙꤢꤩ꤬ꤒꤟꤢꤧ꤬ꤞꤢꤦ",
+  karenni: "ꤊꤢꤧ꤬, ꤕꤟꤢꤨ꤭ꤊꤢꤧ꤬ꤕꤟꤢꤨ꤭ꤔꤢꤧ꤭, ꤔꤢꤧ꤭, ꤘꤛꤢ꤬ꤒꤟꤢꤧ꤬ꤞꤢꤦ, ꤙꤢꤩ꤬ꤒꤟꤢꤧ꤬ꤞꤢꤦ, ꤕꤟꤢꤦꤒꤟꤢꤧ꤬ꤞꤢꤦ",
   translation: "accuse /v/",
   examples: ["falsely accuse ꤊꤢꤧ꤬ꤙꤢꤪ꤭ꤊꤢꤧ꤬ꤙꤛꤢꤩ꤬",
   "The accused ꤕꤚꤟꤢꤧ꤬ꤋꤛꤢꤞꤢꤦ"]
@@ -834,9 +836,9 @@ const dictionary = {
 },
 "accusing": {
   english: "accusing",
-  karenni: "ꤘꤛꤢ꤬ꤒꤟꤢꤧ꤬ꤞꤢꤦ, ꤙꤢꤩ꤬ꤒꤟꤢꤧ꤬ꤞꤢꤦ",
+  karenni: "ꤘꤛꤢ꤬ꤒꤟꤢꤧ꤬ꤞꤢꤦ, ꤙꤢꤩ꤬ꤒꤟꤢꤧ꤬ꤞꤢꤦ, ꤕꤟꤢꤦꤒꤟꤢꤧ꤬ꤞꤢꤦ",
   translation: "accusing /adj/",
-  examples: []
+  examples: ["Are you accusing me? ꤔꤟꤢꤧ꤬ ꤕꤟꤢꤦꤠꤢ꤭ꤒꤟꤢꤧ꤬ꤞꤢꤦꤟꤟꤢꤧ꤭?"]
 },
 "accustomed": {
   english: "accustomed",
@@ -1096,9 +1098,9 @@ const dictionary = {
 },
 "afraid": { 
   "english": "afraid",
-  "karenni": "ꤞꤢꤧꤤ꤬ꤏꤢꤩ꤭, ꤞꤢꤧꤏꤢꤩ꤭",
-  "translation": "afraid /v/",
-  "examples": []
+  "karenni": "ꤞꤢꤧꤤ꤬ꤏꤢꤩ꤭, ꤞꤢꤧꤏꤢꤩ꤭, ꤞꤢꤧꤏꤢꤩ꤭",
+  "translation": "afraid /adj/",
+  "examples": ["Don't be afraid. ꤞꤢꤧꤤ꤬ꤏꤢꤩ꤭ꤒꤢꤧ꤭ꤗꤟꤢꤩ꤯"]
 },
 "Africa": { 
   "english": "Africa",
@@ -1444,7 +1446,7 @@ const dictionary = {
   "english": "amazing",
   "karenni": "ꤋꤛꤢꤩꤞꤢꤨ꤬ꤋꤛꤢꤩꤞꤢꤧ, ꤓꤢꤩ꤬ꤙꤤꤓꤢꤩ꤬ꤒꤢ꤬ꤕꤟꤢ꤬, ꤓꤢꤩ꤬ꤒꤢ꤬ꤕꤟꤢ꤬, ꤋꤛꤢꤩꤞꤢꤨ꤬ꤋꤛꤢꤩꤞꤢꤧ, ꤒꤢ꤬ꤕꤟꤢ꤬ꤋꤛꤢꤩꤞꤢꤧ, ꤒꤢ꤬ꤕꤟꤢ꤬ꤋꤛꤢꤩꤞꤢꤨ꤬, ꤋꤛꤢꤩꤞꤢꤨ꤬ꤋꤛꤢꤩꤞꤢꤧ, ꤢ꤬ꤒꤢ꤬ꤕꤟꤢ꤬",
   "translation": "amazing /adj/",
-  "examples": []
+  "examples": ["You look amazing. ꤔꤟꤢꤧ꤬ꤗꤛꤢ ꤖꤢꤧ꤭/ꤗꤟꤌꤣ ꤒꤝꤟꤥꤞꤢ꤭ꤚꤛꤢ꤭ꤜꤢ꤭꤯"]
 },
 "amber": { 
   "english": "amber",
@@ -1642,7 +1644,7 @@ const dictionary = {
   "english": "angry",
   "karenni": "ꤞꤢꤧꤕꤜꤢꤪ꤬ꤘꤢꤨ꤬, ꤞꤢꤧꤕꤜꤢꤪ꤬ꤘꤢꤨ꤬ꤓꤛꤢ꤬, ꤞꤢꤧꤟꤢ꤭ꤓꤛꤢ꤬",
   "translation": "angry /adj/",
-  "examples": []
+  "examples": ["I'm getting angry. ꤠꤢ꤭ ꤞꤢꤧꤕꤜꤢꤪ꤬ꤘꤢꤨ꤬ꤟꤛꤢ꤭ꤟꤢꤪ꤯"]
 },
 "animal": { 
   "english": "animal",
@@ -1817,6 +1819,13 @@ const dictionary = {
   "karenni": "ꤒꤣ꤬ꤕꤚꤟꤢꤧ꤬ꤕꤚꤟꤢꤧ꤬, ꤢꤨ꤭ꤕꤢꤩ꤭ꤙꤢꤧ꤬ꤙꤢꤧ꤬, ꤢꤨ꤭ꤕꤢꤩ꤭ꤟꤢꤩꤒꤥ꤬, ꤢꤨ꤭",
   "translation": "anyone /pron/",
   "examples": []
+},
+"anything": { 
+  "english": "anything",
+  "karenni": "ꤒꤣ꤬ꤡꤣ꤬ꤡꤣ꤬",
+  "translation": "anything /pron/",
+  "examples": ["Anything else? ꤥ꤬ꤕꤢ꤭ꤗꤢ꤬ꤒꤢꤩ꤭?",
+  "Do you want anything else? ꤔꤟꤢꤧ꤬ꤞꤢꤧꤐꤟꤢꤦ ꤥ꤬ꤕꤢ꤭ꤗꤢ꤬ꤒꤢꤩ꤭?"]
 },
 "anytime": { 
   "english": "anytime",
@@ -2156,7 +2165,7 @@ const dictionary = {
   "translation": "as /adv/",
   "examples": [
   "as much as ꤥ꤬ꤢꤧꤊꤚꤟꤢꤦ꤬",
-  "as usual ꤒꤟꤢꤪ꤭ꤕꤚꤢꤧ"]
+  "as usual ꤒꤟꤢꤪ꤭ꤕꤚꤢꤧ, ꤕꤝꤟꤥ꤭ꤖꤟꤌꤣꤜꤟꤢꤩꤊꤜꤥ꤭ꤔꤌꤣ꤬ꤕꤚꤢꤧ꤯"]
 },
 "aseptic": { 
   "english": "aseptic",
@@ -2211,7 +2220,8 @@ const dictionary = {
   "english": "aside",
   "karenni": "ꤒꤢ꤬ꤖꤢ꤭ꤡꤛꤣꤋꤥꤊꤛꤢ꤭",
   "translation": "aside /adv/",
-  "examples": ["set aside ꤖꤛꤢꤩꤘꤝꤥ"]
+  "examples": ["Move aside. ꤞꤢꤪꤞꤢꤦꤡꤛꤣꤘꤣ ꤢ꤬ꤓꤢꤦ꤭꤯",
+  "set aside ꤖꤛꤢꤩꤘꤝꤥ"]
 },
 "ask": { 
   "english": "ask",
@@ -2591,7 +2601,8 @@ const dictionary = {
   "Go to the back ꤡꤛꤣꤘꤣ ꤋꤛꤢꤩ꤭꤯",
   "back and forth ꤊꤟꤢ꤬ꤋꤛꤢꤩ꤭ꤟꤛꤢ꤭ꤑꤢꤩ꤭",
   "back to life ꤓꤝꤟꤥ꤭ꤕꤚꤟꤢꤧ꤬ꤊꤟꤢ꤬",
-  "send back ꤞꤢꤨ꤭ꤊꤟꤢ꤬ꤋꤛꤢꤩ꤭"]
+  "send back ꤞꤢꤨ꤭ꤊꤟꤢ꤬ꤋꤛꤢꤩ꤭",
+  "Come back ꤊꤟꤢ꤬ꤋꤛꤢꤩ꤭ꤞꤛꤢ"]
 },
 "backbone": {
   english: "backbone",
@@ -3013,7 +3024,7 @@ const dictionary = {
   karenni: "ꤥ꤬, ꤓꤝꤟꤥ꤭",
   translation: "be /v/",
   examples: ["We will be here tomorrow. ꤏꤛꤢꤩꤕꤢ꤬ꤚꤥ꤭ ꤕꤟꤢꤧ꤬ꤥ꤬ ꤙꤤꤛꤢꤩ꤭ꤕꤢ꤭꤯",
-  "Don't be late. ꤒꤟꤢ꤭ꤔꤥ꤬ꤒꤟꤢꤧ꤭ꤗꤟꤢꤩ",
+  "Don't be late. ꤒꤟꤢ꤭ꤔꤥ꤬ꤒꤢꤧ꤭ꤗꤟꤢꤩ",
   "I will be yours. ꤠꤢ꤭ ꤓꤝꤟꤥ꤭ ꤔꤟꤢꤧ꤬ꤒꤢꤧ꤭ꤕꤢ꤭꤯",
   "be careful ꤥ꤬ꤚꤟꤢꤪ꤬, ꤥ꤬ꤚꤟꤢꤪ꤬ꤔꤟꤤ",
   "Be quiet! ꤥ꤬ꤞꤛꤣ꤬, ꤞꤛꤣ꤬ꤞꤛꤣ꤬꤮ ꤥ꤬ꤗꤛꤢ꤮꤯",
@@ -3116,7 +3127,7 @@ const dictionary = {
     "english": "because",
     "karenni": "ꤗꤟꤢꤩ꤬ꤒꤢꤩ꤭ꤟꤢꤩꤚꤢꤪ, ꤗꤢ꤬ꤒꤢꤩ꤭ꤟꤢꤩꤚꤢꤪ, ꤗꤟꤢꤩ꤬ꤒꤢꤩ꤭ꤟꤢꤩꤔꤛꤣ꤬ꤗꤢ꤬, ꤗꤟꤢꤩ꤬ꤒꤢꤩ꤭ꤟꤢꤩꤔꤛꤣ꤬ꤚꤢꤪ, ꤗꤢ꤬ꤗꤟꤢꤩ꤬ꤒꤢꤩ꤭ꤟꤢꤩꤚꤢꤪ, ꤢ꤬ꤋꤢꤨ꤬ꤢ꤬ꤋꤛꤢꤩ꤭, ꤋꤢꤨ꤬ꤋꤛꤢꤩ꤭",
     "translation": "because /conj/",
-    "examples": []
+    "examples": ["Because of you. ꤗꤟꤢꤔꤟꤢꤧ꤬ꤋꤢꤨ꤬ꤔꤟꤢꤧ꤬ꤋꤛꤢꤩ꤭ꤔꤌꤣ꤬꤯"]
   },
   "become": {
     "english": "become",
@@ -3912,11 +3923,10 @@ const dictionary = {
     "english": "book",
     "karenni": "ꤜꤤ꤬ꤢꤨ /v/ ꤤ꤬ꤕꤚꤟꤤ꤬ꤚꤟꤢꤩ, ꤤ꤬ꤕꤚꤟꤤ꤬",
     "translation": "book /n/",
-    "examples": ["We booked a hotel room for our vacation.",
-"She booked a flight to Paris for next month.",
-"They booked tickets to the concert online.",
-"I need to book a table at that new Italian restaurant.",
-"The band is booked to play at the festival."]
+    "examples": ["I need books. ꤠꤢ꤭ ꤜꤥ꤬ꤙꤢꤧ꤬ ꤜꤤ꤬ꤢꤨ꤯",
+	"How many books do you have? ꤔꤟꤢꤧ꤬ ꤜꤤ꤬ꤢꤨꤥ꤬ ꤙꤢꤢꤨꤒꤢꤩ꤭?",
+	"She has a black book. ꤢꤧ꤬ ꤜꤤ꤬ꤢꤨꤜꤟꤢꤪ꤬ ꤥ꤬꤯",
+	"We booked a hotel room. ꤕꤟꤢꤧ꤬ ꤤ꤬ꤕꤚꤟꤤ꤬ ꤏꤤ꤭ꤕꤚꤟꤢꤩꤟꤤ꤬ꤚꤥ꤭꤯"]
   },
 "bookcase": {
     "english": "bookcase",
@@ -3956,7 +3966,7 @@ const dictionary = {
   },
   "bored": {
     "english": "bored",
-    "karenni": "ꤞꤢꤧꤒꤢ꤬ꤊꤜꤢꤩ꤭, ꤒꤢ꤬ꤢꤟꤌꤣ꤭ꤒꤢ꤬ꤏꤢꤧ꤭ꤟꤌꤣ꤬",
+    "karenni": "ꤞꤢꤧꤒꤢ꤬ꤊꤜꤢꤩ꤭, ꤕꤝꤟꤥ꤬ꤞꤢꤧ, ꤒꤢ꤬ꤢꤟꤌꤣ꤭ꤒꤢ꤬ꤏꤢꤧ꤭ꤟꤌꤣ꤬",
     "translation": "bored /adj/",
     "examples": []
   },
@@ -3964,6 +3974,12 @@ const dictionary = {
     "english": "boredom",
     "karenni": "ꤊꤜꤢꤨ꤬ꤍꤝꤢꤧ꤭",
     "translation": "boredom /n/",
+    "examples": []
+  },
+  "boring": {
+    "english": "boring",
+    "karenni": "ꤕꤝꤟꤥ꤬ꤞꤢꤧꤜꤢ꤭",
+    "translation": "boring /adj,v-ing/",
     "examples": []
   },
   "born": {
@@ -4644,7 +4660,7 @@ const dictionary = {
     "english": "busy",
     "karenni": "ꤥ꤬ꤊꤥ꤭ꤒꤥ꤬, ꤒꤟꤢꤧ꤬ꤗꤟꤢꤩ꤬ꤥ꤬ꤢꤧ",
     "translation": "busy /adj/",
-    "examples": []
+    "examples": ["I'm busy. ꤠꤢ꤭ ꤥ꤬ꤊꤥ꤭ꤒꤥ꤬꤯"]
   },
   "but": {
     "english": "but",
@@ -4698,7 +4714,7 @@ const dictionary = {
     "english": "bye",
     "karenni": "ꤡꤛꤣꤟꤢꤪ, ꤡꤛꤣꤟꤢꤪꤔꤤ",
     "translation": "bye /interj/",
-    "examples": []
+    "examples": ["Good bye. ꤡꤛꤣꤊꤟꤊꤣꤘꤢꤦ꤬ꤟꤢꤪ꤯"]
   },
   "curriculum": { 
   "english": "curriculum",
@@ -4808,7 +4824,7 @@ const dictionary = {
   "english": "calm",
   "karenni": "ꤥ꤬ꤟꤌꤣ꤬ꤥ꤬ꤞꤝꤢꤧ, ꤥ꤬ꤟꤌꤣ꤬ /adj/ ꤊꤟꤢꤩꤒꤢ꤬ꤡꤣ, ꤞꤛꤣ꤬ꤊꤚꤢꤩ꤭",
   "translation": "calm /v/ /adj/",
-  "examples": []
+  "examples": ["Calm down ꤘꤛꤢ꤬ꤞꤢꤧꤘꤥ꤭ ꤞꤢꤧꤕꤜꤢꤪ꤬"]
 },
 "cam": { 
   "english": "cam",
@@ -4844,7 +4860,7 @@ const dictionary = {
   "english": "can",
   "karenni": "ꤡꤟꤛꤢ, ꤔꤟꤤ, ꤡꤟꤛꤢꤕꤚꤢꤧ, ꤔꤟꤤꤕꤚꤢꤧ /modal/ ꤕꤢꤩ /n/ ꤊꤢꤪ꤭, ꤓꤛꤢꤩ꤭ꤊꤢꤪ꤭",
   "translation": "can /v/",
-  "examples": ["Can you help me? ꤔꤟꤢꤧ꤬ ꤗꤟꤢꤩ꤬ꤡꤝꤟꤥꤠꤢ꤭ ꤢ꤬ꤔꤟꤤꤕꤚꤢꤧꤟꤟꤢꤧ꤭?"]
+  "examples": ["Can you help me? ꤔꤟꤢꤧ꤬ ꤗꤟꤢꤩ꤬ꤡꤝꤟꤥꤠꤢ꤭ꤗꤢ꤬ ꤢ꤬ꤔꤟꤤꤕꤚꤢꤧꤟꤟꤢꤧ꤭?"]
 },
 "Canada": { 
   "english": "Canada",
@@ -4930,7 +4946,8 @@ const dictionary = {
   "karenni": "ꤡꤟꤛꤢꤒꤥ꤬, ꤙꤢꤧꤒꤥ꤬, ꤔꤟꤤꤒꤥ꤬",
   "translation": "can't /auxi-v/ ",
   "examples": ["cannot = can't",
-  "I can't see it. ꤠꤢ꤭ ꤗꤛꤢꤓꤛꤢꤩ꤬ꤡꤟꤛꤢ ꤒꤥ꤬꤯"]
+  "I can't see it. ꤠꤢ꤭ ꤗꤛꤢꤓꤛꤢꤩ꤬ꤡꤟꤛꤢ ꤒꤥ꤬꤯",
+  "I can't do it alone. ꤠꤢ꤭ꤗꤟꤢꤩ꤬ꤒꤢꤦꤘꤢꤦ꤬ꤡꤟꤛꤢꤒꤥ꤬꤯"]
 },
 "canvas": { 
   "english": "canvas",
@@ -5102,9 +5119,10 @@ const dictionary = {
 },
 "carry": { 
   "english": "carry",
-  "karenni": "ꤐꤟꤢ, ꤐꤟꤢꤓꤛꤢ꤬, ꤐꤟꤢꤡꤛꤣ, ꤏꤢ꤭, ꤏꤢ꤭ꤙꤢꤪꤜꤝꤥ, ꤠꤤ, ꤠꤤꤐꤟꤢ, ꤊꤟꤌꤣ, ꤠꤢ꤬, ꤕꤤ꤬, ꤕꤤ꤬ꤚꤟꤛꤢ, ꤚꤟꤛꤢ, ꤡꤟꤢꤪ꤭, ꤡꤟꤢꤪ꤭ꤓꤛꤢ꤬, carry a heavy load ꤠꤤꤓꤌꤣ꤬ꤐꤟꤢꤓꤌꤣ꤬",
+  "karenni": "ꤐꤟꤢ, ꤐꤟꤢꤓꤛꤢ꤬, ꤐꤟꤢꤡꤛꤣ, ꤏꤢ꤭, ꤏꤢ꤭ꤙꤢꤪꤜꤝꤥ, ꤠꤤ, ꤠꤤꤐꤟꤢ, ꤊꤟꤌꤣ, ꤠꤢ꤬, ꤕꤤ꤬, ꤕꤤ꤬ꤚꤟꤛꤢ, ꤚꤟꤛꤢ, ꤡꤟꤢꤪ꤭, ꤡꤟꤢꤪ꤭ꤓꤛꤢ꤬",
   "translation": "carry /v/",
-  "examples": []
+  "examples": ["carry a heavy load ꤠꤤꤓꤌꤣ꤬ꤐꤟꤢꤓꤌꤣ꤬",
+  "Carry on talking ꤟꤢꤩꤙꤢꤧ꤬ ꤕꤝꤥ꤬ꤓꤢꤦ꤭ꤟꤛꤢ꤭"]
 },
 "cart": { 
   "english": "cart",
@@ -5185,11 +5203,11 @@ const dictionary = {
   "translation": "cauliflower /n/",
   "examples": []
 },
-"cause trouble": { 
-  "english": "cause trouble",
-  "karenni": "ꤗꤟꤢꤩ꤬ ꤏꤢꤨꤏꤢꤗꤟꤢꤩ꤬ꤟꤛꤢ꤭",
-  "translation": "cause-trouble /phr/",
-  "examples": []
+"cause": { 
+  "english": "cause",
+  "karenni": "ꤢ꤬ꤗꤟꤢꤩ꤬ꤓꤝꤟꤥ꤭, ꤓꤝꤟꤥ꤭ꤡꤟꤛꤢ",
+  "translation": "cause /v/",
+  "examples": ["cause trouble ꤗꤟꤢꤩ꤬ ꤏꤢꤨꤏꤢꤗꤟꤢꤩ꤬ꤟꤛꤢ꤭"]
 },
 "caution": { 
   "english": "caution",
@@ -5451,7 +5469,7 @@ const dictionary = {
 },
 "check": { 
   "english": "check",
-  "karenni": "ꤓꤢꤦꤡꤢꤩ꤭, ꤓꤢꤦꤗꤛꤢ, ꤗꤛꤢꤕꤟꤢꤨ꤭ꤓꤢꤦꤗꤛꤢ",
+  "karenni": "ꤓꤢꤦꤡꤢꤩ꤭, ꤓꤢꤦꤗꤛꤢ, ꤗꤛꤢꤕꤟꤢꤨ꤭ꤓꤢꤦꤗꤛꤢ, ꤗꤛꤢꤗꤛꤢ",
   "translation": "check /v/",
   "examples": []
 },
@@ -6165,6 +6183,12 @@ const dictionary = {
   "translation": "coin /n/",
   "examples": []
 },
+"coincidence": { 
+  "english": "coincidence",
+  "karenni": "ꤒꤟꤢ꤭ꤏꤢꤦ꤬ꤒꤥ꤭ꤒꤢꤦꤜꤢꤨ꤭",
+  "translation": "coincidence /n/",
+  "examples": ["Just a coincidence. ꤒꤟꤢ꤭ꤏꤢꤦ꤬ꤒꤥ꤭ꤒꤢꤦꤜꤢꤨ꤭ꤕꤚꤢꤧ꤯"]
+},
 "cold": { 
   "english": "cold",
   "karenni": "ꤊꤟꤢꤩꤚꤟꤥꤊꤟꤢꤩꤏꤝꤤ, ꤊꤟꤢꤩꤚꤟꤥ /adj/ ꤊꤢ꤬ꤡꤟꤢꤨ, ꤓꤛꤢꤩ꤭ꤊꤢ꤬ꤡꤟꤢꤨ; ꤒꤢ꤬ꤊꤜꤢꤨ꤬ /n/ ꤞꤢꤧꤢꤪ",
@@ -6296,12 +6320,13 @@ const dictionary = {
   "karenni": "ꤟꤛꤢ꤭, ꤟꤛꤢ꤭ꤜꤟꤛꤢ꤬",
   "translation": "come /v/",
   "examples": ["come again ꤟꤛꤢ꤭ꤋꤛꤢꤩ꤭ꤞꤛꤢ",
-  "come In ꤟꤛꤢ꤭ꤔꤟꤌꤣ꤭",
+  "come in ꤟꤛꤢ꤭ꤔꤟꤌꤣ꤭, ꤊꤢ꤬ꤔꤟꤌꤣ꤭ꤗꤢꤪ!",
   "come See ꤟꤛꤢ꤭ꤗꤛꤢꤓꤛꤢꤩ꤬",
   "come ask for mercy ꤟꤛꤢ꤭ꤊꤝꤤ꤭ꤞꤢꤧꤐꤟꤢꤪ꤬",
   "come down ꤟꤛꤢ꤭ꤒꤟꤢ꤭(ꤟꤛꤢ꤭ꤜꤟꤛꤢ꤬)",
   "come meet ꤟꤛꤢ꤭ꤥ꤬ꤊꤢꤨ (ꤟꤛꤢ꤭ꤒꤟꤢ꤭ꤏꤢꤦ꤬)",
-  "come visit ꤟꤛꤢ꤭ꤥ꤬ꤜꤢꤩ꤭"]
+  "come visit ꤟꤛꤢ꤭ꤥ꤬ꤜꤢꤩ꤭",
+  "Come with me ꤊꤚꤝꤟꤥ꤭ꤔꤢꤠꤢ꤭꤯"]
 },
 "comet": { 
   "english": "comet",
@@ -6589,7 +6614,7 @@ const dictionary = {
   "english": "confidence",
   "karenni": "ꤐꤟꤢꤦꤢꤩ꤬ꤒꤟꤢ꤭ꤒꤟꤢꤩ꤬, ꤐꤟꤢꤦꤢꤩ꤬ꤔꤟꤤ, ꤒꤟꤢꤧ꤬ꤋꤢꤦ꤭ꤒꤟꤢꤧ꤬ꤟꤢ꤭",
   "translation": "confidence /n/",
-  "examples": []
+  "examples": ["I have confidence. ꤠꤢ꤭ ꤒꤟꤢꤧ꤬ꤐꤟꤢꤦꤢꤩ꤬ꤥ꤬꤯"]
 },
 "confident": { 
   "english": "confident",
@@ -7557,7 +7582,7 @@ const dictionary = {
   "english": "cunning",
   "karenni": "ꤊꤢ꤬ꤕꤜꤟꤛꤢ꤬",
   "translation": "cunning /adj/",
-  "examples": []
+  "examples": ["She is cunning. ꤢꤧ꤬ꤗꤢ꤬ ꤞꤢꤧꤕꤜꤢꤪ꤬ꤥ꤬ꤢꤧ꤯"]
 },
 "cup": { 
   "english": "cup",
@@ -9187,7 +9212,8 @@ const dictionary = {
   "examples": ["Do again ꤗꤟꤢꤩ꤬ꤒꤢ꤬ꤕꤜꤢꤩ꤬",
   "I am doing now. ꤠꤢ꤭ ꤥ꤬ꤗꤟꤢꤩ꤬ ꤋꤥ꤭ꤑꤟꤢ ꤟꤢꤪ꤯",
   "Do you know me? ꤔꤟꤢꤧ꤬ ꤞꤢꤧꤑꤢꤩ꤭ ꤠꤢ꤭ ꤟꤟꤢꤧ꤭?",
-  "Do you like it? ꤔꤟꤢꤧ꤬ ꤞꤢꤧꤐꤟꤢꤦ ꤕꤚꤢꤧꤟꤟꤢꤧ꤭?"]
+  "Do you like it? ꤔꤟꤢꤧ꤬ ꤞꤢꤧꤐꤟꤢꤦ ꤕꤚꤢꤧꤟꤟꤢꤧ꤭?",
+  "Do you speak English? ꤔꤟꤢꤧ꤬ ꤟꤢꤩꤙꤢꤧ꤬ꤊꤟꤊꤣ꤭ ꤊꤢꤨ꤭ꤜꤢ꤭ꤍꤟꤥꤟꤟꤢꤧ꤭?"]
 },
 "dock": { 
   "english": "dock",
@@ -9283,12 +9309,18 @@ const dictionary = {
   },
 "don't": { 
   "english": "don't",
-  "karenni": "ꤒꤢꤧ꤭ꤗꤟꤢꤩ, ꤗꤟꤢꤩ, ꤒꤥ꤬ (don't=do not)",
+  "karenni": "ꤒꤢꤧ꤭ꤗꤟꤢꤩ, ꤒꤢ꤭ꤗꤟꤢꤩ, ꤗꤟꤢꤩ, ꤒꤥ꤬ (don't=do not)",
   "translation": "don't /contraction/",
   "examples": ["I don't do it. ꤠꤢ꤭ꤗꤟꤢꤩ꤬ꤒꤥ꤬꤯",
   "Don't do it! ꤗꤟꤢꤩ꤬ꤒꤢꤧ꤭ꤗꤟꤢꤩ(ꤗꤟꤢꤩ꤬ꤒꤥ꤬)",
   "They don't go. ꤢꤧ꤬ꤞꤤ꤭ ꤡꤛꤣꤒꤥ꤬꤯",
-  "We don't eat. ꤕꤟꤢꤧ꤬ ꤢꤩ꤬ꤒꤥ꤬꤯"]
+  "We don't eat. ꤕꤟꤢꤧ꤬ ꤢꤩ꤬ꤒꤥ꤬꤯",
+  "Don't do that. ꤔꤟꤢꤧ꤬ꤗꤟꤢꤩ꤬ꤔꤌꤣ꤬ꤗꤟꤢꤩ꤯",
+  "Don't tell anyone ꤟꤢꤩꤏꤥ꤬ ꤒꤢꤧ꤭ꤒꤣ꤬ꤕꤚꤟꤢꤧꤗꤟꤢꤩ꤯",
+  "Don't speak so loud. ꤟꤢꤩꤙꤢꤧ꤬ꤕꤚꤟꤢ꤬ꤏꤝꤥ꤬ ꤒꤢꤧ꤭ꤗꤟꤢꤩ꤯",
+  "Don't shout at me. ꤔꤟꤢꤧ꤬ ꤢꤧꤓꤥ꤭ ꤒꤢꤧ꤭ꤠꤢ꤭ꤗꤟꤢꤩ꤯",
+  "Don't wink at me. ꤔꤟꤢꤧ꤬ ꤙꤢꤪ꤬ꤊꤜꤢꤧ ꤒꤢꤧ꤭ꤠꤢ꤭ꤗꤟꤢꤩ꤯",
+  "Don't stick your tongue out at me. ꤔꤟꤢꤧ꤬ ꤐꤢ꤬ꤓꤢꤩ꤬ꤕꤜꤟꤤ꤬ ꤘꤣꤠꤢ꤭ꤗꤟꤢꤩ꤯"]
 },
 "donar": { 
   "english": "donar",
@@ -9460,7 +9492,7 @@ const dictionary = {
   "english": "dress",
   "karenni": "ꤊꤢꤦ꤭ꤞꤛꤢ, ꤊꤢꤦ꤭ꤞꤛꤢꤓꤛꤢ꤬, ꤊꤢꤦ꤭ꤓꤛꤢ꤬ꤞꤛꤢꤓꤛꤢ꤬, ꤞꤛꤢꤓꤛꤢ꤬ /n/ ꤟꤛꤢꤩ꤬ꤘꤣ꤬ꤒꤢ꤬ꤠꤟꤢ꤬",
   "translation": "dress /v/",
-  "examples": []
+  "examples": ["Getting dressed ꤊꤢꤦ꤭ꤞꤛꤢꤟꤛꤢꤩ꤬ꤡꤟꤢ꤬"]
 },
 "dress up": { 
   "english": "dress up",
@@ -9514,7 +9546,7 @@ const dictionary = {
   "english": "drive",
   "karenni": "ꤠꤟꤢꤧ",
   "translation": "drive /v/",
-  "examples": []
+  "examples": ["Drive faster ꤠꤟꤢꤧꤕꤚꤛꤢ꤭"]
 },
 "driver": { 
   "english": "driver",
@@ -10444,7 +10476,7 @@ const dictionary = {
   "english": "enough",
   "karenni": "ꤜꤣꤙꤢ꤭, ꤥ꤬ꤜꤣꤥ꤬ꤙꤢ꤭, ꤢ꤬ꤕꤢꤪ꤬",
   "translation": "enough /adj/",
-  "examples": []
+  "examples": ["That's enough. ꤜꤣꤙꤢ꤭ꤟꤢꤪ꤯ ꤕꤟꤌꤣ꤬ꤟꤢꤪ꤯"]
 },
 "enrage": { 
   "english": "enrage",
@@ -11418,8 +11450,8 @@ const dictionary = {
   "karenni": "ꤟꤤ꤬ꤖꤛꤢ꤭, ꤟꤤ꤬ꤖꤢꤨꤖꤛꤢ꤭ꤖꤢꤨ, ꤕꤟꤌꤣꤠꤟꤛꤢꤗꤟꤌꤣꤖꤢꤧ꤭",
   "translation": "family /n/",
   "examples": [
-    "own family ꤏꤛꤢꤩ꤭ꤊꤜꤟꤢꤪ"
-  ]
+    "own family ꤏꤛꤢꤩ꤭ꤊꤜꤟꤢꤪ",
+    "How is your family? ꤔꤟꤢꤧ꤬ ꤟꤤ꤬ꤖꤛꤢ꤭ꤖꤢꤨ ꤥ꤬ꤗꤟꤥ꤬ꤜꤟꤢꤪ꤭ꤏꤢꤜꤟꤢꤩꤟꤟꤢꤧ꤭?"]
 },
 "famine": {
   "english": "famine",
@@ -11612,7 +11644,7 @@ const dictionary = {
   "english": "feel",
   "karenni": "ꤞꤢꤧ-, ꤊꤚꤟꤢ, ꤒꤢ꤬ꤔꤟꤢꤩ꤬",
   "translation": "feel /v/",
-  "examples": []
+  "examples": ["How do you feel? ꤔꤟꤢꤧ꤬ꤒꤢ꤬ꤔꤟꤢꤩ꤬ꤗꤟꤢꤩ꤬ꤖꤢꤨꤒꤢꤩ꤭?, ꤔꤟꤢꤧ꤬ꤥ꤬ꤗꤟꤥ꤬ꤙꤢꤧꤟꤟꤢꤧ꤭?"]
 },
 "feeling": {
   "english": "feeling",
@@ -12469,7 +12501,8 @@ const dictionary = {
   "english": "forget",
   "karenni": "ꤏꤥ꤭ꤒꤢ꤬ꤕꤟꤢ꤬, ꤘꤛꤢꤊꤛꤢ꤭",
   "translation": "forget /v/",
-  "examples": []
+  "examples": ["Don't forget. ꤏꤥ꤭ꤒꤢ꤬ꤕꤟꤢ꤬ ꤒꤢꤧ꤭ꤗꤟꤢꤩ꤯",
+  "Forget it. ꤏꤥ꤭ꤒꤢ꤬ꤕꤟꤢ꤬ꤊꤛꤢ꤭ꤔꤌꤣ꤬, ꤘꤛꤢ꤬ꤊꤛꤢ꤭ꤔꤌꤣ꤬"]
 },
 "forgetful": {
   "english": "forgetful",
@@ -12479,9 +12512,9 @@ const dictionary = {
 },
 "forgive": {
   "english": "forgive",
-  "karenni": "ꤕꤜꤝꤥ꤭ꤊꤛꤢ꤭ ꤒꤟꤢꤧ꤬ꤞꤢꤦ",
+  "karenni": "ꤕꤜꤝꤥ꤭ꤊꤛꤢ꤭ ꤒꤟꤢꤧ꤬ꤞꤢꤦ, ꤕꤜꤝꤥ꤭ꤒꤟꤢꤧ꤬ꤞꤢꤦ",
   "translation": "forgive /v/",
-  "examples": []
+  "examples": ["Forgive me. ꤕꤜꤝꤥ꤭ꤠꤢ꤭ꤒꤟꤢꤧ꤬ꤞꤢꤦ"]
 },
 "forgiveness": {
   "english": "forgiveness",
@@ -12517,7 +12550,7 @@ const dictionary = {
   "english": "forward",
   "karenni": "ꤘꤣꤑꤢꤩ꤭, ꤕꤢ꤬ꤟꤛꤢ꤭, ꤗꤟꤢꤩ꤬ꤕꤢ꤬ꤟꤛꤢ꤭",
   "translation": "forward /adv/",
-  "examples": []
+  "examples": ["Move forward. ꤟꤛꤢ꤭ꤖꤢꤦ꤬ꤘꤣꤑꤢꤩ꤭ ꤒꤢ꤬ꤊꤤ꤬꤯"]
 },
 "foul": {
   "english": "foul",
@@ -12638,7 +12671,8 @@ const dictionary = {
     "english": "free",
     "karenni": "ꤢ꤬ꤊꤚꤢ꤭, ꤥ꤬ꤕꤢ꤬ꤜꤢ꤭, ꤕꤢ꤬ꤜꤢ꤭, ꤥ꤬ꤊꤥ꤭, ꤥ꤬ꤊꤥ꤭ꤥ꤬ꤘꤢ꤭, ꤏꤤ꤭ꤕꤜꤢꤧ",
     "translation": "free /adj/",
-    "examples": ["free person ꤕꤚꤟꤢꤧ꤬ꤕꤢ꤬ꤜꤢ꤭ꤖꤢꤨ, ꤕꤢ꤬ꤜꤢ꤭ꤖꤢꤨ"]
+    "examples": ["free person ꤕꤚꤟꤢꤧ꤬ꤕꤢ꤬ꤜꤢ꤭ꤖꤢꤨ, ꤕꤢ꤬ꤜꤢ꤭ꤖꤢꤨ",
+	"Are you free? ꤔꤟꤢꤧ꤬ ꤥ꤬ꤊꤥ꤭ ꤕꤚꤢꤧꤟꤟꤢꤧ꤭?"]
   },
   "freebie": {
     "english": "freebie",
@@ -12731,7 +12765,8 @@ const dictionary = {
     "english": "from",
     "karenni": "ꤘꤣꤢ꤬ꤥ꤬, ꤘꤣ, ꤘꤣꤙꤤ",
     "translation": "from /prep/",
-    "examples": ["from now on ꤒꤟꤢ꤭ꤕꤢ꤬ꤟꤛꤢ꤭, ꤒꤟꤢ꤭ꤟꤛꤢ꤭ꤑꤢꤩ꤭",
+    "examples": ["I'm from ___.ꤠꤢ꤭ꤥ꤬ ___ ꤟꤛꤢ꤭꤯",
+	"from now on ꤒꤟꤢ꤭ꤕꤢ꤬ꤟꤛꤢ꤭, ꤒꤟꤢ꤭ꤟꤛꤢ꤭ꤑꤢꤩ꤭",
 	"from top to bottom ꤊꤢ꤬ꤓꤛꤢ꤬ꤊꤢ꤬ꤜꤟꤛꤢ",
 	"Where are you from? ꤔꤟꤢꤧ꤬ ꤥ꤬ꤙꤤꤒꤢꤩ꤭ ꤟꤛꤢ꤭ꤟꤟꤢꤧ꤭?",
     "I'm from America. ꤠꤢ꤭ꤥ꤬ ꤢ꤬ꤗꤢꤩ꤬ꤚꤤꤊꤢ꤬ ꤟꤛꤢ꤭꤯",
@@ -13420,7 +13455,7 @@ const dictionary = {
     "english": "go",
     "karenni": "ꤡꤛꤣ",
     "translation": "go /v/",
-    "examples": [
+    "examples": ["Let's go ꤡꤛꤣꤕꤥ",
 	  "go ahead ꤡꤛꤣꤘꤣꤑꤢꤩ꤭",
       "go ask ꤡꤛꤣꤏꤢꤨ꤬ꤘꤛꤢ꤭",
       "go ask for mercy ꤡꤛꤣꤊꤝꤤ꤭ꤞꤢꤧꤐꤟꤢꤪ꤬",
@@ -13599,7 +13634,7 @@ const dictionary = {
     "english": "good",
     "karenni": "ꤢ꤬ꤚꤛꤢ, ꤗꤟꤥ꤬, ꤒꤝꤟꤥꤚꤛꤢ",
     "translation": "good /adj/",
-    "examples": [
+    "examples": ["Good idea ꤒꤟꤢꤧ꤬ꤒꤢ꤬ꤔꤟꤢꤩ꤬ꤚꤛꤢꤠꤢ~꤯",
       "good deeds ꤒꤟꤢꤧ꤬ꤗꤟꤢꤩ꤬ꤚꤛꤢꤒꤟꤢꤧ꤬",
       "good place ꤋꤢ꤭ꤜꤟꤢꤩꤚꤛꤢ",
       "good things ꤒꤟꤢꤧ꤬ꤒꤝꤟꤥꤒꤟꤢꤧ꤬ꤚꤛꤢ",
@@ -13900,7 +13935,8 @@ const dictionary = {
     "english": "great",
     "karenni": "ꤢ꤬ꤘꤢꤨ꤬ꤢ꤬ꤐꤟꤢ꤭, ꤚꤛꤢ, ꤗꤟꤥ꤬",
     "translation": "great /adj/",
-    "examples": ["great things ꤒꤟꤢꤧ꤬ꤢ꤬ꤘꤢꤨ꤬ꤢ꤬ꤐꤟꤢ꤭"]
+    "examples": ["great things ꤒꤟꤢꤧ꤬ꤢ꤬ꤘꤢꤨ꤬ꤢ꤬ꤐꤟꤢ꤭",
+	"That's great ꤢ꤬ꤚꤛꤢꤕꤚꤢꤧ꤯"]
   },
   "great-grandchild": {
     "english": "great-grandchild",
@@ -13936,7 +13972,7 @@ const dictionary = {
     "english": "greedy",
     "karenni": "ꤜꤢꤪ꤭ꤖꤢ꤭ꤢꤩ꤬, ꤢꤩ꤬ꤘꤢꤨ꤬",
     "translation": "greedy /adj/, /v/",
-    "examples": []
+    "examples": ["How greedy. ꤜꤢꤪ꤭ꤖꤢ꤭ꤢꤩ꤬ꤔꤛꤢ꤬ꤡꤢꤪ꤯"]
   },
   "greek": {
     "english": "Greek",
@@ -14476,10 +14512,17 @@ const dictionary = {
   },
   "have": {
     "english": "have",
-    "karenni": "ꤥ꤬",
+    "karenni": "ꤥ꤬, ꤥ꤭",
     "translation": "have /v/",
     "examples": [
-      "don't have ꤥ꤬ꤒꤥ꤬"]
+      "don't have ꤥ꤬ꤒꤥ꤬",
+	  "Have a nice day. ꤗꤟꤢꤪꤑꤢꤩ꤭ꤒꤝꤟꤥꤚꤛꤢꤘꤢꤦ꤬ꤔꤤ~꤯"]
+  },
+  "have to": {
+    "english": "have to",
+    "karenni": "ꤒꤥ꤭, ꤒꤥ꤭ꤙꤢꤧ꤬",
+    "translation": "have-to /./",
+    "examples": ["I have to go ꤠꤢ꤭ꤒꤥ꤭ꤡꤛꤣꤟꤢꤪ꤯"]
   },
     "haven't": {
     "english": "haven't",
@@ -14976,7 +15019,7 @@ const dictionary = {
     "english": "hobby",
     "karenni": "ꤞꤢꤧꤕꤜꤢꤪ꤬ꤞꤢꤧꤗꤟꤢꤩ꤬, ꤞꤢꤧꤕꤜꤢꤪ꤬ꤞꤢꤧꤐꤟꤢꤦꤗꤟꤢꤩ꤬ꤡꤟꤛꤢ, ꤞꤢꤧꤕꤜꤢꤪ꤬ꤞꤢꤧꤒꤟꤢꤪ꤭, ꤞꤢꤧꤐꤟꤢꤦꤗꤟꤢꤩ꤬ꤒꤟꤢꤪ꤭, ꤞꤢꤧꤐꤟꤢꤦꤗꤟꤢꤩ꤬",
     "translation": "hobby /n/",
-    "examples": []
+    "examples": ["What's your favorite hobby? ꤔꤟꤢꤧ꤬ ꤞꤢꤧꤕꤜꤢꤪ꤬ꤞꤢꤧꤗꤟꤢꤩ꤬ꤜꤣꤗꤢ꤬ ꤒꤤ꤭ꤒꤢꤩ꤭?"]
   },
   "hobgoblin": {
     "english": "hobgoblin",
@@ -15292,7 +15335,8 @@ const dictionary = {
     "english": "how",
     "karenni": "ꤖꤢꤨꤒꤢꤩ꤭?",
     "translation": "how /adv/",
-    "examples": ["How are you? ꤔꤟꤢꤧ꤬ꤥ꤬ꤗꤟꤥ꤬ꤕꤚꤢꤧꤟꤟꤢꤧ꤭?",
+    "examples": ["How far? ꤢ꤬ꤐꤛꤢꤩ꤬ꤙꤢꤒꤢꤩ꤭?",
+	"How are you? ꤔꤟꤢꤧ꤬ꤥ꤬ꤗꤟꤥ꤬ꤕꤚꤢꤧꤟꤟꤢꤧ꤭?",
 	"How many? ꤙꤢꤒꤢꤩ꤭?",
 	"How much ꤙꤢꤒꤢꤩ꤭?",
 	"how many days? ꤙꤢꤔꤛꤢꤩ꤭ꤒꤢꤩ꤭?",
@@ -15302,7 +15346,11 @@ const dictionary = {
     "How's everything? (informal) ꤒꤟꤢꤧ꤬ꤜꤟꤢꤪ꤭ꤕꤜꤤ꤭ ꤚꤛꤢꤕꤚꤢꤧꤟꤟꤢꤧ꤭?",
     "How's it going? (informal) ꤏꤛꤣꤋꤢꤧ꤭ ꤗꤟꤢꤩ꤬ꤖꤢꤨꤒꤢꤩ꤭?",
     "How's your day? (informal) ꤔꤟꤢꤧ꤬ ꤒꤟꤢꤧ꤬ꤖꤛꤢꤩꤒꤟꤢꤧ꤬ꤗꤟꤢꤩ꤬ ꤗꤟꤢꤩ꤬ꤖꤢꤨꤒꤢꤩ꤭?",
-	"how old are you? ꤔꤟꤢꤧ꤬ꤥ꤬ꤟꤢꤪ ꤙꤢꤔꤢ꤬ꤒꤢꤩ꤭?"]
+	"how old are you? ꤔꤟꤢꤧ꤬ꤥ꤬ꤟꤢꤪ ꤙꤢꤔꤢ꤬ꤒꤢꤩ꤭?",
+	"How are you getting on? ꤔꤟꤢꤧ꤬ ꤏꤛꤣꤋꤢꤧ꤭ ꤗꤟꤢꤩ꤬ꤖꤢꤨꤒꤢꤩ꤭?",
+	"How is youe day? ꤛꤢꤩ꤭ꤒꤣ꤬ꤑꤢꤩ꤭ꤢ꤬ꤗꤟꤢꤩ꤬ꤖꤢꤨꤒꤢꤩ꤭? ꤥ꤬ꤗꤟꤥ꤬ꤙꤢꤧꤟꤟꤢꤧ꤭?",
+	"How crude. ꤋꤥꤟꤢ꤭ꤓꤢꤩ꤬ꤕꤢꤩ꤭ꤔꤛꤢ꤬ꤡꤢꤪ꤯",
+	"How do you do? ꤔꤟꤢꤧ꤬ꤥ꤬ꤗꤟꤥ꤬ꤕꤚꤢꤧꤟꤢ?"]
   },
   "however": {
     "english": "however",
@@ -15428,7 +15476,7 @@ const dictionary = {
     "english": "hungry",
     "karenni": "ꤟꤢꤪꤜꤢ꤬ꤘꤢ꤭, ꤞꤢꤧꤢꤩ꤬ꤞꤢꤧꤥ꤭, ꤜꤢ꤬ꤘꤛꤢꤢꤩ꤬ꤜꤢ꤬ꤘꤛꤢꤥ꤭",
     "translation": "hungry /adj/",
-    "examples": []
+    "examples": ["I'm getting hungry. ꤠꤢ꤭ ꤟꤢꤪꤜꤢ꤬ꤘꤢ꤭ꤟꤛꤢ꤭ꤟꤢꤪ꤯"]
   },
   "hunt": {
     "english": "hunt",
@@ -15566,7 +15614,8 @@ const dictionary = {
     "karenni": "(I'm=I am) ꤠꤢ꤭ꤗꤢ꤬, ꤠꤢ꤭ꤥ꤬, ꤠꤢ꤭",
     "translation": "I'm /phr/",
     "examples": ["I'm a teacher. ꤠꤢ꤭ꤗꤢ꤬ ꤞꤢꤚꤢ꤯",
-	"I'm here. ꤠꤢ꤭ꤥ꤬ ꤙꤤꤛꤢꤩ꤭꤯"]
+	"I'm here. ꤠꤢ꤭ꤥ꤬ ꤙꤤꤛꤢꤩ꤭꤯",
+	"I'm glad to see you. ꤗꤛꤢꤓꤛꤢꤩ꤬ꤔꤢꤔꤟꤢꤧ꤬ꤚꤢꤪ ꤢ꤬ꤗꤟꤥ꤬ꤜꤢ꤭꤯"]
   },
  "ibex": {
     "english": "ibex",
@@ -15590,7 +15639,8 @@ const dictionary = {
     "english": "idea",
     "karenni": "ꤒꤟꤢ꤭ꤏꤢꤒꤢ꤬ꤔꤟꤢꤩ꤬, ꤒꤟꤢꤧ꤬ꤒꤢ꤬ꤔꤟꤢꤩ꤬",
     "translation": "idea /n/",
-    "examples": []
+    "examples": ["I got an idea. ꤠꤢ꤭ ꤒꤟꤢꤧ꤬ꤒꤢ꤬ꤔꤟꤢꤩ꤬ ꤔꤟꤤꤙꤢꤧ꤬ꤥ꤬ꤒꤣ꤬ꤊꤟꤊꤣ꤬ꤟꤢꤪ꤯",
+	"I have no idea ꤠꤢ꤭ ꤞꤢꤧꤑꤢꤩ꤭ꤒꤥ꤬꤯"]
   },
   "identities": {
     "english": "identities",
@@ -15623,8 +15673,8 @@ const dictionary = {
     "examples": [
       "if like that, then ꤊꤤ꤬ꤟꤢꤩꤚꤢꤪ",
       "if not, then ꤊꤤ꤬ꤗꤟꤢꤒꤥ꤬ꤚꤢꤪ",
-      "if you say that, then ꤊꤤ꤬ꤟꤢꤩꤗꤢ꤬"
-    ]
+      "if you say that, then ꤊꤤ꤬ꤟꤢꤩꤗꤢ꤬",
+      "If you don't mind ꤊꤤ꤬ꤔꤢꤔꤟꤢꤧ꤬ꤞꤢꤧꤕꤜꤢꤪ꤬ꤥ꤬ꤒꤥ꤬ꤟꤢꤩꤗꤢ꤬"]
   },
   "ignore": {
     "english": "ignore",
@@ -16365,9 +16415,9 @@ const dictionary = {
   },
   "interrupt": {
     "english": "interrupt",
-    "karenni": "ꤘꤤꤘꤛꤢ꤭, ꤘꤤꤘꤛꤢ꤭ꤒꤟꤢ꤭ꤒꤟꤢꤦ꤭, ꤗꤟꤢꤩ꤬ꤘꤤꤘꤛꤢ꤭, ꤊꤢ꤬ꤔꤟꤌꤣ꤭ꤒꤟꤢ꤭ꤒꤟꤢꤦ꤭",
+    "karenni": "ꤘꤤꤘꤛꤢ꤭, ꤘꤤꤘꤛꤢ꤭ꤒꤟꤢ꤭ꤒꤟꤢꤦ꤭, ꤗꤟꤢꤩ꤬ꤘꤤꤘꤛꤢ꤭, ꤟꤢꤩꤙꤢꤧ꤬ꤒꤟꤢ꤭ꤒꤟꤢꤦ꤭, ꤊꤢ꤬ꤔꤟꤌꤣ꤭ꤒꤟꤢ꤭ꤒꤟꤢꤦ꤭",
     "translation": "interrupt /v/",
-    "examples": []
+    "examples": ["Don't interrupt. ꤔꤟꤌꤣ꤭ꤟꤢꤩꤙꤢꤧ꤬ꤒꤟꤢ꤭ꤒꤟꤢꤦ꤭ ꤒꤢꤧ꤭ꤗꤟꤢꤩ꤯"]
   },
   "intersection": {
     "english": "intersection",
@@ -16535,7 +16585,6 @@ const dictionary = {
     "translation": "is /verb-to-be/",
     "examples": ["She is a beautiful girl. ꤢꤧ꤬ ꤗꤢ꤬ ꤕꤚꤟꤢꤧ꤬ꤗꤢꤪ꤬ꤗꤟꤌꤣꤒꤝꤟꤥ ꤒꤣ꤬ꤕꤚꤟꤢꤧ꤬꤯",
 	"It is good. ꤢ꤬ꤚꤛꤢꤕꤚꤢꤧ꤯",
-	"What is your name? ꤔꤟꤢꤧ꤬ꤗꤝꤟꤤ꤭ꤗꤢ꤬ ꤒꤤ꤭ꤒꤢꤩ꤭?",
 	"Where is he going? ꤢꤧ꤬ꤡꤛꤣ ꤙꤤꤒꤢꤩ꤭?"]
   },
   "islam": {
@@ -16829,11 +16878,11 @@ const dictionary = {
 },
   "join": {
     "english": "join",
-    "karenni": "ꤗꤟꤢꤩ꤬ꤤꤡꤢꤦ꤭, ꤒꤟꤢꤪ",
+    "karenni": "ꤗꤟꤢꤩ꤬ꤤꤡꤢꤦ꤭, ꤒꤟꤢꤪ, ꤕꤜꤢꤪꤡꤢꤦ꤭",
     "translation": "join /v/",
-    "examples": [
-      "join with others ꤕꤢ꤬ꤔꤟꤌꤣ꤭"
-    ]
+    "examples": ["join with others ꤕꤢ꤬ꤔꤟꤌꤣ꤭",
+    "Join with us. ꤕꤢ꤬ꤔꤟꤌꤣ꤭ꤊꤟꤊꤣ꤭ ꤘꤣꤕꤟꤢꤧ꤬꤯",
+	"Can I join with you? ꤠꤢ꤭ ꤕꤜꤢꤪꤡꤢꤦ꤭ꤊꤟꤊꤣ꤭ꤔꤢꤔꤟꤢꤧ꤬ꤗꤢ꤬ ꤢ꤬ꤔꤟꤤꤕꤚꤢꤧꤟꤟꤢꤧ꤭?"]
   },
   "joined": {
     "english": "joined",
@@ -16866,10 +16915,10 @@ const dictionary = {
     "examples": []
   },
   "josh": {
-  english: "josh",
-  karenni: "ꤏꤢꤨ꤬ꤙꤢꤧ, ꤟꤢꤩꤋꤢꤋꤥ꤬",
-  translation: "josh /v/",
-  examples: []
+  "english": "josh",
+  "karenni": "ꤏꤢꤨ꤬ꤙꤢꤧ, ꤟꤢꤩꤋꤢꤋꤥ꤬",
+  "translation": "josh /v/",
+  "examples": []
 },
   "journal": {
     "english": "journal",
@@ -16965,7 +17014,7 @@ const dictionary = {
     "translation": "jungle /n/",
     "examples": []
   },
-  "jupiter": {
+  "Jupiter": {
     "english": "Jupiter",
     "karenni": "ꤡꤟꤛꤢꤩ꤬ꤕꤤ꤬ꤒꤣ꤬",
     "translation": "Jupiter /n/",
@@ -16975,7 +17024,8 @@ const dictionary = {
     "english": "just",
     "karenni": "ꤕꤚꤢꤧ, ꤡꤢꤪꤒꤟꤢꤩ꤬, ꤒꤢꤦ, ꤗꤟꤢ",
     "translation": "just /particle/, /adj/",
-    "examples": ["Just fine ꤢ꤬ꤚꤛꤢꤕꤚꤢꤧ꤯",
+    "examples": ["Just now ꤒꤢꤦ_ꤋꤥ꤭ꤑꤟꤢ, ꤋꤥ꤭ꤑꤟꤢ, ꤕꤟꤢ꤭ꤔꤢꤨ꤬",
+	"Just fine ꤢ꤬ꤚꤛꤢꤕꤚꤢꤧ꤯",
       "just happened ꤗꤥꤕꤢ꤭",
 	  "I just finished writing these sentences for you.",
 "She’s just a beginner, so be patient with her.",
@@ -17022,9 +17072,10 @@ const dictionary = {
   },
   "keep": {
     "english": "keep",
-    "karenni": "ꤙꤢꤩ꤬ꤘꤝꤥ",
+    "karenni": "ꤙꤢꤩ꤬ꤘꤝꤥ, ꤕꤥ꤬ꤓꤢꤦ꤭ꤟꤛꤢ꤭",
     "translation": "keep /v/",
-    "examples": ["keep on (ꤗꤟꤢꤩ꤬)ꤕꤢ꤬ꤟꤛꤢ꤭"]
+    "examples": ["keep on (ꤗꤟꤢꤩ꤬)ꤕꤢ꤬ꤟꤛꤢ꤭",
+	"Keep your chin up. ꤞꤢꤧꤑꤟꤢꤩ꤭ꤚꤛꤢꤖꤢꤨꤔꤌꤣ꤬꤯"]
   },
   "kerosene": {
     "english": "kerosene",
@@ -17052,10 +17103,9 @@ const dictionary = {
   },
   "kid": {
     "english": "kid",
-    "karenni": "ꤕꤢ꤬ꤡꤟꤢꤧ, ꤕꤢ꤬ꤡꤟꤢꤧꤖꤢꤨ, ꤖꤢꤨ",
+    "karenni": "ꤕꤢ꤬ꤡꤟꤢꤧ, ꤕꤢ꤬ꤡꤟꤢꤧꤖꤢꤨ, ꤕꤟꤢꤩꤖꤢꤨ /v/ ꤟꤢꤩꤜꤢ꤬ꤠꤟꤢꤪ꤭, ꤏꤢꤨ꤬ꤙꤢꤧ, ꤟꤢꤩꤊꤢ꤬ꤔꤟꤌꤣ, ꤗꤟꤢꤩ꤬ꤊꤢ꤬ꤔꤟꤌꤣ, ꤟꤢꤩꤜꤢ꤬ꤠꤟꤢꤪ꤭ꤗꤟꤢꤩ꤬ꤜꤢ꤬ꤠꤟꤢꤪ꤭",
     "translation": "kid /n/",
-    "examples": ["ꤟꤢꤩꤊꤢ꤬ꤔꤟꤌꤣ, ꤗꤟꤢꤩ꤬ꤊꤢ꤬ꤔꤟꤌꤣ, ꤟꤢꤩꤜꤢ꤬ꤠꤢꤪ꤭ꤗꤟꤢꤩ꤬ꤜꤢ꤬ꤠꤢꤪ꤭, ꤏꤢꤨ꤬ꤙꤢꤧ, ꤟꤢꤩꤜꤢ꤬ꤟꤥ꤭",
-	"ꤕꤟꤢꤩꤖꤢꤨ"]
+    "examples": ["Just kidding (ꤟꤢꤩ/ꤗꤟꤢꤩ꤬)ꤜꤢ꤬ꤠꤟꤢꤪ꤭ꤙꤛꤢꤩ꤬ꤕꤚꤢꤧ꤯"]
   },
  "kiddie": {
     "english": "kiddie",
@@ -17808,8 +17858,9 @@ const dictionary = {
     "examples": [
       "let know ꤘꤛꤢꤩꤞꤢꤧꤑꤢꤩ꤭",
       "let it be ꤊꤛꤢ꤭ꤛꤢꤩ꤬ꤙꤢꤧ꤬, ꤗꤟꤢꤩ꤬ꤡꤢꤪꤙꤢꤧ꤬",
-      "let him do it ꤕꤜꤝꤥ꤭ꤗꤟꤢꤩ꤬ꤜꤢꤨ꤭ꤔꤛꤣ꤬꤯"
-    ]
+      "let him do it ꤕꤜꤝꤥ꤭ꤗꤟꤢꤩ꤬ꤜꤢꤨ꤭ꤔꤛꤣ꤬꤯",
+      "Let me help. ꤠꤢ꤭ ꤗꤟꤢꤩ꤬ꤡꤝꤟꤥꤊꤟꤊꤣ꤭꤯",
+	  "Let me see ꤠꤢ꤭ꤗꤛꤢꤗꤛꤢ, ꤠꤢ꤭ꤒꤢ꤬ꤔꤟꤢꤩ꤬ꤗꤛꤢꤗꤛꤢ"]
   },
   "letter": {
     "english": "letter",
@@ -17918,7 +17969,7 @@ const dictionary = {
     "english": "life",
     "karenni": "ꤒꤟꤢꤧ꤬ꤥ꤬ꤞꤢ꤭ꤚꤛꤢ꤭, ꤒꤟꤢꤧ꤬ꤓꤝꤟꤥ꤭ꤕꤚꤟꤢꤧ꤬, ꤞꤢꤧꤕꤜꤢꤪ꤬ꤓꤝꤟꤥ꤭ꤕꤚꤟꤢꤧ꤬, ꤒꤟꤢꤧ꤬ꤥ꤬ꤓꤝꤟꤥ꤭ꤕꤚꤟꤢꤧ꤬",
     "translation": "life /n/",
-    "examples": []
+    "examples": ["Not on your life. ꤊꤝꤤ꤭ꤡꤢꤪꤙꤢꤧ꤭ꤗꤢꤪ꤯"]
   },
     "lifeboat": {
     "english": "lifeboat",
@@ -18075,7 +18126,8 @@ const dictionary = {
     "english": "little",
     "karenni": "ꤕꤢ꤬ꤒꤤ, ꤥ꤬ꤕꤢ꤬ꤒꤤ, ꤒꤢ꤬ꤊꤤ꤬",
     "translation": "little /adj/",
-    "examples": ["a little bit ꤒꤢ꤬ꤊꤤ꤬ꤖꤢꤨ, ꤙꤢꤧ꤬ꤗꤢꤧ"]
+    "examples": ["a little bit ꤒꤢ꤬ꤊꤤ꤬ꤖꤢꤨ, ꤙꤢꤧ꤬ꤗꤢꤧ",
+	"Move a little. ꤞꤢꤪꤞꤢꤦꤗꤛꤢ ꤒꤢ꤬ꤊꤤ꤬꤯"]
   },
   "live": {
     "english": "live",
@@ -18206,7 +18258,8 @@ const dictionary = {
     "translation": "long /adj/",
     "examples": [
 	"long ago ꤘꤣꤔꤢꤨ꤬ꤘꤣꤞꤢ꤬, ꤘꤣꤑꤢꤩꤔꤢꤨ꤬",
-    "long time ꤑꤟꤢꤩ꤭ꤜꤢ꤭, ꤔꤢ꤬ꤑꤟꤢꤩ꤭ꤜꤢꤧ꤭ꤑꤟꤢꤩ꤭"]
+    "long time ꤑꤟꤢꤩ꤭ꤜꤢ꤭, ꤔꤢ꤬ꤑꤟꤢꤩ꤭ꤜꤢꤧ꤭ꤑꤟꤢꤩ꤭",
+	"How long? ꤢ꤬ꤑꤟꤢꤩ꤭ꤙꤢꤒꤢꤩ꤭?, ꤢ꤬ꤓꤢꤨ꤭ꤙꤢꤒꤢꤩ꤭?",]
   },
     "longbow": {
     "english": "longbow",
@@ -18245,6 +18298,7 @@ const dictionary = {
     "examples": [
 	  "look like ꤞꤛꤢꤔꤢ",
 	  "look at ꤗꤛꤢꤒꤟꤢꤨ",
+	  "look out ꤗꤛꤢꤚꤛꤢ",
       "look around ꤗꤛꤢꤒꤢ꤬ꤚꤤꤒꤢ꤬ꤠꤟꤢ꤬, ꤗꤛꤢꤊꤟꤢ꤬ꤗꤛꤢꤟꤛꤢ꤭",
       "look back ꤗꤛꤢꤊꤟꤢ꤬ꤋꤛꤢꤩ꤭",
       "look carefully ꤗꤛꤢꤒꤟꤢ꤭ꤒꤟꤢꤩ꤬, ꤗꤛꤢꤒꤟꤢ꤭ꤗꤛꤢꤒꤟꤢꤩ꤬",
@@ -18254,8 +18308,9 @@ const dictionary = {
       "look for ꤗꤛꤢꤕꤟꤢꤨ꤭",
       "look with disdain ꤗꤛꤢꤊꤜꤢꤨ꤬ꤗꤛꤢꤜꤢꤧ꤭",
       "look back and forth ꤗꤛꤢꤊꤟꤢ꤬ꤗꤛꤢꤟꤛꤢ꤭",
-      "look after ꤗꤛꤢꤋꤝꤢꤧ꤬"
-    ]
+      "look after ꤗꤛꤢꤋꤝꤢꤧ꤬",
+	  "looking for-ꤥ꤬ꤗꤛꤢꤕꤟꤢꤨ꤭",
+      "I am looking for a new job. ꤠꤢ꤭ ꤥ꤬ꤗꤛꤢꤕꤟꤢꤨ꤭ꤒꤢ꤬ꤕꤜꤢꤩ꤬ ꤒꤟꤢꤧ꤬ꤗꤟꤢꤩ꤬ꤢ꤬ꤞꤢꤧ꤭꤯"]
   },
   "loom": {
     "english": "loom",
@@ -18342,10 +18397,21 @@ const dictionary = {
   },
   "love": {
     "english": "love",
-    "karenni": "ꤗꤟꤥ꤬ꤔꤟꤤ, ꤗꤟꤥ꤬, ꤞꤢꤧꤐꤟꤢꤦ, ꤞꤢꤧꤐꤟꤢꤦꤔꤟꤤ, ꤙꤢꤧ꤬ꤞꤛꤣ꤬ꤓꤛꤢꤩ꤭, ꤗꤛꤢꤒꤥ꤭ꤞꤢꤧꤕꤜꤢꤪ꤬, ꤞꤢꤧꤐꤟꤢꤪ꤬ꤗꤟꤥ꤬ꤔꤟꤤ /n/ ꤋꤥ꤭ꤗꤟꤥ꤬, ꤒꤟꤢꤧ꤬ꤗꤟꤥ꤬, ꤋꤥ꤭ꤕꤚꤟꤢꤧ꤬ꤗꤢꤪ꤬, ꤋꤥ꤭ꤕꤚꤟꤢꤧ꤬ꤋꤢꤨ꤭, ꤗꤢꤩ꤭, ꤠꤟꤢꤧ꤬, ꤒꤟꤢꤧ꤬ꤗꤟꤥ꤬ꤔꤟꤤ, ꤒꤟꤢꤧ꤬ꤞꤢꤧꤐꤟꤢꤦꤞꤢꤧꤜꤟꤢꤪ꤭, ꤒꤟꤢꤧ꤬ꤞꤢꤧꤐꤟꤢꤦ, ꤒꤟꤢꤧ꤬ꤞꤢꤧꤐꤟꤢꤦꤜꤢꤨ꤭, ꤒꤟꤢꤧ꤬ꤞꤢꤧꤐꤟꤢꤦꤗꤟꤥ꤬ꤔꤟꤤ",
+    "karenni": "ꤗꤟꤥ꤬ꤔꤟꤤ, ꤗꤟꤥ꤬, ꤗꤟꤥ꤬ꤘꤢꤩ, ꤞꤢꤧꤐꤟꤢꤦ, ꤞꤢꤧꤐꤟꤢꤦꤔꤟꤤ, ꤙꤢꤧ꤬ꤞꤛꤣ꤬ꤓꤛꤢꤩ꤭, ꤗꤛꤢꤒꤥ꤭ꤞꤢꤧꤕꤜꤢꤪ꤬, ꤞꤢꤧꤐꤟꤢꤪ꤬ꤗꤟꤥ꤬ꤔꤟꤤ /n/ ꤋꤥ꤭ꤗꤟꤥ꤬, ꤒꤟꤢꤧ꤬ꤗꤟꤥ꤬, ꤋꤥ꤭ꤕꤚꤟꤢꤧ꤬ꤗꤢꤪ꤬, ꤋꤥ꤭ꤕꤚꤟꤢꤧ꤬ꤋꤢꤨ꤭, ꤗꤢꤩ꤭, ꤠꤟꤢꤧ꤬, ꤒꤟꤢꤧ꤬ꤗꤟꤥ꤬ꤔꤟꤤ, ꤒꤟꤢꤧ꤬ꤗꤟꤥ꤬ꤔꤟꤤꤜꤢꤨ꤭, ꤒꤟꤢꤧ꤬ꤞꤢꤧꤐꤟꤢꤦꤞꤢꤧꤜꤟꤢꤪ꤭, ꤒꤟꤢꤧ꤬ꤞꤢꤧꤐꤟꤢꤦ, ꤒꤟꤢꤧ꤬ꤞꤢꤧꤐꤟꤢꤦꤜꤢꤨ꤭, ꤒꤟꤢꤧ꤬ꤞꤢꤧꤐꤟꤢꤦꤗꤟꤥ꤬ꤔꤟꤤ",
     "translation": "love /v/",
-    "examples": ["I love you. ꤠꤢ꤭ ꤗꤟꤥ꤬ꤔꤟꤤ ꤔꤟꤢꤧ꤬꤯",
-      "Give me your love. ꤘꤛꤢꤩꤠꤢ꤭ ꤔꤟꤢꤧ꤬ꤒꤟꤢꤧ꤬ꤗꤟꤥ꤬꤯"]
+    "examples": [
+	  "My love ꤠꤢ꤭ꤋꤥ꤭ꤗꤟꤥ꤬",
+	  "Do you love me? ꤔꤟꤢꤧ꤬ ꤗꤟꤥ꤬ꤔꤟꤤ ꤠꤢ꤭ꤟꤟꤢꤧ꤭?",
+	  "I love you. ꤠꤢ꤭ꤗꤟꤥ꤬ꤔꤟꤤꤔꤟꤢꤧ꤬꤯",
+	  "I love you too ꤠꤢ꤭ꤗꤟꤥ꤬ꤔꤟꤤꤔꤟꤢꤧ꤬ ꤊꤟꤊꤣ꤭ꤊꤟꤊꤣ꤭꤯",
+	  "I love you forever. ꤠꤢ꤭ꤗꤟꤥ꤬ꤔꤟꤤꤔꤟꤢꤧ꤬ ꤒꤢ꤬ꤡꤟꤢꤨ꤭ꤕꤚꤟꤢꤧ꤬",
+	  "I love you more than I can say. ꤠꤢ꤭ꤗꤟꤥ꤬ꤔꤟꤤꤜꤣꤔꤢ ꤠꤢ꤭ꤟꤢꤩꤙꤢꤧ꤬ꤡꤟꤛꤢꤒꤢ꤬ꤟꤢꤩ꤬꤯",
+      "Give me your love. ꤘꤛꤢꤩꤠꤢ꤭ ꤔꤟꤢꤧ꤬ꤒꤟꤢꤧ꤬ꤗꤟꤥ꤬꤯",
+	  "I don't love you anymore. ꤠꤢ꤭ ꤗꤟꤥ꤬ꤔꤟꤤꤕꤢ꤭ ꤔꤟꤢꤧ꤬ꤒꤥ꤬ꤟꤢꤪ꤯",
+	  "Ko Reh loves Kay Meh. ꤊꤥ꤬ꤚꤢꤧ꤬ ꤗꤟꤥ꤬ꤔꤟꤤ ꤊꤢꤩꤗꤛꤢ꤬꤯",
+	  "Bring your love one. ꤢꤧꤟꤛꤢ꤭ꤔꤟꤤ ꤔꤟꤢꤧ꤬ꤋꤥ꤭ꤗꤟꤥ꤬ꤜꤣ ꤒꤣ꤬ꤕꤚꤟꤢꤧ꤬ꤕꤚꤟꤢꤧ꤬꤯",
+	  "I love to sleep. ꤠꤢ꤭ ꤞꤢꤧꤐꤟꤢꤦ ꤥ꤬ꤗꤛꤢꤩ꤭꤯",
+	  "Love each other ꤗꤟꤥ꤬ꤔꤟꤤꤋꤛꤢꤩ꤭ꤜꤢꤨ꤭꤯"]
 },
 "lovelorn": {
     "english": "lovelorn",
@@ -18406,9 +18472,9 @@ const dictionary = {
   },
   "lunch": {
     "english": "lunch",
-    "karenni": "ꤗꤟꤢꤪꤓꤛꤣ꤬ꤏꤢꤧ꤬ꤢꤩ꤬",
+    "karenni": "ꤗꤟꤢꤪꤓꤌꤣ꤬ꤏꤢꤧ꤬ꤢꤩ꤬",
     "translation": "lunch /n/",
-    "examples": []
+    "examples": ["It's time to eat lunch. ꤏꤛꤣꤋꤢꤧ꤭ꤒꤥ꤭ꤢꤩ꤬ ꤗꤟꤢꤪꤓꤌꤣ꤬ꤏꤢꤧ꤬ꤢꤩ꤬꤯"]
   },
   "lung": {
     "english": "lung",
@@ -18971,7 +19037,7 @@ const dictionary = {
     "karenni": "ꤥ꤬ꤊꤢꤨ, ꤥ꤬ꤊꤢꤨꤥ꤬ꤊꤛꤢ, ꤗꤛꤢꤓꤛꤢꤩ꤬ꤏꤢꤦ꤬, ꤡꤛꤣꤗꤛꤢꤓꤛꤢꤩ꤬",
     "translation": "meet /v/",
     "examples": ["meet together ꤒꤟꤢ꤭ꤏꤢꤦ꤬ꤒꤟꤢ꤭ꤕꤜꤢꤪ",
-	"Nice to meet you. ꤗꤛꤢꤓꤛꤢꤩ꤬ꤏꤢꤦ꤬ ꤔꤟꤢꤧ꤬ ꤗꤟꤥ꤬ꤞꤢꤧꤕꤜꤢꤪ꤬꤯",
+	"Nice to meet you. ꤗꤛꤢꤓꤛꤢꤩ꤬ꤏꤢꤦ꤬ꤔꤢ ꤔꤟꤢꤧ꤬ꤚꤢꤪ ꤢ꤬ꤗꤟꤥ꤬ꤜꤢ꤭꤯",
     "Pleased to meet you. ꤗꤛꤢꤓꤛꤢꤩ꤬ꤏꤢꤦ꤬ꤔꤟꤢꤧ꤬ ꤞꤢꤧꤊꤚꤟꤢꤦ꤭ꤞꤢꤧꤜꤟꤢꤪ꤭꤯",
     "I'm glad to meet you. ꤗꤛꤢꤓꤛꤢꤩ꤬ꤏꤢꤦ꤬ ꤔꤟꤢꤧ꤬ ꤠꤢ꤭ ꤞꤢꤧꤊꤚꤟꤢꤦ꤭ꤞꤢꤧꤜꤟꤢꤪ꤭꤯",
     "It's wonderful to meet you. ꤗꤛꤢꤓꤛꤢꤩ꤬ꤏꤢꤦ꤬ ꤔꤟꤢꤧ꤬ ꤢ꤬ꤋꤥꤒꤣ꤬ꤡꤣ꤬ꤡꤢꤪ꤯",
@@ -19867,7 +19933,8 @@ const dictionary = {
     "english": "much",
     "karenni": "ꤢꤧꤑꤢ꤬ꤡꤢꤪ",
     "translation": "much /adj/",
-    "examples": ["Not much. And you? ꤒꤣ꤬ꤡꤣꤒꤥ꤬꤯ ꤔꤟꤢꤧ꤬ꤜꤢꤩ꤭?",
+    "examples": ["Not much ꤥ꤬ꤢꤧꤒꤢ꤬ꤜꤝꤥꤒꤥ꤬꤯",
+	"Not much. And you? ꤒꤣ꤬ꤡꤣꤒꤥ꤬꤯ ꤔꤟꤢꤧ꤬ꤜꤢꤩ꤭?",
     "Nothing much. What's up? ꤙꤢꤔꤛꤣ꤬ꤒꤥ꤬꤯ ꤗꤟꤢꤩ꤬ꤒꤢꤩ꤭?"]
   },
   "mucus": {
@@ -20299,7 +20366,7 @@ const dictionary = {
     "english": "never",
     "karenni": "ꤒꤢ꤬ꤖꤟꤌꤣꤒꤥ꤬, ꤔꤢꤪꤒꤥ꤬, ꤒꤢ꤬ꤋꤛꤢꤒꤥ꤬",
     "translation": "never /adv/",
-    "examples": []
+    "examples": ["Never mind - ꤢ꤬ꤔꤟꤤꤕꤚꤢꤧ꤯ ꤢ꤬ꤜꤥ꤬ꤟꤢꤩꤥ꤬ꤒꤥ꤬꤯"]
   },
   "new": {
     "english": "new",
@@ -20345,9 +20412,9 @@ const dictionary = {
   },
   "next": {
     "english": "next",
-    "karenni": "ꤘꤣꤑꤢꤩ꤭, ꤘꤣꤑꤢꤩ꤭ꤒꤢ꤬ꤒꤟꤥ",
+    "karenni": "ꤘꤣꤑꤢꤩ꤭, ꤘꤣꤑꤢꤩ꤭ꤒꤢ꤬ꤒꤟꤥ, ꤔꤥ꤬ꤒꤣ꤬_",
     "translation": "next /adv/",
-    "examples": [
+    "examples": ["Next one ꤔꤥ꤬ꤒꤣ꤬ꤊꤟꤊꤣ꤬",
       "next day ꤢ꤬ꤔꤥ꤬ꤒꤣ꤬ꤑꤢꤩ꤭",
       "next time ꤔꤥ꤬ꤕꤟꤢ꤭ꤒꤣ꤬ꤖꤟꤌꤣ, ꤘꤣꤑꤢꤩ꤭ꤕꤟꤢ꤭ ꤒꤣ꤬ꤟꤢꤦ꤬",
       "next to ꤋꤢ꤭ꤏꤛꤢꤩ",
@@ -20365,7 +20432,8 @@ const dictionary = {
     "english": "nice",
     "karenni": "ꤗꤟꤥ꤬ꤞꤢꤧꤕꤜꤢꤪ꤬, ꤚꤛꤢ, ꤒꤝꤟꤥꤚꤛꤢ, ꤗꤟꤥ꤬ꤚꤛꤢ",
     "translation": "nice /adj/",
-    "examples": ["Nice to see you again. ꤗꤛꤢꤓꤛꤢꤩ꤬ ꤞꤛꤢꤔꤟꤢꤧ꤬ ꤗꤟꤥ꤬ꤞꤢꤧꤕꤜꤢꤪ꤬"]
+    "examples": ["Nice to see you again. ꤗꤛꤢꤓꤛꤢꤩ꤬ ꤋꤛꤢꤩ꤭ꤞꤛꤢꤔꤟꤢꤧ꤬ꤚꤢꤪ ꤢ꤬ꤗꤟꤥ꤬ꤞꤢꤧꤕꤜꤢꤪ꤬",
+	"It was nice talking to you. ꤟꤢꤩꤙꤢꤧ꤬ꤔꤢꤔꤟꤢꤧ꤬ ꤢ꤬ꤚꤛꤢꤕꤚꤢꤧ꤯"]
   },
   "nick": {
     "english": "nick",
@@ -20440,13 +20508,14 @@ const dictionary = {
     "examples": []
   },
   "no": {
-    "english": "no",
+    "english": "No",
     "karenni": "ꤒꤥ꤬, --ꤒꤥ꤬",
-    "translation": "no /n/, /adj/",
-    "examples": [
-      "no more -ꤕꤟꤢ꤭ꤒꤥ꤬ꤟꤢꤪ, ꤕꤟꤌꤣ꤬ꤟꤢꤪ",
-      "no one ꤒꤣ꤬ꤕꤚꤟꤢꤧꤒꤥ꤬",
-      "no problem ꤜꤟꤢꤩꤟꤢꤩꤥ꤬ꤒꤥ꤬",
+    "translation": "No /n,adj/",
+    "examples": ["No way! ꤒꤢ꤬ꤋꤛꤢꤒꤥ꤬!",
+      "No more -ꤕꤟꤢ꤭ꤒꤥ꤬ꤟꤢꤪ, ꤕꤟꤌꤣ꤬ꤟꤢꤪ",
+      "No one ꤒꤣ꤬ꤕꤚꤟꤢꤧꤒꤥ꤬",
+	  "No need ꤢ꤬ꤜꤥ꤬ꤒꤥ꤬",
+      "No problem ꤜꤟꤢꤩꤟꤢꤩꤥ꤬ꤒꤥ꤬",
 	  "No pain no gain ꤛꤢꤡꤢꤦꤒꤥ꤬ ꤔꤟꤤꤙꤢꤧ꤬ꤒꤥ꤬꤯"]
   },
   "No.": {
@@ -20549,14 +20618,15 @@ const dictionary = {
     "english": "note",
     "karenni": "ꤒꤟꤢꤧ꤬ꤚꤢ꤭ꤗꤢꤚꤢ꤭ꤒꤢꤩ꤭, ꤚꤢ꤭ꤗꤢꤕꤜꤤ, ꤜꤤ꤬ꤗꤢꤒꤢꤩ꤭, ꤒꤟꤢꤧ꤬ꤚꤢꤩ꤬ꤒꤢꤩ꤭ꤗꤢ, ꤒꤟꤢꤧ꤬ꤚꤢ꤭ꤗꤢꤕꤜꤢꤪ, ꤒꤟꤢꤧ꤬ꤒꤢꤩ꤭ꤗꤢꤒꤟꤢꤧ꤬ꤚꤢꤩ꤬",
     "translation": "note /n/",
-    "examples": []
+    "examples": ["Take notes ꤖꤛꤢꤩꤗꤢꤖꤛꤢꤩꤒꤢꤩ꤭꤯"]
   },
   "not": {
     "english": "not",
     "karenni": "-ꤒꤥ꤬, ꤗꤟꤢꤒꤥ꤬",
     "translation": "not /adv/",
-    "examples": [
-      "not only that ꤒꤢꤦꤔꤛꤣ꤬ꤓꤛꤣ꤭ꤒꤥ꤬, ꤒꤢꤦꤔꤛꤣ꤬ꤗꤟꤢꤒꤥ꤬"]
+    "examples": ["Not now ꤋꤥ꤭ꤑꤟꤢꤒꤥ꤬",
+      "not only that ꤒꤢꤦꤔꤛꤣ꤬ꤓꤛꤣ꤭ꤒꤥ꤬, ꤒꤢꤦꤔꤛꤣ꤬ꤗꤟꤢꤒꤥ꤬",
+	  "Of cause not ꤢ꤬ꤗꤟꤢꤔꤢꤪꤖꤢꤨꤔꤌꤣ꤬ꤒꤥ꤬"]
   },
   "notebook": {
     "english": "notebook",
@@ -20853,7 +20923,8 @@ const dictionary = {
     "translation": "OK /informal/",
     "examples": ["OK=orl korrect=all correct",
 	"OK=Old Kinderhook",
-	"OK=Oklahoma"]
+	"OK=Oklahoma",
+	"Are you OK? ꤔꤟꤢꤧ꤬ꤚꤛꤢꤏꤢꤜꤟꤢꤩꤟꤟꤢꤧ꤭?"]
   },
   "okay": {
     "english": "okay",
@@ -21243,7 +21314,7 @@ const dictionary = {
     "english": "outside",
     "karenni": "ꤘꤣꤢ꤬ꤊꤜꤢꤪ꤭",
     "translation": "outside /prep/",
-    "examples": []
+    "examples": ["It is raining outside. ꤊꤟꤢꤩꤡꤟꤢꤦ꤬ ꤘꤣꤢ꤬ꤊꤜꤢꤪ꤭"]
   },
     "outstanding": {
     "english": "outstanding",
@@ -21263,7 +21334,7 @@ const dictionary = {
     "english": "over there",
     "karenni": "ꤘꤣꤔꤌꤣ꤬, ꤘꤣꤔꤛꤣ꤬",
     "translation": "over-there /phr/",
-    "examples": []
+    "examples": ["Look overthere ꤗꤛꤢꤘꤣꤔꤌꤣ꤬꤯"]
   },
   "overcast": {
     "english": "overcast",
@@ -21542,6 +21613,12 @@ const dictionary = {
     "karenni": "ꤋꤢꤨ꤬ꤊꤟꤊꤣꤊꤟꤌꤣ꤭ꤊꤜꤛꤢꤩ꤭ꤖꤢꤨ",
     "translation": "para /n/",
     "examples": []
+  },
+  "pardon": {
+    "english": "pardon",
+    "karenni": "ꤕꤜꤝꤥ꤭ꤒꤟꤢꤧ꤬ꤞꤢꤦ",
+    "translation": "pardon /v/",
+    "examples": ["Pardon me. ꤕꤜꤝꤥ꤭ꤠꤢ꤭ꤒꤟꤢꤧ꤬ꤞꤢꤦ"]
   },
   "paratroops": {
     "english": "paratroops",
@@ -22250,7 +22327,7 @@ const dictionary = {
     "english": "pick up",
     "karenni": "ꤤ꤬ꤓꤌꤣ꤬, ꤡꤟꤢꤪ꤭ꤓꤛꤢ꤬, ꤖꤛꤢꤩꤓꤛꤢ꤬, ꤢ꤬ꤚꤛꤢꤟꤛꤢ꤭",
     "translation": "pick-up /phr/",
-    "examples": []
+    "examples": ["I'll pick you up. ꤠꤢ꤭ꤟꤛꤢ꤭ꤢꤧꤔꤟꤢꤧ꤬ꤕꤢ꤭꤯"]
   },
   "picture": {
     "english": "picture",
@@ -24312,7 +24389,8 @@ const dictionary = {
   "english": "refund",
   "karenni": "ꤘꤛꤢꤩꤊꤟꤢ꤬ꤋꤛꤢꤩ꤭ꤞꤛꤢ ꤚꤢꤦ꤭ /n/ꤘꤛꤢꤩꤊꤟꤢ꤬ꤋꤛꤢꤩ꤭ꤚꤢꤦ꤭",
   "translation": "refund /v/",
-  "examples": ["non-refundable ꤘꤛꤢꤩꤊꤟꤢ꤬ꤋꤛꤢꤩ꤭ꤡꤟꤛꤢꤞꤛꤢ ꤚꤢꤦ꤭ꤒꤥ꤬, ꤘꤛꤢꤩꤊꤟꤢ꤬ꤋꤛꤢꤩ꤭ꤚꤢꤦ꤭ꤒꤥ꤬"]
+  "examples": ["non-refundable ꤘꤛꤢꤩꤊꤟꤢ꤬ꤋꤛꤢꤩ꤭ꤡꤟꤛꤢꤞꤛꤢ ꤚꤢꤦ꤭ꤒꤥ꤬, ꤘꤛꤢꤩꤊꤟꤢ꤬ꤋꤛꤢꤩ꤭ꤚꤢꤦ꤭ꤒꤥ꤬",
+  "Can I have a refund? ꤘꤛꤢꤩꤊꤟꤢ꤬ꤋꤛꤢꤩ꤭ꤞꤛꤢ ꤠꤢ꤭ꤚꤢꤦ꤭ꤗꤢ꤬ ꤢ꤬ꤔꤟꤤꤕꤚꤢꤧꤟꤟꤢꤧ꤭?"]
 },
 "refundable": {
   "english": "refundable",
@@ -24873,7 +24951,8 @@ const dictionary = {
   "karenni": "ꤒꤥ꤭, ꤡꤢꤪꤒꤟꤢꤩ꤬, ꤢ꤬ꤗꤟꤢ, ꤢ꤬ꤒꤥ꤭ꤢ꤬ꤙꤢꤧ꤬, /adj/ꤗꤟꤢꤩ꤬ꤒꤥ꤭, ꤟꤢꤩꤒꤥ꤭, ꤒꤥ꤭ꤙꤢꤧ꤬ /n/ ꤡꤢꤪꤓꤝꤥ",
   "translation": "right /adv/",
   "examples": ["Right side ꤡꤢꤪꤓꤝꤥꤒꤢ꤬ꤊꤛꤢꤩ꤭",
-  "left side ꤡꤢꤪꤡꤤ꤬ꤒꤢ꤬ꤊꤛꤢꤩ꤭"]
+  "left side ꤡꤢꤪꤡꤤ꤬ꤒꤢ꤬ꤊꤛꤢꤩ꤭",
+  "absolutely right. ꤗꤟꤢꤔꤛꤢ꤬ꤡꤢꤪ꤯"]
 },
 "rights": {
   "english": "rights",
@@ -25287,7 +25366,7 @@ const dictionary = {
     "english": "sad",
     "karenni": "ꤞꤢꤧꤕꤜꤟꤢꤧ꤭, ꤞꤢꤧꤕꤜꤟꤢꤧ꤭ꤞꤢꤧꤐꤟꤢꤪ꤬, ꤞꤢꤧꤕꤜꤢꤪ꤬ꤗꤟꤥ꤬ꤒꤥ꤬",
     "translation": "sad /adj/",
-    "examples": []
+    "examples": ["Don't be sad. ꤥ꤬ꤒꤢ꤬ꤔꤟꤢꤩ꤬ꤞꤢꤧꤕꤜꤟꤢꤧ꤭ꤒꤢꤧ꤭ꤗꤟꤢꤩ꤯"]
   },
   "sadden": {
     "english": "sadden",
@@ -25557,7 +25636,10 @@ const dictionary = {
     "english": "say",
     "karenni": "ꤟꤢꤩ, ꤟꤢꤩꤗꤢꤪ",
     "translation": "say /v/",
-    "examples": ["say something ꤟꤢꤩꤒꤢ꤬ꤡꤣ꤬ꤡꤣ꤬",
+    "examples": ["Say again ꤟꤢꤩꤋꤛꤢꤩ꤭ꤞꤛꤢ",
+	"Say nothing ꤟꤢꤩ ꤒꤢꤧ꤭ꤒꤢ꤬ꤡꤣꤗꤟꤢꤩ",
+	"Say Thank You ꤟꤢꤩꤒꤟꤢꤧ꤬ꤙꤝꤤ",
+	"say something ꤟꤢꤩꤒꤢ꤬ꤡꤣ꤬ꤡꤣ꤬",
 	"Don't say anything. ꤟꤢꤩꤒꤢ꤬ꤡꤣꤗꤟꤢꤩ!",
 	"What did she say? ꤔꤟꤢꤧ꤬ꤟꤢꤩꤒꤤ꤭ꤒꤢꤩ꤭?"]
   },
@@ -25878,11 +25960,13 @@ const dictionary = {
   },
   "see": {
     "english": "see",
-    "karenni": "ꤗꤛꤢꤓꤛꤢꤩ꤬, ꤗꤛꤢ",
+    "karenni": "ꤗꤛꤢꤓꤛꤢꤩ꤬, ꤗꤛꤢ, ꤞꤢꤧꤑꤢꤩ꤭ꤒꤟꤢ꤭ꤕꤜꤢꤨ",
     "translation": "see /v/",
-    "examples": ["See you tomorrow. ꤗꤛꤢ꤬ꤓꤛꤢꤩ꤬ꤔꤟꤢꤧ꤬ ꤏꤛꤢꤩꤕꤢ꤬ꤚꤥ꤭ꤕꤢ꤭꤯",
-	"See you later. ꤗꤛꤢꤓꤛꤢꤩ꤬ꤔꤥ꤬ꤕꤢ꤭",
+    "examples": ["I see ꤠꤢ꤭ ꤞꤢꤧꤑꤢꤩ꤭ꤟꤢꤪ꤯",
+	"See you tomorrow. ꤗꤛꤢ꤬ꤓꤛꤢꤩ꤬ꤔꤟꤢꤧ꤬ ꤏꤛꤢꤩꤕꤢ꤬ꤚꤥ꤭ꤕꤢ꤭꤯",
+	"See you later. ꤗꤛꤢꤓꤛꤢꤩ꤬ꤔꤥ꤬ꤔꤟꤢꤧ꤬ꤕꤢ꤭",
 "See you tomorrow. ꤗꤛꤢꤓꤛꤢꤩ꤬ꤔꤟꤢꤧ꤬ ꤏꤛꤢꤩꤕꤢ꤬ꤚꤥ꤭ ꤕꤢ꤭",
+"See you around. ꤗꤛꤢꤓꤛꤢꤩ꤬ꤔꤥ꤬ꤜꤢꤨ꤭ꤕꤢ꤭",
 "See you on Friday. ꤗꤛꤢꤓꤛꤢꤩ꤬ ꤗꤟꤢꤪꤑꤟꤢ꤭ꤑꤢꤩ꤭ ꤕꤢ꤭꤯",
 "See you at church on Sunday. ꤗꤛꤢꤓꤛꤢꤩ꤬ ꤗꤟꤢꤪꤑꤢꤩ꤭ꤘꤟꤌꤣ꤬ ꤞꤢꤪꤚꤢꤪꤊꤢꤨ꤭ ꤕꤢ꤭꤯"]
   },
@@ -25960,9 +26044,9 @@ const dictionary = {
   },
   "selfish": {
     "english": "selfish",
-    "karenni": "ꤗꤛꤢꤚꤛꤢ ꤒꤢꤦꤑꤢꤩ꤭ꤒꤛꤣ꤭꤯ ꤞꤢꤧꤜꤟꤢꤪ꤭ꤞꤢꤧꤐꤟꤢꤦ ꤒꤢꤦꤑꤢꤩ꤭ꤒꤛꤣ꤭꤯ ꤗꤛꤢꤘꤢꤨ꤬ꤔꤟꤤꤘꤢꤦ꤬, ꤔꤟꤤꤘꤢꤦ꤬ꤒꤟꤢꤧ꤬",
+    "karenni": "ꤗꤛꤢꤚꤛꤢ ꤒꤢꤦꤑꤢꤩ꤭ꤒꤛꤣ꤭꤯ ꤞꤢꤧꤜꤟꤢꤪ꤭ꤞꤢꤧꤐꤟꤢꤦ ꤒꤢꤦꤑꤢꤩ꤭ꤒꤛꤣ꤭꤯ ꤗꤛꤢꤘꤢꤨ꤬ꤔꤟꤤꤘꤢꤦ꤬, ꤗꤛꤢꤒꤥ꤭ꤒꤢꤦꤘꤢꤦ꤬ꤑꤢꤩ꤭, ꤔꤟꤤꤘꤢꤦ꤬ꤒꤟꤢꤧ꤬",
     "translation": "selfish /adj/",
-    "examples": []
+    "examples": ["How selfish ꤗꤛꤢꤒꤥ꤭ꤒꤢꤦꤘꤢꤦ꤬ꤑꤢꤩ꤭꤯"]
   },
   "sell": {
     "english": "sell",
@@ -26740,9 +26824,9 @@ const dictionary = {
   },
   "size": {
     "english": "size",
-    "karenni": "ꤢ꤬ꤘꤢꤨ꤬, ꤢ꤬ꤥ꤬ꤒꤤ, ꤘꤢꤨ꤬ꤕꤢ꤬ꤒꤤ",
+    "karenni": "ꤢ꤬ꤘꤢꤨ꤬, ꤢ꤬ꤥ꤬ꤒꤤ, ꤘꤢꤨ꤬ꤕꤢ꤬ꤒꤤ, ꤢ꤬ꤒꤢ꤬ꤜꤥ",
     "translation": "size /n/",
-    "examples": []
+    "examples": ["What size? ꤢ꤬ꤒꤢ꤬ꤜꤥꤙꤢꤒꤢꤩ꤭?"]
   },
     "skeleton": {
     "english": "skeleton",
@@ -26863,13 +26947,14 @@ const dictionary = {
     "karenni": "ꤥ꤬ꤗꤛꤢꤩ꤭, ꤥ꤬ꤗꤛꤢꤩ꤭ꤥ꤬, ꤥ꤬ꤗꤛꤢꤩ꤭ꤥ꤬ꤒꤟꤛꤢ, ꤥ꤬ꤗꤛꤢꤩ꤭ꤒꤟꤛꤢ",
     "translation": "sleep /v/",
     "examples": ["sleep deeply ꤥ꤬ꤗꤛꤢꤩ꤭ꤏꤛꤥ꤬, ꤥ꤬ꤗꤛꤢꤩ꤭ꤔꤟꤤꤏꤢꤧ꤭, ꤥ꤬ꤗꤛꤢꤩ꤭ꤏꤥ꤭ꤒꤢ꤬ꤕꤟꤢ꤬",
-    "sleep together ꤥ꤬ꤗꤛꤢꤩ꤭ꤒꤟꤣꤜꤢꤨ꤭"]
+    "sleep together ꤥ꤬ꤗꤛꤢꤩ꤭ꤒꤟꤣꤜꤢꤨ꤭",
+	"Sleep well ꤥ꤬ꤗꤛꤢꤩ꤭ꤗꤟꤥ꤬ꤚꤛꤢꤔꤤ~꤯"]
   },
   "sleepy": {
     "english": "sleepy",
     "karenni": "ꤞꤢꤧꤥ꤬ꤗꤛꤢꤩ꤭, ꤥ꤬ꤗꤛꤢꤩ꤭ꤋꤢ꤭",
     "translation": "sleepy /adj/",
-    "examples": []
+    "examples": ["I'm getting sleepy. ꤠꤢ꤭ ꤞꤢꤧꤥ꤬ꤗꤛꤢꤩ꤭ꤋꤢ꤭ꤟꤛꤢ꤭ꤟꤢꤪ꤯"]
   },
   "sleeve": {
     "english": "sleeve",
@@ -27098,7 +27183,8 @@ const dictionary = {
     "english": "so",
     "karenni": "ꤖꤢꤨꤔꤌꤣ꤬ꤚꤢꤪ, ꤒꤢꤦꤚꤢꤪ, ꤚꤢꤪ /adv/ ꤔꤛꤢ꤬ꤡꤢꤪ, ꤜꤢ꤭",
     "translation": "so /conj/",
-    "examples": ["so that ꤞꤛꤢꤖꤢꤨ, ꤖꤢꤨꤔꤌꤣ꤬ꤚꤢꤪ"]
+    "examples": ["so that ꤞꤛꤢꤖꤢꤨ, ꤖꤢꤨꤔꤌꤣ꤬ꤚꤢꤪ",
+	"So So ꤖꤢꤨꤛꤢꤩ꤭ꤕꤚꤢꤧꤔꤌꤣ꤬, ꤟꤢꤩꤔꤌꤣ꤬ꤗꤢ꤬"]
   },
   "soda": {
     "english": "soda",
@@ -27182,7 +27268,7 @@ const dictionary = {
     "english": "some",
     "karenni": "ꤒꤢ꤬ꤟꤢꤩ꤬, ꤒꤢ꤬ꤟꤢꤩ꤬ꤟꤢꤩ꤬, ꤒꤢ꤬ꤊꤜꤢꤪꤊꤜꤢꤪ",
     "translation": "some /adj/",
-    "examples": []
+    "examples": ["Give me some ꤘꤛꤢꤩꤊꤟꤊꤣ꤭ꤠꤢ꤭ ꤒꤢ꤬ꤟꤢꤩ꤬꤯"]
   },
   "somebody": {
     "english": "somebody",
@@ -27224,7 +27310,7 @@ const dictionary = {
     "english": "son",
     "karenni": "ꤖꤢꤨꤋꤢꤨ꤭, ꤖꤢꤨꤕꤚꤟꤢꤧ꤬ꤋꤢꤨ꤭",
     "translation": "son /n/",
-    "examples": []
+    "examples": ["How is your son? ꤔꤟꤢꤧ꤬ꤖꤢꤨꤋꤢꤨ꤭ ꤥ꤬ꤗꤟꤥ꤬ꤙꤢꤧꤟꤟꤢꤧ꤭?"]
   },
   "son-in-law": {
     "english": "son-in-law",
@@ -27290,16 +27376,7 @@ const dictionary = {
     "english": "sorry",
     "karenni": "ꤞꤢꤧꤕꤜꤟꤢꤧ꤭, ꤞꤢꤧꤕꤜꤢꤪ꤬ꤗꤟꤥ꤬ꤒꤥ꤬, ꤒꤢ꤬ꤔꤟꤢꤩ꤬ꤗꤟꤥ꤬ꤒꤥ꤬, ꤊꤝꤤ꤭ꤞꤢꤧꤐꤟꤢꤪ꤬, ꤒꤟꤢꤧ꤬ꤞꤢꤧꤕꤜꤢꤧ꤭, ꤠꤢ꤭ꤋꤥ, ꤔꤟꤤꤟꤌꤣ꤭ꤒꤥ꤬, ꤞꤢꤧꤐꤟꤢꤪ꤬, ꤞꤢꤧꤒꤢ꤬ꤚꤟꤢꤧ꤭, ꤔꤟꤤꤙꤢꤧ꤬ꤒꤟꤢꤧ꤬ꤞꤢꤧꤑꤢꤩ꤭",
     "translation": "sorry /adj/",
-    "examples": ["I'm sorry for being late to the meeting.", 
-"Sorry, I didn't mean to interrupt you.",  
-"I'm really sorry if I hurt your feelings.",  
-"Sorry about the mess; I'll clean it up now.",  
-"I’m sorry, I forgot to call you back yesterday.",  
-"Sorry for the confusion; let me clarify that.", 
-"I’m so sorry for missing your event.",  
-"Sorry, I didn’t realize that was yours.",  
-"I’m sorry for the inconvenience this caused you.", 
-"Sorry, my mistake—let me fix it right away."]
+    "examples": []
   },
   "soul": {
     "english": "soul",
@@ -27858,7 +27935,7 @@ const dictionary = {
     "english": "stay",
     "karenni": "ꤥ꤬, ꤥ꤬ꤊꤟꤊꤣ, ꤥ꤬ꤊꤛꤢ꤭",
     "translation": "stay /v/",
-    "examples": [
+    "examples": ["Stay here ꤥ꤬ꤙꤤꤛꤢꤩ꤭꤯",
       "stay awake: ꤥ꤬ꤞꤢ꤭ꤊꤜꤛꤢ꤭",
       "stay behind: ꤥ꤬ꤊꤛꤢ꤭"
     ]
@@ -27989,6 +28066,12 @@ const dictionary = {
     "translation": "sting /v/",
     "examples": []
   },
+  "stingy": {
+    "english": "stingy",
+    "karenni": "ꤓꤤ꤭, ꤓꤤ꤭ꤔꤢ",
+    "translation": "stingy /adj/",
+    "examples": ["How stingy ꤓꤤ꤭ꤔꤢꤔꤛꤢ꤬ꤡꤢꤪ"]
+  },
   "stir up": {
     "english": "stir up",
     "karenni": "ꤓꤢꤨ꤬ꤚꤟꤛꤢ꤭ꤓꤛꤢ꤬,ꤓꤢꤨ꤬ꤚꤟꤛꤢ꤭",
@@ -28085,7 +28168,7 @@ const dictionary = {
     "english": "straight",
     "karenni": "ꤡꤢꤪꤡꤢꤦ, ꤡꤢꤪꤚꤢ꤬ꤔꤢꤧ",
     "translation": "straight /adj/",
-    "examples": []
+    "examples": ["Go straight ꤡꤛꤣꤡꤢꤪꤚꤢ꤬ꤔꤢꤧ"]
   },
   "straighten": {
     "english": "straighten",
@@ -28648,7 +28731,7 @@ const dictionary = {
     "english": "sure",
     "karenni": "ꤒꤟꤢ꤭ꤒꤟꤢꤩ꤬",
     "translation": "sure /adj/",
-    "examples": []
+    "examples": ["Are you sure? ꤔꤟꤢꤧ꤬ꤒꤟꤢ꤭ꤒꤟꤢꤩ꤬ꤊꤟꤊꤣ꤭ꤕꤚꤢꤧꤟꤟꤢꤧ꤭?"]
   },
   "surely": {
     "english": "surely",
@@ -28700,7 +28783,7 @@ const dictionary = {
   },
   "swallow": {
     "english": "swallow",
-    "karenni": "ꤕꤤꤊꤜꤢꤨ꤭, ꤕꤤꤊꤜꤢꤨ꤭ꤔꤟꤌꤣ꤭, ꤐꤟꤢꤨꤊꤜꤢꤨ꤭",
+    "karenni": "ꤊꤢꤪꤊꤜꤢꤨ꤭ꤔꤟꤌꤣ꤭, ꤕꤤꤊꤜꤢꤨ꤭, ꤕꤤꤊꤜꤢꤨ꤭ꤔꤟꤌꤣ꤭, ꤐꤟꤢꤨꤊꤜꤢꤨ꤭",
     "translation": "swallow /v/",
     "examples": []
   },
@@ -28732,7 +28815,8 @@ const dictionary = {
     "english": "swear",
     "karenni": "ꤙꤛꤢ꤭ꤢ꤬ꤍꤟꤥ",
     "translation": "swear /v/",
-    "examples": ["swear an oath ꤢꤩ꤬ꤊꤜꤟꤢꤪ꤬ꤢꤩ꤬ꤗꤢ꤬"]
+    "examples": ["swear an oath ꤢꤩ꤬ꤊꤜꤟꤢꤪ꤬ꤢꤩ꤬ꤗꤢ꤬",
+	"Will you swear? ꤔꤟꤢꤧ꤬ ꤙꤛꤢ꤭ꤢꤩ꤬ꤔꤟꤢꤧ꤬ꤔꤟꤢꤩꤟꤟꤢꤧ꤭?"]
   },
   "sweat": {
     "english": "sweat",
@@ -28804,12 +28888,13 @@ const dictionary = {
     "english": "swim",
     "karenni": "ꤒꤢ꤬ꤐꤟꤢꤧꤓꤛꤢꤩ꤭, ꤤ꤬ꤐꤟꤥ꤭ꤓꤛꤢꤩ꤭, ꤐꤥ꤭, ꤐꤥ꤭ꤓꤛꤢꤩ꤭",
     "translation": "swim /v/",
-    "examples": []
+    "examples": ["He is swimming. ꤢꤧ꤬ꤐꤥ꤭ꤓꤛꤢꤩ꤭꤯",
+	"Can you swim? ꤔꤟꤢꤧ꤬ꤐꤥ꤭ꤡꤟꤛꤢꤓꤛꤢꤩ꤭ꤟꤟꤢꤧ꤭?"]
   },
   "swimming pool": {
     "english": "swimming pool",
-    "karenni": "ꤤ꤬ꤐꤟꤥ꤭ꤓꤛꤢꤩ꤭ꤢꤪ꤬ꤘꤢꤨ꤬",
-    "translation": "swimming pool /n/",
+    "karenni": "ꤤ꤬ꤐꤟꤥ꤭ꤓꤛꤢꤩ꤭ꤢꤪ꤬(ꤘꤢꤨ꤬)",
+    "translation": "swimming-pool /n/",
     "examples": []
   },
   "swing": {
@@ -28918,7 +29003,7 @@ const dictionary = {
     "english": "take",
     "karenni": "ꤖꤛꤢꤩ, ꤖꤛꤢꤩꤔꤟꤤ, ꤥ꤭, ꤞꤢꤨ꤭, ꤗꤟꤢꤦ꤭ꤐꤟꤢꤐꤟꤥ꤬",
     "translation": "take /v/",
-    "examples": [
+    "examples": ["Take time ꤖꤛꤢꤩꤏꤛꤣꤋꤢꤧ꤭",
       "take note of ꤗꤛꤢꤒꤥ꤭ꤗꤢ꤬",
       "take by force ꤖꤛꤢꤩꤖꤢꤩ꤬",
       "take captive ꤕꤟꤢꤦꤘꤢꤪꤥ꤬",
@@ -28927,7 +29012,8 @@ const dictionary = {
       "take out ꤖꤛꤢꤩꤓꤢꤩ꤬",
      "take in ꤖꤛꤢꤩꤔꤟꤌꤣ꤭",
     "take away from ꤖꤛꤢꤩꤖꤢꤩ꤬ꤋꤛꤢꤩ, ꤖꤛꤢꤩꤊꤛꤢ꤭ꤜꤟꤢꤪ꤭ꤖꤢꤩ꤬",
-    "take care of ꤗꤛꤢꤋꤝꤢꤧ꤬"]
+    "take care of ꤗꤛꤢꤋꤝꤢꤧ꤬",
+	"Take care of yourself. ꤗꤛꤢꤋꤝꤢꤧ꤬ꤚꤛꤢꤘꤢꤦ꤬ ꤔꤟꤢꤧ꤬ꤔꤟꤢꤩ꤯"]
   },
     "talent": {
     "english": "talent",
@@ -29163,7 +29249,7 @@ const dictionary = {
     "english": "tell",
     "karenni": "ꤟꤢꤩꤏꤥ꤬, ꤘꤛꤢ, ꤘꤛꤢꤏꤥ꤬ꤜꤟꤌꤣ꤭, ꤟꤢꤩꤏꤥ꤬ꤘꤣ꤬ꤑꤢ꤭",
     "translation": "tell /v/",
-    "examples": []
+    "examples": ["Tell me. ꤟꤢꤩꤏꤥ꤬ꤠꤢ꤭꤯"]
   },
   "temper": { 
   "english": "temper",
@@ -29369,13 +29455,15 @@ const dictionary = {
     "karenni": "ꤟꤢꤩꤙꤝꤤꤟꤢꤩꤒꤢ꤬ꤚꤛꤢꤩ꤭, ꤟꤢꤩꤙꤝꤤ, ꤊꤢꤧꤊꤥ꤭ꤓꤛꤢ꤬",
     "translation": "thank /v/",
     "examples": [
-      "thank you: ꤒꤟꤢꤧ꤬ꤙꤝꤤ"]
+      "thank you: ꤒꤟꤢꤧ꤬ꤙꤝꤤ",
+	  "Thank you for your help. ꤒꤟꤢꤧ꤬ꤙꤝꤤ ꤔꤟꤢꤧ꤬ꤒꤟꤢꤧ꤬ꤗꤟꤢꤩ꤬ꤡꤝꤟꤥꤢ꤬ꤑꤢꤩ꤭꤯"]
   },
   "thanks": {
     "english": "thanks",
     "karenni": "ꤒꤟꤢꤧ꤬ꤙꤝꤤ, ꤒꤟꤢꤧ꤬ꤙꤝꤤꤒꤟꤢꤧ꤬ꤒꤢ꤬ꤚꤛꤢꤩ꤭",
     "translation": "thanks /n/",
-    "examples": []
+    "examples": ["Thanks anyway ꤖꤢꤨ꤭ꤒꤢꤩ꤭ꤙꤢꤧ꤬ ꤒꤟꤢꤧ꤬ꤙꤝꤤꤔꤤ~꤯",
+	"Special thanks ꤟꤢꤩꤙꤝꤤꤒꤢ꤬ꤚꤛꤢꤩ꤭ꤘꤢꤨ꤬ꤜꤢ꤭"]
   },
   "thanksgiving": {
     "english": "thanksgiving",
@@ -29388,7 +29476,11 @@ const dictionary = {
     "karenni": "ꤔꤛꤣ꤬, ꤔꤌꤣ꤬, ꤔꤢ",
     "translation": "that /pron,conj/",
     "examples": [
-      "that is(that's) ꤔꤌꤣ꤬ꤗꤢ꤬, ꤔꤌꤣ꤬ꤗꤢ꤬"]
+      "that is(that's) ꤔꤌꤣ꤬ꤗꤢ꤬, ꤔꤌꤣ꤬ꤗꤢ꤬",
+	  "That's all. ꤙꤢꤔꤌꤣ꤬ꤕꤚꤢꤧ꤯",
+	  "That's right ꤒꤥ꤭ꤕꤚꤢꤧꤔꤌꤣ꤬",
+	  "That's true ꤗꤟꤢꤕꤚꤢꤧꤔꤌꤣ꤬",
+	  "That's wrong ꤞꤢꤦꤕꤚꤢꤧꤔꤌꤣ꤬"]
   },
   "thatch": {
     "english": "thatch",
@@ -29526,7 +29618,7 @@ const dictionary = {
     "english": "thirsty",
     "karenni": "ꤞꤢꤧꤥ꤭ꤓꤛꤢꤩ꤭",
     "translation": "thirsty /adj/",
-    "examples": []
+    "examples": ["I'm getting thirsty. ꤠꤢ꤭ ꤞꤢꤧꤥ꤭ꤓꤛꤢꤩ꤭ꤟꤢꤪ꤯"]
   },
   "thirteen": {
     "english": "thirteen",
@@ -29743,8 +29835,8 @@ const dictionary = {
     "examples": [
       "It's time: ꤏꤛꤣꤋꤢꤧ꤭ꤙꤢꤧ꤬",
       "right time: ꤏꤛꤣꤋꤢꤧ꤭ꤒꤥ꤭, ꤒꤥ꤭ꤏꤛꤣꤒꤥ꤭ꤋꤢꤧ꤭",
-      "time after time: ꤟꤢꤦ꤬ꤕꤜꤢꤩ꤬"
-    ]
+      "time after time: ꤟꤢꤦ꤬ꤕꤜꤢꤩ꤬",
+      "What time is it? ꤙꤢꤗꤢꤦ꤭ꤙꤢꤧ꤬ꤟꤢꤪ ꤒꤤ꤭ꤒꤢꤩ꤭?"]
   },
   "timid": {
     "english": "timid",
@@ -29774,7 +29866,8 @@ const dictionary = {
     "english": "tired",
     "karenni": "ꤞꤢꤧꤕꤚꤟꤢ, ꤞꤢꤧꤕꤚꤟꤢꤜꤢ꤬ꤘꤛꤢ, ꤜꤢ꤬ꤘꤢ꤭",
     "translation": "tired /adj/",
-    "examples": []
+    "examples": ["I'm so tired today. ꤛꤢꤩ꤭ꤒꤣ꤬ꤑꤢꤩ꤭ ꤠꤢ꤭ꤞꤢꤧꤕꤚꤟꤢꤜꤢ꤭꤯",
+	"I'm getting tired. ꤠꤢ꤭ ꤞꤢꤧꤕꤚꤟꤢꤟꤛꤢ꤭ꤟꤢꤪ꤯"]
   },
     "titan": {
     "english": "titan",
@@ -30294,7 +30387,7 @@ const dictionary = {
     "english": "trouble",
     "karenni": "ꤗꤟꤢꤩ꤬ꤏꤢꤨꤏꤢ, ꤏꤢꤨꤏꤢꤘꤤꤘꤛꤢ꤭, ꤒꤟꤢꤧ꤬ꤕꤟꤛꤢꤒꤟꤢꤧ꤬ꤏꤢꤧ꤭, ꤞꤢꤧꤕꤜꤢꤪ꤬ꤕꤛꤢꤩ /n/ ꤒꤟꤢꤧ꤬ꤕꤟꤛꤢꤒꤟꤢꤧ꤬ꤏꤢꤧ꤭,  ꤒꤟꤢꤧ꤬ꤙꤢꤧ꤬ꤕꤟꤛꤢꤒꤟꤢꤧ꤬ꤏꤢꤧ꤭, ꤒꤟꤢꤧ꤬ꤡꤟꤛꤢꤩ꤭ꤒꤟꤢꤧ꤬ꤡꤟꤢꤦ꤬",
     "translation": "trouble /v/",
-    "examples": []
+    "examples": ["Don't make trouble. ꤗꤛꤢꤕꤟꤢꤨ꤭ꤒꤟꤢꤧ꤬ꤞꤢꤦ ꤗꤟꤢꤩ꤯"]
   },
   "troubled": {
     "english": "troubled",
@@ -30348,7 +30441,8 @@ const dictionary = {
     "english": "trust",
     "karenni": "ꤐꤟꤢꤦꤢꤩ꤬, ꤒꤟꤢꤧ꤬ꤐꤟꤢꤦꤢꤩ꤬ꤑꤟꤢꤢꤩ꤬, ꤒꤟꤢꤧ꤬ꤐꤟꤢꤦꤢꤩ꤬, ꤒꤟꤢꤧ꤬ꤐꤟꤢꤦꤒꤟꤢꤧ꤬ꤑꤟꤢ, ꤒꤟꤢꤧ꤬ꤐꤟꤢꤦ /n/ ꤒꤟꤢꤧ꤬ꤘꤛꤢ꤬ꤋꤢꤨ꤬",
     "translation": "trust /v/",
-    "examples": []
+    "examples": ["Trust me ꤐꤟꤢꤦꤢꤩ꤬ꤘꤣꤠꤢ꤭꤯",
+	"In God we trust ꤕꤟꤢꤧ꤬ ꤐꤟꤢꤦꤢꤩ꤬ ꤡꤢꤪꤗꤢ꤬ꤚꤛꤢ꤬"]
   },
   "truth": {
     "english": "truth",
@@ -30360,7 +30454,8 @@ const dictionary = {
     "english": "try",
     "karenni": "ꤢꤛꤢꤡꤢꤦ, ꤛꤢꤡꤢꤦ, ꤢꤛꤢꤡꤢꤦꤢꤛꤢꤚꤢꤩ꤬, ꤛꤢꤡꤢꤦꤛꤢꤚꤢꤩ꤬, ꤗꤟꤢꤩ꤬ꤗꤛꤢ, ꤒꤢ꤬ꤚꤟꤢꤨ",
     "translation": "try /v/",
-    "examples": []
+    "examples": ["Try yourself ꤛꤢꤡꤢꤦꤘꤢꤦ꤬ꤔꤟꤢꤧ꤬ꤒꤢꤧ꤭, ꤗꤟꤢꤩ꤬ꤗꤛꤢꤘꤢꤦ꤬ꤔꤟꤢꤧ꤬ꤒꤢꤧ꤭",
+	"There is no try. ꤡꤢ꤭ꤗꤛꤢꤗꤢ꤬ ꤢ꤬ꤔꤟꤤꤒꤥ꤬꤯"]
   },
   "tuberculosis": {
     "english": "tuberculosis",
@@ -30420,12 +30515,14 @@ const dictionary = {
     "english": "turn",
     "karenni": "ꤒꤢ꤬ꤚꤤꤊꤢꤪꤊꤜꤢꤪ꤭ꤊꤛꤢ꤭, ꤊꤢꤪ, ꤒꤢ꤬ꤚꤤꤒꤢ꤬ꤠꤟꤢ꤬, ꤒꤥ꤭ꤗꤟꤢꤩ꤬, ꤒꤟꤢ꤭ꤙꤢꤧ꤬ꤗꤟꤢꤩ꤬, ꤊꤢꤩ꤬(ꤔꤟꤢꤧ꤬ꤒꤥ꤭ꤗꤟꤢꤩ꤬ꤊꤢꤩ꤬)",
     "translation": "turn /v/",
-    "examples": [
+    "examples": ["Turn right ꤒꤢ꤬ꤚꤤꤡꤢꤪꤓꤝꤥ",
+	  "Turn left ꤒꤢ꤬ꤚꤤꤡꤢꤪꤡꤤ꤬",
       "turn upside down: ꤓꤢꤨ꤬ꤜꤢ꤬ꤊꤜꤟꤢꤪ꤭ꤊꤛꤢ꤭",
       "turn around: ꤒꤢ꤬ꤊꤜꤛꤢꤩ",
       "turn down: ꤗꤟꤢꤩ꤬ꤕꤚꤟꤢ꤬ꤕꤢ꤬ꤒꤤ",
       "turn off: ꤗꤟꤢꤩ꤬ꤙꤤꤊꤛꤢ꤭",
-      "turn on: ꤗꤟꤢꤩ꤬ꤗꤥ꤭, ꤙꤢꤗꤥ꤭"]
+      "turn on: ꤗꤟꤢꤩ꤬ꤗꤥ꤭, ꤙꤢꤗꤥ꤭",
+	  "It's my turn. ꤠꤢ꤭ꤒꤟꤢ꤭ꤜꤛꤢꤩ꤭ꤒꤟꤢꤧ꤬꤯"]
   },
   "turnip": {
     "english": "turnip",
@@ -30539,7 +30636,7 @@ const dictionary = {
     "translation": "udder /n/",
     "examples": []
   },
-   "ufo": {
+   "UFO": {
     "english": "UFO",
     "karenni": "Unidentified Flying Object",
     "translation": "UFO /abbr/",
@@ -30980,9 +31077,9 @@ const dictionary = {
     "karenni": "ꤓꤛꤢ꤬",
     "translation": "up /prep/",
     "examples": [
-      "go up: ꤊꤢ꤬ꤓꤛꤢ꤬",
-      "Don't give up: ꤋꤢ꤬ꤜꤟꤢ꤬ꤡꤢꤨꤗꤟꤢꤩ꤯"
-    ]
+      "go up ꤊꤢ꤬ꤓꤛꤢ꤬",
+      "Don't give up ꤋꤢ꤬ꤜꤟꤢ꤬ꤡꤢꤨꤗꤟꤢꤩ꤯",
+      "Up to you ꤡꤟꤢꤨꤔꤟꤢꤧ꤬ꤞꤢꤧꤕꤜꤢꤪ꤬"]
   },
   "upon": {
     "english": "upon",
@@ -31544,10 +31641,12 @@ const dictionary = {
     "english": "wait",
     "karenni": "ꤥ꤬ꤕꤟꤢꤪ, ꤥ꤬ꤛꤥ꤭, ꤥ꤬ꤛꤥ꤭ꤥ꤬ꤕꤟꤢꤪ",
     "translation": "wait /v/",
-    "examples": [
+    "examples": ["Wait here ꤥ꤬ꤕꤟꤢꤪꤙꤤꤛꤢꤩ꤭꤯",
       "wait as a crowd: ꤥ꤬ꤕꤟꤢꤪꤕꤜꤢꤨ꤬ꤥ꤬ꤕꤟꤢꤪꤖꤢꤧ꤬",
       "wait in hope: ꤥ꤬ꤕꤟꤢꤪꤗꤛꤢꤏꤢꤦ꤭",
-	  "wait for me ꤥ꤬ꤕꤟꤢꤪꤊꤟꤊꤣ꤭ꤠꤢ꤭꤯"]
+	  "wait for me ꤥ꤬ꤕꤟꤢꤪꤊꤟꤊꤣ꤭ꤠꤢ꤭꤯",
+	  "Wait a minute ꤥ꤬ꤕꤟꤢꤪꤒꤢ꤬ꤕꤜꤌꤣ꤬ꤖꤢꤨ",
+	  "Wait a moment ꤥ꤬ꤕꤟꤢꤪꤒꤢ꤬ꤕꤜꤌꤣ꤬ꤖꤢꤨ"]
   },
     "waiter": {
     "english": "waiter",
@@ -31744,7 +31843,8 @@ const dictionary = {
     "english": "watch",
     "karenni": "ꤗꤛꤢ /n/ ꤒꤢ꤬ꤋꤢꤨ꤬ꤜꤟꤢꤩꤊꤛꤢ ꤡꤢꤧꤒꤢ꤬ꤚꤟꤤ꤭, ꤗꤢꤦ꤭ꤒꤥ꤭",
     "translation": "watch /v/",
-    "examples": ["watch over ꤥ꤬ꤕꤟꤢꤪꤥ꤬ꤏꤛꤢ",
+    "examples": ["Watch out ꤗꤛꤢꤚꤛꤢ",
+	"watch over ꤥ꤬ꤕꤟꤢꤪꤥ꤬ꤏꤛꤢ",
 	"He has a watch. ꤢꤧ꤬ ꤗꤢꤦ꤭ꤒꤥ꤭ ꤥ꤬꤯"]
   },
   "watchful": {
@@ -31823,7 +31923,8 @@ const dictionary = {
       "one way: ꤊꤜꤛꤢꤒꤣ꤬ꤙꤥ꤭",
       "go the wrong way: ꤡꤛꤣꤞꤢꤦꤊꤜꤛꤢ, ꤡꤛꤣꤒꤢ꤬ꤕꤟꤢ꤬",
       "on the way: ꤊꤜꤛꤢꤜꤟꤥ꤬, ꤊꤟꤌꤣꤜꤢꤊꤟꤌꤣ꤭",
-      "right way: ꤊꤜꤛꤢꤒꤥ꤭ꤊꤜꤛꤢꤙꤢꤧ꤬"]
+      "right way: ꤊꤜꤛꤢꤒꤥ꤭ꤊꤜꤛꤢꤙꤢꤧ꤬",
+	  "This way ꤊꤜꤛꤢꤛꤢꤩ꤭"]
   },
     "wax": {
     "english": "wax",
@@ -31979,7 +32080,7 @@ const dictionary = {
     "english": "well",
     "karenni": "ꤓꤛꤢꤩ꤭ꤊꤜꤢꤦ꤬, ꤥ꤬ꤗꤟꤥ꤬, ꤥ꤬ꤗꤟꤥ꤬ꤥ꤬ꤚꤛꤢ, ꤚꤛꤢ, ꤥ꤬ꤏꤛꤥ꤬ꤥ꤬ꤗꤟꤥ꤬, ꤥ꤬ꤗꤟꤥ꤬ꤥ꤬ꤏꤢ꤬, ꤚꤛꤢꤚꤛꤢꤘꤢꤧ꤬ꤘꤢꤧ꤬",
     "translation": "well /n/, /adj/, /adv/",
-    "examples": []
+    "examples": ["I am not very well. ꤠꤢ꤭ꤥ꤬ꤗꤟꤥ꤬ꤚꤛꤢꤒꤥ꤬꤯"]
   },
   "went": {
     "english": "went",
@@ -32017,16 +32118,19 @@ const dictionary = {
     "english": "what",
     "karenni": "ꤒꤤ꤭ꤒꤢꤩ꤭?, ꤤ꤭ꤒꤢꤩ꤭?, ꤗꤢ꤬ꤒꤢꤩ꤭?, ꤗꤢ꤬ꤒꤤ꤭ꤒꤢꤩ꤭?",
     "translation": "what /pron/",
-    "examples": ["What's up? (abbr: Sup?)ꤗꤟꤢꤩ꤬ꤒꤢꤩ꤭? ",
+    "examples": ["What's up? (abbr: Sup?)ꤗꤟꤢꤩ꤬ꤒꤢꤩ꤭?, ꤢ꤬ꤗꤟꤢꤩ꤬ꤊꤚꤛꤢꤒꤤ꤭ꤒꤢꤩ꤭? ",
       "What are you doing?: ꤔꤟꤢꤧ꤬ꤗꤟꤢꤩ꤬ꤒꤤ꤭ꤒꤢꤩ꤭?",
-      "What did you say?: ꤔꤟꤢꤧ꤬ꤟꤢꤩꤒꤤ꤭ꤒꤢꤩ꤭?"]
+      "What did you say?: ꤔꤟꤢꤧ꤬ꤟꤢꤩꤒꤤ꤭ꤒꤢꤩ꤭?",
+	  "What happen? ꤢ꤬ꤗꤟꤢꤩ꤬ ꤒꤤ꤭ꤒꤢꤩ꤭?",
+	  "What do you do? ꤔꤟꤢꤧ꤬ꤗꤟꤢꤩ꤬ꤒꤟꤢꤧ꤬ꤗꤟꤢꤩ꤬ ꤒꤤ꤭ꤒꤢꤩ꤭?"]
   },
    "what's": {
     "english": "what's",
     "karenni": "ꤗꤢ꤬--ꤒꤤ꤭ꤒꤢꤩ꤭?, ꤗꤢ꤬--ꤤ꤭ꤒꤢꤩ꤭?, ꤗꤢ꤬--ꤒꤢꤩ꤭?",
     "translation": "what's /pron/",
     "examples": ["what's=what is",
-     "What's your name? ꤔꤟꤢꤧ꤬ ꤗ꤉ꤟꤤ꤭ꤗꤢ꤬ ꤒꤤ꤭ꤒꤢꤩ꤭?"]
+	"What's going on? ꤢ꤬ꤗꤟꤢꤩ꤬ꤊꤚꤛꤢꤗꤢ꤬ ꤒꤤ꤭ꤒꤢꤩ꤭?",
+     "What's your name? ꤔꤟꤢꤧ꤬ ꤗꤝꤟꤤ꤭ꤗꤢ꤬ ꤒꤤ꤭ꤒꤢꤩ꤭?"]
   },
   "whatever": {
     "english": "whatever",
@@ -32057,7 +32161,7 @@ const dictionary = {
     "english": "where",
     "karenni": "ꤙꤤꤒꤢꤩ꤭?, ꤘꤣꤒꤢꤩ꤭? ꤘꤣꤙꤤꤒꤢꤩ꤭?, ꤋꤢ꤭ꤜꤟꤢꤩꤙꤤꤒꤢꤩ꤭?",
     "translation": "where /adv/",
-    "examples": [
+    "examples": ["Where to? ꤘꤣꤙꤤꤒꤢꤩ꤭?",
       "Where are you going?: ꤔꤟꤢꤧ꤬ꤡꤛꤣ ꤙꤤꤒꤢꤩ꤭?",
       "Where are you at?: ꤔꤟꤢꤧ꤬ꤥ꤬ꤘꤣꤙꤤꤒꤢꤩ꤭?",
       "Where can I see you?: ꤠꤢ꤭ꤗꤛꤢꤓꤛꤢꤩ꤬ꤔꤟꤢꤧ꤬ ꤙꤤꤒꤢꤩ꤭ ꤢ꤬ꤡꤟꤛꤢꤟꤟꤢꤧ꤭?"]
@@ -32076,10 +32180,11 @@ const dictionary = {
   },
   "which": {
     "english": "which",
-    "karenni": "ꤙꤤꤒꤢꤩ꤭---ꤒꤢꤩ꤭?, ꤊꤚꤛꤢꤒꤤ꤭ꤒꤢꤩ꤭, ꤊꤚꤛꤢ, ꤙꤤꤒꤢꤩ꤭ꤒꤣ꤬ꤊꤟꤌꤣ꤬, ꤘꤣꤒꤢꤩ꤭? ꤙꤤꤒꤢꤩ꤭?",
+    "karenni": "ꤙꤤꤒꤢꤩ꤭---ꤒꤢꤩ꤭?, _ꤒꤢ꤬_ꤒꤢꤩ꤭?, ꤊꤚꤛꤢꤒꤤ꤭ꤒꤢꤩ꤭, ꤊꤚꤛꤢ, ꤙꤤꤒꤢꤩ꤭ꤒꤣ꤬ꤊꤟꤌꤣ꤬, ꤘꤣꤒꤢꤩ꤭? ꤙꤤꤒꤢꤩ꤭?",
     "translation": "which /pron/",
     "examples": ["Which one?: ꤙꤤꤒꤢꤩ꤭ ꤒꤣ꤬ꤊꤟꤌꤣ꤬ꤒꤢꤩ꤭?",
-      "Which one do you want?: ꤔꤟꤢꤧ꤬ꤞꤢꤧꤐꤟꤢꤦꤙꤤꤒꤢꤩ꤭ꤒꤣ꤬ꤊꤟꤌꤣ꤬ꤒꤢꤩ꤭?"]
+	"Which way? ꤊꤜꤛꤢꤒꤢ꤬ꤙꤥ꤭ꤒꤢꤩ꤭?",
+    "Which one do you want?: ꤔꤟꤢꤧ꤬ꤞꤢꤧꤐꤟꤢꤦꤙꤤꤒꤢꤩ꤭ꤒꤣ꤬ꤊꤟꤌꤣ꤬ꤒꤢꤩ꤭?"]
   },
   "whichever": {
     "english": "whichever",
@@ -32218,7 +32323,8 @@ const dictionary = {
     "english": "wife",
     "karenni": "ꤗꤢꤩ꤭",
     "translation": "wife /n/",
-    "examples": []
+    "examples": ["How is your wife? ꤔꤟꤢꤧ꤬ꤗꤢꤩ꤭ ꤥ꤬ꤗꤟꤥ꤬ꤜꤟꤢꤪ꤭ꤏꤢꤜꤟꤢꤩꤟꤟꤢꤧ꤭?",
+	"How is your husband? ꤔꤟꤢꤧ꤬ꤠꤟꤢꤧ꤬ ꤥ꤬ꤗꤟꤥ꤬ꤜꤟꤢꤪ꤭ꤏꤢꤜꤟꤢꤩꤟꤟꤢꤧ꤭?"]
   },
   "Wi-Fi": {
     "english": "Wi-Fi",
@@ -32244,7 +32350,8 @@ const dictionary = {
     "translation": "will /model-v/",
     "examples": ["She will go. ꤢꤧ꤬ꤡꤛꤣꤕꤢ꤭꤯",
 	"I will tell you. ꤠꤢ꤭ ꤟꤢꤩꤏꤥ꤬ꤔꤟꤢꤧ꤬ ꤕꤢ꤭꤯",
-	"Will you marry me? ꤔꤟꤢꤧ꤬ ꤋꤥ꤭ꤗꤟꤢꤧ꤭ ꤠꤢ꤭ꤕꤢ꤭ꤟꤟꤢꤧ꤭?"]
+	"Will you marry me? ꤔꤟꤢꤧ꤬ ꤋꤥ꤭ꤗꤟꤢꤧ꤭ ꤠꤢ꤭ꤕꤢ꤭ꤟꤟꤢꤧ꤭?",
+	"Will you be there? ꤔꤟꤢꤧ꤬ꤟꤛꤢ꤭ ꤙꤤꤔꤌꤣ꤬ꤕꤢ꤭ꤟꤟꤢꤧ꤭?"]
   },
   "willing": {
     "english": "willing",
@@ -32639,6 +32746,12 @@ const dictionary = {
     "translation": "wonderful /adj/",
     "examples": []
   },
+  "would": {
+    "english": "would",
+    "karenni": "ꤕꤢ꤭",
+    "translation": "wound /model-v/",
+    "examples": []
+  },
   "wound": {
     "english": "wound",
     "karenni": "ꤡꤟꤢꤨ꤬, ꤒꤢ꤬ꤗꤢꤧ꤬, ꤒꤟꤢꤧ꤬ꤡꤟꤢꤨ꤬ꤒꤟꤢꤧ꤬ꤓꤛꤢ꤭, ꤒꤟꤢꤧ꤬ꤙꤢꤧ꤬ꤏꤢꤧ꤭",
@@ -32709,7 +32822,7 @@ const dictionary = {
     "english": "wrong",
     "karenni": "ꤞꤢꤦ, ꤒꤥ꤭ꤒꤥ꤬",
     "translation": "wrong /adj/",
-    "examples": []
+    "examples": ["What's wrong? ꤢ꤬ꤗꤟꤢꤩ꤬ꤒꤤ꤭ꤒꤢꤩ꤭?"]
   },
   "wrote": {
     "english": "wrote",
@@ -32767,9 +32880,9 @@ const dictionary = {
   },
   "fake": {
     "english": "fake",
-    "karenni": "ꤢ꤬ꤐꤟꤢꤪ, ꤢ꤬ꤐꤢꤪꤢ꤬ꤜꤢꤩ꤭, ꤗꤛꤢꤙꤢꤦ꤭ꤐꤟꤥ꤬, ꤒꤟꤢꤧ꤬ꤙꤢꤙꤢꤦ꤭",
+    "karenni": "ꤢ꤬ꤐꤟꤢꤪ, ꤒꤟꤢꤧ꤬ꤙꤢꤙꤢꤦ꤭ /adj/ ꤢ꤬ꤐꤢꤪꤢ꤬ꤜꤢꤩ꤭, ꤗꤛꤢꤙꤢꤦ꤭ꤐꤟꤥ꤬ /v/ ꤗꤟꤢꤩ꤬ꤐꤢꤪꤜꤢꤩ꤭",
     "translation": "fake /n/",
-    "examples": []
+    "examples": ["It's fake ꤢ꤬ꤐꤢꤪꤢ꤬ꤜꤢꤩ꤭ꤕꤚꤢꤧ꤯"]
   },
   "Loikaw": {
     "english": "Loikaw",
@@ -33402,6 +33515,12 @@ const dictionary = {
     "karenni": "pp of SINK",
     "translation": "sunk /v/",
     "examples": []
+  },
+  "sunny": {
+    "english": "sunny",
+    "karenni": "ꤊꤟꤢꤩꤊꤟꤢꤨꤏꤢ",
+    "translation": "sunny /adj/",
+    "examples": ["It is sunny today. ꤛꤢꤩ꤭ꤒꤣ꤬ꤑꤢꤩ꤭ ꤊꤟꤢꤩꤊꤟꤢꤨꤏꤢ"]
   },
   "sat": {
     "english": "sat",
@@ -34214,12 +34333,6 @@ const dictionary = {
     "translation": "myself /reflex-pron/",
     "examples": []
   },
-  "yourself": {
-    "english": "yourself",
-    "karenni": "ꤔꤟꤢꤧ꤬ꤔꤟꤢꤩ",
-    "translation": "yourself /reflex-pron/",
-    "examples": []
-  },
   "himself": {
     "english": "himself",
     "karenni": "ꤢꤧ꤬ꤔꤟꤢꤩ, ꤢ꤬ꤔꤟꤢꤩ",
@@ -34395,12 +34508,7 @@ const dictionary = {
     "translation": "oven /n/",
     "examples": []
   },
-  "phone": {
-    "english": "phone",
-    "karenni": "ꤖꤥ꤭, ꤓꤢꤧ꤬ꤜꤤ꤬ꤖꤥ꤭, ꤢꤧꤖꤥ꤭",
-    "translation": "phone /n/, /v/",
-    "examples": []
-  },
+  
   "prank": {
     "english": "prank",
     "karenni": "ꤟꤢꤩꤊꤢ꤬ꤔꤟꤌꤣ, ꤗꤟꤢꤩ꤬ꤊꤢ꤬ꤔꤟꤌꤣ, ꤟꤢꤩꤜꤢ꤬ꤠꤟꤢꤪ꤭ꤗꤟꤢꤩ꤬ꤜꤢ꤬ꤠꤟꤢꤪ꤭, ꤏꤢꤨ꤬ꤙꤢꤧ",
@@ -35267,7 +35375,8 @@ const dictionary = {
     "english": "you",
     "karenni": "ꤔꤟꤢꤧ꤬, ꤞꤤ꤭, ꤢꤨ꤭ꤕꤢꤩ꤭ꤙꤢꤧ꤬",
     "translation": "you /sub-pron/",
-    "examples": ["You all ꤞꤤ꤭ꤒꤢ꤬ꤟꤢꤩ꤬",
+    "examples": ["You know ꤔꤟꤢꤧ꤬ꤞꤢꤧꤑꤢꤩ꤭ꤕꤚꤢꤧ꤯",
+	 "You all ꤞꤤ꤭ꤒꤢ꤬ꤟꤢꤩ꤬",
 	             "you and yours ꤔꤟꤢꤧ꤬ꤔꤢꤔꤟꤢꤧ꤬ꤋꤥ꤭ꤞꤛꤥꤞꤤ꤭",
 	             "I know you. ꤠꤢ꤭ ꤞꤢꤧꤑꤢꤩ꤭ ꤔꤟꤢꤧ꤬꤯",
 	             "You are beautiful girl. ꤔꤟꤢꤧ꤬ꤗꤢ꤬ ꤕꤚꤟꤢꤧ꤬ꤗꤢꤪ꤬ꤗꤟꤌꤣꤒꤝꤟꤥ꤯",
@@ -36216,7 +36325,7 @@ const dictionary = {
   },
   "p": {
     "english": "P",
-    "karenni": "P,P ꤗꤢ꤬ ꤊꤢꤨ꤭ꤜꤢ꤭ ꤜꤤ꤬ꤕꤜꤢꤪ꤬ꤗꤟꤌꤣ ꤏꤛꤢꤩꤏꤛꤣꤕꤜꤢꤪ꤬ꤒꤣ꤬ꤕꤜꤢꤪ꤬",
+    "karenni": "P,p ꤗꤢ꤬ ꤊꤢꤨ꤭ꤜꤢ꤭ ꤜꤤ꤬ꤕꤜꤢꤪ꤬ꤗꤟꤌꤣ ꤏꤛꤢꤩꤏꤛꤣꤕꤜꤢꤪ꤬ꤒꤣ꤬ꤕꤜꤢꤪ꤬",
     "translation": "P /n/",
     "examples": []
   },
@@ -36287,7 +36396,7 @@ const dictionary = {
   
  "all right": {
     "english": "all right",
-    "karenni": "ꤔꤟꤤ, ꤚꤛꤢ",
+    "karenni": "ꤔꤟꤤ, ꤚꤛꤢ, ꤢ꤬ꤚꤛꤢꤟꤢꤪ꤯",
     "translation": "all-right /adj/",
     "examples": []
   },
@@ -36805,7 +36914,7 @@ const dictionary = {
     english: "quite",
     karenni: "ꤜꤢ꤭, ꤢ꤬ꤗꤟꤢꤜꤟꤢꤪ꤭ꤜꤟꤢꤪ꤭",
     translation: "quite /adv/",
-    examples: []
+    examples: ["I'm not quite sure. ꤠꤢ꤭ ꤒꤟꤢ꤭ꤒꤟꤢꤩ꤬ꤚꤛꤢꤒꤥ꤬꤯"]
 },
 "case": {
     english: "case",
@@ -36906,7 +37015,7 @@ const dictionary = {
 },
 "yourself": {
     english: "yourself",
-    karenni: "ꤔꤟꤢꤧ꤬ꤔꤟꤢꤩ, ꤘꤢꤦ꤬ꤢꤔꤟꤢꤧ꤬ꤒꤢꤧ꤭",
+    karenni: "ꤔꤟꤢꤧ꤬ꤔꤟꤢꤩ, ꤘꤢꤦ꤬ꤔꤟꤢꤧ꤬ꤒꤢꤧ꤭",
     translation: "yourself /reflex-pron/",
     examples: []
 },
@@ -37073,11 +37182,12 @@ const dictionary = {
     examples: []
 },
 "phone": {
-    english: "phone",
-    karenni: "ꤖꤥ꤭, ꤓꤢꤧ꤬ꤜꤤ꤬ꤖꤥ꤭",
-    translation: "phone /n/",
-    examples: []
-},
+    "english": "phone",
+    "karenni": "ꤟꤖꤥ꤭, ꤓꤢꤧ꤬ꤜꤤ꤬ꤟꤖꤥ꤭ /v/ ꤢꤧꤟꤖꤥ꤭",
+    "translation": "phone /n/",
+    "examples": ["No more phone ꤔꤢꤪ꤭ꤢꤩ꤬ꤕꤢ꤭ ꤟꤖꤥ꤭ꤒꤥ꤬꤯",
+	"Hand me the phone. ꤘꤛꤢꤩꤠꤢ꤭ ꤟꤖꤥ꤭"]
+  },
 "prank": {
     english: "prank",
     karenni: "ꤟꤢꤩꤊꤢ꤬ꤔꤟꤌꤣ, ꤗꤟꤢꤩ꤬ꤊꤢ꤬ꤔꤟꤌꤣ, ꤗꤟꤢꤩ꤬ꤜꤢ꤬ꤠꤟꤢꤪ꤭, ꤟꤢꤩꤜꤢ꤬ꤠꤟꤢꤪ꤭ꤗꤟꤢꤩ꤬ꤜꤢ꤬ꤠꤟꤢꤪ꤭, ꤏꤢꤨ꤬ꤙꤢꤧ",
@@ -49339,7 +49449,7 @@ const dictionary = {
     "karenni": "ꤔꤟꤤꤜꤢꤨ꤭",
     "english": "each other",
     "translation": "ꤔꤟꤤꤜꤢꤨ꤭ /n/",
-    "examples": ["ꤗꤟꤥ꤬ ꤔꤟꤤꤜꤢꤨ꤭꤯ Love each other."]
+    "examples": ["ꤗꤟꤥ꤬ꤔꤟꤤꤜꤢꤨ꤭꤯ Love each other."]
   },
   "ꤔꤟꤤꤟꤊꤣ꤭": {
     "karenni": "ꤔꤟꤤꤟꤊꤣ꤭",
@@ -53808,7 +53918,7 @@ const dictionary = {
     "karenni": "ꤗꤟꤥ꤬ꤔꤟꤤ",
     "english": "love",
     "translation": "ꤗꤟꤥ꤬ꤔꤟꤤ /v/",
-    "examples": ["ꤗꤟꤥ꤬ꤔꤟꤤ ꤋꤛꤢꤩ꤭ꤜꤢꤨ꤭꤯ Love each other."]
+    "examples": ["ꤗꤟꤥ꤬ꤔꤟꤤꤋꤛꤢꤩ꤭ꤜꤢꤨ꤭꤯ Love each other."]
   },
   "ꤗꤟꤥ꤬ꤞꤢꤨ꤬ꤗꤟꤥ꤬ꤞꤢꤧ": {
     "karenni": "ꤗꤟꤥ꤬ꤞꤢꤨ꤬ꤗꤟꤥ꤬ꤞꤢꤧ",
@@ -55863,7 +55973,9 @@ const dictionary = {
     "karenni": "ꤙꤢꤩ꤬ꤘꤝꤥ",
     "english": "save, keep",
     "translation": "ꤙꤢꤩ꤬ꤘꤝꤥ /v/",
-    "examples": ["ꤙꤢꤩ꤬ꤘꤝꤥ ꤘꤣ ꤒꤣꤊꤢꤨ꤭꤯ Keep it in the box."]
+    "examples": ["Keep it ꤙꤢꤩ꤬ꤘꤝꤥ",
+	"Keep it safe ꤙꤢꤩ꤬ꤘꤝꤥꤚꤛꤢ",
+	"ꤙꤢꤩ꤬ꤘꤝꤥ ꤘꤣ ꤒꤣꤊꤢꤨ꤭꤯ Keep it in the box."]
   },
   "ꤙꤢꤪ꤬ꤙꤤ": {
     "karenni": "ꤙꤢꤪ꤬ꤙꤤ",
@@ -64566,7 +64678,7 @@ async function showRelatedWords() {
       return a.localeCompare(b);
     });
     relatedWordsDiv.style.display = 'block';
-    related.slice(0, 15).forEach(word => {
+    related.slice(0, 12).forEach(word => {
       const div = document.createElement('div');
       div.className = 'related-word';
       div.textContent = word;
