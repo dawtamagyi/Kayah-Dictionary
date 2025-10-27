@@ -64678,7 +64678,7 @@ async function showRelatedWords() {
       return a.localeCompare(b);
     });
     relatedWordsDiv.style.display = 'block';
-    related.slice(0, 12).forEach(word => {
+    related.slice(0, 5).forEach(word => {
       const div = document.createElement('div');
       div.className = 'related-word';
       div.textContent = word;
