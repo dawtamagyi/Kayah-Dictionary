@@ -1,0 +1,2453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kayah Li · English translator</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+        }
+        body {
+            background: #FFC0CB;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1.5rem;
+        }
+        .card {
+            max-width: 960px;
+            width: 100%;
+            background: white;
+            padding: 2.2rem 2rem;
+            border-radius: 40px;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+            border: 1px solid #f0f0f0;
+        }
+        .grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1.8rem;
+        }
+        .pair {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.2rem;
+        }
+        .pair > div {
+            flex: 1 1 220px;
+            min-width: 180px;
+        }
+        textarea,
+        .output-box {
+            width: 100%;
+            padding: 1rem 1.2rem;
+            font-size: 1.2rem;
+            border-radius: 28px;
+            border: 1px solid #e0e0e0;
+            background: white;
+            box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.02);
+            transition: 0.15s;
+            line-height: 1.6;
+            min-height: 120px;
+            resize: vertical;
+        }
+        textarea:focus {
+            outline: 2px solid #b0b0b0;
+            border-color: transparent;
+            background: #ffffff;
+        }
+        .output-box {
+            background: #fafafa;
+            color: #1f1a14;
+            white-space: pre-wrap;
+            word-break: break-word;
+            border: 1px solid #e0e0e0;
+            overflow-y: auto;
+        }
+        @media (max-width: 500px) {
+            .card {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="grid">
+            <div class="pair">
+                <div>
+                    <textarea id="inputText" placeholder="Type English …"></textarea>
+                </div>
+                <div>
+                    <div id="outputText" class="output-box" aria-readonly="true"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        (function() {
+            // --------------------------------------------------------------
+            //  DICTIONARY: English → Kayah Li
+            // --------------------------------------------------------------
+            const dict = new Map([
+                ["how are you?", "ꤔꤟꤢꤧ꤬ꤥ꤬ꤗꤟꤥ꤬ꤕꤚꤢꤧꤟꤟꤢꤧ꤭?"],
+                ["how are you", "ꤔꤟꤢꤧ꤬ꤥ꤬ꤗꤟꤥ꤬ꤕꤚꤢꤧꤟꤟꤢꤧ꤭?"],
+                ["what time is it?", "ꤙꤢꤗꤢꤦ꤭ꤙꤢꤧ꤬ꤒꤤ꤭ꤒꤢꤩ꤭?"],
+                ["what time is it", "ꤙꤢꤗꤢꤦ꤭ꤙꤢꤧ꤬ꤒꤤ꤭ꤒꤢꤩ꤭?"],
+                ["where are you from", "ꤔꤟꤢꤧ꤬ꤥ꤬ꤙꤤꤒꤢꤩ꤭ ꤟꤛꤢ꤭ꤟꤟꤢꤧ꤭"],
+                ["tell me", "ꤟꤢꤩꤏꤥ꤬ ꤠꤢ꤭"],
+                ["like", "ꤞꤢꤧꤕꤜꤢꤪ꤬ꤥ꤬"],
+                ["as", "ꤞꤛꤢꤖꤢꤨ"],
+                ["look like", "ꤞꤛꤢꤖꤢꤨ"],
+                ["from", "ꤘꤣ"],
+                ["book", "ꤜꤤ꤬ꤢꤨ"],
+                ["to book", "ꤊꤝꤤ꤭ꤥ꤬"],
+                ["book a", "ꤊꤝꤤ꤭ꤥ꤬"],
+                ["book the", "ꤊꤝꤤ꤭ꤥ꤬"],
+                ["book hotel", "ꤊꤝꤤ꤭ꤥ꤬ ꤟꤢꤪ꤬ꤒꤢꤧ꤬"],
+                ["booked", "ꤊꤝꤤ꤭ꤥ꤬"],
+                ["booking", "ꤊꤝꤤ꤭ꤥ꤬"],
+                ["plane", "ꤊꤟꤢꤩꤜꤢ꤬"],
+                ["ticket", "ꤊꤟꤢꤩꤜꤢ꤬ꤜꤤ꤬"],
+                ["tickets", "ꤊꤟꤢꤩꤜꤢ꤬ꤜꤤ꤬"],
+                ["early", "ꤟꤤꤒꤥ꤬ꤋꤢꤧ꤭"],
+                ["room", "ꤋꤢꤨ꤬ꤊꤜꤛꤢꤥ꤬"],
+                ["night", "ꤗꤢꤦ꤭"],
+                ["rain", "ꤊꤟꤢꤩꤜꤢ꤬"],
+                ["starts", "ꤡꤢꤓꤛꤢ꤬"],
+                ["start", "ꤡꤢꤓꤛꤢ꤬"],
+                ["must", "ꤒꤥ꤭ꤙꤢꤧ꤬"],
+                ["catch", "ꤗꤛꤢꤓꤛꤢꤩ꤬"],
+                ["bus", "ꤜꤟꤥꤗꤤ꤬"],
+                ["let's", "ꤕꤜꤝꤥ꤭"],
+                ["lets", "ꤕꤜꤝꤥ꤭"],
+                ["in", "ꤊꤢꤨ꤭"],
+                ["on", "ꤋꤢꤨ꤬"],
+                ["above", "ꤢ꤬ꤋꤢꤨ꤬ꤓꤛꤢ꤬"],
+                ["until", "ꤒꤢ꤬ꤘꤢꤦ꤬"],
+                ["till", "ꤒꤢ꤬ꤘꤢꤦ꤬"],
+                ["than", "ꤜꤣꤔꤢ"],
+                ["more", "ꤜꤣ"],
+                ["more than", "ꤜꤣꤔꤢ"],
+                ["behind", "ꤋꤢ꤭ꤏꤛꤢꤩ"],
+                ["between", "ꤢ꤬ꤕꤜꤢꤧ꤬"],
+                ["want to", "ꤞꤢꤧꤐꤟꤢꤦ"],
+                ["would like to", "ꤞꤢꤧꤐꤟꤢꤦ"],
+                ["need to", "ꤜꤥ꤬"],
+                ["love to", "ꤞꤢꤧꤐꤟꤢꤦ"],
+                ["if", "ꤊꤤ꤬"],
+                ["you", "ꤔꤟꤢꤧ꤬"],
+                ["select", "ꤔꤝꤥ"],
+                ["them", "ꤢꤧ꤬ꤞꤤ꤭"],
+                ["your", "ꤔꤟꤢꤧ꤬"],
+                ["leaders", "ꤕꤚꤟꤢꤧ꤬ꤕꤣꤐꤟꤢꤨ꤭"],
+                ["leader", "ꤕꤚꤟꤢꤧ꤬ꤕꤣꤐꤟꤢꤨ꤭"],
+                ["have", "HAVE_PLACEHOLDER"],
+                ["has", "HAVE_PLACEHOLDER"],
+                ["had", "HAVE_PLACEHOLDER"],
+                ["have a good", "ꤥ꤬ꤔꤢꤒꤟꤢꤧ꤬ꤚꤛꤢ"],
+                ["have a nice", "ꤥ꤬ꤔꤢꤒꤟꤢꤧ꤬ꤒꤝꤟꤥ"],
+                ["have a great", "ꤥ꤬ꤔꤢꤒꤟꤢꤧ꤬ꤚꤛꤢ"],
+                ["have to", "ꤊꤢꤪ꤬ꤙꤢꤧ꤬"],
+                ["listen", "ꤔꤟꤤꤘꤢ꤭"],
+                ["to", "TO_PLACEHOLDER"],
+                ["they", "ꤢꤧ꤬ꤞꤤ꤭"],
+                ["think", "ꤒꤢ꤬ꤔꤟꤢꤩ꤬ꤔꤌꤣ꤬"],
+                ["talk", "ꤟꤢꤩꤙꤢꤧ꤬"],
+                ["should", "ꤒꤥ꤭ꤊꤢꤪ꤬"],
+                ["because", "ꤗꤟꤢꤩ꤬ꤒꤢꤩ꤭ꤚꤢꤪ"],
+                ["nor", "ꤒꤥ꤬ꤒꤥ꤬"],
+                ["but", "ꤗꤢ꤬ꤔꤢ"],
+                ["or", "ꤒꤥ꤬ꤗꤢ꤬"],
+                ["either", "ꤒꤣ꤬ꤊꤟꤊꤣ꤬ꤊꤟꤊꤣ꤬"],
+                ["neither", "ꤜꤟꤢꤪ꤭ꤟꤤ꤭ꤥ꤬"],
+                ["both", "ꤜꤟꤢꤪ꤭ꤜꤟꤢꤪ꤭"],
+                ["not only", "ꤒꤢꤦꤗꤟꤢꤒꤥ꤬"],
+                ["but also", "ꤕꤢ꤭ꤕꤢ꤭"],
+                ["as soon as", "ꤙꤤꤋꤢꤧ꤭ꤒꤢꤩ꤭ꤔꤌꤣ꤬"],
+                ["although", "ꤒꤢ꤬ꤘꤣ꤬"],
+                ["whether", "ꤒꤣ꤬ꤊꤟꤊꤣ꤬ꤊꤟꤊꤣ꤬"],
+                ["once", "ꤒꤣ꤬ꤖꤟꤌꤣꤒꤌꤣ꤭"],
+                ["inasmuch as", "ꤢ꤬ꤗꤟꤢꤩ꤬ꤒꤢꤩ꤭ꤔꤌꤣ꤬"],
+                ["i", "ꤠꤢ꤭"],
+                ["yet", "ꤟꤤ"],
+                ["remember", "ꤒꤥ꤭ꤗꤢ"],
+                ["all", "ꤜꤟꤢꤪ꤭ꤕꤜꤤ꤭"],
+                ["name", "ꤗꤝꤟꤤ꤭"],
+                ["screenshot", "ꤗꤟꤢꤦ꤭ꤖꤛꤢꤩꤘꤝꤥ"],
+                ["and", "ꤓꤌꤣ꤭ꤕꤢ꤭"],
+                ["prove", "ꤘꤣ꤬ꤜꤟꤌꤣ꤭ꤓꤛꤢ꤬"],
+                ["it", ""],
+                ["wait", "ꤥ꤬ꤕꤟꤢꤪ"],
+                ["wait for", "ꤥ꤬ꤕꤟꤢꤪ"],
+                ["go home", "ꤊꤟꤢ꤬ꤘꤣꤟꤤ꤬"],
+                ["take medicine", "ꤥ꤭ꤒꤟꤢꤧ꤬ꤋꤢꤨ꤬"],
+                ["guys", "ꤞꤤ꤭"],
+                ["later", "ꤔꤥ꤬ꤕꤢ꤭"],
+                ["what if", "ꤢ꤬ꤗꤟꤢꤩ꤬ꤒꤤ꤭ꤒꤢꤩ꤭ꤊꤤ꤬"],
+                ["thank you", "ꤒꤟꤢꤧ꤬ꤙꤝꤤ"],
+                ["thanks", "ꤒꤟꤢꤧ꤬ꤙꤝꤤ"],
+                ["you guys", "ꤞꤤ꤭"],
+                ["just", "ꤊꤟꤢꤦ"],
+                ["reminding", "ꤘꤛꤢꤩꤞꤢꤧꤑꤢꤩ꤭"],
+                ["everyone", "ꤕꤝꤟꤥꤕꤚꤟꤢꤧ꤬"],
+                ["tomorrow", "ꤏꤛꤢꤩꤕꤢ꤬ꤚꤥ꤭"],
+                ["we'll", "ꤕꤟꤢꤧ꤬ꤕꤢ꤭"],
+                ["a meeting", "ꤒꤟꤢꤧ꤬ꤥ꤬ꤊꤢꤨ"],
+                ["train", "ꤜꤟꤥꤗꤤ꤬ꤢꤦ꤭"],
+                ["meeting", "ꤒꤟꤢꤧ꤬ꤥ꤬ꤊꤢꤨ"],
+                ["reelection", "ꤒꤟꤢꤧ꤬ꤔꤝꤥꤓꤛꤢ꤬ꤞꤛꤢ"],
+                ["day", "ꤗꤟꤢꤪꤑꤢꤩ꤭"],
+                ["new", "ꤢ꤬ꤞꤢꤧ꤭"],
+                ["committee", "ꤊꤢꤪ꤭ꤗꤤ꤬ꤒꤤ꤬"],
+                ["so", "ꤚꤢꤪ"],
+                ["please", "ꤋꤛꤢꤞꤢꤧꤘꤥ꤭"],
+                ["show up", "ꤟꤛꤢ꤭ꤥ꤬ꤜꤟꤌꤣ꤭"],
+                ["participate", "ꤟꤛꤢ꤭ꤕꤜꤢꤪꤡꤢꤦ꤭"],
+                ["at", "ꤘꤣ"],
+                ["pm", "ꤗꤢꤦ꤭ꤙꤢꤧ꤬ꤗꤟꤢꤪꤟꤢꤩ"],
+                ["my", "ꤠꤢ꤭"],
+                ["house", "ꤟꤤ꤬"],
+                ["choose", "ꤔꤝꤥꤓꤛꤢ꤬"],
+                ["we", "ꤕꤟꤢꤧ꤬"],
+                ["live", "ꤥ꤬"],
+                ["let", "ꤕꤜꤝꤥ꤭"],
+                ["let me know", "ꤘꤛꤢꤩꤞꤢꤧꤑꤢꤩ꤭ꤠꤢ꤭"],
+                ["don't", "ꤒꤥ꤬"],
+                ["i'm", "ꤠꤢ꤭"],["am a", "ꤗꤢ꤬"],["is a", "ꤗꤢ꤬"],["are a", "ꤗꤢ꤬"],["was a", "ꤗꤢ꤬"],["were a", "ꤗꤢ꤬"],
+				["that's", "ꤔꤌꤣ꤬"],["they're", "ꤢꤧ꤬ꤞꤤ꤭"],["he's", "ꤢꤧ꤬"],["she's", "ꤢꤧ꤬"],["it's", "ꤢ꤬"],
+                ["see", "ꤗꤛꤢꤓꤛꤢꤩ꤬"],
+                ["our", "ꤕꤟꤢꤧ꤬"],
+                ["today", "ꤛꤢꤩ꤭ꤒꤢ꤬ꤑꤢꤩ꤭"],
+                ["me", "ꤠꤢ꤭"],
+                ["now", "ꤋꤥ꤭ꤑꤟꤢ"],
+                ["work", "ꤗꤟꤢꤩ꤬ꤒꤟꤢꤧ꤬ꤗꤟꤢꤩ꤬"],
+                ["know", "ꤞꤢꤧꤑꤢꤩ꤭"],
+                ["he", "ꤢꤧ꤬"],
+                ["she", "ꤢꤧ꤬"],
+                ["her", "ꤢꤧ꤬"],
+                ["the", ""],
+                ["by", "ꤔꤢ"],
+                ["boarded", "ꤘꤢꤧ꤭ꤞꤎꤢꤪ꤬ꤙꤛꤢꤩ꤬"],
+                ["quickly", "ꤕꤚꤛꤢ꤭ꤕꤚꤛꤢ꤭"],
+                ["found", "ꤗꤛꤢꤓꤛꤢꤩ꤬"],
+                ["seats", "ꤋꤢꤨ꤬ꤊꤜꤛꤢꤥ꤬ꤔꤛꤢ꤭"],
+                ["doors", "ꤊꤢ꤬ꤘꤢ꤭ꤒꤢ꤬ꤟꤢꤩ꤬"],
+                ["closed", "ꤗꤟꤢꤩ꤬ꤙꤤ"],
+                ["lucky", "ꤙꤝꤤꤚꤛꤢ"],
+                ["before", "ꤟꤤꤒꤥ꤬ꤢ꤬ꤋꤢꤧ꤭"],
+                ["after", "ꤋꤛꤢꤩ꤭"],
+                ["storm", "ꤊꤟꤢꤩꤜꤢ꤬ꤜꤛꤢ꤭"],
+                ["starting", "ꤡꤢꤓꤛꤢ꤬"],
+                ["arrive", "ꤟꤛꤢ꤭"],
+                ["arrived", "ꤟꤛꤢ꤭ꤒꤟꤌꤣ"],
+                ["arrives", "ꤟꤛꤢ꤭ꤒꤟꤌꤣ"],
+                ["teacher", "ꤞꤢꤚꤢ/ꤗꤟꤌꤣ"],
+                ["finish", "ꤗꤟꤢꤩ꤬ꤓꤌꤣ꤭"],
+                ["homework", "ꤜꤤ꤬ꤟꤤ꤬ꤘꤢꤪ"],
+                ["ready", "ꤒꤢ꤬ꤚꤤ꤬ꤟꤢꤪ"],
+                ["love", "ꤗꤟꤥ꤬ꤔꤟꤤ"],
+                ["ask", "ꤏꤢꤨ꤬ꤘꤛꤢ꤭"],
+                ["happy", "ꤗꤟꤥ꤬ꤞꤢꤧꤜꤟꤢꤪ꤭"],
+                ["sad", "ꤞꤢꤧꤕꤜꤟꤢꤧ꤭"],
+                ["left", "ꤘꤛꤢ꤬ꤊꤛꤢ꤭"],
+                ["here", "ꤙꤤꤛꤢꤩ꤭"],
+                ["which", "ꤒꤣ꤬ꤊꤟꤊꤣ꤬ꤒꤢꤩ꤭"],
+                ["tell", "ꤟꤢꤩꤏꤥ꤬"],
+                ["stay", "ꤥ꤬"],
+                ["of", "ꤥ꤬ꤘꤣ"],
+                ["hate", "ꤞꤢꤧꤒꤢ꤬ꤋꤥ꤭"],
+                ["invite", "ꤢꤧꤟꤛꤢ꤭"],
+                ["tired", "ꤞꤢꤧꤕꤚꤢ"],
+                ["late", "ꤒꤟꤢ꤭ꤔꤥ꤬"],
+                ["help", "ꤗꤟꤢꤩ꤬ꤡꤝꤟꤥ"],
+                ["box", "ꤒꤣ"],
+                ["any", "ꤒꤤ꤭ꤒꤟꤢꤧ꤬"],
+                ["hotel", "ꤟꤢꤪ꤬ꤒꤢꤧ꤬"],
+                ["table", "ꤋꤢꤨ꤬ꤊꤜꤛꤢꤓꤛꤢ꤬ꤜꤣ꤭"],
+                ["go", "ꤡꤛꤣ"],
+                ["going", "ꤡꤛꤣ"],
+                ["about to", "ꤊꤟꤢꤦ"],
+                ["eat", "ꤢꤩ꤬"],
+                ["eating", "ꤢꤩ꤬"],
+                ["do", "ꤗꤟꤢꤩ꤬"],
+                ["do as", "ꤗꤟꤢꤩ꤬ꤞꤛꤢꤖꤢꤨ"],
+                ["doing", "ꤗꤟꤢꤩ꤬"],
+                ["does", "ꤗꤟꤢꤩ꤬"],
+                ["did", "ꤗꤟꤢꤩ꤬"],
+                ["church", "ꤞꤢꤪꤚꤢꤪ"],
+                ["school", "ꤞꤛꤥꤜꤤ꤬ꤟꤥ꤭"],
+                ["watch", "ꤗꤛꤢ"],
+                ["drink", "ꤥ꤭"],
+                ["drinking", "ꤒꤟꤢꤧ꤬ꤜꤟꤢꤩꤥ꤭"],
+                ["water", "ꤓꤛꤢꤩ꤭"],
+                ["miss", "ꤔꤟꤢꤩ꤬ꤞꤌꤣ꤬"],
+                ["this", "ꤛꤢꤩ꤭"],
+                ["that", "ꤔꤌꤣ꤬"],
+                ["big", "ꤘꤢꤨ꤬"],
+                ["beautiful", "ꤒꤝꤟꤥ"],
+                ["girl", "ꤕꤚꤟꤢꤧ꤬ꤗꤢꤪ꤬"],
+                ["don't", "ꤒꤥ꤬"],
+                ["doesn't", "ꤒꤥ꤬"],
+                ["didn't", "ꤒꤥ꤬"],
+                ["not", "ꤒꤥ꤬"],
+                ["wasn't", "ꤒꤥ꤬"],
+                ["weren't", "ꤒꤥ꤬"],
+                ["can't", "ꤔꤟꤤꤒꤥ꤬"],
+                ["couldn't", "ꤒꤥ꤬"],
+                ["haven't", "ꤒꤥ꤬"],
+                ["hasn't", "ꤒꤥ꤬"],
+                ["hadn't", "ꤒꤥ꤬"],
+                ["won't", "ꤒꤥ꤬ꤒꤢ꤭"],
+                ["wouldn't", "ꤒꤥ꤬"],
+                ["shouldn't", "ꤒꤥ꤭ꤊꤢꤪ꤬ꤒꤥ꤬"],
+                ["mightn't", "ꤒꤥ꤬"],
+                ["mustn't", "ꤒꤥ꤬"],
+                ["needn't", "ꤒꤥ꤬"],
+                ["daren't", "ꤒꤥ꤬"],
+                ["isn't", "ꤒꤥ꤬"],
+                ["aren't", "ꤒꤥ꤬"],
+                ["want", "ꤞꤢꤧꤐꤟꤢꤦ"],
+                ["need", "ꤜꤥ꤬ꤙꤢꤧ꤬"],
+                ["home", "ꤟꤤ꤬"],
+                ["kayah li", "ꤊꤢ꤬ꤛꤢ꤭ꤜꤟꤤ꤬"],
+                ["english", "ꤊꤢꤨ꤭ꤜꤢ꤭"],
+                ["speak", "ꤟꤢꤩꤙꤢꤧ꤬"],
+                ["be", "ꤥ꤬"],
+                ["with", "ꤊꤟꤊꤣ꤭ꤔꤢ"],
+                ["peace", "ꤒꤟꤢꤧ꤬ꤕꤟꤢꤩ꤭ꤘꤝꤥ꤭"],
+                ["come", "ꤟꤛꤢ꤭"],
+                ["forget", "ꤏꤥ꤭ꤒꤢ꤬ꤕꤟꤢ꤬"],
+                ["will", ""],
+                ["can", ""],
+                ["could", ""],
+                ["may", ""],
+                ["what", "ꤒꤤ꤭ꤒꤢꤩ꤭"],
+                ["what is", "ꤗꤢ꤬ꤒꤤ꤭ꤒꤢꤩ꤭"],
+                ["what was", "ꤗꤢ꤬ꤒꤤ꤭ꤒꤢꤩ꤭"],
+                ["what are", "ꤗꤢ꤬ꤒꤤ꤭ꤒꤢꤩ꤭"],
+                ["what were", "ꤗꤢ꤬ꤒꤤ꤭ꤒꤢꤩ꤭"],
+                ["what do", "ꤒꤤ꤭ꤒꤢꤩ꤭"],
+                ["what does", "ꤒꤤ꤭ꤒꤢꤩ꤭"],
+                ["what did", "ꤒꤤ꤭ꤒꤢꤩ꤭"],
+                ["what will", "ꤕꤢ꤭ꤒꤤ꤭ꤒꤢꤩ꤭"],
+                ["what will you do", "ꤔꤟꤢꤧ꤬ꤗꤟꤢꤩ꤬ ꤕꤢ꤭ꤒꤤ꤭ꤒꤢꤩ꤭"],
+                ["what should", "ꤒꤤ꤭ꤒꤢꤩ꤭ꤢ꤬ꤚꤛꤢꤟꤟꤢꤧ꤭"],
+                ["what to", "ꤒꤤ꤭ꤒꤢꤩ꤭"],
+                ["who", "ꤢꤨ꤭ꤕꤢꤩ꤭"],
+                ["who is", "ꤗꤢ꤬ꤢꤨ꤭ꤕꤢꤩ꤭"],
+                ["who was", "ꤗꤢ꤬ꤢꤨ꤭ꤕꤢꤩ꤭"],
+                ["who are", "ꤗꤢ꤬ꤢꤨ꤭ꤕꤢꤩ꤭"],
+                ["who were", "ꤗꤢ꤬ꤢꤨ꤭ꤕꤢꤩ꤭"],
+                ["who do", "ꤢꤨ꤭ꤕꤢꤩ꤭"],
+                ["who does", "ꤢꤨ꤭ꤕꤢꤩ꤭"],
+                ["who did", "ꤢꤨ꤭ꤕꤢꤩ꤭"],
+                ["who will", "ꤕꤢ꤭ꤢꤨ꤭ꤕꤢꤩ꤭"],
+                ["who should", "ꤢꤨ꤭ꤕꤢꤩ꤭ꤗꤢ꤬ꤢ꤬ꤚꤛꤢꤟꤟꤢꤧ꤭"],
+                ["who to", "ꤢꤨ꤭ꤕꤢꤩ꤭"],
+                ["when", "WHEN_PLACEHOLDER"],
+                ["when is", "ꤗꤢ꤬ꤙꤤꤋꤢꤧ꤭ꤒꤢꤩ꤭"],
+                ["when was", "ꤗꤢ꤬ꤙꤤꤋꤢꤧ꤭ꤒꤢꤩ꤭"],
+                ["when are", "ꤗꤢ꤬ꤙꤤꤋꤢꤧ꤭ꤒꤢꤩ꤭"],
+                ["when were", "ꤗꤢ꤬ꤙꤤꤋꤢꤧ꤭ꤒꤢꤩ꤭"],
+                ["when do", "ꤙꤤꤋꤢꤧ꤭ꤒꤢꤩ꤭"],
+                ["when does", "ꤙꤤꤋꤢꤧ꤭ꤒꤢꤩ꤭"],
+                ["when did", "ꤙꤤꤋꤢꤧ꤭ꤒꤢꤩ꤭"],
+                ["when will", "ꤙꤤꤋꤢꤧ꤭ꤕꤢ꤭ꤒꤢꤩ꤭"],
+                ["when should", "ꤙꤤꤋꤢꤧ꤭ꤒꤢꤩ꤭ꤢ꤬ꤚꤛꤢꤟꤟꤢꤧ꤭"],
+                ["when to", "ꤙꤤꤋꤢꤧ꤭ꤒꤢꤩ꤭"],
+                ["why", "ꤢ꤬ꤗꤟꤢꤩ꤬ꤒꤢꤩ꤭"],
+                ["why is", "ꤗꤢ꤬ꤢ꤬ꤗꤟꤢꤩ꤬ꤒꤢꤩ꤭"],
+                ["why was", "ꤗꤢ꤬ꤢ꤬ꤗꤟꤢꤩ꤬ꤒꤢꤩ꤭"],
+                ["why are", "ꤗꤢ꤬ꤢ꤬ꤗꤟꤢꤩ꤬ꤒꤢꤩ꤭"],
+                ["why were", "ꤗꤢ꤬ꤢ꤬ꤗꤟꤢꤩ꤬ꤒꤢꤩ꤭"],
+                ["why do", "ꤢ꤬ꤗꤟꤢꤩ꤬ꤒꤢꤩ꤭"],
+                ["why does", "ꤢ꤬ꤗꤟꤢꤩ꤬ꤒꤢꤩ꤭"],
+                ["why did", "ꤢ꤬ꤗꤟꤢꤩ꤬ꤒꤢꤩ꤭"],
+                ["why will", "ꤕꤢ꤭ꤢ꤬ꤗꤟꤢꤩ꤬ꤒꤢꤩ꤭"],
+                ["why should", "ꤢ꤬ꤜꤥ꤬ꤗꤟꤢꤩ꤬ꤒꤢꤩ꤭"],
+                ["which", "ꤒꤣ꤬ꤊꤟꤊꤣ꤬ꤒꤢꤩ꤭"],
+                ["which is", "ꤒꤣ꤬ꤊꤟꤊꤣ꤬ꤒꤢꤩ꤭"],
+                ["which was", "ꤒꤣ꤬ꤊꤟꤊꤣ꤬ꤒꤢꤩ꤭"],
+                ["which are", "ꤒꤣ꤬ꤊꤟꤊꤣ꤬ꤒꤢꤩ꤭"],
+                ["which were", "ꤒꤣ꤬ꤊꤟꤊꤣ꤬ꤒꤢꤩ꤭"],
+                ["which do", "ꤒꤣ꤬ꤊꤟꤊꤣ꤬ꤒꤢꤩ꤭"],
+                ["which does", "ꤒꤣ꤬ꤊꤟꤊꤣ꤬ꤒꤢꤩ꤭"],
+                ["which did", "ꤒꤣ꤬ꤊꤟꤊꤣ꤬ꤒꤢꤩ꤭"],
+                ["which will", "ꤒꤣ꤬ꤊꤟꤊꤣ꤬ꤕꤢ꤭ꤒꤢꤩ꤭"],
+                ["which should", "ꤒꤣ꤬ꤊꤟꤊꤣ꤬ꤒꤢꤩ꤭ꤢ꤬ꤊꤢꤪ꤬ꤙꤢꤧ꤬ꤟꤟꤢꤧ꤭"],
+                ["where", "ꤙꤤꤒꤢꤩ꤭"],
+                ["where is", "ꤥ꤬ꤙꤤꤒꤢꤩ꤭"],
+                ["where was", "ꤗꤢ꤬ꤙꤤꤒꤢꤩ꤭"],
+                ["where are", "ꤗꤢ꤬ꤙꤤꤒꤢꤩ꤭"],
+                ["where were", "ꤗꤢ꤬ꤙꤤꤒꤢꤩ꤭"],
+                ["where do", "ꤙꤤꤒꤢꤩ꤭"],
+                ["where does", "ꤙꤤꤒꤢꤩ꤭"],
+                ["where did", "ꤙꤤꤒꤢꤩ꤭"],
+                ["where will", "ꤙꤤꤒꤢꤩ꤭ꤕꤢ꤭ꤟꤟꤢꤧ꤭"],
+                ["where should", "ꤙꤤꤒꤢꤩ꤭ꤢ꤬ꤚꤛꤢꤟꤟꤢꤧ꤭"],
+                ["where to", "ꤘꤣꤙꤤꤒꤢꤩ꤭"],
+                ["how", "ꤖꤢꤨꤒꤢꤩ꤭"],
+                ["how is", "ꤗꤟꤢꤩ꤬ꤖꤢꤨꤒꤢꤩ꤭"],
+                ["how was", "ꤗꤟꤢꤩ꤬ꤖꤢꤨꤒꤢꤩ꤭"],
+                ["how are", "ꤗꤟꤢꤩ꤬ꤖꤢꤨꤒꤢꤩ꤭"],
+                ["how were", "ꤗꤟꤢꤩ꤬ꤖꤢꤨꤒꤢꤩ꤭"],
+                ["how do", "ꤗꤟꤢꤩ꤬ꤖꤢꤨꤒꤢꤩ꤭"],
+                ["how does", "ꤗꤟꤢꤩ꤬ꤖꤢꤨꤒꤢꤩ꤭"],
+                ["how did", "ꤗꤟꤢꤩ꤬ꤖꤢꤨꤒꤢꤩ꤭"],
+                ["how will", "ꤗꤟꤢꤩ꤬ꤕꤢ꤭ꤖꤢꤨꤒꤢꤩ꤭"],
+                ["how should", "ꤗꤟꤢꤩ꤬ꤖꤢꤨꤒꤢꤩ꤭"],
+                ["how to", "ꤖꤢꤨꤒꤢꤩ꤭"],
+                ["am", "ꤥ꤬"],
+                ["is", "ꤥ꤬"],
+                ["are", "ꤥ꤬"],
+                ["was", "ꤥ꤬"],
+                ["were", "ꤥ꤬"],
+                ["be", "ꤥ꤬"],
+                ["do not", "ꤒꤥ꤬"],
+                ["done", "DONE_PLACEHOLDER"],
+                ["finished", "ꤗꤟꤢꤩ꤬ꤕꤜꤢꤦꤓꤌꤣ꤭"],
+                ["eaten", "ꤢꤩ꤬ꤓꤌꤣ꤭"],
+                ["gone", "ꤡꤛꤣꤓꤌꤣ꤭"],
+                ["known", "ꤞꤢꤧꤑꤢꤩ꤭ꤓꤌꤣ꤭"],
+                ["seen", "ꤗꤛꤢꤓꤛꤢꤩ꤬ꤔꤢꤪ"],
+                ["never", "ꤒꤢ꤬ꤖꤟꤌꤣꤒꤥ꤬"],
+                ["heard of", "ꤔꤟꤤꤟꤌꤣ꤭ꤔꤢꤪ"],
+                ["nice", "ꤒꤝꤟꤥ"],
+                ["great", "ꤚꤛꤢ"],
+                ["good", "ꤚꤛꤢ"],
+                ["still", "STILL_PLACEHOLDER"],
+                ["school", "ꤞꤛꤥꤜꤤ꤬ꤟꤥ꤭"],
+                ["food", "ꤏꤢꤧ꤬ꤢꤩ꤬"],
+                ["must", "ꤒꤥ꤭ꤙꤢꤧ꤬"],
+                ["tired of", "ꤞꤢꤧꤕꤜꤢꤪ꤬ꤜꤟꤢꤪ꤭"],
+                ["staying", "ꤥ꤬"]
+            ]);
+
+            // --------------------------------------------------------------
+            //  ADJECTIVE MAP
+            // --------------------------------------------------------------
+            const adjectiveMap = new Map([
+                ["new", "ꤢ꤬ꤞꤢꤧ꤭"],
+                ["much", "ꤥ꤬ꤢꤧ"],
+                ["big", "ꤘꤢꤨ꤬"],
+                ["beautiful", "ꤒꤝꤟꤥ"],
+                ["old", "ꤜꤟꤛꤢꤩ꤬"],
+                ["small", "ꤕꤢ꤬ꤒꤤ"],
+                ["good", "ꤚꤛꤢ"],
+                ["bad", "ꤕꤛꤢꤩ"],
+                ["happy", "ꤗꤟꤥ꤬ꤞꤢꤧꤜꤟꤢꤪ꤭"],
+                ["sad", "ꤞꤢꤧꤕꤜꤟꤢꤧ꤭"],
+                ["tired", "ꤞꤢꤧꤕꤚꤢ"],
+                ["lucky", "ꤙꤝꤤꤚꤛꤢ"],
+                ["ready", "ꤒꤢ꤬ꤚꤤ꤬ꤟꤢꤪ"],
+                ["late", "ꤒꤟꤢ꤭ꤔꤥ꤬"],
+                ["quick", "ꤕꤚꤛꤢ꤭"],
+                ["hungry", "ꤟꤢꤪꤜꤢ꤬ꤘꤢ꤭"],
+                ["nice", "ꤒꤝꤟꤥ"],
+                ["great", "ꤚꤛꤢ"],
+            ]);
+
+            // ALL negative words with their specific translations
+            const negativeWords = new Set([
+                "don't", "doesn't", "didn't", "not", "wasn't", "weren't",
+                "can't", "couldn't", "haven't", "hasn't", "hadn't",
+                "won't", "wouldn't", "shouldn't", "mightn't", "mustn't",
+                "needn't", "daren't", "isn't", "aren't", "do not"
+            ]);
+
+            // Specific translations for negative words
+            const negativeTranslations = new Map([
+                ["don't", "ꤒꤥ꤬"],
+                ["doesn't", "ꤒꤥ꤬"],
+                ["didn't", "ꤒꤥ꤬"],
+                ["not", "ꤒꤥ꤬"],
+                ["wasn't", "ꤒꤥ꤬"],
+                ["weren't", "ꤒꤥ꤬"],
+                ["can't", "ꤔꤟꤤꤒꤥ꤬"],
+                ["couldn't", "ꤒꤥ꤬"],
+                ["haven't", "ꤒꤥ꤬"],
+                ["hasn't", "ꤒꤥ꤬"],
+                ["hadn't", "ꤒꤥ꤬"],
+                ["won't", "ꤒꤥ꤬ꤒꤢ꤭"],
+                ["wouldn't", "ꤒꤥ꤬"],
+                ["shouldn't", "ꤒꤥ꤭ꤊꤢꤪ꤬ꤒꤥ꤬"],
+                ["mightn't", "ꤒꤥ꤬"],
+                ["mustn't", "ꤒꤥ꤬"],
+                ["needn't", "ꤒꤥ꤬"],
+                ["daren't", "ꤒꤥ꤬"],
+                ["isn't", "ꤒꤥ꤬"],
+                ["aren't", "ꤒꤥ꤬"],
+                ["do not", "ꤒꤥ꤬"],
+            ]);
+
+            // Modal verbs that go to the end
+            const modalVerbsAtEnd = new Set(["will", "can", "could", "may"]);
+
+            // "To be" verbs that start questions
+            const toBeQuestionVerbs = new Set(["am", "is", "are", "was", "were"]);
+
+            // Prepositions that go after the noun phrase
+            const prepositionsAfter = new Map([
+                ["in", "ꤊꤢꤨ꤭"],
+                ["inside", "ꤢ꤬ꤊꤢꤨ꤭"],
+                ["on", "ꤋꤢꤨ꤬"],
+                ["above", "ꤢ꤬ꤋꤢꤨ꤬ꤓꤛꤢ꤬"],
+                ["behind", "ꤋꤢ꤭ꤏꤛꤢꤩ"],
+                ["between", "ꤢ꤬ꤕꤜꤢꤧ꤬"],
+                ["for", "ꤢ꤬ꤑꤢꤩ꤭"],
+                ["among", "ꤊꤜꤢꤧ꤭"],
+                ["very", "ꤜꤢ꤭"],
+                ["when", "WHEN_PLACEHOLDER"],
+                ["too", "ꤒꤢ꤬ꤜꤝꤥꤏꤢꤦꤜꤢꤦ꤭"],
+                ["since", "ꤔꤌꤣ꤬ꤕꤢ꤭"],
+                ["about", "ꤚꤤ꤬ꤊꤛꤢ꤭"],
+            ]);
+
+            // Time conjunctions (primary – their marker appears before secondary conjunctions)
+            const timeConjunctions = new Map([
+                ["before", "ꤟꤤꤒꤥ꤬ꤢ꤬ꤋꤢꤧ꤭"],
+                ["after", "ꤋꤛꤢꤩ꤭"],
+                ["when", "WHEN_PLACEHOLDER"],
+                ["while", "WHEN_PLACEHOLDER"],
+                ["since", "ꤔꤌꤣ꤬ꤕꤢ꤭"],
+                ["although", "ꤒꤢ꤬ꤘꤣ꤬"],
+                ["as soon as", "ꤙꤤꤋꤢꤧ꤭ꤒꤢꤩ꤭ꤔꤌꤣ꤬"],
+                ["once", "ꤒꤣ꤬ꤖꤟꤌꤣꤒꤌꤣ꤭"],
+                ["whether", "ꤒꤣ꤬ꤊꤟꤊꤣ꤬ꤊꤟꤊꤣ꤬"],
+                ["inasmuch as", "ꤢ꤬ꤗꤟꤢꤩ꤬ꤒꤢꤩ꤭ꤔꤌꤣ꤬"],
+            ]);
+
+            const whQuestionKeys = new Set([
+                "what", "what is", "what was", "what are", "what were", "what do", "what does", "what did", "what will",
+                "what should",
+                "what to",
+                "who", "who is", "who was", "who are", "who were", "who do", "who does", "who did", "who will", "who should",
+                "who to",
+                "when", "when is", "when was", "when are", "when were", "when do", "when does", "when did", "when will",
+                "when should",
+                "when to",
+                "why", "why is", "why was", "why are", "why were", "why do", "why does", "why did", "why will", "why should",
+                "which", "which is", "which was", "which are", "which were", "which do", "which does", "which did", "which will",
+                "which should",
+                "where", "where is", "where was", "where are", "where were", "where do", "where does", "where did", "where will",
+                "where should", "where to",
+                "how", "how is", "how was", "how are", "how were", "how do", "how does", "how did", "how will", "how should",
+                "how to",
+            ]);
+
+            const exactPhraseKeys = new Set([
+                "how are you?", "how are you",
+                "what time is it?", "what time is it",
+                "tell me",
+                "to",
+                "when",
+            ]);
+
+            // Set of past participle (Verb 3) words
+            const pastParticipleWords = new Set([
+                "done", "finished", "eaten", "gone", "seen", "taken", "given",
+                "made", "spoken", "written", "drunk", "broken", "chosen",
+                "driven", "fallen", "forgotten", "grown", "known", "lost",
+                "met", "put", "run", "said", "shown", "sung", "sat",
+                "stood", "told", "thought", "won", "booked"
+            ]);
+
+            // Set of action verbs (not nouns)
+            const actionVerbs = new Set([
+                "go", "eat", "do", "see", "come", "take", "make", "say",
+                "know", "think", "hear", "find", "put", "run", "use", "write",
+                "speak", "read", "close", "open", "start", "finish", "arrive",
+                "board", "prove", "need", "want", "live", "stay", "tell", "ask",
+                "help", "watch", "drink", "work", "remember", "forget", "wait", "book"
+            ]);
+
+            // Reverse map
+            const reverseDict = new Map();
+            for (let [en, kay] of dict.entries()) {
+                if (kay && kay.length > 0 && !kay.includes("|") && kay !== "HAVE_PLACEHOLDER" && kay !== "DONE_PLACEHOLDER" && kay !== "STILL_PLACEHOLDER" && kay !== "GOING_TO_PLACEHOLDER" && kay !== "TO_PLACEHOLDER" && kay !== "WHEN_PLACEHOLDER") {
+                    if (!reverseDict.has(kay)) {
+                        reverseDict.set(kay, en);
+                    }
+                }
+            }
+
+            // --------------------------------------------------------------
+            //  Helper functions
+            // --------------------------------------------------------------
+            function tokenizeEnglish(text) {
+                const tokens = [];
+                const words = text.split(/\s+/).filter(w => w.length > 0);
+                let i = 0;
+                while (i < words.length) {
+                    const lowerWord = words[i].toLowerCase().replace(/[.,;!?]+$/, "");
+                    if (lowerWord === "a" || lowerWord === "an") {
+                        i++;
+                        continue;
+                    }
+                    let matched = false;
+                    for (let n = 4; n >= 2; n--) {
+                        if (i + n <= words.length) {
+                            const phrase = words.slice(i, i + n).join(" ");
+                            if (dict.has(phrase.toLowerCase())) {
+                                tokens.push(phrase);
+                                i += n;
+                                matched = true;
+                                break;
+                            }
+                        }
+                    }
+                    if (!matched) {
+                        tokens.push(words[i]);
+                        i++;
+                    }
+                }
+                return tokens;
+            }
+
+            function isNegativeWord(token) {
+                const lower = token.toLowerCase().replace(/[.,;!?]+$/, "");
+                return negativeWords.has(lower);
+            }
+
+            function getNegativeTranslation(token) {
+                const lower = token.toLowerCase().replace(/[.,;!?]+$/, "");
+                return negativeTranslations.get(lower) || "ꤒꤥ꤬";
+            }
+
+            function isAdjective(token) {
+                const lower = token.toLowerCase().replace(/[.,;!?]+$/, "");
+                return adjectiveMap.has(lower);
+            }
+
+            function isModalAtEnd(token) {
+                const lower = token.toLowerCase().replace(/[.,;!?]+$/, "");
+                return modalVerbsAtEnd.has(lower);
+            }
+
+            function isTimeConjunction(token) {
+                const lower = token.toLowerCase().replace(/[.,;!?]+$/, "");
+                return timeConjunctions.has(lower);
+            }
+
+            function isToBeVerb(token) {
+                const lower = token.toLowerCase().replace(/[.,;!?]+$/, "");
+                return lower === "am" || lower === "is" || lower === "are" || lower === "was" || lower === "were" || lower ===
+                    "be";
+            }
+
+            function isToBeQuestionStart(token) {
+                const lower = token.toLowerCase().replace(/[.,;!?]+$/, "");
+                return toBeQuestionVerbs.has(lower);
+            }
+
+            function isPrepositionAfter(token) {
+                const lower = token.toLowerCase().replace(/[.,;!?]+$/, "");
+                return prepositionsAfter.has(lower);
+            }
+
+            function getPrepositionTranslation(token) {
+                const lower = token.toLowerCase().replace(/[.,;!?]+$/, "");
+                return prepositionsAfter.get(lower) || null;
+            }
+
+            function isHaveVerb(token) {
+                const lower = token.toLowerCase().replace(/[.,;!?]+$/, "");
+                return lower === "have" || lower === "has" || lower === "had";
+            }
+
+            function isPastParticiple(token) {
+                const lower = token.toLowerCase().replace(/[.,;!?]+$/, "");
+                return pastParticipleWords.has(lower);
+            }
+
+            function isArticle(token) {
+                const lower = token.toLowerCase().replace(/[.,;!?]+$/, "");
+                return lower === "a" || lower === "an";
+            }
+
+            function isSubject(token) {
+                const lower = token.toLowerCase().replace(/[.,;!?]+$/, "");
+                return lower === "i" || lower === "he" || lower === "she" || lower === "we" || lower === "they" || lower ===
+                    "you";
+            }
+
+            function isStillWord(token) {
+                const lower = token.toLowerCase().replace(/[.,;!?]+$/, "");
+                return lower === "still";
+            }
+
+            function isActionVerb(token) {
+                const lower = token.toLowerCase().replace(/[.,;!?]+$/, "");
+                return actionVerbs.has(lower);
+            }
+
+            function isGoingToPhrase(tokens, index) {
+                if (index + 1 < tokens.length) {
+                    const current = tokens[index].toLowerCase().replace(/[.,;!?]+$/, "");
+                    const next = tokens[index + 1].toLowerCase().replace(/[.,;!?]+$/, "");
+                    // Check for "going to"
+                    if (current === "going" && next === "to") {
+                        return true;
+                    }
+                    // Check for "about to"
+                    if (current === "about" && next === "to") {
+                        return true;
+                    }
+                }
+                return false;
+            }
+
+            function isWantToPhrase(tokens, index) {
+                if (index + 1 < tokens.length) {
+                    const current = tokens[index].toLowerCase().replace(/[.,;!?]+$/, "");
+                    const next = tokens[index + 1].toLowerCase().replace(/[.,;!?]+$/, "");
+                    // Check for "want to"
+                    if (current === "want" && next === "to") {
+                        return true;
+                    }
+                    // Check for "would like to" - this is 3 words
+                    if (index + 2 < tokens.length) {
+                        const next2 = tokens[index + 2].toLowerCase().replace(/[.,;!?]+$/, "");
+                        if (current === "would" && next === "like" && next2 === "to") {
+                            return true;
+                        }
+                    }
+                    // Check for "need to"
+                    if (current === "need" && next === "to") {
+                        return true;
+                    }
+                    // Check for "love to"
+                    if (current === "love" && next === "to") {
+                        return true;
+                    }
+                }
+                return false;
+            }
+
+            function isNoun(token) {
+                const lower = token.toLowerCase().replace(/[.,;!?]+$/, "");
+                if (dict.has(lower)) {
+                    const val = dict.get(lower);
+                    if (val && val !== "HAVE_PLACEHOLDER" && val !== "DONE_PLACEHOLDER" && val !== "STILL_PLACEHOLDER" && val !== "GOING_TO_PLACEHOLDER" && val !== "TO_PLACEHOLDER" && val !== "WHEN_PLACEHOLDER" && !val.includes("|")) {
+                        // Check if it's a verb (action word) - not a noun
+                        if (actionVerbs.has(lower) || pastParticipleWords.has(lower)) {
+                            return false;
+                        }
+                        return true;
+                    }
+                }
+                // Also check common nouns not in dictionary
+                const commonNouns = ["school", "home", "work", "church", "hotel", "box", "table", "water", "book", "name", "house", "day", "meeting", "train", "committee", "storm", "teacher", "homework", "girl", "leader", "doors", "seats", "food", "room", "ticket", "tickets", "plane", "bus", "night", "rain", "screenshot"];
+                if (commonNouns.includes(lower)) {
+                    return true;
+                }
+                return false;
+            }
+
+            function getSubjectTranslation(token) {
+                const lower = token.toLowerCase().replace(/[.,;!?]+$/, "");
+                if (lower === "i") return "ꤠꤢ꤭";
+                if (lower === "he" || lower === "she") return "ꤢꤧ꤬";
+                if (lower === "we") return "ꤕꤟꤢꤧ꤬";
+                if (lower === "they") return "ꤢꤧ꤬ꤞꤤ꤭";
+                if (lower === "you") return "ꤔꤟꤢꤧ꤬";
+                return null;
+            }
+
+            // Check if "have" is used as an auxiliary verb (followed by past participle)
+            function isHaveAsAuxiliary(tokens, haveIndex) {
+                if (haveIndex + 1 < tokens.length) {
+                    const nextToken = tokens[haveIndex + 1];
+                    if (isPastParticiple(nextToken)) {
+                        return true;
+                    }
+                    // Check for "have + been + V-ing" or "have + been + past participle"
+                    if (nextToken.toLowerCase() === "been" && haveIndex + 2 < tokens.length) {
+                        return true;
+                    }
+                }
+                return false;
+            }
+
+            // Check if "have" is used as a main verb (possession)
+            function isHaveAsMainVerb(tokens, haveIndex) {
+                if (haveIndex + 1 < tokens.length) {
+                    const nextToken = tokens[haveIndex + 1];
+                    // If next token is a noun or article + noun, it's possession
+                    if (isNoun(nextToken)) {
+                        return true;
+                    }
+                    if (isArticle(nextToken) && haveIndex + 2 < tokens.length) {
+                        if (isNoun(tokens[haveIndex + 2])) {
+                            return true;
+                        }
+                    }
+                }
+                return false;
+            }
+
+            // --------------------------------------------------------------
+            //  Get translation for a word
+            // --------------------------------------------------------------
+            function getWordTranslation(word) {
+                const lower = word.toLowerCase().replace(/[.,;!?]+$/, "");
+                if (dict.has(lower)) {
+                    const val = dict.get(lower);
+                    if (val && val.includes("|")) {
+                        const parts = val.split("|");
+                        const first = parts[0].split("_");
+                        return first[1] || val;
+                    }
+                    if (val === "HAVE_PLACEHOLDER") {
+                        return null;
+                    }
+                    if (val === "DONE_PLACEHOLDER") {
+                        return "ꤗꤟꤢꤩ꤬ꤓꤌꤣ꤭";
+                    }
+                    if (val === "STILL_PLACEHOLDER") {
+                        return null;
+                    }
+                    if (val === "GOING_TO_PLACEHOLDER") {
+                        return null;
+                    }
+                    if (val === "TO_PLACEHOLDER") {
+                        return null;
+                    }
+                    if (val === "WHEN_PLACEHOLDER") {
+                        return null;
+                    }
+                    return val;
+                }
+                if (adjectiveMap.has(lower)) return adjectiveMap.get(lower);
+                if (prepositionsAfter.has(lower)) return prepositionsAfter.get(lower);
+                return word;
+            }
+
+            function getTranslation(word) {
+                const lower = word.toLowerCase().replace(/[.,;!?]+$/, "");
+                if (dict.has(lower)) {
+                    const val = dict.get(lower);
+                    if (val && val.includes("|")) {
+                        const parts = val.split("|");
+                        const first = parts[0].split("_");
+                        return first[1] || val;
+                    }
+                    if (val === "HAVE_PLACEHOLDER") {
+                        return null;
+                    }
+                    if (val === "DONE_PLACEHOLDER") {
+                        return "ꤗꤟꤢꤩ꤬ꤓꤌꤣ꤭";
+                    }
+                    if (val === "STILL_PLACEHOLDER") {
+                        return null;
+                    }
+                    if (val === "GOING_TO_PLACEHOLDER") {
+                        return null;
+                    }
+                    if (val === "TO_PLACEHOLDER") {
+                        return null;
+                    }
+                    if (val === "WHEN_PLACEHOLDER") {
+                        return null;
+                    }
+                    return val;
+                }
+                if (adjectiveMap.has(lower)) return adjectiveMap.get(lower);
+                if (prepositionsAfter.has(lower)) return prepositionsAfter.get(lower);
+                return word;
+            }
+
+            // --------------------------------------------------------------
+            //  Translate phrase
+            // --------------------------------------------------------------
+            function translatePhrase(tokens, isQuestion, isHaveStart, isImperative) {
+                let hasNegation = false;
+                let modalToken = null;
+                let translated = [];
+                let skipNext = false;
+                let toBeFound = false;
+                let prepositionToken = null;
+                let prepositionTranslation = null;
+                let haveTokenIndex = -1;
+                let haveTranslation = null;
+                let isHaveWithV3 = false;
+                let v3TokenIndex = -1;
+                let v3Translation = null;
+                let nounTokenIndex = -1;
+                let nounTranslation = null;
+                let haveFound = false;
+                let subjectToken = null;
+                let subjectTranslation = null;
+                let isAuxiliaryHave = false;
+                let isMainVerbHave = false;
+                let stillTranslation = null;
+                let stillIndex = -1;
+                let goingToTranslation = null;
+                let goingToIndex = -1;
+                let goingToIsNoun = false;
+                let wantToTranslation = null;
+                let wantToIndex = -1;
+                let wantToSkipCount = 0;
+                let questionWordTranslation = null;
+                let questionWordIndex = -1;
+                let verbTranslation = null;
+                let verbIndex = -1;
+                let negationWord = null;
+                let isDonStart = false;
+                let negativeTranslation = null;
+                // Detect if phrase starts with don't / doesn't / didn't (no subject)
+                if (tokens.length > 0) {
+                    const firstLower = tokens[0].toLowerCase().replace(/[.,;!?]+$/, "");
+                    if (firstLower === "don't" || firstLower === "doesn't" || firstLower === "didn't" || firstLower === "do not") {
+                        isDonStart = true;
+                    }
+                }
+                let tooTranslation = null;
+                let tooIndex = -1;
+                let verbForToo = null;
+                let verbForTooIndex = -1;
+                let inTranslation = null;
+                let inIndex = -1;
+                let thatTranslation = null;
+                let thatIndex = -1;
+                let thatMarkerAdded = false;
+
+                // First pass: find subject, preposition, "have", V3, noun, "still", "going to/about to", and "want to/need to/love to"
+                for (let i = 0; i < tokens.length; i++) {
+                    if (isPrepositionAfter(tokens[i])) {
+                        prepositionToken = tokens[i];
+                        prepositionTranslation = getPrepositionTranslation(tokens[i]);
+                        if (prepositionTranslation === "ꤒꤢ꤬ꤜꤝꤥꤏꤢꤦꤜꤢꤦ꤭") {
+                            tooTranslation = prepositionTranslation;
+                            tooIndex = i;
+                        }
+                        if (prepositionTranslation === "ꤊꤢꤨ꤭") {
+                            inTranslation = prepositionTranslation;
+                            inIndex = i;
+                        }
+                    }
+                    // Check for "that" as a demonstrative or relative pronoun
+                    if (tokens[i].toLowerCase().replace(/[.,;!?]+$/, "") === "that") {
+                        thatTranslation = "ꤔꤌꤣ꤬";
+                        thatIndex = i;
+                    }
+                    if (isHaveVerb(tokens[i])) {
+                        haveTokenIndex = i;
+                        haveFound = true;
+
+                        // Check if "have" is used as auxiliary or main verb
+                        if (isHaveAsAuxiliary(tokens, i)) {
+                            isAuxiliaryHave = true;
+                            // Check for V3 (past participle)
+                            if (i + 1 < tokens.length) {
+                                const nextToken = tokens[i + 1];
+                                if (isPastParticiple(nextToken)) {
+                                    isHaveWithV3 = true;
+                                    v3TokenIndex = i + 1;
+                                    v3Translation = getWordTranslation(nextToken);
+                                }
+                            }
+                        } else if (isHaveAsMainVerb(tokens, i)) {
+                            isMainVerbHave = true;
+                            // Find the noun
+                            let nextIdx = i + 1;
+                            if (nextIdx < tokens.length && isArticle(tokens[nextIdx])) {
+                                nextIdx++;
+                            }
+                            if (nextIdx < tokens.length && isNoun(tokens[nextIdx])) {
+                                nounTokenIndex = nextIdx;
+                                nounTranslation = getWordTranslation(tokens[nextIdx]);
+                            }
+                        }
+                    }
+                    if (isStillWord(tokens[i])) {
+                        stillIndex = i;
+                        stillTranslation = "ꤒꤢꤪ꤭ꤕꤢ꤭";
+                    }
+                    if (isGoingToPhrase(tokens, i)) {
+                        goingToIndex = i;
+                        // going to + NOUN → ꤡꤛꤣꤘꤣ
+                        // going to + VERB → ꤊꤟꤢꤦ
+                        if (i + 2 < tokens.length) {
+                            const afterTo = tokens[i + 2];
+                            if (isNoun(afterTo)) {
+                                goingToIsNoun = true;
+                                goingToTranslation = "ꤡꤛꤣꤘꤣ";
+                            } else if (isActionVerb(afterTo) || isPastParticiple(afterTo)) {
+                                goingToIsNoun = false;
+                                goingToTranslation = "ꤊꤟꤢꤦ";
+                            } else {
+                                goingToIsNoun = false;
+                                goingToTranslation = "ꤊꤟꤢꤦ";
+                            }
+                        } else {
+                            goingToIsNoun = false;
+                            goingToTranslation = "ꤊꤟꤢꤦ";
+                        }
+                    }
+                    if (isWantToPhrase(tokens, i)) {
+                        wantToIndex = i;
+                        const current = tokens[i].toLowerCase().replace(/[.,;!?]+$/, "");
+                        // Check for "would like to" (3 words)
+                        if (current === "would" && i + 2 < tokens.length) {
+                            wantToTranslation = "ꤞꤢꤧꤐꤟꤢꤦ";
+                            wantToSkipCount = 3; // Skip "would", "like", "to"
+                        } else if (current === "want") {
+                            wantToTranslation = "ꤞꤢꤧꤐꤟꤢꤦ";
+                            wantToSkipCount = 2; // Skip "want", "to"
+                        } else if (current === "need") {
+                            wantToTranslation = "ꤜꤥ꤬";
+                            wantToSkipCount = 2; // Skip "need", "to"
+                        } else if (current === "love") {
+                            wantToTranslation = "ꤞꤢꤧꤐꤟꤢꤦ";
+                            wantToSkipCount = 2; // Skip "love", "to"
+                        }
+                    }
+                    if (i < haveTokenIndex || haveTokenIndex === -1) {
+                        if (isSubject(tokens[i])) {
+                            subjectToken = tokens[i];
+                            subjectTranslation = getSubjectTranslation(tokens[i]);
+                        }
+                    }
+                }
+
+                // Detect "how to do", "what to do", "when to do", "which to do" patterns
+                // These patterns have a question word followed by "to" and a verb
+                for (let i = 0; i < tokens.length; i++) {
+                    const lower = tokens[i].toLowerCase().replace(/[.,;!?]+$/, "");
+                    // Check for "how to do", "what to do", "when to do", "which to do"
+                    if (i + 2 < tokens.length) {
+                        const next1 = tokens[i + 1].toLowerCase().replace(/[.,;!?]+$/, "");
+                        const next2 = tokens[i + 2].toLowerCase().replace(/[.,;!?]+$/, "");
+                        if (next1 === "to" && isActionVerb(tokens[i + 2])) {
+                            // This is a question word + to + verb pattern
+                            if (lower === "how") {
+                                questionWordTranslation = "ꤖꤢꤨꤒꤢꤩ꤭";
+                                verbTranslation = getWordTranslation(tokens[i + 2]);
+                                questionWordIndex = i;
+                                verbIndex = i + 2;
+                                break;
+                            } else if (lower === "what") {
+                                questionWordTranslation = "ꤒꤤ꤭ꤒꤢꤩ꤭";
+                                verbTranslation = getWordTranslation(tokens[i + 2]);
+                                questionWordIndex = i;
+                                verbIndex = i + 2;
+                                break;
+                            } else if (lower === "when") {
+                                questionWordTranslation = "ꤙꤤꤋꤢꤧ꤭ꤒꤢꤩ꤭";
+                                verbTranslation = getWordTranslation(tokens[i + 2]);
+                                questionWordIndex = i;
+                                verbIndex = i + 2;
+                                break;
+                            } else if (lower === "which") {
+                                questionWordTranslation = "ꤒꤣ꤬ꤊꤟꤊꤣ꤬ꤒꤢꤩ꤭";
+                                verbTranslation = getWordTranslation(tokens[i + 2]);
+                                questionWordIndex = i;
+                                verbIndex = i + 2;
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                // If we found a question word + to + verb pattern, handle it specially
+                if (questionWordTranslation && verbTranslation) {
+                    // Build the translation: verb + question word
+                    let result = verbTranslation + " " + questionWordTranslation;
+                    return {
+                        text: result,
+                        hasNegation: false,
+                        modalInfo: null,
+                        toBeFound: false,
+                        haveFound: false,
+                        haveTranslation: null,
+                        isHaveStart: false,
+                        nounTranslation: null,
+                        v3Translation: null,
+                        isAuxiliaryHave: false,
+                        isMainVerbHave: false
+                    };
+                }
+
+                // If have was found but no V3 or noun, look for any noun after have
+                if (haveFound && !isHaveWithV3 && nounTokenIndex === -1 && !isAuxiliaryHave) {
+                    for (let i = haveTokenIndex + 1; i < tokens.length; i++) {
+                        if (isNoun(tokens[i]) && !isPastParticiple(tokens[i])) {
+                            nounTokenIndex = i;
+                            nounTranslation = getWordTranslation(tokens[i]);
+                            isMainVerbHave = true;
+                            break;
+                        }
+                    }
+                }
+
+                // Determine which marker to use for "have"
+                if (haveFound) {
+                    // Check for special phrases: "have a good", "have a nice", "have a great"
+                    if (haveTokenIndex >= 0 && haveTokenIndex + 2 < tokens.length) {
+                        const next1 = tokens[haveTokenIndex + 1].toLowerCase();
+                        const next2 = tokens[haveTokenIndex + 2].toLowerCase();
+
+                        // Check for "have a good"
+                        if (next1 === "a" && next2 === "good") {
+                            haveTranslation = "ꤥ꤬ꤔꤢꤒꤟꤢꤧ꤬ꤚꤛꤢ";
+                            skipNext = true;
+                            isMainVerbHave = true;
+                        }
+                        // Check for "have a nice"
+                        else if (next1 === "a" && next2 === "nice") {
+                            haveTranslation = "ꤥ꤬ꤔꤢꤒꤟꤢꤧ꤬ꤒꤝꤟꤥ";
+                            skipNext = true;
+                            isMainVerbHave = true;
+                        }
+                        // Check for "have a great"
+                        else if (next1 === "a" && next2 === "great") {
+                            haveTranslation = "ꤥ꤬ꤔꤢꤒꤟꤢꤧ꤬ꤚꤛꤢ";
+                            skipNext = true;
+                            isMainVerbHave = true;
+                        }
+                    }
+
+                    // If not handled by special case
+                    if (!haveTranslation) {
+                        if (isHaveStart) {
+                            // If "have" starts the sentence (question form)
+                            haveTranslation = "ꤟꤢꤪꤟꤟꤢꤧ꤭";
+                        } else if (isAuxiliaryHave) {
+                            // If "have" is used as auxiliary (present perfect, past perfect, etc.)
+                            haveTranslation = "ꤟꤢꤪ";
+                        } else if (isMainVerbHave) {
+                            // If "have" is used as main verb (possession)
+                            haveTranslation = "ꤥ꤬";
+                        } else {
+                            // Default fallback
+                            haveTranslation = "ꤥ꤬";
+                        }
+                    }
+                }
+
+                // Second pass: translate
+                let firstVerbIndex = -1;
+                let translatedWords = [];
+                let skipToToken = false;
+                let skipWantTo = 0;
+                let foundNegationWord = null;
+                let foundTooAfterVerb = false;
+                let tooMarker = null;
+                let inMarkerAdded = false;
+                let nounForOn = null;
+                let nounForOnIndex = -1;
+                let onTranslation = null;
+                let nounForFor = null;
+                let forTranslation = null;
+                let nounForAbout = null;
+                let aboutTranslation = null;
+
+                // Find noun for "on" placement (ON after NOUN). Prefer noun after "on" (e.g. "on the table")
+                for (let i = 0; i < tokens.length; i++) {
+                    const lower = tokens[i].toLowerCase().replace(/[.,;!?]+$/, "");
+                    if (lower === "on") {
+                        let nounFound = false;
+                        // Prefer noun after "on" (skip articles)
+                        for (let j = i + 1; j < tokens.length && j <= i + 3; j++) {
+                            const tokenLower = tokens[j].toLowerCase().replace(/[.,;!?]+$/, "");
+                            if (tokenLower === "the" || tokenLower === "a" || tokenLower === "an") continue;
+                            if (isNoun(tokens[j]) || tokenLower === "screenshot" || tokenLower === "table" || tokenLower === "box" || tokenLower === "hotel" || tokenLower === "house" || tokenLower === "school") {
+                                nounForOn = getWordTranslation(tokens[j]);
+                                nounForOnIndex = j;
+                                onTranslation = "ꤋꤢꤨ꤬";
+                                nounFound = true;
+                                break;
+                            }
+                            break; // stop at first non-article non-noun
+                        }
+                        // Fallback: noun before "on"
+                        if (!nounFound) {
+                            for (let j = i - 1; j >= 0; j--) {
+                                const tokenLower = tokens[j].toLowerCase().replace(/[.,;!?]+$/, "");
+                                if (isNoun(tokens[j]) || tokenLower === "screenshot" || tokenLower === "table" || tokenLower === "box" || tokenLower === "hotel" || tokenLower === "house" || tokenLower === "school") {
+                                    nounForOn = getWordTranslation(tokens[j]);
+                                    nounForOnIndex = j;
+                                    onTranslation = "ꤋꤢꤨ꤬";
+                                    nounFound = true;
+                                    break;
+                                }
+                            }
+                        }
+                        break;
+                    }
+                }
+
+                // Find noun/subject for "for" / "about" so they appear after it (postposition)
+                // Prefer the object that follows (for me → me for), else the preceding noun
+                for (let i = 0; i < tokens.length; i++) {
+                    const lower = tokens[i].toLowerCase().replace(/[.,;!?]+$/, "");
+                    if (lower === "for" || lower === "about") {
+                        let found = false;
+                        // 1) Prefer noun / pronoun that follows the preposition
+                        for (let j = i + 1; j < tokens.length && j <= i + 3; j++) {
+                            const tokenLower = tokens[j].toLowerCase().replace(/[.,;!?]+$/, "");
+                            if (tokenLower === "the" || tokenLower === "a" || tokenLower === "an") continue;
+                            if (isSubject(tokens[j]) || isNoun(tokens[j]) ||
+                                tokenLower === "me" || tokenLower === "him" || tokenLower === "her" || tokenLower === "us" || tokenLower === "them" ||
+                                tokenLower === "screenshot" || tokenLower === "table" || tokenLower === "box" ||
+                                tokenLower === "hotel" || tokenLower === "house" || tokenLower === "school" ||
+                                tokenLower === "girl" || tokenLower === "homework") {
+                                const nounTrans = getWordTranslation(tokens[j]) || getSubjectTranslation(tokens[j]) ||
+                                    (tokenLower === "me" ? "ꤠꤢ꤭" : tokenLower === "him" || tokenLower === "her" ? "ꤢꤧ꤬" :
+                                     tokenLower === "us" ? "ꤕꤟꤢꤧ꤬" : tokenLower === "them" ? "ꤢꤧ꤬ꤞꤤ꤭" : null);
+                                if (nounTrans) {
+                                    if (lower === "for") {
+                                        nounForFor = nounTrans;
+                                        forTranslation = "ꤢ꤬ꤑꤢꤩ꤭";
+                                    } else {
+                                        nounForAbout = nounTrans;
+                                        aboutTranslation = "ꤚꤤ꤬ꤊꤛꤢ꤭";
+                                    }
+                                    found = true;
+                                }
+                                break;
+                            }
+                            break;
+                        }
+                        // 2) Fallback: preceding noun / subject
+                        if (!found) {
+                            for (let j = i - 1; j >= 0; j--) {
+                                const tokenLower = tokens[j].toLowerCase().replace(/[.,;!?]+$/, "");
+                                if (isSubject(tokens[j]) || isNoun(tokens[j]) ||
+                                    tokenLower === "screenshot" || tokenLower === "table" || tokenLower === "box" ||
+                                    tokenLower === "hotel" || tokenLower === "house" || tokenLower === "school" ||
+                                    tokenLower === "girl" || tokenLower === "homework") {
+                                    const nounTrans = getWordTranslation(tokens[j]) || getSubjectTranslation(tokens[j]);
+                                    if (lower === "for") {
+                                        nounForFor = nounTrans;
+                                        forTranslation = "ꤢ꤬ꤑꤢꤩ꤭";
+                                    } else {
+                                        nounForAbout = nounTrans;
+                                        aboutTranslation = "ꤚꤤ꤬ꤊꤛꤢ꤭";
+                                    }
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                // Find "that" placement - after NOUN + ADJECTIVE (girl beautiful that)
+                let thatNoun = null;
+                let thatAdj = null;
+                let thatNounIndex = -1;
+                let thatAdjIndex = -1;
+                for (let i = 0; i < tokens.length; i++) {
+                    const lower = tokens[i].toLowerCase().replace(/[.,;!?]+$/, "");
+                    if (lower === "that" && i > 0) {
+                        // Look for noun + adjective before "that"
+                        if (i - 1 >= 0) {
+                            const prevToken = tokens[i - 1];
+                            const prevLower = prevToken.toLowerCase().replace(/[.,;!?]+$/, "");
+                            if (isAdjective(prevToken) && i - 2 >= 0) {
+                                const prevPrevToken = tokens[i - 2];
+                                const prevPrevLower = prevPrevToken.toLowerCase().replace(/[.,;!?]+$/, "");
+                                if (isNoun(prevPrevToken) || prevPrevLower === "girl" || prevPrevLower === "woman" || prevPrevLower === "man") {
+                                    thatNoun = getWordTranslation(prevPrevToken);
+                                    thatAdj = getWordTranslation(prevToken);
+                                    thatNounIndex = i - 2;
+                                    thatAdjIndex = i - 1;
+                                    thatMarkerAdded = true;
+                                    break;
+                                }
+                            } else if (isNoun(prevToken) || prevLower === "girl" || prevLower === "woman" || prevLower === "man") {
+                                // If just noun before "that"
+                                thatNoun = getWordTranslation(prevToken);
+                                thatAdj = null;
+                                thatNounIndex = i - 1;
+                                thatMarkerAdded = true;
+                                break;
+                            }
+                        }
+                        break;
+                    }
+                }
+
+                // Also check for "that" after "beautiful girl" pattern
+                if (!thatMarkerAdded) {
+                    for (let i = 0; i < tokens.length; i++) {
+                        const lower = tokens[i].toLowerCase().replace(/[.,;!?]+$/, "");
+                        if (lower === "beautiful" && i + 1 < tokens.length) {
+                            const nextToken = tokens[i + 1];
+                            const nextLower = nextToken.toLowerCase().replace(/[.,;!?]+$/, "");
+                            if (nextLower === "girl" || nextLower === "woman" || isNoun(nextToken)) {
+                                // Check if "that" follows
+                                if (i + 2 < tokens.length && tokens[i + 2].toLowerCase().replace(/[.,;!?]+$/, "") === "that") {
+                                    thatNoun = getWordTranslation(nextToken);
+                                    thatAdj = getWordTranslation(tokens[i]);
+                                    thatNounIndex = i + 1;
+                                    thatAdjIndex = i;
+                                    thatMarkerAdded = true;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                // Check for "that" + adjective + noun  (e.g. "that beautiful girl")
+                if (!thatMarkerAdded) {
+                    for (let i = 0; i < tokens.length; i++) {
+                        const lower = tokens[i].toLowerCase().replace(/[.,;!?]+$/, "");
+                        if (lower === "that" && i + 1 < tokens.length) {
+                            const next1 = tokens[i + 1];
+                            const next1Lower = next1.toLowerCase().replace(/[.,;!?]+$/, "");
+                            // that + adj + noun
+                            if (isAdjective(next1) && i + 2 < tokens.length) {
+                                const next2 = tokens[i + 2];
+                                const next2Lower = next2.toLowerCase().replace(/[.,;!?]+$/, "");
+                                if (isNoun(next2) || next2Lower === "girl" || next2Lower === "woman" || next2Lower === "man" || next2Lower === "box") {
+                                    thatNoun = getWordTranslation(next2);
+                                    thatAdj = getWordTranslation(next1);
+                                    thatNounIndex = i + 2;
+                                    thatAdjIndex = i + 1;
+                                    thatMarkerAdded = true;
+                                    break;
+                                }
+                            } else if (isNoun(next1) || next1Lower === "girl" || next1Lower === "woman" || next1Lower === "man" || next1Lower === "box") {
+                                // that + noun
+                                thatNoun = getWordTranslation(next1);
+                                thatAdj = null;
+                                thatNounIndex = i + 1;
+                                thatAdjIndex = -1;
+                                thatMarkerAdded = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                for (let i = 0; i < tokens.length; i++) {
+                    if (skipNext) {
+                        skipNext = false;
+                        continue;
+                    }
+                    if (skipToToken) {
+                        skipToToken = false;
+                        continue;
+                    }
+                    if (skipWantTo > 0) {
+                        skipWantTo--;
+                        continue;
+                    }
+
+                    // Skip the question word + to + verb pattern we already handled
+                    if (questionWordIndex !== -1 && i >= questionWordIndex && i <= verbIndex) {
+                        continue;
+                    }
+
+                    // Skip "that" token - we'll add it after noun+adjective
+                    if (thatMarkerAdded && tokens[i].toLowerCase().replace(/[.,;!?]+$/, "") === "that") {
+                        continue;
+                    }
+
+                    const token = tokens[i];
+                    const lower = token.toLowerCase().replace(/[.,;!?]+$/, "");
+
+                    if (lower === "a" || lower === "an") {
+                        continue;
+                    }
+
+                    // Handle "too" - we need to find the verb after it
+                    if (lower === "too" && i + 1 < tokens.length) {
+                        const nextToken = tokens[i + 1];
+                        const nextLower = nextToken.toLowerCase().replace(/[.,;!?]+$/, "");
+                        // Check if the next word is an adjective or verb
+                        if (adjectiveMap.has(nextLower) || isActionVerb(nextToken) || isPastParticiple(nextToken)) {
+                            // For "too tired" or "too [adjective]"
+                            // The "too" marker should come after the verb/adjective
+                            tooMarker = "ꤒꤢ꤬ꤜꤝꤥꤏꤢꤦꤜꤢꤦ꤭";
+                            // Translate the next word (adjective/verb)
+                            let adjTrans = getWordTranslation(nextToken);
+                            translatedWords.push(adjTrans);
+                            // Add the "too" marker immediately after
+                            translatedWords.push(tooMarker);
+                            if (firstVerbIndex === -1) firstVerbIndex = translatedWords.length - 1;
+                            skipNext = true; // Skip the next token
+                            continue;
+                        }
+                    }
+
+                    if (isNegativeWord(token)) {
+                        hasNegation = true;
+                        foundNegationWord = token;
+                        // Store the specific negative translation (now using ꤒꤥ꤬ for don't/doesn't)
+                        negativeTranslation = getNegativeTranslation(token);
+                        continue;
+                    }
+
+                    if (isModalAtEnd(token)) {
+                        modalToken = token;
+                        continue;
+                    }
+
+                    if (isToBeVerb(token) && !isHaveVerb(token)) {
+                        toBeFound = true;
+                        // Skip "to be" verbs when they're part of "going to" or "about to"
+                        if (goingToIndex !== -1 && i < goingToIndex) {
+                            continue;
+                        }
+                        // Skip "to be" verbs when they're part of "want to" etc.
+                        if (wantToIndex !== -1 && i < wantToIndex) {
+                            continue;
+                        }
+                        translatedWords.push("ꤥ꤬");
+                        if (firstVerbIndex === -1) firstVerbIndex = translatedWords.length - 1;
+                        continue;
+                    }
+
+                    // Handle "in" - must follow immediately after hotel
+                    if (lower === "in" && i > 0) {
+                        // Check if previous word is "hotel" or similar
+                        const prevToken = tokens[i - 1];
+                        const prevLower = prevToken.toLowerCase().replace(/[.,;!?]+$/, "");
+                        if (prevLower === "hotel" || prevLower === "house" || prevLower === "school" || prevLower === "church" || isNoun(prevToken)) {
+                            // Don't add "in" here - it will be added after the noun
+                            continue;
+                        }
+                    }
+
+                    // Handle "on" - must follow immediately after NOUN
+                    if (lower === "on" && nounForOn) {
+                        // Skip "on" token - we'll add it after the noun
+                        continue;
+                    }
+
+                    if (isPrepositionAfter(token)) {
+                        continue;
+                    }
+
+                    if (isHaveVerb(token)) {
+                        // Don't add translation here - we'll add it at the end
+                        continue;
+                    }
+
+                    if (isHaveWithV3 && i === v3TokenIndex) {
+                        // Skip the V3 token, we'll add it separately
+                        continue;
+                    }
+
+                    if (isStillWord(token)) {
+                        // Skip "still" - we'll add it after the first verb
+                        continue;
+                    }
+
+                    // Handle "going to" and "about to"
+                    if (goingToIndex !== -1 && i === goingToIndex) {
+                        // Use the translation decided in the first pass:
+                        //   going to + NOUN → ꤡꤛꤣꤘꤣ
+                        //   going to + VERB → ꤊꤟꤢꤦ
+                        if (goingToTranslation) {
+                            translatedWords.push(goingToTranslation);
+                            if (firstVerbIndex === -1) firstVerbIndex = translatedWords.length - 1;
+                        } else {
+                            translatedWords.push("ꤡꤛꤣ");
+                            if (firstVerbIndex === -1) firstVerbIndex = translatedWords.length - 1;
+                        }
+                        // Skip the following "to" token
+                        skipToToken = true;
+                        continue;
+                    }
+                    if (goingToIndex !== -1 && i === goingToIndex + 1) {
+                        // This is the "to" token, skip it
+                        continue;
+                    }
+
+                    // Handle "want to", "would like to", "need to", "love to"
+                    if (wantToIndex !== -1 && i === wantToIndex) {
+                        translatedWords.push(wantToTranslation);
+                        if (firstVerbIndex === -1) firstVerbIndex = translatedWords.length - 1;
+                        // Skip the remaining tokens in the phrase
+                        skipWantTo = wantToSkipCount - 1;
+                        continue;
+                    }
+
+                    // Handle "to" before a verb or noun
+                    if (lower === "to" && i + 1 < tokens.length) {
+                        const nextToken = tokens[i + 1];
+                        if (isActionVerb(nextToken) || isPastParticiple(nextToken)) {
+                            // "to" before a verb → show ꤊꤟꤢꤦ
+                            translatedWords.push("ꤊꤟꤢꤦ");
+                            if (firstVerbIndex === -1) firstVerbIndex = translatedWords.length - 1;
+                            continue;
+                        } else if (isNoun(nextToken)) {
+                            // "to" before a noun → show ꤘꤣ
+                            translatedWords.push("ꤘꤣ");
+                            if (firstVerbIndex === -1) firstVerbIndex = translatedWords.length - 1;
+                            continue;
+                        }
+                    }
+
+                    // Handle "when" as a single word (if it's just "when" with no context)
+                    if (lower === "when" && tokens.length === 1) {
+                        translatedWords.push("ꤙꤤꤋꤢꤧ꤭ꤒꤢꤩ꤭");
+                        if (firstVerbIndex === -1) firstVerbIndex = translatedWords.length - 1;
+                        continue;
+                    }
+
+                    // Handle adjective + noun pattern (NOUN + ADJECTIVE in Kayah Li)
+                    if (isAdjective(token) && i + 1 < tokens.length) {
+                        const nextToken = tokens[i + 1];
+                        const nextLower = nextToken.toLowerCase().replace(/[.,;!?]+$/, "");
+                        if (!isAdjective(nextToken) && !isModalAtEnd(nextToken) && !isToBeVerb(nextToken) && !negativeWords
+                            .has(nextLower) && !isTimeConjunction(nextToken) && !isPrepositionAfter(nextToken) && !isHaveVerb(
+                                nextToken) && !isPastParticiple(nextToken)) {
+                            let nounTrans = getWordTranslation(nextToken);
+                            let adjTrans = getWordTranslation(token);
+                            // Check if this is the noun+adj pair that "that" refers to
+                            if (thatMarkerAdded && i === thatAdjIndex) {
+                                translatedWords.push(nounTrans);
+                                translatedWords.push(adjTrans);
+                                translatedWords.push("ꤔꤌꤣ꤬"); // Add "that" after noun+adj
+                                thatMarkerAdded = false;
+                            } else {
+                                translatedWords.push(nounTrans);
+                                translatedWords.push(adjTrans);
+                            }
+                            if (firstVerbIndex === -1) firstVerbIndex = translatedWords.length - 1;
+                            skipNext = true;
+                            continue;
+                        }
+                    }
+
+                    // Handle "tired of" - use new translation
+                    if (lower === "tired" && i + 1 < tokens.length) {
+                        const nextToken = tokens[i + 1];
+                        const nextLower = nextToken.toLowerCase().replace(/[.,;!?]+$/, "");
+                        if (nextLower === "of") {
+                            // "tired of" → ꤞꤢꤧꤕꤜꤢꤪ꤬ꤜꤟꤢꤪ꤭
+                            translatedWords.push("ꤞꤢꤧꤕꤜꤢꤪ꤬ꤜꤟꤢꤪ꤭");
+                            if (firstVerbIndex === -1) firstVerbIndex = translatedWords.length - 1;
+                            skipNext = true; // Skip "of"
+                            continue;
+                        }
+                    }
+
+                    // Handle "forget" - use new translation
+                    if (lower === "forget") {
+                        // Check if it's followed by "to" + verb
+                        if (i + 2 < tokens.length) {
+                            const next1 = tokens[i + 1].toLowerCase().replace(/[.,;!?]+$/, "");
+                            const next2 = tokens[i + 2].toLowerCase().replace(/[.,;!?]+$/, "");
+                            if (next1 === "to" && isActionVerb(tokens[i + 2])) {
+                                // "forget to [verb]" - use the new translation
+                                let verbTrans = getWordTranslation(tokens[i + 2]);
+                                translatedWords.push("ꤏꤥ꤭ꤒꤢ꤬ꤕꤟꤢ꤬");
+                                if (firstVerbIndex === -1) firstVerbIndex = translatedWords.length - 1;
+                                // Add the verb translation
+                                translatedWords.push(verbTrans);
+                                skipNext = true; // Skip "to"
+                                // Skip the verb token
+                                skipNext = true;
+                                skipToToken = true;
+                                continue;
+                            }
+                        }
+                        // Simple "forget" without "to"
+                        translatedWords.push("ꤏꤥ꤭ꤒꤢ꤬ꤕꤟꤢ꤬");
+                        if (firstVerbIndex === -1) firstVerbIndex = translatedWords.length - 1;
+                        continue;
+                    }
+
+                    // Handle "staying" - use new translation
+                    if (lower === "staying") {
+                        translatedWords.push("ꤥ꤬");
+                        if (firstVerbIndex === -1) firstVerbIndex = translatedWords.length - 1;
+                        continue;
+                    }
+
+                    // Handle "drinking" - use new translation
+                    if (lower === "drinking") {
+                        translatedWords.push("ꤒꤟꤢꤧ꤬ꤜꤟꤢꤩꤥ꤭");
+                        if (firstVerbIndex === -1) firstVerbIndex = translatedWords.length - 1;
+                        continue;
+                    }
+
+                    // Context-aware "book" / "booked" / "booking": noun vs verb
+                    let trans;
+                    const lowerTok = token.toLowerCase().replace(/[.,;!?]+$/, "");
+                    if (lowerTok === "book" || lowerTok === "booked" || lowerTok === "booking") {
+                        // Verb forms: booked / booking are always verb
+                        if (lowerTok === "booked" || lowerTok === "booking") {
+                            trans = "ꤊꤝꤤ꤭ꤥ꤬";
+                        } else {
+                            // "book" – decide noun vs verb by context
+                            const prev = i > 0 ? tokens[i - 1].toLowerCase().replace(/[.,;!?]+$/, "") : "";
+                            const prev2 = i > 1 ? tokens[i - 2].toLowerCase().replace(/[.,;!?]+$/, "") : "";
+                            const next = i + 1 < tokens.length ? tokens[i + 1].toLowerCase().replace(/[.,;!?]+$/, "") : "";
+                            const next2 = i + 2 < tokens.length ? tokens[i + 2].toLowerCase().replace(/[.,;!?]+$/, "") : "";
+                            const bookableNouns = new Set([
+                                "hotel", "room", "ticket", "tickets", "flight", "plane",
+                                "table", "seat", "reservation", "appointment", "bus"
+                            ]);
+                            // "need to book", "want to book", "must book", "to book", "book a room" …
+                            const isVerbContext =
+                                prev === "to" ||
+                                prev === "need to" ||
+                                prev === "want to" ||
+                                prev === "have to" ||
+                                prev === "must" ||
+                                prev === "should" ||
+                                prev === "can" ||
+                                prev === "will" ||
+                                prev === "let's" ||
+                                prev === "lets" ||
+                                prev === "let" ||
+                                (prev2 === "need" && prev === "to") ||
+                                (prev2 === "want" && prev === "to") ||
+                                bookableNouns.has(next) ||
+                                next === "it" ||   // "book it"
+                                ((next === "a" || next === "an" || next === "the" || next === "our" || next === "my" || next === "your") &&
+                                    (bookableNouns.has(next2) || next2 === "plane" || next2 === "tickets")) ||
+                                (i === 0); // imperative "Book …"
+                            trans = isVerbContext ? "ꤊꤝꤤ꤭ꤥ꤬" : "ꤜꤤ꤬ꤢꤨ";
+                        }
+                    } else {
+                        trans = getWordTranslation(token);
+                    }
+                    if (trans !== null) {
+                        translatedWords.push(trans);
+                        if (firstVerbIndex === -1 && isActionVerb(token)) {
+                            firstVerbIndex = translatedWords.length - 1;
+                        }
+                        // If this is a lone "that + noun" (no adj), append "that" after the noun
+                        if (thatMarkerAdded && thatAdjIndex === -1 && i === thatNounIndex) {
+                            translatedWords.push("ꤔꤌꤣ꤬");
+                            thatMarkerAdded = false;
+                        }
+                    } else {
+                        translatedWords.push(token);
+                    }
+                }
+
+                // Insert "still" after the first verb if found
+                if (stillTranslation && firstVerbIndex !== -1 && firstVerbIndex < translatedWords.length) {
+                    translatedWords.splice(firstVerbIndex + 1, 0, stillTranslation);
+                } else if (stillTranslation) {
+                    // If no verb found, add "still" after the subject or at position 1
+                    if (translatedWords.length > 0) {
+                        translatedWords.splice(1, 0, stillTranslation);
+                    } else {
+                        translatedWords.push(stillTranslation);
+                    }
+                }
+
+                // Insert "on" immediately after the noun it modifies (NOUN + on)
+                if (nounForOn && onTranslation) {
+                    let nounFound = false;
+                    let newTranslatedWords = [];
+                    for (let i = 0; i < translatedWords.length; i++) {
+                        newTranslatedWords.push(translatedWords[i]);
+                        // Check if this is the noun that should be followed by "on"
+                        if (!nounFound && translatedWords[i] === nounForOn) {
+                            newTranslatedWords.push(onTranslation);
+                            nounFound = true;
+                        }
+                    }
+                    // If the noun wasn't found (e.g., "screenshot" wasn't in dict), add it
+                    if (!nounFound && nounForOn) {
+                        newTranslatedWords.push(nounForOn);
+                        newTranslatedWords.push(onTranslation);
+                    }
+                    translatedWords = newTranslatedWords;
+                }
+
+                // Add "in" after hotel (hotel + in)
+                if (inTranslation) {
+                    let inMarker = "ꤊꤢꤨ꤭";
+                    let hotelFound = false;
+                    let newTranslatedWords = [];
+                    for (let i = 0; i < translatedWords.length; i++) {
+                        newTranslatedWords.push(translatedWords[i]);
+                        // Check if this is "hotel" (ꤟꤢꤪ꤬ꤒꤢꤧ꤬)
+                        if (!hotelFound && translatedWords[i] === "ꤟꤢꤪ꤬ꤒꤢꤧ꤬") {
+                            newTranslatedWords.push(inMarker);
+                            hotelFound = true;
+                        }
+                    }
+                    if (!hotelFound) {
+                        // If no hotel found, add "in" at the end
+                        newTranslatedWords.push(inMarker);
+                    }
+                    translatedWords = newTranslatedWords;
+                }
+
+                // Insert "for" after the noun / subject pronoun it modifies
+                if (nounForFor && forTranslation) {
+                    let nounFound = false;
+                    let newTranslatedWords = [];
+                    for (let i = 0; i < translatedWords.length; i++) {
+                        newTranslatedWords.push(translatedWords[i]);
+                        if (!nounFound && translatedWords[i] === nounForFor) {
+                            newTranslatedWords.push(forTranslation);
+                            nounFound = true;
+                        }
+                    }
+                    if (!nounFound) {
+                        newTranslatedWords.push(forTranslation);
+                    }
+                    translatedWords = newTranslatedWords;
+                }
+
+                // Insert "about" after the noun / subject pronoun it modifies
+                if (nounForAbout && aboutTranslation) {
+                    let nounFound = false;
+                    let newTranslatedWords = [];
+                    for (let i = 0; i < translatedWords.length; i++) {
+                        newTranslatedWords.push(translatedWords[i]);
+                        if (!nounFound && translatedWords[i] === nounForAbout) {
+                            newTranslatedWords.push(aboutTranslation);
+                            nounFound = true;
+                        }
+                    }
+                    if (!nounFound) {
+                        newTranslatedWords.push(aboutTranslation);
+                    }
+                    translatedWords = newTranslatedWords;
+                }
+
+                let result = translatedWords.join(" ");
+
+                // Handle "have" cases
+                if (haveFound) {
+                    if (isHaveWithV3 && v3Translation) {
+                        // Perfect aspect: place the past-participle (V3) after the
+                        // subject / noun-phrase. Prefer after the "that" marker
+                        // when present (e.g. "that good girl has done …"),
+                        // otherwise after a simple pronoun subject.
+                        // Never invent a default "I" (ꤠꤢ꤭).
+                        const resultWords = result.split(" ").filter(w => w.length > 0);
+                        let newResult = [];
+                        let inserted = false;
+
+                        // 1) Prefer insertion right after the "that" marker
+                        for (let j = 0; j < resultWords.length; j++) {
+                            newResult.push(resultWords[j]);
+                            if (!inserted && resultWords[j] === "ꤔꤌꤣ꤬") {
+                                newResult.push(v3Translation);
+                                inserted = true;
+                            }
+                        }
+
+                        // 2) Otherwise after a known subject pronoun
+                        if (!inserted && subjectTranslation) {
+                            newResult = [];
+                            for (let j = 0; j < resultWords.length; j++) {
+                                newResult.push(resultWords[j]);
+                                if (!inserted && resultWords[j] === subjectTranslation) {
+                                    newResult.push(v3Translation);
+                                    inserted = true;
+                                }
+                            }
+                        }
+
+                        // 3) Fallback: just append the V3 (do NOT invent a subject)
+                        if (!inserted) {
+                            newResult = resultWords.concat([v3Translation]);
+                        }
+                        result = newResult.join(" ");
+                    } else if (nounTranslation) {
+                        // For noun case, add the noun first
+                        const resultWords = result.split(" ");
+                        let newResult = [];
+                        let nounFound = false;
+                        for (let j = 0; j < resultWords.length; j++) {
+                            newResult.push(resultWords[j]);
+                            if (!nounFound && resultWords[j] === nounTranslation) {
+                                nounFound = true;
+                            }
+                        }
+                        if (!nounFound) {
+                            newResult.push(nounTranslation);
+                        }
+                        result = newResult.join(" ");
+                    }
+                }
+
+                // Add the appropriate have marker at the end
+                if (haveFound && haveTranslation) {
+                    // Check if we already added a special "have a ..." translation
+                    const specialPhrases = ["ꤥ꤬ꤔꤢꤒꤟꤢꤧ꤬ꤚꤛꤢ", "ꤥ꤬ꤔꤢꤒꤟꤢꤧ꤬ꤒꤝꤟꤥ"];
+                    if (specialPhrases.includes(haveTranslation)) {
+                        // If it's a special phrase, just use it as the result
+                        result = haveTranslation;
+                    } else {
+                        result += " " + haveTranslation;
+                    }
+                }
+
+                // Handle negation - use ꤒꤥ꤬ for don't/doesn't when subject present;
+                // if no subject (imperative / "don't ..." start) use ꤒꤢꤧ꤭ꤗꤟꤢꤩ
+                if (hasNegation) {
+                    let negToUse = negativeTranslation || "ꤒꤥ꤬";
+                    // If sentence starts with don't/doesn't/didn't (no subject before the negative), use special form
+                    if (isDonStart || (!subjectTranslation && !subjectToken)) {
+                        // special form for subject-less negative
+                        if (foundNegationWord && (foundNegationWord.toLowerCase().startsWith("don") || foundNegationWord.toLowerCase().startsWith("doesn") || foundNegationWord.toLowerCase().startsWith("didn"))) {
+                            negToUse = "ꤒꤢꤧ꤭ꤗꤟꤢꤩ";
+                        }
+                    }
+                    if (!result.endsWith(" " + negToUse) && !result.endsWith(negToUse)) {
+                        result += " " + negToUse;
+                    }
+                }
+
+                let modalInfo = null;
+                if (modalToken) {
+                    const lowerModal = modalToken.toLowerCase();
+                    if (lowerModal === "will") {
+                        modalInfo = { type: "will", isQuestion: isQuestion };
+                    } else if (lowerModal === "can" || lowerModal === "could" || lowerModal === "may") {
+                        modalInfo = { type: "can", isQuestion: isQuestion };
+                    }
+                }
+
+                return {
+                    text: result,
+                    hasNegation: hasNegation,
+                    modalInfo: modalInfo,
+                    toBeFound: toBeFound,
+                    haveFound: haveFound,
+                    haveTranslation: haveTranslation,
+                    isHaveStart: isHaveStart || false,
+                    nounTranslation: nounTranslation,
+                    v3Translation: v3Translation,
+                    isAuxiliaryHave: isAuxiliaryHave,
+                    isMainVerbHave: isMainVerbHave,
+                    isImperative: isImperative || false,
+                    isDonStart: isDonStart || false
+                };
+            }
+
+            // --------------------------------------------------------------
+            //  Translate English → Kayah Li
+            // --------------------------------------------------------------
+            function translateToKayah(text) {
+                if (!text.trim()) return "";
+
+                const trimmed = text.trim();
+                const lowerTrimmed = trimmed.toLowerCase();
+
+                // Handle single word "to"
+                if (lowerTrimmed === "to") {
+                    return "ꤘꤣ";
+                }
+
+                // Handle single word "when"
+                if (lowerTrimmed === "when") {
+                    return "ꤙꤤꤋꤢꤧ꤭ꤒꤢꤩ꤭";
+                }
+
+                for (const key of exactPhraseKeys) {
+                    if (lowerTrimmed === key) {
+                        const result = dict.get(key);
+                        if (result) return result;
+                    }
+                }
+
+                if (trimmed.endsWith("?")) {
+                    const base = trimmed.slice(0, -1).trim();
+                    const lowerBase = base.toLowerCase();
+                    if (exactPhraseKeys.has(lowerBase)) {
+                        const result = dict.get(lowerBase);
+                        if (result) return result + "?";
+                    }
+                }
+
+                // Split by punctuation marks to handle multiple sentences
+                const rawSentences = text.split(/(?<=[.,;!?])\s*/).filter(s => s.trim().length > 0);
+                if (rawSentences.length === 0) return "";
+
+                const translatedSentences = rawSentences.map(sentence => {
+                    sentence = sentence.trim();
+                    if (!sentence) return "";
+
+                    const sentLower = sentence.toLowerCase();
+
+                    const endsWithQuestion = sentence.endsWith("?");
+                    const endsWithPeriod = sentence.endsWith(".");
+                    const endsWithExclamation = sentence.endsWith("!");
+                    const endsWithComma = sentence.endsWith(",");
+                    const endsWithSemicolon = sentence.endsWith(";");
+
+                    let cleanSentence = sentence;
+                    let trailingPunct = "";
+                    if (endsWithQuestion) {
+                        cleanSentence = sentence.slice(0, -1);
+                        trailingPunct = "?";
+                    } else if (endsWithExclamation) {
+                        cleanSentence = sentence.slice(0, -1);
+                        trailingPunct = "!";
+                    } else if (endsWithPeriod) {
+                        cleanSentence = sentence.slice(0, -1);
+                        trailingPunct = "꤯";
+                    } else if (endsWithComma) {
+                        cleanSentence = sentence.slice(0, -1);
+                        trailingPunct = ",";
+                    } else if (endsWithSemicolon) {
+                        cleanSentence = sentence.slice(0, -1);
+                        trailingPunct = ";";
+                    }
+
+                    const tokens = tokenizeEnglish(cleanSentence);
+                    if (tokens.length === 0) return "";
+
+                    // Check if this is an imperative sentence (starts with verb or "don't")
+                    const firstToken = tokens.length > 0 ? tokens[0].toLowerCase() : "";
+                    const isImperative = (firstToken !== "i" && firstToken !== "you" && firstToken !== "we" && firstToken !== "they" && firstToken !== "he" && firstToken !== "she" && firstToken !== "it" && firstToken !== "what" && firstToken !== "who" && firstToken !== "when" && firstToken !== "why" && firstToken !== "where" && firstToken !== "how" && firstToken !== "will" && firstToken !== "can" && firstToken !== "could" && firstToken !== "may" && firstToken !== "should" && firstToken !== "do" && firstToken !== "does" && firstToken !== "did" && firstToken !== "am" && firstToken !== "is" && firstToken !== "are" && firstToken !== "was" && firstToken !== "were" && firstToken !== "have" && firstToken !== "has" && firstToken !== "had") || firstToken === "don't";
+
+                    const isToBeQuestion = isToBeQuestionStart(firstToken);
+
+                    // Check if sentence starts with have/has/had
+                    const isHaveStart = isHaveVerb(firstToken);
+
+                    const isWillStart = firstToken === "will";
+                    const isCanStart = firstToken === "can";
+                    const isCouldStart = firstToken === "could";
+                    const isMayStart = firstToken === "may";
+                    const isShouldStart = firstToken === "should";
+                    const isDoStart = firstToken === "do" || firstToken === "does" || firstToken === "did";
+
+                    const isWhQuestion = whQuestionKeys.has(firstToken) ||
+                        ["what", "who", "when", "why", "which", "where", "how"].includes(firstToken) ||
+                        isDoStart || isWillStart || isCanStart || isCouldStart || isMayStart || isShouldStart;
+
+                    // ----------------------------------------------------------
+                    // Special handling: "not only ... but also ..."
+                    // ꤕꤢ꤭ꤕꤢ꤭ must appear at the very end (after the second element)
+                    // Handles both cases:
+                    //   - tokens already combined by tokenizeEnglish ("not only", "but also")
+                    //   - tokens still separate ("not", "only", "but", "also")
+                    // ----------------------------------------------------------
+                    {
+                        let notOnlyIndex = -1;
+                        let notOnlySkip = 0;
+                        let butAlsoIndex = -1;
+                        let butAlsoSkip = 0;
+
+                        for (let i = 0; i < tokens.length; i++) {
+                            const lower = tokens[i].toLowerCase().replace(/[.,;!?]+$/, "");
+                            // Already combined by tokenizer
+                            if (lower === "not only") {
+                                notOnlyIndex = i;
+                                notOnlySkip = 1;
+                            } else if (lower === "but also") {
+                                butAlsoIndex = i;
+                                butAlsoSkip = 1;
+                            }
+                            // Still separate words
+                            if (i + 1 < tokens.length) {
+                                const two = (tokens[i] + " " + tokens[i + 1]).toLowerCase().replace(/[.,;!?]+$/g, "");
+                                if (two === "not only") {
+                                    notOnlyIndex = i;
+                                    notOnlySkip = 2;
+                                }
+                                if (two === "but also") {
+                                    butAlsoIndex = i;
+                                    butAlsoSkip = 2;
+                                }
+                            }
+                        }
+
+                        if (notOnlyIndex >= 0 && butAlsoIndex > notOnlyIndex) {
+                            // Parts: before "not only" | between "not only" and "but also" | after "but also"
+                            const before = tokens.slice(0, notOnlyIndex);
+                            const middle = tokens.slice(notOnlyIndex + notOnlySkip, butAlsoIndex);
+                            const after = tokens.slice(butAlsoIndex + butAlsoSkip);
+
+                            let beforeResult = translatePhrase(before, false, false, false);
+                            let middleResult = translatePhrase(middle, false, false, false);
+                            let afterResult = translatePhrase(after, false, false, false);
+
+                            // Desired order: [before] [middle] ꤒꤢꤦꤗꤟꤢꤒꤥ꤬ [after] ꤕꤢ꤭ꤕꤢ꤭
+                            // so that ꤕꤢ꤭ꤕꤢ꤭ appears at the very end after the second element
+                            let result = "";
+                            if (beforeResult.text) result += beforeResult.text + " ";
+                            if (middleResult.text) result += middleResult.text + " ";
+                            result += "ꤒꤢꤦꤗꤟꤢꤒꤥ꤬ ";
+                            if (afterResult.text) result += afterResult.text + " ";
+                            result += "ꤕꤢ꤭ꤕꤢ꤭";
+
+                            result = result.replace(/\s+/g, " ").trim();
+                            if (trailingPunct) {
+                                if (trailingPunct === "?") result += "?";
+                                else if (trailingPunct === "꤯") result += "꤯";
+                                else if (trailingPunct === "!") result += "!";
+                                else result += trailingPunct;
+                            }
+                            return result;
+                        }
+                    }
+
+                    let timeConjIndex = -1;
+                    let timeConjType = null;
+                    let timeConjSkip = 1; // number of tokens the primary conjunction occupies
+
+                    // Detect primary time conjunctions (supports multi-word)
+                    for (let i = 0; i < tokens.length; i++) {
+                        // Try 3-word first
+                        if (i + 2 < tokens.length) {
+                            const threeWord = (tokens[i] + " " + tokens[i + 1] + " " + tokens[i + 2]).toLowerCase().replace(/[.,;!?]+$/g, "");
+                            if (timeConjunctions.has(threeWord)) {
+                                timeConjIndex = i;
+                                timeConjType = threeWord;
+                                timeConjSkip = 3;
+                                break;
+                            }
+                        }
+                        // Try 2-word
+                        if (i + 1 < tokens.length) {
+                            const twoWord = (tokens[i] + " " + tokens[i + 1]).toLowerCase().replace(/[.,;!?]+$/g, "");
+                            if (timeConjunctions.has(twoWord)) {
+                                timeConjIndex = i;
+                                timeConjType = twoWord;
+                                timeConjSkip = 2;
+                                break;
+                            }
+                        }
+                        // Single word
+                        const lower = tokens[i].toLowerCase().replace(/[.,;!?]+$/, "");
+                        if (timeConjunctions.has(lower)) {
+                            timeConjIndex = i;
+                            timeConjType = lower;
+                            timeConjSkip = 1;
+                            break;
+                        }
+                    }
+
+                    // Handle time conjunctions
+                    if (timeConjIndex >= 0 && timeConjIndex < tokens.length - 1) {
+                        let mainTokens = [];
+                        let timeTokens = [];
+                        for (let i = 0; i < timeConjIndex; i++) {
+                            mainTokens.push(tokens[i]);
+                        }
+                        for (let i = timeConjIndex + timeConjSkip; i < tokens.length; i++) {
+                            timeTokens.push(tokens[i]);
+                        }
+
+                        let mainResult = translatePhrase(mainTokens, endsWithQuestion || isToBeQuestion || isWhQuestion, isHaveStart, isImperative);
+
+                        // Secondary conjunctions that should appear AFTER the primary "when" marker
+                        // (ꤢ꤬ꤋꤢꤧ꤭ must show before all of these)
+                        const secondaryConjunctions = {
+                            "because": "ꤗꤟꤢꤩ꤬ꤒꤢꤩ꤭ꤚꤢꤪ",
+                            "and": "ꤓꤌꤣ꤭ꤕꤢ꤭",
+                            "nor": "ꤒꤥ꤬ꤒꤥ꤬",
+                            "but": "ꤗꤢ꤬ꤔꤢ",
+                            "or": "ꤒꤥ꤬ꤗꤢ꤬",
+                            "yet": "ꤟꤤ",
+                            "so": "ꤚꤢꤪ",
+                            "either": "ꤒꤣ꤬ꤊꤟꤊꤣ꤬ꤊꤟꤊꤣ꤬",
+                            "neither": "ꤜꤟꤢꤪ꤭ꤟꤤ꤭ꤥ꤬",
+                            "both": "ꤜꤟꤢꤪ꤭ꤜꤟꤢꤪ꤭",
+                            "since": "ꤔꤌꤣ꤬ꤕꤢ꤭",
+                            "while": "ꤢ꤬ꤋꤢꤧ꤭",
+                            "before": "ꤟꤤꤒꤥ꤬ꤢ꤬ꤋꤢꤧ꤭",
+                            "after": "ꤋꤛꤢꤩ꤭",
+                            "if": "ꤊꤤ꤬",
+                            "not only": "ꤒꤢꤦꤗꤟꤢꤒꤥ꤬",
+                            "but also": "ꤕꤢ꤭ꤕꤢ꤭",
+                            "as soon as": "ꤙꤤꤋꤢꤧ꤭ꤒꤢꤩ꤭ꤔꤌꤣ꤬",
+                            "although": "ꤒꤢ꤬ꤘꤣ꤬",
+                            "whether": "ꤒꤣ꤬ꤊꤟꤊꤣ꤬ꤊꤟꤊꤣ꤬",
+                            "once": "ꤒꤣ꤬ꤖꤟꤌꤣꤒꤌꤣ꤭",
+                            "inasmuch as": "ꤢ꤬ꤗꤟꤢꤩ꤬ꤒꤢꤩ꤭ꤔꤌꤣ꤬"
+                        };
+
+                        let secondaryIndex = -1;
+                        let secondaryType = null;
+                        let secondarySkip = 1; // how many tokens the secondary conjunction occupies
+
+                        // First try multi-word secondary conjunctions
+                        for (let i = 0; i < timeTokens.length; i++) {
+                            // Check 2-word phrases
+                            if (i + 1 < timeTokens.length) {
+                                const twoWord = (timeTokens[i] + " " + timeTokens[i + 1]).toLowerCase().replace(/[.,;!?]+$/g, "");
+                                if (secondaryConjunctions.hasOwnProperty(twoWord)) {
+                                    secondaryIndex = i;
+                                    secondaryType = twoWord;
+                                    secondarySkip = 2;
+                                    break;
+                                }
+                            }
+                        }
+
+                        // Then single-word if no multi-word found
+                        if (secondaryIndex === -1) {
+                            for (let i = 0; i < timeTokens.length; i++) {
+                                const lower = timeTokens[i].toLowerCase().replace(/[.,;!?]+$/, "");
+                                if (secondaryConjunctions.hasOwnProperty(lower)) {
+                                    secondaryIndex = i;
+                                    secondaryType = lower;
+                                    secondarySkip = 1;
+                                    break;
+                                }
+                            }
+                        }
+
+                        let timeTranslation = timeConjunctions.get(timeConjType);
+                        // Replace WHEN_PLACEHOLDER with the correct translation for "when"
+                        if (timeTranslation === "WHEN_PLACEHOLDER") {
+                            timeTranslation = "ꤢ꤬ꤋꤢꤧ꤭";
+                        }
+
+                        let result = mainResult.text;
+
+                        if (secondaryIndex >= 0) {
+                            // Split timeTokens around the secondary conjunction
+                            // so that ꤢ꤬ꤋꤢꤧ꤭ appears BEFORE the secondary conjunction marker
+                            let beforeSecondary = timeTokens.slice(0, secondaryIndex);
+                            let afterSecondary = timeTokens.slice(secondaryIndex + secondarySkip);
+
+                            let beforeResult = translatePhrase(beforeSecondary, false, false, false);
+                            let afterResult = translatePhrase(afterSecondary, false, false, false);
+
+                            if (beforeResult.text.length > 0) {
+                                result += " " + beforeResult.text;
+                            }
+                            // Place primary "when" marker BEFORE the secondary conjunction
+                            result += " " + timeTranslation;
+                            result += " " + secondaryConjunctions[secondaryType];
+                            if (afterResult.text.length > 0) {
+                                result += " " + afterResult.text;
+                            }
+                        } else {
+                            // Normal case: no secondary conjunction inside the time clause
+                            let timeResult = translatePhrase(timeTokens, false, false, false);
+                            if (timeResult.text.length > 0) {
+                                result += " " + timeResult.text;
+                            }
+                            result += " " + timeTranslation;
+                        }
+
+                        if (mainResult.modalInfo) {
+                            if (isWillStart || endsWithQuestion) {
+                                if (mainResult.modalInfo.type === "will") {
+                                    result += " ꤕꤢ꤭ꤟꤟꤢꤧ꤭";
+                                } else {
+                                    result += " ꤢ꤬ꤔꤟꤤꤕꤚꤢꤧꤟꤟꤢꤧ꤭";
+                                }
+                            } else {
+                                if (mainResult.modalInfo.type === "will") {
+                                    result += " ꤕꤢ꤭";
+                                } else {
+                                    result += " ꤢ꤬ꤔꤟꤤꤕꤚꤢꤧ";
+                                }
+                            }
+                        }
+
+                        if (isToBeQuestion) {
+                            result += " ꤥ꤬ꤟꤟꤢꤧ꤭";
+                        }
+
+                        result = result.replace(/\s+/g, " ").trim();
+                        if (trailingPunct) {
+                            if (trailingPunct === "?") result += "?";
+                            else if (trailingPunct === "꤯") result += "꤯";
+                            else if (trailingPunct === "!") result += "!";
+                            else result += trailingPunct;
+                        }
+                        return result;
+                    }
+
+                    // Handle "if"
+                    let hasIf = false;
+                    let ifIndex = -1;
+                    for (let i = 0; i < tokens.length; i++) {
+                        if (tokens[i].toLowerCase() === "if") {
+                            hasIf = true;
+                            ifIndex = i;
+                            break;
+                        }
+                    }
+
+                    if (hasIf && ifIndex >= 0) {
+                        let mainTokens = [];
+                        let ifTokens = [];
+                        for (let i = 0; i < ifIndex; i++) {
+                            mainTokens.push(tokens[i]);
+                        }
+                        for (let i = ifIndex + 1; i < tokens.length; i++) {
+                            ifTokens.push(tokens[i]);
+                        }
+
+                        let mainResult = translatePhrase(mainTokens, endsWithQuestion || isToBeQuestion || isWhQuestion, isHaveStart, isImperative);
+                        let ifResult = translatePhrase(ifTokens, false, false, false);
+
+                        let result = mainResult.text;
+                        if (result.length > 0) {
+                            result += " ꤊꤤ꤬";
+                        } else {
+                            result = "ꤊꤤ꤬";
+                        }
+                        if (ifResult.text.length > 0) {
+                            result += " " + ifResult.text;
+                        }
+
+                        if (mainResult.modalInfo) {
+                            if (isWillStart || endsWithQuestion) {
+                                if (mainResult.modalInfo.type === "will") {
+                                    result += " ꤕꤢ꤭ꤟꤟꤢꤧ꤭";
+                                } else {
+                                    result += " ꤢ꤬ꤔꤟꤤꤕꤚꤢꤧꤟꤟꤢꤧ꤭";
+                                }
+                            } else {
+                                if (mainResult.modalInfo.type === "will") {
+                                    result += " ꤕꤢ꤭";
+                                } else {
+                                    result += " ꤢ꤬ꤔꤟꤤꤕꤚꤢꤧ";
+                                }
+                            }
+                        }
+
+                        if (isToBeQuestion) {
+                            result += " ꤥ꤬ꤟꤟꤢꤧ꤭";
+                        }
+
+                        result = result.replace(/\s+/g, " ").trim();
+                        if (trailingPunct) {
+                            if (trailingPunct === "?") result += "?";
+                            else if (trailingPunct === "꤯") result += "꤯";
+                            else if (trailingPunct === "!") result += "!";
+                            else result += trailingPunct;
+                        }
+                        return result;
+                    }
+
+                    // Handle "because"
+                    let hasBecause = false;
+                    let becauseIndex = -1;
+                    for (let i = 0; i < tokens.length; i++) {
+                        if (tokens[i].toLowerCase() === "because") {
+                            hasBecause = true;
+                            becauseIndex = i;
+                            break;
+                        }
+                    }
+
+                    if (hasBecause && becauseIndex >= 0) {
+                        let mainTokens = [];
+                        let becauseTokens = [];
+                        for (let i = 0; i < becauseIndex; i++) {
+                            mainTokens.push(tokens[i]);
+                        }
+                        for (let i = becauseIndex + 1; i < tokens.length; i++) {
+                            becauseTokens.push(tokens[i]);
+                        }
+
+                        let mainResult = translatePhrase(mainTokens, endsWithQuestion || isToBeQuestion || isWhQuestion, isHaveStart, isImperative);
+                        let becauseResult = translatePhrase(becauseTokens, false, false, false);
+
+                        let result = mainResult.text;
+                        if (result.length > 0) {
+                            result += " " + "ꤗꤟꤢꤩ꤬ꤒꤢꤩ꤭ꤚꤢꤪ";
+                        } else {
+                            result = "ꤗꤟꤢꤩ꤬ꤒꤢꤩ꤭ꤚꤢꤪ";
+                        }
+                        if (becauseResult.text.length > 0) {
+                            result += " " + becauseResult.text;
+                        }
+
+                        if (mainResult.modalInfo) {
+                            if (isWillStart || endsWithQuestion) {
+                                if (mainResult.modalInfo.type === "will") {
+                                    result += " ꤕꤢ꤭ꤟꤟꤢꤧ꤭";
+                                } else {
+                                    result += " ꤢ꤬ꤔꤟꤤꤕꤚꤢꤧꤟꤟꤢꤧ꤭";
+                                }
+                            } else {
+                                if (mainResult.modalInfo.type === "will") {
+                                    result += " ꤕꤢ꤭";
+                                } else {
+                                    result += " ꤢ꤬ꤔꤟꤤꤕꤚꤢꤧ";
+                                }
+                            }
+                        }
+
+                        if (isToBeQuestion) {
+                            result += " ꤥ꤬ꤟꤟꤢꤧ꤭";
+                        }
+
+                        result = result.replace(/\s+/g, " ").trim();
+                        if (trailingPunct) {
+                            if (trailingPunct === "?") result += "?";
+                            else if (trailingPunct === "꤯") result += "꤯";
+                            else if (trailingPunct === "!") result += "!";
+                            else result += trailingPunct;
+                        }
+                        return result;
+                    }
+
+                    // Handle "to be" questions
+                    if (isToBeQuestion) {
+                        let remainingTokens = tokens.slice(1);
+                        let result = translatePhrase(remainingTokens, true, false, isImperative);
+                        let finalResult = result.text;
+
+                        finalResult += " ꤥ꤬ꤟꤟꤢꤧ꤭";
+
+                        if (trailingPunct) {
+                            if (trailingPunct === "?") finalResult += "?";
+                            else if (trailingPunct === "꤯") finalResult += "꤯";
+                            else if (trailingPunct === "!") finalResult += "!";
+                            else finalResult += trailingPunct;
+                        }
+                        return finalResult;
+                    }
+
+                    // Handle WH-questions
+                    if (isWhQuestion) {
+                        let questionTranslation = null;
+                        let remainingTokens = [];
+
+                        if (isWillStart || isCanStart || isCouldStart || isMayStart) {
+                            remainingTokens = tokens.slice(1);
+                            if (isWillStart) {
+                                questionTranslation = "ꤕꤢ꤭ꤟꤟꤢꤧ꤭";
+                            } else {
+                                questionTranslation = "ꤢ꤬ꤔꤟꤤꤕꤚꤢꤧꤟꤟꤢꤧ꤭";
+                            }
+                        } else if (isShouldStart) {
+                            questionTranslation = "ꤒꤥ꤭ꤊꤢꤪ꤬ꤟꤟꤢꤧ꤭";
+                            remainingTokens = tokens.slice(1);
+                        } else if (isDoStart) {
+                            questionTranslation = "ꤟꤟꤢꤧ꤭";
+                            remainingTokens = tokens.slice(1);
+                        } else {
+                            let matched = false;
+                            for (let n = 4; n >= 1; n--) {
+                                if (tokens.length >= n) {
+                                    const phrase = tokens.slice(0, n).join(" ").toLowerCase();
+                                    if (whQuestionKeys.has(phrase)) {
+                                        const trans = dict.get(phrase);
+                                        if (trans) {
+                                            questionTranslation = trans;
+                                        } else {
+                                            const parts = phrase.split(" ");
+                                            let transParts = [];
+                                            for (const p of parts) {
+                                                transParts.push(getTranslation(p));
+                                            }
+                                            questionTranslation = transParts.join(" ");
+                                        }
+                                        remainingTokens = tokens.slice(n);
+                                        matched = true;
+                                        break;
+                                    }
+                                }
+                            }
+                            if (!matched) {
+                                questionTranslation = getTranslation(firstToken);
+                                remainingTokens = tokens.slice(1);
+                            }
+                        }
+
+                        let result = translatePhrase(remainingTokens, true, isHaveStart, isImperative);
+                        let finalResult = result.text;
+
+                        if (finalResult.length > 0 && questionTranslation) {
+                            finalResult += " " + questionTranslation;
+                        } else if (questionTranslation) {
+                            finalResult = questionTranslation;
+                        }
+
+                        if (trailingPunct) {
+                            if (trailingPunct === "?") finalResult += "?";
+                            else if (trailingPunct === "꤯") finalResult += "꤯";
+                            else if (trailingPunct === "!") finalResult += "!";
+                            else finalResult += trailingPunct;
+                        }
+                        return finalResult;
+                    }
+
+                    // Simple sentence
+                    let result = translatePhrase(tokens, false, isHaveStart, isImperative);
+                    let finalResult = result.text;
+
+                    if (result.modalInfo) {
+                        if (result.modalInfo.type === "will") {
+                            finalResult += " ꤕꤢ꤭";
+                        } else {
+                            finalResult += " ꤢ꤬ꤔꤟꤤꤕꤚꤢꤧ";
+                        }
+                    }
+
+                    if (trailingPunct) {
+                        if (trailingPunct === "?") finalResult += "?";
+                        else if (trailingPunct === "꤯") finalResult += "꤯";
+                        else if (trailingPunct === "!") finalResult += "!";
+                        else finalResult += trailingPunct;
+                    }
+                    return finalResult;
+                });
+
+                return translatedSentences.join(" ");
+            }
+
+            // --------------------------------------------------------------
+            //  Translate Kayah Li → English
+            // --------------------------------------------------------------
+            function translateToEnglish(text) {
+                if (!text.trim()) return "";
+                let normalized = text.replace(/꤯/g, ".");
+                const tokens = normalized.split(/\s+/).filter(w => w.length > 0);
+                const englishParts = tokens.map(token => {
+                    let punct = "";
+                    const match = token.match(/[.,;!?]+$/);
+                    if (match) {
+                        punct = match[0];
+                        token = token.slice(0, -match[0].length);
+                    }
+                    let eng = reverseDict.get(token);
+                    if (!eng) {
+                        eng = token;
+                    }
+                    return eng + punct;
+                });
+                return englishParts.join(" ");
+            }
+
+            // --------------------------------------------------------------
+            //  UI logic
+            // --------------------------------------------------------------
+            const inputEl = document.getElementById("inputText");
+            const outputEl = document.getElementById("outputText");
+
+            let currentDirection = "en2kayah";
+
+            function updateTranslation() {
+                const raw = inputEl.value;
+                let result = "";
+                if (currentDirection === "en2kayah") {
+                    result = translateToKayah(raw);
+                } else {
+                    result = translateToEnglish(raw);
+                }
+                outputEl.textContent = result || " ";
+            }
+
+            inputEl.addEventListener("input", updateTranslation);
+
+            currentDirection = "en2kayah";
+            inputEl.placeholder = "Type English …";
+            window.addEventListener("load", function() {
+                updateTranslation();
+            });
+
+            window.translator = { translateToKayah, translateToEnglish };
+        })();
+    </script>
+</body>
+</html>
