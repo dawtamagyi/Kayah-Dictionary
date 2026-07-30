@@ -2194,8 +2194,9 @@
                             }
                         }
 
-                        // Build result: noun + whWord + subject + verb + (modal question form at end)
-                        // Detect which modal/aux was used for end-of-sentence form
+                        // Build result: noun + whWord + subject + verb + (modal form at end)
+                        // WH+noun patterns are questions → use full form (…ꤟꤟꤢꤧ꤭)
+                        // Statement "will" after subject → short form ꤕꤢ꤭ (handled outside this block)
                         let endModalMarker = questionMarker; // default ꤟꤟꤢꤧ꤭ (do)
                         let foundWill = false;
                         let foundShould = false;
@@ -2207,7 +2208,7 @@
                             if (lower === "can" || lower === "could" || lower === "may") foundCan = true;
                         }
                         if (foundWill) {
-                            endModalMarker = "ꤕꤢ꤭ꤟꤟꤢꤧ꤭";
+                            endModalMarker = "ꤕꤢ꤭ꤟꤟꤢꤧ꤭"; // question → full form
                         } else if (foundShould) {
                             endModalMarker = "ꤒꤥ꤭ꤊꤢꤪ꤬ꤟꤟꤢꤧ꤭";
                         } else if (foundCan) {
@@ -2433,22 +2434,23 @@
                         }
 
                         // Modal/aux form goes at end of main clause, BEFORE the time conjunction
+                        // Full form (…ꤟꤟꤢꤧ꤭) only when modal starts the sentence; otherwise short form
                         let modalEndForm = null;
                         if (mainResult.modalInfo) {
                             if (mainResult.modalInfo.type === "will") {
-                                modalEndForm = "ꤕꤢ꤭ꤟꤟꤢꤧ꤭";
+                                modalEndForm = isWillStart ? "ꤕꤢ꤭ꤟꤟꤢꤧ꤭" : "ꤕꤢ꤭";
                             } else if (mainResult.modalInfo.type === "should") {
-                                modalEndForm = "ꤒꤥ꤭ꤊꤢꤪ꤬ꤟꤟꤢꤧ꤭";
+                                modalEndForm = isShouldStart ? "ꤒꤥ꤭ꤊꤢꤪ꤬ꤟꤟꤢꤧ꤭" : "ꤒꤥ꤭ꤊꤢꤪ꤬";
                             } else if (mainResult.modalInfo.type === "can" || mainResult.modalInfo.type === "could" || mainResult.modalInfo.type === "may") {
-                                modalEndForm = "ꤢ꤬ꤔꤟꤤꤕꤚꤢꤧꤟꤟꤢꤧ꤭";
+                                modalEndForm = (isCanStart || isCouldStart || isMayStart) ? "ꤢ꤬ꤔꤟꤤꤕꤚꤢꤧꤟꤟꤢꤧ꤭" : "ꤢ꤬ꤔꤟꤤꤕꤚꤢꤧ";
                             } else {
                                 modalEndForm = mainResult.modalInfo.translation;
                             }
                         } else {
                             for (let i = 0; i < mainTokens.length; i++) {
                                 const lower = mainTokens[i].toLowerCase().replace(/[.,;!?]+$/, "");
-                                if (lower === "will") { modalEndForm = "ꤕꤢ꤭ꤟꤟꤢꤧ꤭"; break; }
-                                if (lower === "should") { modalEndForm = "ꤒꤥ꤭ꤊꤢꤪ꤬ꤟꤟꤢꤧ꤭"; break; }
+                                if (lower === "will") { modalEndForm = isWillStart ? "ꤕꤢ꤭ꤟꤟꤢꤧ꤭" : "ꤕꤢ꤭"; break; }
+                                if (lower === "should") { modalEndForm = isShouldStart ? "ꤒꤥ꤭ꤊꤢꤪ꤬ꤟꤟꤢꤧ꤭" : "ꤒꤥ꤭ꤊꤢꤪ꤬"; break; }
                                 if (lower === "do" || lower === "does" || lower === "did") { modalEndForm = "ꤟꤟꤢꤧ꤭"; break; }
                             }
                         }
@@ -2519,23 +2521,23 @@
                         let ifResult = translatePhrase(ifTokens, false, false, false, false, null, false, null, null);
 
                         // Modal/aux form goes at end of main clause, BEFORE the conjunction
+                        // Full form only when modal starts the sentence; otherwise short form
                         let modalEndForm = null;
                         if (mainResult.modalInfo) {
                             if (mainResult.modalInfo.type === "will") {
-                                modalEndForm = "ꤕꤢ꤭ꤟꤟꤢꤧ꤭";
+                                modalEndForm = isWillStart ? "ꤕꤢ꤭ꤟꤟꤢꤧ꤭" : "ꤕꤢ꤭";
                             } else if (mainResult.modalInfo.type === "should") {
-                                modalEndForm = "ꤒꤥ꤭ꤊꤢꤪ꤬ꤟꤟꤢꤧ꤭";
+                                modalEndForm = isShouldStart ? "ꤒꤥ꤭ꤊꤢꤪ꤬ꤟꤟꤢꤧ꤭" : "ꤒꤥ꤭ꤊꤢꤪ꤬";
                             } else if (mainResult.modalInfo.type === "can" || mainResult.modalInfo.type === "could" || mainResult.modalInfo.type === "may") {
-                                modalEndForm = "ꤢ꤬ꤔꤟꤤꤕꤚꤢꤧꤟꤟꤢꤧ꤭";
+                                modalEndForm = (isCanStart || isCouldStart || isMayStart) ? "ꤢ꤬ꤔꤟꤤꤕꤚꤢꤧꤟꤟꤢꤧ꤭" : "ꤢ꤬ꤔꤟꤤꤕꤚꤢꤧ";
                             } else {
                                 modalEndForm = mainResult.modalInfo.translation;
                             }
                         } else {
-                            // Check for will/should/do in mainTokens even if modalInfo missing
                             for (let i = 0; i < mainTokens.length; i++) {
                                 const lower = mainTokens[i].toLowerCase().replace(/[.,;!?]+$/, "");
-                                if (lower === "will") { modalEndForm = "ꤕꤢ꤭ꤟꤟꤢꤧ꤭"; break; }
-                                if (lower === "should") { modalEndForm = "ꤒꤥ꤭ꤊꤢꤪ꤬ꤟꤟꤢꤧ꤭"; break; }
+                                if (lower === "will") { modalEndForm = isWillStart ? "ꤕꤢ꤭ꤟꤟꤢꤧ꤭" : "ꤕꤢ꤭"; break; }
+                                if (lower === "should") { modalEndForm = isShouldStart ? "ꤒꤥ꤭ꤊꤢꤪ꤬ꤟꤟꤢꤧ꤭" : "ꤒꤥ꤭ꤊꤢꤪ꤬"; break; }
                                 if (lower === "do" || lower === "does" || lower === "did") { modalEndForm = "ꤟꤟꤢꤧ꤭"; break; }
                             }
                         }
@@ -2591,22 +2593,23 @@
                         let becauseResult = translatePhrase(becauseTokens, false, false, false, false, null, false, null, null);
 
                         // Modal/aux form goes at end of main clause, BEFORE the conjunction
+                        // Full form only when modal starts the sentence; otherwise short form
                         let modalEndForm = null;
                         if (mainResult.modalInfo) {
                             if (mainResult.modalInfo.type === "will") {
-                                modalEndForm = "ꤕꤢ꤭ꤟꤟꤢꤧ꤭";
+                                modalEndForm = isWillStart ? "ꤕꤢ꤭ꤟꤟꤢꤧ꤭" : "ꤕꤢ꤭";
                             } else if (mainResult.modalInfo.type === "should") {
-                                modalEndForm = "ꤒꤥ꤭ꤊꤢꤪ꤬ꤟꤟꤢꤧ꤭";
+                                modalEndForm = isShouldStart ? "ꤒꤥ꤭ꤊꤢꤪ꤬ꤟꤟꤢꤧ꤭" : "ꤒꤥ꤭ꤊꤢꤪ꤬";
                             } else if (mainResult.modalInfo.type === "can" || mainResult.modalInfo.type === "could" || mainResult.modalInfo.type === "may") {
-                                modalEndForm = "ꤢ꤬ꤔꤟꤤꤕꤚꤢꤧꤟꤟꤢꤧ꤭";
+                                modalEndForm = (isCanStart || isCouldStart || isMayStart) ? "ꤢ꤬ꤔꤟꤤꤕꤚꤢꤧꤟꤟꤢꤧ꤭" : "ꤢ꤬ꤔꤟꤤꤕꤚꤢꤧ";
                             } else {
                                 modalEndForm = mainResult.modalInfo.translation;
                             }
                         } else {
                             for (let i = 0; i < mainTokens.length; i++) {
                                 const lower = mainTokens[i].toLowerCase().replace(/[.,;!?]+$/, "");
-                                if (lower === "will") { modalEndForm = "ꤕꤢ꤭ꤟꤟꤢꤧ꤭"; break; }
-                                if (lower === "should") { modalEndForm = "ꤒꤥ꤭ꤊꤢꤪ꤬ꤟꤟꤢꤧ꤭"; break; }
+                                if (lower === "will") { modalEndForm = isWillStart ? "ꤕꤢ꤭ꤟꤟꤢꤧ꤭" : "ꤕꤢ꤭"; break; }
+                                if (lower === "should") { modalEndForm = isShouldStart ? "ꤒꤥ꤭ꤊꤢꤪ꤬ꤟꤟꤢꤧ꤭" : "ꤒꤥ꤭ꤊꤢꤪ꤬"; break; }
                                 if (lower === "do" || lower === "does" || lower === "did") { modalEndForm = "ꤟꤟꤢꤧ꤭"; break; }
                             }
                         }
@@ -2722,12 +2725,13 @@
                     let finalResult = result.text;
 
                     if (result.modalInfo) {
-                        if (isWillStart || isCanStart || isCouldStart || isMayStart || endsWithQuestion) {
-                            if (result.modalInfo.type === "will") {
-                                finalResult += " ꤕꤢ꤭ꤟꤟꤢꤧ꤭";
-                            } else {
-                                finalResult += " ꤢ꤬ꤔꤟꤤꤕꤚꤢꤧꤟꤟꤢꤧ꤭";
-                            }
+                        // Full form only when modal starts the sentence
+                        if (result.modalInfo.type === "will") {
+                            finalResult += isWillStart ? " ꤕꤢ꤭ꤟꤟꤢꤧ꤭" : " ꤕꤢ꤭";
+                        } else if (result.modalInfo.type === "should") {
+                            finalResult += isShouldStart ? " ꤒꤥ꤭ꤊꤢꤪ꤬ꤟꤟꤢꤧ꤭" : " ꤒꤥ꤭ꤊꤢꤪ꤬";
+                        } else if (result.modalInfo.type === "can" || result.modalInfo.type === "could" || result.modalInfo.type === "may") {
+                            finalResult += (isCanStart || isCouldStart || isMayStart) ? " ꤢ꤬ꤔꤟꤤꤕꤚꤢꤧꤟꤟꤢꤧ꤭" : " ꤢ꤬ꤔꤟꤤꤕꤚꤢꤧ";
                         } else {
                             finalResult += " " + result.modalInfo.translation;
                         }
