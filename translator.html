@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Kayah Li · English translator</title>
+    <title>Kayah Translator Test</title>
     <style>
         * {
             box-sizing: border-box;
@@ -78,13 +78,17 @@
     </style>
 </head>
 <body>
-    <div class="card">
+    <div style="max-width:960px;width:100%;display:flex;flex-direction:column;align-items:stretch;">
+        <h1 style="text-align:center;margin:0 0 1rem 0;font-size:1.9rem;color:#1f1a14;font-weight:700;">Karenni Translator Test</h1>
+        <div class="card">
         <div class="grid">
             <div class="pair">
                 <div>
+                    <label for="inputText" style="display:block;margin:0 0 0.4rem 0.3rem;font-size:0.95rem;color:#444;font-weight:600;">English</label>
                     <textarea id="inputText" placeholder="Type English …"></textarea>
                 </div>
                 <div>
+                    <label style="display:block;margin:0 0 0.4rem 0.3rem;font-size:0.95rem;color:#444;font-weight:600;">Karenni</label>
                     <div id="outputText" class="output-box" aria-readonly="true"></div>
                 </div>
             </div>
@@ -96,61 +100,83 @@
             //  DICTIONARY: English → Kayah Li
             // --------------------------------------------------------------
             const dict = new Map([
-                ["how are you?", "ꤔꤟꤢꤧ꤬ꤥ꤬ꤗꤟꤥ꤬ꤕꤚꤢꤧꤟꤟꤢꤧ꤭?"],
-                ["how are you", "ꤔꤟꤢꤧ꤬ꤥ꤬ꤗꤟꤥ꤬ꤕꤚꤢꤧꤟꤟꤢꤧ꤭?"],
-                ["what time is it?", "ꤙꤢꤗꤢꤦ꤭ꤙꤢꤧ꤬ꤒꤤ꤭ꤒꤢꤩ꤭?"],
-                ["what time is it", "ꤙꤢꤗꤢꤦ꤭ꤙꤢꤧ꤬ꤒꤤ꤭ꤒꤢꤩ꤭?"],
+                ["how are you", "ꤔꤟꤢꤧ꤬ꤥ꤬ꤗꤟꤥ꤬ꤕꤚꤢꤧꤟꤟꤢꤧ꤭"],["fine", "ꤥ꤬ꤗꤟꤥ꤬"],
+                ["how are you", "ꤔꤟꤢꤧ꤬ꤥ꤬ꤗꤟꤥ꤬ꤕꤚꤢꤧꤟꤟꤢꤧ꤭"],
+                ["what time is it", "ꤙꤢꤗꤢꤦ꤭ꤙꤢꤧ꤬ꤒꤤ꤭ꤒꤢꤩ꤭"],
+                ["what time is it", "ꤙꤢꤗꤢꤦ꤭ꤙꤢꤧ꤬ꤒꤤ꤭ꤒꤢꤩ꤭"],
                 ["where are you from", "ꤔꤟꤢꤧ꤬ꤥ꤬ꤙꤤꤒꤢꤩ꤭ ꤟꤛꤢ꤭ꤟꤟꤢꤧ꤭"],
                 ["tell me", "ꤟꤢꤩꤏꤥ꤬ ꤠꤢ꤭"],
                 ["i don't know", "ꤠꤢ꤭ ꤞꤢꤧꤑꤢꤩ꤭ ꤒꤥ꤬"],
-                ["like", "ꤞꤢꤧꤕꤜꤢꤪ꤬ꤥ꤬"],
-                ["hello", "ꤒꤟꤢꤧ꤬ꤚꤛꤢꤙꤢꤧ꤬ ꤔꤟꤢꤧ꤬/ꤞꤤ꤭"],
-                	["i don't know", "ꤠꤢ꤭ ꤞꤢꤧꤑꤢꤩ꤭ ꤒꤥ꤬"],["like", "ꤞꤢꤧꤕꤜꤢꤪ꤬ꤥ꤬"],["as", "ꤖꤢꤨ"],["look like", "ꤞꤛꤢꤖꤢꤨ"],["from", "ꤘꤣ"],["book", "ꤜꤤ꤬ꤢꤨ"],["to book", "ꤊꤝꤤ꤭ꤥ꤬"],
-    ["book a", "ꤊꤝꤤ꤭ꤥ꤬"],["book the", "ꤊꤝꤤ꤭ꤥ꤬"],["book hotel", "ꤊꤝꤤ꤭ꤥ꤬ ꤟꤢꤪ꤬ꤒꤢꤧ꤬"],["booked", "ꤊꤝꤤ꤭ꤥ꤬"],["booking", "ꤊꤝꤤ꤭ꤥ꤬"],["plane", "ꤊꤟꤢꤩꤜꤢ꤬"],
-	["ticket", "ꤊꤟꤢꤩꤜꤢ꤬ꤜꤤ꤬"],["tickets", "ꤊꤟꤢꤩꤜꤢ꤬ꤜꤤ꤬"],["early", "ꤚꤟꤥ꤬"],["room", "ꤋꤢꤨ꤬ꤊꤜꤛꤢꤥ꤬"],["night", "ꤗꤢꤦ꤭"],["rain", "ꤊꤟꤢꤩꤜꤢ꤬"],["starts", "ꤡꤢꤓꤛꤢ꤬"],["start", "ꤡꤢꤓꤛꤢ꤬"],
+                ["like", "ꤞꤢꤧꤕꤜꤢꤪ꤬ꤥ꤬"],["type", "ꤗꤟꤢꤦ꤭"],
+                ["hello", "ꤒꤟꤢꤧ꤬ꤚꤛꤢꤙꤢꤧ꤬ ꤔꤟꤢꤧ꤬"],
+                ["i don't know", "ꤠꤢ꤭ ꤞꤢꤧꤑꤢꤩ꤭ ꤒꤥ꤬"],["like", "ꤞꤢꤧꤕꤜꤢꤪ꤬ꤥ꤬"],["as", "ꤖꤢꤨ"],["look like", "ꤞꤛꤢꤖꤢꤨ"],["from", "ꤘꤣ"],["book", "ꤜꤤ꤬ꤢꤨ"],["to book", "ꤊꤝꤤ꤭ꤥ꤬"],
+    ["next", "ꤔꤥ꤬"],["next time", "ꤔꤥ꤬ꤒꤣ꤬ꤟꤢꤦ꤬"],
+	["book a", "ꤊꤝꤤ꤭ꤥ꤬"],["book the", "ꤊꤝꤤ꤭ꤥ꤬"],["book hotel", "ꤊꤝꤤ꤭ꤥ꤬ ꤟꤢꤪ꤬ꤒꤢꤧ꤬"],["booked", "ꤊꤝꤤ꤭ꤥ꤬"],["booking", "ꤊꤝꤤ꤭ꤥ꤬"],["plane", "ꤊꤟꤢꤩꤜꤢ꤬"],
+	["ticket", "ꤊꤟꤢꤩꤜꤢ꤬ꤜꤤ꤬"],["tickets", "ꤊꤟꤢꤩꤜꤢ꤬ꤜꤤ꤬"],["early", "ꤚꤟꤥ꤬"],["room", "ꤋꤢꤨ꤬ꤊꤜꤛꤢꤥ꤬"],["night", "ꤗꤟꤢꤪꤋꤤ"],["birthday", "ꤗꤟꤢꤪꤑꤢꤩ꤭ꤥ꤬ꤜꤟꤛꤢ꤬"],["birthyear", "ꤔꤢ꤬ꤥ꤬ꤜꤟꤛꤢ꤬"],["rain", "ꤊꤟꤢꤩꤡꤢꤦ꤬"],["starts", "ꤡꤢꤓꤛꤢ꤬"],["start", "ꤡꤢꤓꤛꤢ꤬"],
 	["must", "ꤒꤥ꤭ꤙꤢꤧ꤬"],["catch", "ꤗꤛꤢꤓꤛꤢꤩ꤬"],["bus", "ꤜꤟꤥꤗꤤ꤬"],["let's", "ꤕꤜꤝꤥ꤭"],["lets", "ꤕꤜꤝꤥ꤭"],["in", "ꤊꤢꤨ꤭"],["on", "ꤋꤢꤨ꤬"],["above", "ꤢ꤬ꤋꤢꤨ꤬ꤓꤛꤢ꤬"],
-	["until", "ꤒꤢ꤬ꤘꤢꤦ꤬"],["till", "ꤒꤢ꤬ꤘꤢꤦ꤬"],["than", "ꤜꤣꤔꤢ"],["more", "ꤜꤣ"],["more than", "ꤜꤣꤔꤢ"],["behind", "ꤋꤢ꤭ꤏꤛꤢꤩ"],["between", "ꤢ꤬ꤕꤜꤢꤧ꤬"],
+	["until", "ꤒꤢ꤬ꤘꤢꤦ꤬"],["till", "ꤒꤢ꤬ꤘꤢꤦ꤬"],["than", "ꤜꤣꤔꤢ"],["better than", "ꤢ꤬ꤚꤛꤢꤜꤣꤔꤢ"],["more", "ꤜꤣ"],["more than", "ꤜꤣꤔꤢ"],["behind", "ꤋꤢ꤭ꤏꤛꤢꤩ"],["between", "ꤢ꤬ꤕꤜꤢꤧ꤬"],
 	["want to", "ꤞꤢꤧꤐꤟꤢꤦ"],["wants to", "ꤞꤢꤧꤐꤟꤢꤦ"],["would like to", "ꤞꤢꤧꤐꤟꤢꤦ"],["need to", "ꤜꤥ꤬"],["love to", "ꤞꤢꤧꤐꤟꤢꤦ"],["if", "ꤊꤤ꤬"],["you", "ꤔꤟꤢꤧ꤬"],["select", "ꤔꤝꤥ"],
-	["them", "ꤢꤧ꤬ꤞꤤ꤭"],["him", "ꤢꤧ꤬"],["her", "ꤢꤧ꤬"],["us", "ꤕꤟꤢꤧ꤬"],["your", "ꤔꤟꤢꤧ꤬"],["leaders", "ꤕꤚꤟꤢꤧ꤬ꤕꤣꤐꤟꤢꤨ꤭"],["leader", "ꤕꤚꤟꤢꤧ꤬ꤕꤣꤐꤟꤢꤨ꤭"],
+	["them", "ꤢꤧ꤬ꤞꤤ꤭"],["their", "ꤢꤧ꤬ꤞꤤ꤭"],["him", "ꤢꤧ꤬"],["his", "ꤢꤧ꤬"],["her", "ꤢꤧ꤬"],["us", "ꤕꤟꤢꤧ꤬"],["your", "ꤔꤟꤢꤧ꤬"],["leaders", "ꤕꤚꤟꤢꤧ꤬ꤕꤣꤐꤟꤢꤨ꤭"],["leader", "ꤕꤚꤟꤢꤧ꤬ꤕꤣꤐꤟꤢꤨ꤭"],
 	["have", "HAVE_PLACEHOLDER"],
 	["has", "HAVE_PLACEHOLDER"],["had", "HAVE_PLACEHOLDER"],
 	["have a good", "ꤥ꤬ꤔꤢꤒꤟꤢꤧ꤬ꤚꤛꤢ"],["have a nice", "ꤥ꤬ꤔꤢꤒꤟꤢꤧ꤬ꤒꤝꤟꤥ"],["have a great", "ꤥ꤬ꤔꤢꤒꤟꤢꤧ꤬ꤚꤛꤢ"],["have to", "ꤊꤢꤪ꤬ꤙꤢꤧ꤬"],["listen", "ꤔꤟꤤꤘꤢ꤭"],
 	["to", "TO_PLACEHOLDER"],
+	["feel", "ꤒꤢ꤬ꤔꤟꤢꤩ꤬"],["feels", "ꤒꤢ꤬ꤔꤟꤢꤩ꤬"],["feeled", "ꤒꤢ꤬ꤔꤟꤢꤩ꤬"],["feeling", "ꤒꤢ꤬ꤔꤟꤢꤩ꤬"],["free", "ꤥ꤬ꤊꤥ꤭"],
+	["bring", "ꤖꤛꤢꤩꤟꤛꤢ꤭"],["brings", "ꤖꤛꤢꤩꤟꤛꤢ꤭"],["bringing", "ꤖꤛꤢꤩꤟꤛꤢ꤭"],["brought", "ꤖꤛꤢꤩꤟꤛꤢ꤭"],
 	["am a", "ꤗꤢ꤬"],["was a", "ꤗꤢ꤬"],["is a", "ꤗꤢ꤬"],["are a", "ꤗꤢ꤬"],["were a", "ꤗꤢ꤬"],
-	["they", "ꤢꤧ꤬ꤞꤤ꤭"],["mine", "ꤠꤢ꤭ꤒꤢꤧ꤭"],["yours", "ꤔꤟꤢꤧ꤬ꤒꤢꤧ꤭"],["think", "ꤒꤢ꤬ꤔꤟꤢꤩ꤬ꤔꤌꤣ꤬"],["talk", "ꤟꤢꤩꤙꤢꤧ꤬"],["should", "ꤒꤥ꤭ꤊꤢꤪ꤬"],["because", "ꤗꤟꤢꤩ꤬ꤒꤢꤩ꤭ꤚꤢꤪ"],["nor", "ꤒꤥ꤬ꤒꤥ꤬"],	["but", "ꤗꤢ꤬ꤔꤢ"],
+	["am an", "ꤗꤢ꤬"],["was an", "ꤗꤢ꤬"],["is an", "ꤗꤢ꤬"],["are an", "ꤗꤢ꤬"],["were an", "ꤗꤢ꤬"],
+	["they", "ꤢꤧ꤬ꤞꤤ꤭"],["mine", "ꤠꤢ꤭ꤒꤢꤧ꤭"],["yours", "ꤔꤟꤢꤧ꤬ꤒꤢꤧ꤭"],["think", "ꤒꤢ꤬ꤔꤟꤢꤩ꤬ꤔꤌꤣ꤬"],["hope", "ꤒꤢ꤬ꤔꤟꤢꤩ꤬ꤔꤌꤣ꤬"],["talk", "ꤟꤢꤩꤙꤢꤧ꤬"],["should", "ꤒꤥ꤭ꤊꤢꤪ꤬"],["because", "ꤗꤟꤢꤩ꤬ꤒꤢꤩ꤭ꤚꤢꤪ"],["nor", "ꤒꤥ꤬ꤒꤥ꤬"],	["but", "ꤗꤢ꤬ꤔꤢ"],
 	["or", "ꤒꤥ꤬ꤗꤢ꤬"],["either", "ꤒꤣ꤬ꤊꤟꤊꤣ꤬ꤊꤟꤊꤣ꤬"],["neither", "ꤜꤟꤢꤪ꤭ꤟꤤ꤭ꤥ꤬"],["both", "ꤜꤟꤢꤪ꤭ꤜꤟꤢꤪ꤭"],["not only", "ꤒꤢꤦꤗꤟꤢꤒꤥ꤬"],["but also", "ꤕꤢ꤭ꤕꤢ꤭"],
-	["as soon as", "ꤙꤤꤋꤢꤧ꤭ꤒꤢꤩ꤭ꤔꤌꤣ꤬"],["although", "ꤒꤢ꤬ꤘꤣ꤬ꤚꤢꤪ"],["whether", "ꤒꤢ꤬ꤊꤟꤊꤣ꤬ꤊꤟꤊꤣ꤬"],["once", "ꤒꤣ꤬ꤖꤟꤌꤣꤒꤌꤣ꤭"],["inasmuch as", "ꤢ꤬ꤗꤟꤢꤩ꤬ꤒꤢꤩ꤭ꤔꤌꤣ꤬"],
-	["i", "ꤠꤢ꤭"],["yet", "ꤟꤤ"],["remember", "ꤒꤥ꤭ꤗꤢ"],["all", "ꤜꤟꤢꤪ꤭ꤕꤜꤤ꤭"],["name", "ꤗꤝꤟꤤ꤭"],["screenshot", "ꤗꤟꤢꤦ꤭ꤖꤛꤢꤩꤘꤝꤥ"],["and", "ꤓꤌꤣ꤭ꤕꤢ꤭"],
+	["as soon as", "ꤙꤤꤋꤢꤧ꤭ꤒꤢꤩ꤭ꤔꤌꤣ꤬"],["although", "ꤒꤢ꤬ꤘꤣ꤬ꤚꤢꤪ"],["whether", "ꤒꤢ꤬ꤊꤟꤊꤣ꤬ꤊꤟꤊꤣ꤬"],["once", "ꤒꤣ꤬ꤟꤢꤦ꤬ꤒꤌꤣ꤭"],["thrice", "ꤞꤌꤣ꤭ꤟꤢꤦ꤬"],["inasmuch as", "ꤢ꤬ꤗꤟꤢꤩ꤬ꤒꤢꤩ꤭ꤔꤌꤣ꤬"],
+	["i", "ꤠꤢ꤭"],["yet", "ꤟꤤ"],["remember", "ꤒꤥ꤭ꤗꤢ"],["all", "ꤜꤟꤢꤪ꤭ꤕꤜꤤ꤭"],["name", "ꤗꤝꤟꤤ꤭"],["name is", "ꤗꤝꤟꤤ꤭ꤗꤢ꤬"],["screenshot", "ꤗꤟꤢꤦ꤭ꤖꤛꤢꤩꤘꤝꤥ"],["and", "ꤓꤌꤣ꤭ꤕꤢ꤭"],
 	["read", "ꤟꤣ"],["meet", "ꤗꤛꤢꤓꤛꤢꤩ꤬ꤒꤟꤢ꤭ꤏꤢꤦ꤬"],["favor", "ꤒꤟꤢꤧ꤬ꤞꤢꤧꤐꤟꤢꤦ"],["away", "ꤒꤢ꤬ꤖꤢ꤭ꤐꤛꤢꤩ꤬"],["such", "ꤞꤛꤢ"],["same as", "ꤞꤛꤢꤔꤢ"],
 	["prove", "ꤘꤣ꤬ꤜꤟꤌꤣ꤭ꤓꤛꤢ꤬"],["it", ""],["wait", "ꤥ꤬ꤕꤟꤢꤪ"],["waits", "ꤥ꤬ꤕꤟꤢꤪ"],["waiting", "ꤥ꤬ꤕꤟꤢꤪ"],["waited", "ꤥ꤬ꤕꤟꤢꤪ"],
 	["wait for", "ꤥ꤬ꤕꤟꤢꤪ"],["waits for", "ꤥ꤬ꤕꤟꤢꤪ"],["waiting for", "ꤥ꤬ꤕꤟꤢꤪ"],["waited for", "ꤥ꤬ꤕꤟꤢꤪ"],
 	["go home", "ꤊꤟꤢ꤬ꤘꤣꤟꤤ꤬"],["take medicine", "ꤥ꤭ꤒꤟꤢꤧ꤬ꤋꤢꤨ꤬"],["guys", "ꤞꤤ꤭"],["all night", "ꤒꤢ꤬ꤞꤢꤧꤒꤢ꤬ꤞꤢꤧ꤭"],
 	["later", "ꤔꤥ꤬ꤕꤢ꤭"],["what if", "ꤢ꤬ꤗꤟꤢꤩ꤬ꤒꤤ꤭ꤒꤢꤩ꤭ꤊꤤ꤬"],["thank you", "ꤒꤟꤢꤧ꤬ꤙꤝꤤ"],["thanks", "ꤒꤟꤢꤧ꤬ꤙꤝꤤ"],["you guys", "ꤞꤤ꤭"],["just", "ꤊꤟꤢꤦ"],["reminding", "ꤘꤛꤢꤩꤞꤢꤧꤑꤢꤩ꤭"],
 	["everyone", "ꤕꤝꤟꤥꤕꤚꤟꤢꤧ꤬"],["tomorrow", "ꤏꤛꤢꤩꤕꤢ꤬ꤚꤥ꤭"],["yesterday", "ꤕꤢ꤭ꤟꤢꤩꤔꤢꤨ꤬"],["we'll", "ꤕꤟꤢꤧ꤬ꤕꤢ꤭"],["a meeting", "ꤒꤟꤢꤧ꤬ꤥ꤬ꤊꤢꤨ"],["train", "ꤜꤟꤥꤗꤤ꤬ꤢꤦ꤭"],["meeting", "ꤒꤟꤢꤧ꤬ꤥ꤬ꤊꤢꤨ"],["reelection", "ꤒꤟꤢꤧ꤬ꤔꤝꤥꤓꤛꤢ꤬ꤞꤛꤢ"],
-	["day", "ꤑꤢꤩ꤭"],["new", "ꤢ꤬ꤞꤢꤧ꤭"],["committee", "ꤊꤢꤪ꤭ꤗꤤ꤬ꤒꤤ꤬"],["so", "ꤚꤢꤪ"],["please", "ꤋꤛꤢꤞꤢꤧꤘꤥ꤭"],["show up", "ꤟꤛꤢ꤭ꤥ꤬ꤜꤟꤌꤣ꤭"],["participate", "ꤟꤛꤢ꤭ꤕꤜꤢꤪꤡꤢꤦ꤭"],
+	["day", "ꤑꤢꤩ꤭"],["per", "ꤒꤣ꤬"],["twice", "ꤔꤛꤢꤩ꤭ꤟꤢꤦ꤬"],["new", "ꤢ꤬ꤞꤢꤧ꤭"],["committee", "ꤊꤢꤪ꤭ꤗꤤ꤬ꤒꤤ꤬"],["so", "ꤚꤢꤪ"],["please", "ꤋꤛꤢꤞꤢꤧꤘꤥ꤭"],["show up", "ꤟꤛꤢ꤭ꤥ꤬ꤜꤟꤌꤣ꤭"],["participate", "ꤟꤛꤢ꤭ꤕꤜꤢꤪꤡꤢꤦ꤭"],
+	["people", "ꤕꤚꤟꤢꤧ꤬ꤜꤟꤢꤨ꤬"],["body", "ꤔꤟꤢꤩꤊꤜꤟꤢꤪ"],["human", "ꤕꤚꤟꤢꤧ꤬ꤜꤟꤢꤨ꤬ꤖꤢꤨ"],["human being", "ꤓꤝꤟꤥ꤭ꤕꤚꤟꤢꤧ꤬ꤜꤟꤢꤨ꤬ꤖꤢꤨ"],["human beings", "ꤓꤝꤟꤥ꤭ꤕꤚꤟꤢꤧ꤬ꤜꤟꤢꤨ꤬ꤖꤢꤨ"],
+	["shop", "ꤊꤜꤢꤧ"],["shopping", "ꤊꤜꤢꤧꤊꤢꤨ꤭"],["store", "ꤊꤜꤢꤧꤊꤢꤨ꤭"],["stores", "ꤊꤜꤢꤧꤊꤢꤨ꤭"],
 	["girlfriend", "ꤋꤥ꤭ꤕꤚꤟꤢꤧ꤬ꤗꤢꤪ꤬"],["girlfriends", "ꤋꤥ꤭ꤕꤚꤟꤢꤧ꤬ꤗꤢꤪ꤬"],["boyfriend", "ꤋꤥ꤭ꤕꤚꤟꤢꤧ꤬ꤗꤢꤪ꤬"],["boyfriends", "ꤋꤥ꤭ꤕꤚꤟꤢꤧ꤬ꤗꤢꤪ꤬"],
-	["at", "ꤘꤣ"],["pm", "ꤗꤢꤦ꤭ꤙꤢꤧ꤬ꤗꤟꤢꤪꤟꤢꤩ"],["my love", "ꤠꤢ꤭ꤒꤟꤢꤧ꤬ꤗꤟꤥ꤬"],["my", "ꤠꤢ꤭"],["house", "ꤟꤤ꤬"],["choose", "ꤔꤝꤥꤓꤛꤢ꤬"],["we", "ꤕꤟꤢꤧ꤬"],["live", "ꤥ꤬"],["let", "ꤕꤜꤝꤥ꤭"],
+	["lie", "ꤜꤢ꤬ꤟꤥ꤭"],["lies", "ꤜꤢ꤬ꤟꤥ꤭"],["lied", "ꤜꤢ꤬ꤟꤥ꤭"],["liar", "ꤕꤚꤟꤢꤧ꤬ꤜꤢ꤬ꤟꤥ꤭"],
+	["at", "ꤘꤣ"],["pm", "ꤗꤢꤦ꤭ꤙꤢꤧ꤬ꤗꤟꤢꤪꤟꤢꤩ"],["my love", "ꤠꤢ꤭ꤒꤟꤢꤧ꤬ꤗꤟꤥ꤬"],["my", "ꤠꤢ꤭"],["house", "ꤟꤤ꤬"],["choose", "ꤔꤝꤥꤓꤛꤢ꤬"],["we", "ꤕꤟꤢꤧ꤬"],["live", "ꤥ꤬"],["living", "ꤥ꤬ꤒꤟꤢ꤭"],["let", "ꤕꤜꤝꤥ꤭"],
 	["let me know", "ꤘꤛꤢꤩꤞꤢꤧꤑꤢꤩ꤭ꤠꤢ꤭"],["don't", "ꤒꤥ꤬"],["i'm", "ꤠꤢ꤭"],["they're", "ꤢꤧ꤬ꤞꤤ꤭"],["he's", "ꤢꤧ꤬"],["she's", "ꤢꤧ꤬"],["it's", ""],["see", "ꤗꤛꤢꤓꤛꤢꤩ꤬"],
-	["our", "ꤕꤟꤢꤧ꤬"],["today", "ꤛꤢꤩ꤭ꤒꤢ꤬ꤑꤢꤩ꤭"],["me", "ꤠꤢ꤭"],["now", "ꤋꤥ꤭ꤑꤟꤢ"],["right now", "ꤋꤥ꤭ꤑꤟꤢ"],
-	["work", "ꤗꤟꤢꤩ꤬ꤒꤟꤢꤧ꤬ꤗꤟꤢꤩ꤬"],["works", "ꤗꤟꤢꤩ꤬ꤒꤟꤢꤧ꤬ꤗꤟꤢꤩ꤬"],["working", "ꤗꤟꤢꤩ꤬ꤒꤟꤢꤧ꤬ꤗꤟꤢꤩ꤬"],["worked", "ꤗꤟꤢꤩ꤬ꤒꤟꤢꤧ꤬ꤗꤟꤢꤩ꤬"],
-	["know", "ꤞꤢꤧꤑꤢꤩ꤭"],["knew", "ꤞꤢꤧꤑꤢꤩ꤭"],["known", "ꤞꤢꤧꤑꤢꤩ꤭ꤓꤌꤣ꤭"],
-	["he", "ꤢꤧ꤬"],["she", "ꤢꤧ꤬"],
+	["our", "ꤕꤟꤢꤧ꤬"],["today", "ꤛꤢꤩ꤭ꤒꤢ꤬ꤑꤢꤩ꤭"],["me", "ꤠꤢ꤭"],["now", "ꤋꤥ꤭ꤑꤟꤢ"],["earth", "ꤟꤢꤩ꤬ꤋꤢꤨ꤬"],["right now", "ꤋꤥ꤭ꤑꤟꤢ"],
+	["work", "ꤗꤟꤢꤩ꤬ꤒꤟꤢꤧ꤬ꤗꤟꤢꤩ꤬"],["works", "ꤗꤟꤢꤩ꤬ꤒꤟꤢꤧ꤬ꤗꤟꤢꤩ꤬"],["working", "ꤗꤟꤢꤩ꤬ꤒꤟꤢꤧ꤬ꤗꤟꤢꤩ꤬"],["worked", "ꤗꤟꤢꤩ꤬ꤒꤟꤢꤧ꤬ꤗꤟꤢꤩ꤬"],["worker", "ꤕꤚꤟꤢꤧ꤬ꤢꤩ꤬ꤚꤟꤛꤢ꤬"],["workers", "ꤕꤚꤟꤢꤧ꤬ꤢꤩ꤬ꤚꤟꤛꤢ꤬"],
+	["know", "ꤞꤢꤧꤑꤢꤩ꤭"],["knew", "ꤞꤢꤧꤑꤢꤩ꤭"],["knowing", "ꤞꤢꤧꤑꤢꤩ꤭"],["known", "ꤞꤢꤧꤑꤢꤩ꤭ꤓꤌꤣ꤭"],["hurry", "ꤗꤟꤢꤩ꤬ꤕꤚꤛꤢ꤭"],
+	["learn", "ꤤ꤬ꤞꤛꤥ"],["learns", "ꤤ꤬ꤞꤛꤥ"],["learning", "ꤤ꤬ꤞꤛꤥ"],["learnt", "ꤤ꤬ꤞꤛꤥ"],["learned", "ꤤ꤬ꤞꤛꤥ"],["learner", "ꤕꤚꤟꤢꤧ꤬ꤤ꤬ꤞꤛꤥ"],
+	["study", "ꤤ꤬ꤞꤛꤥꤗꤟꤢꤩ꤬"],["studies", "ꤤ꤬ꤞꤛꤥꤗꤟꤢꤩ꤬"],["studying", "ꤤ꤬ꤞꤛꤥꤗꤟꤢꤩ꤬"],["studied", "ꤤ꤬ꤞꤛꤥꤗꤟꤢꤩ꤬"],
+	["teach", "ꤤ꤬ꤞꤛꤥꤒꤟꤢ꤭"],["teaches", "ꤤ꤬ꤞꤛꤥꤒꤟꤢ꤭"],["teaching", "ꤤ꤬ꤞꤛꤥꤒꤟꤢ꤭"],["taught", "ꤤ꤬ꤞꤛꤥꤒꤟꤢ꤭"],
+	["he", "ꤢꤧ꤬"],["she", "ꤢꤧ꤬"],["job", "ꤒꤟꤢꤧ꤬ꤗꤟꤢꤩ꤬"],["dental", "ꤋꤢꤨ꤬ꤋꤛꤢꤩ꤭"],["appointment", "ꤗꤟꤢꤪꤑꤢꤩ꤭ꤟꤛꤢ꤭"],
 	["her", "ꤢꤧ꤬"],["the", ""],["by", "ꤔꤢ"],["boarded", "ꤘꤢꤧ꤭ꤞꤎꤢꤪ꤬ꤙꤛꤢꤩ꤬"],["quickly", "ꤕꤚꤛꤢ꤭ꤕꤚꤛꤢ꤭"],["found", "ꤗꤛꤢꤓꤛꤢꤩ꤬"],["seats", "ꤋꤢꤨ꤬ꤊꤜꤛꤢꤥ꤬ꤔꤛꤢ꤭"],["doors", "ꤊꤢ꤬ꤘꤢ꤭ꤒꤢ꤬ꤟꤢꤩ꤬"],
 	["closed", "ꤗꤟꤢꤩ꤬ꤙꤤ"],["lucky", "ꤙꤝꤤꤚꤛꤢ"],["before", "ꤟꤤꤒꤥ꤬ꤢ꤬ꤋꤢꤧ꤭"],["after", "ꤓꤌꤣ꤭ꤘꤣꤋꤛꤢꤩ꤭"],["storm", "ꤊꤟꤢꤩꤜꤢ꤬ꤜꤛꤢ꤭"],["starting", "ꤡꤢꤓꤛꤢ꤬"],
 	["arrive", "ꤟꤛꤢ꤭"],["arrived", "ꤟꤛꤢ꤭ꤒꤟꤌꤣ"],["arrives", "ꤟꤛꤢ꤭ꤒꤟꤌꤣ"],["teacher", "ꤞꤢꤚꤢ/ꤗꤟꤌꤣ"],["finish", "ꤗꤟꤢꤩ꤬ꤓꤌꤣ꤭"],["homework", "ꤜꤤ꤬ꤟꤤ꤬ꤘꤢꤪ"],
-	["ready", "ꤒꤢ꤬ꤚꤤ꤬ꤟꤢꤪ"],["love", "ꤗꤟꤥ꤬ꤔꤟꤤ"],["gotta", "ꤒꤥ꤭ꤙꤢꤧ꤬"],["forgive", "ꤕꤜꤝꤥ꤭ꤒꤟꤢꤧ꤬ꤞꤢꤦ"],["call", "ꤢꤧ"],["ask", "ꤏꤢꤨ꤬ꤘꤛꤢ꤭"],["ask for", "ꤊꤝꤤ꤭"],["happy", "ꤗꤟꤥ꤬ꤞꤢꤧꤜꤟꤢꤪ꤭"],["sad", "ꤞꤢꤧꤕꤜꤟꤢꤧ꤭"],["left", "ꤘꤛꤢ꤬ꤊꤛꤢ꤭"],["here", "ꤙꤤꤛꤢꤩ꤭"],["which", "ꤒꤣ꤬ꤊꤟꤊꤣ꤬ꤒꤢꤩ꤭"],
-	["tell", "ꤟꤢꤩꤏꤥ꤬"],["stay", "ꤥ꤬"],["of", "ꤥ꤬ꤘꤣ"],["hate", "ꤞꤢꤧꤒꤢ꤬ꤋꤥ꤭"],["invite", "ꤢꤧꤟꤛꤢ꤭"],["tired", "ꤞꤢꤧꤕꤚꤢ"],["late", "ꤒꤟꤢ꤭ꤔꤥ꤬"],["help", "ꤗꤟꤢꤩ꤬ꤡꤝꤟꤥ"],
-	["box", "ꤒꤣ"],["any", "ꤒꤤ꤭ꤒꤟꤢꤧ꤬"],["hotel", "ꤟꤢꤪ꤬ꤒꤢꤧ꤬"],["table", "ꤋꤢꤨ꤬ꤊꤜꤛꤢꤓꤛꤢ꤬ꤜꤣ꤭"],["for a while", "ꤒꤢ꤬ꤕꤜꤣ꤬ꤖꤢꤨ"],
-	["go", "ꤡꤛꤣ"],["going", "ꤡꤛꤣ"],["went", "ꤡꤛꤣ"],["about to", "ꤊꤟꤢꤦ"],["eat", "ꤢꤩ꤬"],["ate", "ꤢꤩ꤬"],["eating", "ꤢꤩ꤬"],["do", "ꤗꤟꤢꤩ꤬"],["do as", "ꤗꤟꤢꤩ꤬ꤞꤛꤢꤖꤢꤨ"],["doing", "ꤗꤟꤢꤩ꤬"],
-	["look", "ꤗꤛꤢ"],["looks", "ꤗꤛꤢ"],["looking", "ꤗꤛꤢ"],["looked", "ꤗꤛꤢ"],
+	["ready", "ꤒꤢ꤬ꤚꤤ꤬ꤟꤢꤪ"],["love", "ꤗꤟꤥ꤬ꤔꤟꤤ"],["gotta", "ꤒꤥ꤭ꤙꤢꤧ꤬"],["gonna", "ꤊꤟꤢꤦ"],["forgive", "ꤕꤜꤝꤥ꤭ꤒꤟꤢꤧ꤬ꤞꤢꤦ"],["call", "ꤢꤧ"],["ask", "ꤏꤢꤨ꤬ꤘꤛꤢ꤭"],["ask for", "ꤊꤝꤤ꤭"],["happy", "ꤗꤟꤥ꤬"],["sad", "ꤞꤢꤧꤕꤜꤟꤢꤧ꤭"],["left", "ꤘꤛꤢ꤬ꤊꤛꤢ꤭"],["here", "ꤙꤤꤛꤢꤩ꤭"],["which", "ꤒꤣ꤬ꤊꤟꤊꤣ꤬ꤒꤢꤩ꤭"],
+	["tell", "ꤟꤢꤩꤏꤥ꤬"],["stay", "ꤥ꤬"],["of", "ꤥ꤬ꤘꤣ"],["hate", "ꤞꤢꤧꤒꤢ꤬ꤋꤥ꤭"],["invite", "ꤢꤧꤟꤛꤢ꤭"],["tired", "ꤞꤢꤧꤕꤚꤢ"],["late", "ꤒꤟꤢ꤭ꤔꤥ꤬"],
+	["help", "ꤗꤟꤢꤩ꤬ꤡꤝꤟꤥ"],["helped", "ꤗꤟꤢꤩ꤬ꤡꤝꤟꤥ"],["helps", "ꤗꤟꤢꤩ꤬ꤡꤝꤟꤥ"],["helping", "ꤗꤟꤢꤩ꤬ꤡꤝꤟꤥ"],["helpful", "ꤗꤟꤢꤩ꤬ꤡꤝꤟꤥꤊꤟꤊꤣ꤭"],
+	["box", "ꤒꤣ"],["hotel", "ꤟꤢꤪ꤬ꤒꤢꤧ꤬"],["table", "ꤋꤢꤨ꤬ꤊꤜꤛꤢꤓꤛꤢ꤬ꤜꤣ꤭"],["for a while", "ꤒꤢ꤬ꤕꤜꤣ꤬ꤖꤢꤨ"],["society", "ꤟꤢꤩ꤬ꤋꤢꤨ꤬ꤘꤢꤪ꤭ꤊꤜꤢꤧ꤭"],
+	["go", "ꤡꤛꤣ"],["goes", "ꤡꤛꤣ"],["going", "ꤡꤛꤣ"],["went", "ꤡꤛꤣ"],["about to", "ꤊꤟꤢꤦ"],["eat", "ꤢꤩ꤬"],["eater", "ꤕꤚꤟꤢꤧ꤬ꤢꤩ꤬"],["eats", "ꤢꤩ꤬"],["ate", "ꤢꤩ꤬"],["eating", "ꤢꤩ꤬"],["do", "ꤗꤟꤢꤩ꤬"],["do as", "ꤗꤟꤢꤩ꤬ꤞꤛꤢꤖꤢꤨ"],["doing", "ꤗꤟꤢꤩ꤬"],
+	["look", "ꤗꤛꤢ"],["looks", "ꤗꤛꤢ"],["looking", "ꤗꤛꤢ"],["looked", "ꤗꤛꤢ"],["bore", "ꤗꤟꤢꤩ꤬ꤞꤢꤧꤒꤢ꤬ꤊꤜꤢꤩ꤭"],
+	["watch", "ꤗꤛꤢ"],["watches", "ꤗꤛꤢ"],["watching", "ꤗꤛꤢ"],["watched", "ꤗꤛꤢ"],
 	["look for", "ꤗꤛꤢꤕꤟꤢꤨ꤭"],["looks for", "ꤗꤛꤢꤕꤟꤢꤨ꤭"],["looking for", "ꤗꤛꤢꤕꤟꤢꤨ꤭"],["looked for", "ꤗꤛꤢꤕꤟꤢꤨ꤭"],
-	["does", "ꤗꤟꤢꤩ꤬"],["did", "ꤗꤟꤢꤩ꤬"],["church", "ꤞꤢꤪꤚꤢꤪ"],	["school", "ꤞꤛꤥꤜꤤ꤬ꤟꤥ꤭"],["watch", "ꤗꤛꤢ"],["drink", "ꤥ꤭"],["drinking", "ꤒꤟꤢꤧ꤬ꤜꤟꤢꤩꤥ꤭"],
+	["buy", "ꤤ꤬ꤕꤚꤟꤤ꤬"],["buys", "ꤤ꤬ꤕꤚꤟꤤ꤬"],["buying", "ꤤ꤬ꤕꤚꤟꤤ꤬"],["buyer", "ꤕꤚꤟꤢꤧ꤬ꤤ꤬ꤕꤚꤟꤤ꤬"],["buyers", "ꤕꤚꤟꤢꤧ꤬ꤤ꤬ꤕꤚꤟꤤ꤬"],["bought", "ꤤ꤬ꤕꤚꤟꤤ꤬"],
+	["god", "ꤡꤢꤪꤗꤢ꤬ꤚꤛꤢ꤬"],["bless", "ꤗꤟꤥ꤬ꤔꤟꤤ"],["down", "ꤒꤟꤢ꤭"],["mountain", "ꤏꤥ꤬"],["mountains", "ꤏꤥ꤬"],["to", "ꤘꤣ"],
+	["sit", "ꤥ꤬ꤔꤛꤢ꤭"],["sits", "ꤥ꤬ꤔꤛꤢ꤭"],["sitting", "ꤥ꤬ꤔꤛꤢ꤭"],["register", "ꤞꤣꤔꤟꤌꤣ꤭ꤒꤢ꤬ꤚꤢ꤭"],
+	["does", "ꤗꤟꤢꤩ꤬"],["did", "ꤗꤟꤢꤩ꤬"],["church", "ꤞꤢꤪꤚꤢꤪ"],	["school", "ꤞꤛꤥꤜꤤ꤬ꤟꤥ꤭"],["drink", "ꤥ꤭"],["drinking", "ꤒꤟꤢꤧ꤬ꤜꤟꤢꤩꤥ꤭"],
 	["water", "ꤓꤛꤢꤩ꤭"],["miss", "ꤔꤟꤢꤩ꤬ꤞꤌꤣ꤬"],["this", "ꤛꤢꤩ꤭"],["there", "ꤔꤌꤣ꤬"],["that", "ꤔꤌꤣ꤬"],["big", "ꤘꤢꤨ꤬"],["beautiful", "ꤒꤝꤟꤥ"],["girl", "ꤕꤚꤟꤢꤧ꤬ꤗꤢꤪ꤬"],["don't", "ꤒꤥ꤬"],
-	["bitch", "ꤓꤝꤤ꤬ꤗꤟꤌꤣ"],["go after", "ꤊꤚꤝꤥ꤭"],["lol", "ꤟꤤꤟꤤ"],["test", "ꤡꤢ꤭ꤗꤛꤢ"],["this is", "ꤛꤢꤩ꤭ꤗꤢ꤬"],["give", "ꤘꤛꤢꤩ"],
+	["bitch", "ꤓꤝꤤ꤬ꤗꤟꤌꤣ"],["roundabout", "ꤊꤜꤛꤢꤒꤢ꤬ꤠꤟꤢꤦ꤬"],["go after", "ꤊꤚꤝꤥ꤭"],["lol", "ꤟꤤꤟꤤ"],["test", "ꤡꤢ꤭ꤗꤛꤢ"],["this is", "ꤛꤢꤩ꤭ꤗꤢ꤬"],["give", "ꤘꤛꤢꤩ"],
+	["take", "ꤖꤛꤢꤩ"],["takes", "ꤖꤛꤢꤩ"],["taking", "ꤖꤛꤢꤩ"],["taken", "ꤖꤛꤢꤩ"],["took", "ꤖꤛꤢꤩ"],["each other", "ꤋꤛꤢꤩ꤭ꤜꤢꤨ꤭"],
+	["take me", "ꤞꤢꤨ꤭ꤠꤢ꤭"],["take you", "ꤞꤢꤨ꤭ꤔꤟꤢꤧ꤬"],["take him", "ꤞꤢꤨ꤭ꤢꤧ꤬"],["take her", "ꤞꤢꤨ꤭ꤢꤧ꤬"],["take them", "ꤞꤢꤨ꤭ꤢꤧ꤬ꤞꤤ꤭"],
+	["drop", "ꤗꤟꤢꤩ꤬ꤜꤢ꤬ꤒꤟꤢ꤭"], ["drop off", "ꤞꤢꤨ꤭ꤒꤟꤢ꤭"],["drop me off", "ꤞꤢꤨ꤭ꤒꤟꤢ꤭ꤠꤢ꤭"],
+	["pick", "ꤖꤛꤢꤩ"],["pick up", "ꤖꤛꤢꤩꤓꤛꤢ꤬"],["pick me up", "ꤢꤧ꤬ꤠꤢ꤭"],
 	["doesn't", "ꤒꤥ꤬"],["didn't", "ꤒꤥ꤬"],["not", "ꤒꤥ꤬"],["wasn't", "ꤒꤥ꤬"],["weren't", "ꤒꤥ꤬"],["can't", "ꤢ꤬ꤔꤟꤤꤒꤥ꤬"],["couldn't", "ꤒꤥ꤬"],["haven't", "ꤒꤥ꤬"],
 	["hasn't", "ꤒꤥ꤬"],["hadn't", "ꤒꤥ꤬"],["won't", "ꤒꤥ꤬ꤕꤢ꤭"],["wouldn't", "ꤒꤥ꤬"],["shouldn't", "ꤒꤥ꤭ꤊꤢꤪ꤬ꤒꤥ꤬"],["mightn't", "ꤒꤥ꤬"],["mustn't", "ꤒꤥ꤬"],
-	["needn't", "ꤒꤥ꤬"],["daren't", "ꤒꤥ꤬"],["isn't", "ꤒꤥ꤬"],["aren't", "ꤒꤥ꤬"],["want", "ꤞꤢꤧꤐꤟꤢꤦ"],["need", "ꤜꤥ꤬ꤙꤢꤧ꤬"],["home", "ꤟꤤ꤬"],["kayah li", "ꤊꤢ꤬ꤛꤢ꤭ꤜꤟꤤ꤬"],
-    ["english", "ꤊꤢꤨ꤭ꤜꤢ꤭"],["speak", "ꤟꤢꤩꤙꤢꤧ꤬"],["be", "ꤥ꤬"],["with", "ꤊꤟꤊꤣ꤭ꤔꤢ"],["peace", "ꤒꤟꤢꤧ꤬ꤕꤟꤢꤩ꤭ꤘꤝꤥ꤭"],["come", "ꤟꤛꤢ꤭"],["forget", "ꤏꤥ꤭ꤒꤢ꤬ꤕꤟꤢ꤬"],["will", ""],
+	["needn't", "ꤒꤥ꤬"],["daren't", "ꤒꤥ꤬"],["isn't", "ꤒꤥ꤬"],["aren't", "ꤒꤥ꤬"],["want", "ꤞꤢꤧꤐꤟꤢꤦ"],["need", "ꤜꤥ꤬ꤙꤢꤧ꤬"],["home", "ꤟꤤ꤬"],["kayah li", "ꤊꤢ꤬ꤛꤢ꤭ꤜꤟꤤ꤬"],["karenni", "ꤊꤢ꤬ꤛꤢ꤭ꤜꤟꤤ꤬"],
+	["community", "ꤕꤚꤟꤢꤧ꤬ꤢ꤬ꤕꤜꤢꤪꤢ꤬ꤗꤟꤢꤨ꤬"],["translator", "ꤜꤤ꤬ꤕꤟꤥ꤬ꤓꤢꤩ꤬ꤏꤢꤦ꤬"],
+    ["welcome", "ꤢꤧꤗꤟꤥ꤬ꤏꤢꤦ꤬"],["state", "ꤊꤟꤢꤩ"],["army", "ꤊꤜꤛꤢꤩ꤭ꤊꤜꤥ꤭"],["donate", "ꤜꤢꤨ꤭ꤒꤛꤢ꤭"],["donation", "ꤒꤟꤢꤧ꤬ꤜꤢꤨ꤭ꤒꤟꤢꤧ꤬ꤒꤛꤢ꤭"],["benefit", "ꤙꤝꤤꤒꤢ꤬ꤚꤛꤢꤩ꤭"],["benefited", "ꤙꤝꤤꤒꤢ꤬ꤚꤛꤢꤩ꤭"],
+	["english", "ꤊꤢꤨ꤭ꤜꤢ꤭"],["speak", "ꤟꤢꤩꤙꤢꤧ꤬"],["be", "ꤥ꤬"],["with", "ꤊꤟꤊꤣ꤭ꤔꤢ"],["peace", "ꤒꤟꤢꤧ꤬ꤕꤟꤢꤩ꤭ꤘꤝꤥ꤭"],["come", "ꤟꤛꤢ꤭"],["visit", "ꤥ꤬ꤜꤢꤩ꤭"],
+	["forget", "ꤏꤥ꤭ꤒꤢ꤬ꤕꤟꤢ꤬"],["forgot", "ꤏꤥ꤭ꤒꤢ꤬ꤕꤟꤢ꤬"],["will", ""],
 	["can", ""],["could", ""],["may", ""],["maybe", "ꤡꤟꤛꤢꤊꤥ꤭ꤜꤢꤩ꤬"],["what", "ꤒꤤ꤭ꤒꤢꤩ꤭"],["what is", "ꤗꤢ꤬ꤒꤤ꤭ꤒꤢꤩ꤭"],["what was", "ꤗꤢ꤬ꤒꤤ꤭ꤒꤢꤩ꤭"],["what are", "ꤗꤢ꤬ꤒꤤ꤭ꤒꤢꤩ꤭"],
 	["what were", "ꤗꤢ꤬ꤒꤤ꤭ꤒꤢꤩ꤭"],["what do", "ꤒꤤ꤭ꤒꤢꤩ꤭"],["what does", "ꤒꤤ꤭ꤒꤢꤩ꤭"],["what did", "ꤒꤤ꤭ꤒꤢꤩ꤭"],["what will", "ꤕꤢ꤭ꤒꤤ꤭ꤒꤢꤩ꤭"],["what will you do", "ꤔꤟꤢꤧ꤬ꤗꤟꤢꤩ꤬ ꤕꤢ꤭ꤒꤤ꤭ꤒꤢꤩ꤭"],
 	["what should", "ꤒꤤ꤭ꤒꤢꤩ꤭ꤢ꤬ꤚꤛꤢꤟꤟꤢꤧ꤭"],["what to", "ꤒꤤ꤭ꤒꤢꤩ꤭"],["who", "ꤕꤚꤟꤢꤧ꤬ꤘꤣ"],["whom", "ꤘꤣꤢꤨ꤭ꤕꤢꤩ꤭"],["who is", "ꤗꤢ꤬ꤢꤨ꤭ꤕꤢꤩ꤭"],["who was", "ꤗꤢ꤬ꤢꤨ꤭ꤕꤢꤩ꤭"],
@@ -171,7 +197,7 @@
 	["finished", "ꤗꤟꤢꤩ꤬ꤕꤜꤢꤦꤓꤌꤣ꤭"],["eaten", "ꤢꤩ꤬ꤓꤌꤣ꤭"],["gone", "ꤡꤛꤣꤓꤌꤣ꤭"],["seen", "ꤗꤛꤢꤓꤛꤢꤩ꤬ꤔꤢꤪ"],["never", "ꤒꤢ꤬ꤖꤟꤌꤣꤒꤥ꤬"],
 	["heard of", "ꤔꤟꤤꤟꤌꤣ꤭ꤔꤢꤪ"],["nice", "ꤒꤝꤟꤥ"],["great", "ꤚꤛꤢ"],["good", "ꤚꤛꤢ"],
 ["still", "STILL_PLACEHOLDER"],
-	["school", "ꤞꤛꤥꤜꤤ꤬ꤟꤥ꤭"],["food", "ꤏꤢꤧ꤬ꤢꤩ꤬"],["mercy", "ꤒꤟꤢꤧ꤬ꤞꤢꤧꤐꤟꤢꤪ꤬"],["must", "ꤒꤥ꤭ꤙꤢꤧ꤬"],["tired of", "ꤞꤢꤧꤕꤜꤢꤪ꤬ꤜꤟꤢꤪ꤭"],["staying", "ꤥ꤬"],["country", "ꤓꤛꤢꤩ꤭ꤊꤟꤢꤩ"],
+	["school", "ꤞꤛꤥꤜꤤ꤬ꤟꤥ꤭"],["schools", "ꤞꤛꤥꤜꤤ꤬ꤟꤥ꤭"],["student", "ꤞꤛꤥꤜꤤ꤬ꤟꤥ꤭ꤖꤢꤨ"],["students", "ꤞꤛꤥꤜꤤ꤬ꤟꤥ꤭ꤖꤢꤨ"],["food", "ꤏꤢꤧ꤬ꤢꤩ꤬"],["mercy", "ꤒꤟꤢꤧ꤬ꤞꤢꤧꤐꤟꤢꤪ꤬"],["must", "ꤒꤥ꤭ꤙꤢꤧ꤬"],["tired of", "ꤞꤢꤧꤕꤜꤢꤪ꤬ꤜꤟꤢꤪ꤭"],["staying", "ꤥ꤬"],["country", "ꤓꤛꤢꤩ꤭ꤊꤟꤢꤩ"],
 	["books", "ꤜꤤ꤬ꤢꤨ"],["money", "ꤚꤢꤦ꤭ꤓꤢꤧ꤭"],
 // Time / subordinate conjunctions
 	["while", "ꤢ꤬ꤋꤢꤧ꤭ꤔꤌꤣ꤬"],["during", "ꤔꤌꤣ꤬ꤢ꤬ꤋꤢꤧ꤭"],["since", "ꤔꤌꤣ꤬ꤕꤢ꤭"],["whenever", "ꤙꤤꤋꤢꤧ꤭ꤒꤢꤩꤙꤢꤧ꤬"],["as soon as", "ꤙꤤꤋꤢꤧ꤭ꤒꤢꤩ꤭ꤔꤌꤣ꤬"],
@@ -191,12 +217,14 @@
             //  ADJECTIVE MAP
             // --------------------------------------------------------------
             const adjectiveMap = new Map([
-              ["ugly", "ꤒꤟꤢ꤭ꤚꤟꤢꤩ꤭"],["lazy", "ꤒꤢ꤬ꤊꤜꤢꤩ꤭"],["available", "ꤢ꤬ꤔꤟꤤꤡꤟꤛꤢ"],["already", "ꤟꤢꤪ"],["no", "ꤥ꤬ꤒꤥ꤬"],
-			    ["best", "ꤢ꤬ꤚꤛꤢꤜꤣꤊꤜꤢꤪ꤭"],["better", "ꤢ꤬ꤚꤛꤢꤜꤣ"],["far", "ꤥ꤬ꤐꤛꤢꤩ꤬"],
+				["poor", "ꤏꤥ꤭ꤖꤢꤏꤥ꤭ꤚꤟꤛꤢ꤬"],["crazy", "ꤒꤢ꤬ꤗꤝꤤ꤭"],["bored", "ꤞꤢꤧꤒꤢ꤬ꤊꤜꤢꤩ꤭"],["boring", "ꤞꤢꤧꤒꤢ꤬ꤊꤜꤢꤩ꤭"],
+				["ugly", "ꤒꤟꤢ꤭ꤚꤟꤢꤩ꤭"],["lazy", "ꤒꤢ꤬ꤊꤜꤢꤩ꤭"],["available", "ꤢ꤬ꤔꤟꤤꤡꤟꤛꤢ"],["already", "ꤟꤢꤪ"],["no", "ꤥ꤬ꤒꤥ꤬"],
+			    ["best", "ꤢ꤬ꤚꤛꤢꤜꤣꤊꤜꤢꤪ꤭"],["better", "ꤢ꤬ꤚꤛꤢꤜꤣ"],["far", "ꤥ꤬ꤐꤛꤢꤩ꤬"],["any", "ꤒꤢ꤬ꤟꤢꤩ꤬"],
                 ["new", "ꤢ꤬ꤞꤢꤧ꤭"],["much", "ꤥ꤬ꤢꤧ"],["big", "ꤘꤢꤨ꤬"],["beautiful", "ꤒꤝꤟꤥ"],["old", "ꤜꤟꤛꤢꤩ꤬"],["small", "ꤕꤢ꤬ꤒꤤ"],
-                ["good", "ꤚꤛꤢ"],["bad", "ꤕꤛꤢꤩ"],["happy", "ꤗꤟꤥ꤬ꤞꤢꤧꤜꤟꤢꤪ꤭"],["sad", "ꤞꤢꤧꤕꤜꤟꤢꤧ꤭"],["tired", "ꤞꤢꤧꤕꤚꤢ"],
-				["lucky", "ꤙꤝꤤꤚꤛꤢ"],["ready", "ꤒꤢ꤬ꤚꤤ꤬ꤟꤢꤪ"],["late", "ꤒꤟꤢ꤭ꤔꤥ꤬"],["quick", "ꤕꤚꤛꤢ꤭"],["hungry", "ꤟꤢꤪꤜꤢ꤬ꤘꤢ꤭"],["nice", "ꤒꤝꤟꤥ"],["great", "ꤚꤛꤢ"],
-            ]);
+                ["good", "ꤚꤛꤢ"],["bad", "ꤕꤛꤢꤩ"],["happy", "ꤗꤟꤥ꤬"],["sad", "ꤞꤢꤧꤕꤜꤟꤢꤧ꤭"],["tired", "ꤞꤢꤧꤕꤚꤢ"],
+				["lucky", "ꤙꤝꤤꤚꤛꤢ"],["ready", "ꤒꤢ꤬ꤚꤤ꤬ꤟꤢꤪ"],["late", "ꤒꤟꤢ꤭ꤔꤥ꤬"],["quick", "ꤕꤚꤛꤢ꤭"],["hungry", "ꤟꤢꤪꤜꤢ꤬ꤘꤢ꤭"],
+				["nice", "ꤒꤝꤟꤥ"],["great", "ꤚꤛꤢ"],["about", "ꤚꤤ꤬ꤊꤛꤢ꤭"],
+ ]);
 
             // ALL negative words with their specific translations
             const negativeWords = new Set([
@@ -293,26 +321,31 @@
                 ["about", "ꤚꤤ꤬ꤊꤛꤢ꤭"],
                 ["at", "ꤘꤣ"],
                 ["by", "ꤔꤢ"],
-                ["near", "ꤖꤢꤦ꤬"],
+                ["near", "ꤖꤢꤦ꤬ꤑꤢꤩ"],
                 ["under", "ꤜꤢꤧ꤭"],
                 ["across", "ꤙꤢꤧꤚꤟꤢꤧ꤭"],
-                ["around", "ꤒꤢ꤬ꤠꤟꤢ꤬"],
-                ["into", "ꤊꤢ꤬ꤔꤟꤌꤣ꤭"],
-                ["onto", "ꤊꤢ꤬ꤓꤛꤢ꤬"],
+                ["around", "ꤒꤢ꤬ꤠꤟꤢ꤬ꤔꤢ"],
+                ["into", "ꤊꤢ꤬ꤔꤟꤌꤣ꤭ꤘꤣ"],
+                ["onto", "ꤊꤢ꤬ꤓꤛꤢ꤬ꤘꤣ"],
                 ["over", "ꤋꤢꤨ꤬"],
                 ["through", "ꤒꤢ꤬ꤜꤝꤥ"],
                 ["toward", "ꤒꤥ꤭ꤘꤣ"],
                 ["towards", "ꤒꤥ꤭ꤘꤣ"],
+                ["with", "ꤊꤟꤊꤣ꤭ꤔꤢ"],
                 ["without", "ꤏꤥ꤭ꤘꤥ꤭"],
-                ["because of", "ꤋꤢꤨ꤬ꤋꤛꤢꤩ꤭"],
+                ["because of", "ꤢ꤬ꤗꤟꤢꤩ꤬ꤒꤢꤩ꤭ꤚꤢꤪ"],
                 ["in front of", "ꤘꤣꤗꤢꤧ꤬ꤞꤢꤧ꤬ꤑꤢꤩ꤭"],
                 ["instead of", "ꤢ꤬ꤑꤢꤩ꤭"],
                 ["next to", "ꤋꤢ꤭ꤏꤛꤢꤩ"],
-                ["out of", "ꤜꤟꤢꤪ꤭ꤊꤛꤢ꤭"],
+                ["out of", "ꤊꤢ꤬ꤓꤢꤩ꤬ꤘꤣ"],
                 ["during", "ꤔꤌꤣ꤬ꤢ꤬ꤋꤢꤧ꤭"],
-                ["until", "ꤒꤢ꤬ꤘꤢꤦ꤬"],
-                ["before", "ꤟꤤꤒꤥ꤬ꤢ꤬ꤋꤢꤧ꤭"],
+                ["until", "ꤒꤢ꤬ꤘꤢꤦ꤬ꤒꤟꤌꤣ"],
+                ["till", "ꤒꤢ꤬ꤘꤢꤦ꤬ꤒꤟꤌꤣ"],
+                ["before", "ꤟꤤ꤬ꤒꤥ꤬ꤢ꤬ꤋꤢꤧ꤭"],
                 ["after", "ꤓꤌꤣ꤭ꤘꤣꤋꤛꤢꤩ꤭"],
+                ["of", "ꤥ꤬ꤘꤣ"],
+                ["from", "ꤙꤤ"],
+                ["to", "ꤘꤣ"],
             ]);
 
             // Time conjunctions (moved to end of clause in Kayah)
@@ -320,16 +353,19 @@
             // stay in English sentence order (handled via dict only, not this map)
             // "though" is moved to end
             const timeConjunctions = new Map([
-                ["before", "ꤟꤤꤒꤥ꤬ꤢ꤬ꤋꤢꤧ꤭"],
+                ["before", "ꤟꤤ꤬ꤒꤥ꤬ꤢ꤬ꤋꤢꤧ꤭"],
                 ["after", "ꤓꤌꤣ꤭ꤘꤣꤋꤛꤢꤩ꤭"],
                 ["when", "ꤢ꤬ꤋꤢꤧ꤭"],
                 ["while", "ꤢ꤬ꤋꤢꤧ꤭ꤔꤌꤣ꤬"],
                 ["during", "ꤔꤌꤣ꤬ꤢ꤬ꤋꤢꤧ꤭"],
                 ["since", "ꤔꤌꤣ꤬ꤕꤢ꤭"],
-                ["until", "ꤒꤢ꤬ꤘꤢꤦ꤬"],
+                ["until", "ꤒꤢ꤬ꤘꤢꤦ꤬ꤒꤟꤌꤣ"],
                 ["though", "ꤒꤢ꤬ꤘꤣ꤬"],
                 ["as soon as", "ꤙꤤꤋꤢꤧ꤭ꤒꤢꤩ꤭ꤔꤌꤣ꤬"],
-                ["once", "ꤒꤣ꤬ꤖꤟꤌꤣꤒꤌꤣ꤭"],
+                ["once", "ꤒꤣ꤬ꤟꤢꤦ꤬ꤒꤌꤣ꤭"],
+				["twice", "ꤔꤛꤢꤩ꤭ꤟꤢꤦ꤬"],
+				["first time", "ꤊꤢ꤬ꤜꤢꤨꤒꤣ꤬ꤟꤢꤦ꤬"],
+				["thrice", "ꤞꤌꤣ꤭ꤟꤢꤦ꤬"],
                 ["whenever", "ꤙꤤꤋꤢꤧ꤭ꤒꤢꤩꤙꤢꤧ꤬"],
                 ["unless", "ꤒꤥ꤬ꤟꤢꤩꤗꤢ꤬"],
                 ["even if", "ꤒꤢ꤬ꤘꤣ꤬ꤟꤢꤩꤗꤢ꤬"],
@@ -496,6 +532,31 @@
             function isPrepositionAfter(token) {
                 const lower = token.toLowerCase().replace(/[.,;!?]+$/, "");
                 return prepositionsAfter.has(lower);
+            }
+
+            // Only these prepositions move to end of clause in Kayah Li:
+            // in, on, under, across, over, after, before, during, since, for,
+            // in front of, instead of, next to
+            const endPlacementPreps = new Set([
+                "in", "on", "under", "across", "over", "after", "before",
+                "during", "since", "for", "in front of", "instead of", "next to"
+            ]);
+            const multiWordPreps = [
+                "in front of", "instead of", "next to"
+            ];
+            function matchMultiWordPrep(tokens, i) {
+                for (const mw of multiWordPreps) {
+                    const parts = mw.split(" ");
+                    if (i + parts.length <= tokens.length) {
+                        let ok = true;
+                        for (let k = 0; k < parts.length; k++) {
+                            const tl = tokens[i + k].toLowerCase().replace(/[.,;!?]+$/, "");
+                            if (tl !== parts[k]) { ok = false; break; }
+                        }
+                        if (ok) return { phrase: mw, len: parts.length, trans: prepositionsAfter.get(mw) || dict.get(mw) };
+                    }
+                }
+                return null;
             }
 
             function getPrepositionTranslation(token) {
@@ -783,8 +844,10 @@
                 let hasNegation = false;
                 let modalToken = null;
                 let everWordTranslation = null;
+                let deferredPreps = []; // prepositions moved to end after objects/nouns
                 let translated = [];
                 let skipNext = false;
+                let skipPrepCount = 0;
                 let toBeFound = false;
                 let prepositionToken = null;
                 let prepositionTranslation = null;
@@ -856,16 +919,25 @@
                         }
                     }
 
-                    if (isPrepositionAfter(tokens[i])) {
+                    // multi-word prep first (only end-placement list)
+                    const mwPrep = matchMultiWordPrep(tokens, i);
+                    if (mwPrep && mwPrep.trans && endPlacementPreps.has(mwPrep.phrase)) {
+                        deferredPreps.push(mwPrep.trans);
+                    } else if (isPrepositionAfter(tokens[i])) {
                         prepositionToken = tokens[i];
                         prepositionTranslation = getPrepositionTranslation(tokens[i]);
+                        const pl = tokens[i].toLowerCase().replace(/[.,;!?]+$/, "");
                         if (prepositionTranslation === "ꤒꤢ꤬ꤜꤝꤥꤏꤢꤦꤜꤢꤦ꤭") {
                             tooTranslation = prepositionTranslation;
                             tooIndex = i;
-                        }
-                        if (prepositionTranslation === "ꤊꤢꤨ꤭") {
+                        } else if (prepositionTranslation === "ꤊꤢꤨ꤭" && endPlacementPreps.has("in")) {
                             inTranslation = prepositionTranslation;
                             inIndex = i;
+                        } else if (prepositionTranslation && endPlacementPreps.has(pl)) {
+                            // only listed preps → defer to end
+                            if (pl !== "on" && pl !== "in") {
+                                deferredPreps.push(prepositionTranslation);
+                            }
                         }
                     }
                     if (tokens[i].toLowerCase().replace(/[.,;!?]+$/, "") === "that") {
@@ -1436,11 +1508,31 @@
                         }
                     }
 
+                    if (skipPrepCount > 0) {
+                        skipPrepCount--;
+                        continue;
+                    }
+
+                    // multi-word prepositions on end-placement list → deferred to end
+                    const mwHere = matchMultiWordPrep(tokens, i);
+                    if (mwHere && endPlacementPreps.has(mwHere.phrase)) {
+                        if (mwHere.trans && !deferredPreps.includes(mwHere.trans)) {
+                            deferredPreps.push(mwHere.trans);
+                        }
+                        skipPrepCount = mwHere.len - 1;
+                        continue;
+                    }
+
                     if (lower === "on" && nounForOn) {
                         continue;
                     }
 
-                    if (isPrepositionAfter(token)) {
+                    if (isPrepositionAfter(token) && endPlacementPreps.has(lower)) {
+                        // ensure deferred (in case first pass missed)
+                        const pt = getPrepositionTranslation(token);
+                        if (pt && lower !== "on" && lower !== "in" && lower !== "too" && lower !== "very") {
+                            if (!deferredPreps.includes(pt)) deferredPreps.push(pt);
+                        }
                         continue;
                     }
 
@@ -1708,7 +1800,9 @@
                     translatedWords = newTranslatedWords;
                 }
 
-                if (nounForFor && forTranslation) {
+                // "for" is handled via deferredPreps (end of clause after object)
+                // skip specialized forTranslation append to avoid duplicates
+                if (false && nounForFor && forTranslation) {
                     let nounFound = false;
                     let newTranslatedWords = [];
                     for (let i = 0; i < translatedWords.length; i++) {
@@ -1738,6 +1832,14 @@
                         newTranslatedWords.push(aboutTranslation);
                     }
                     translatedWords = newTranslatedWords;
+                }
+
+                // Deferred prepositions (under/across/before/after/for/… and multi-word)
+                // always appear at end after object pronouns / nouns / noun phrases
+                if (deferredPreps.length > 0) {
+                    for (const dp of deferredPreps) {
+                        translatedWords.push(dp);
+                    }
                 }
 
                 let result = translatedWords.join(" ");
@@ -1792,6 +1894,24 @@
                     const specialPhrases = ["ꤥ꤬ꤔꤢꤒꤟꤢꤧ꤬ꤚꤛꤢ", "ꤥ꤬ꤔꤢꤒꤟꤢꤧ꤬ꤒꤝꤟꤥ"];
                     if (specialPhrases.includes(haveTranslation)) {
                         result = haveTranslation;
+                    } else if (haveTranslation === "ꤥ꤬" || isMainVerbHave) {
+                        // have/has/had after subject → ꤥ꤬ right after the FIRST noun
+                        // e.g. I have a book in my big house
+                        // → ꤠꤢ꤭ ꤜꤤ꤬ꤢꤨ ꤥ꤬ … (ꤥ꤬ after book, not after house)
+                        const subjectForms = new Set(["ꤠꤢ꤭", "ꤢꤧ꤬", "ꤕꤟꤢꤧ꤬", "ꤢꤧ꤬ꤞꤤ꤭", "ꤔꤟꤢꤧ꤬"]);
+                        const words = result.split(" ").filter(w => w.length > 0);
+                        let inserted = false;
+                        let newWords = [];
+                        for (let wi = 0; wi < words.length; wi++) {
+                            newWords.push(words[wi]);
+                            if (!inserted && !subjectForms.has(words[wi])) {
+                                // first non-subject token = first noun (or object)
+                                newWords.push(haveTranslation);
+                                inserted = true;
+                            }
+                        }
+                        if (!inserted) newWords.push(haveTranslation);
+                        result = newWords.join(" ");
                     } else {
                         result += " " + haveTranslation;
                     }
@@ -2289,7 +2409,7 @@
                             "as soon as": "ꤙꤤꤋꤢꤧ꤭ꤒꤢꤩ꤭ꤔꤌꤣ꤬",
                             "although": "ꤒꤢ꤬ꤘꤣ꤬",
                             "whether": "ꤒꤣ꤬ꤊꤟꤊꤣ꤬ꤊꤟꤊꤣ꤬",
-                            "once": "ꤒꤣ꤬ꤖꤟꤌꤣꤒꤌꤣ꤭",
+                            "once": "ꤒꤣ꤬ꤟꤢꤦ꤬ꤒꤌꤣ꤭",
                             "inasmuch as": "ꤢ꤬ꤗꤟꤢꤩ꤬ꤒꤢꤩ꤭ꤔꤌꤣ꤬"
                         };
 
@@ -2761,5 +2881,6 @@
             window.translator = { translateToKayah, translateToEnglish };
         })();
     </script>
+    </div>
 </body>
 </html>
