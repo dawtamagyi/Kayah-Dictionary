@@ -177,6 +177,8 @@
                 ["behind", "ꤋꤢ꤭ꤏꤛꤢꤩ"],
                 ["between", "ꤢ꤬ꤕꤜꤢꤧ꤬"],
                 ["want to", "ꤞꤢꤧꤐꤟꤢꤦ"],
+                ["used to", "ꤊꤟꤊꤣ꤭"],
+                ["use to", "ꤊꤟꤊꤣ꤭"],
                 ["would like to", "ꤞꤢꤧꤐꤟꤢꤦ"],
                 ["need to", "ꤜꤥ꤬"],
                 ["love to", "ꤞꤢꤧꤐꤟꤢꤦ"],
@@ -347,12 +349,12 @@
                 ["wasn't", "ꤥ꤬ꤒꤥ꤬"],
                 ["weren't", "ꤒꤥ꤬"],
                 ["can't", "ꤢ꤬ꤔꤟꤤꤒꤥ꤬"],
-                ["couldn't", "ꤒꤥ꤬"],
+                ["couldn't", "ꤢ꤬ꤔꤟꤤꤒꤥ꤬"],
                 ["haven't", "ꤒꤥ꤬"],
                 ["hasn't", "ꤒꤥ꤬"],
                 ["hadn't", "ꤒꤥ꤬"],
                 ["won't", "ꤒꤥ꤬ꤕꤢ꤭"],
-                ["wouldn't", "ꤒꤥ꤬"],
+                ["wouldn't", "ꤒꤥ꤬ꤕꤢ꤭"],
                 ["shouldn't", "ꤒꤥ꤭ꤊꤢꤪ꤬ꤒꤥ꤬"],
                 ["mightn't", "ꤒꤥ꤬"],
                 ["mustn't", "ꤒꤥ꤬"],
@@ -467,6 +469,7 @@
                 ["known", "ꤞꤢꤧꤑꤢꤩ꤭ꤓꤌꤣ꤭"],
                 ["seen", "ꤗꤛꤢꤓꤛꤢꤩ꤬ꤔꤢꤪ"],
                 ["never", "ꤒꤢ꤬ꤖꤟꤌꤣꤒꤥ꤬"],
+                ["ever", "ꤔꤢꤪ"],
                 ["heard of", "ꤔꤟꤤꤟꤌꤣ꤭ꤔꤢꤪ"],
                 ["nice", "ꤒꤝꤟꤥ"],
                 ["great", "ꤚꤛꤢ"],
@@ -787,12 +790,12 @@
                 ["wasn't", "ꤥ꤬ꤒꤥ꤬"],
                 ["weren't", "ꤒꤥ꤬"],
                 ["can't", "ꤢ꤬ꤔꤟꤤꤒꤥ꤬"],
-                ["couldn't", "ꤒꤥ꤬"],
+                ["couldn't", "ꤢ꤬ꤔꤟꤤꤒꤥ꤬"],
                 ["haven't", "ꤒꤥ꤬"],
                 ["hasn't", "ꤒꤥ꤬"],
                 ["hadn't", "ꤒꤥ꤬"],
                 ["won't", "ꤒꤥ꤬ꤕꤢ꤭"],
-                ["wouldn't", "ꤒꤥ꤬"],
+                ["wouldn't", "ꤒꤥ꤬ꤕꤢ꤭"],
                 ["shouldn't", "ꤒꤥ꤭ꤊꤢꤪ꤬ꤒꤥ꤬"],
                 ["mightn't", "ꤒꤥ꤬"],
                 ["mustn't", "ꤒꤥ꤬"],
@@ -892,7 +895,7 @@
                 ["whereas", "ꤔꤌꤣ꤬ꤚꤢꤪ"],
                 ["as if", "ꤖꤢꤨꤊꤤ꤬"],
                 ["as though", "ꤖꤢꤨꤊꤤ꤬"],
-                ["as", "ꤖꤢꤨ"],
+                // bare "as" is NOT a clause splitter (e.g. "select them as your leader")
             ]);
 
             // Conjunctions where modals (will/can/should) should appear BEFORE them
@@ -1367,10 +1370,19 @@
                 let everWordTranslation = null;
                 let deferredPreps = []; // prepositions moved to end after objects/nouns
                 let deferredTimeAdverbs = []; // tomorrow/yesterday after for, before modal
+                let neverTranslation = null; // never at end of main clause
+                let everAdverb = null; // ever → after verb (ꤔꤢꤪ)
+                let usedToTranslation = null; // used to / use to → after main verb
+                let beforeAdverbEnd = null; // final "before" without subordinate → ꤢ꤬ꤚꤟꤢꤩꤋꤢꤧ꤭
                 let translated = [];
                 let skipNext = false;
                 let skipPrepCount = 0;
                 const timeAdverbsEnd = new Set(["tomorrow", "yesterday", "today"]);
+                let lastContentIdx = tokens.length - 1;
+                while (lastContentIdx >= 0 && !String(tokens[lastContentIdx]).replace(/[.,;!?]+$/, "").length) lastContentIdx--;
+                const lastContentLower = lastContentIdx >= 0
+                    ? tokens[lastContentIdx].toLowerCase().replace(/[.,;!?]+$/, "")
+                    : "";
                 let toBeFound = false;
                 let prepositionToken = null;
                 let prepositionTranslation = null;
@@ -2131,6 +2143,28 @@
                         continue;
                     }
 
+                    // never → end of main clause (before subordinate)
+                    if (lower === "never") {
+                        neverTranslation = getWordTranslation(token) || dict.get("never") || "ꤒꤢ꤬ꤖꤟꤌꤣꤒꤥ꤬";
+                        continue;
+                    }
+                    // ever → after main verb (ꤔꤢꤪ)
+                    if (lower === "ever") {
+                        everAdverb = getWordTranslation(token) || dict.get("ever") || "ꤔꤢꤪ";
+                        continue;
+                    }
+                    // used to / use to → after main verb (ꤊꤟꤊꤣ꤭)
+                    if (lower === "used to" || lower === "use to") {
+                        usedToTranslation = getWordTranslation(token) || dict.get(lower) || "ꤊꤟꤊꤣ꤭";
+                        continue;
+                    }
+
+                    // sentence-final "before" without subordinate clause → ꤢ꤬ꤚꤟꤢꤩꤋꤢꤧ꤭
+                    if (lower === "before" && lastContentLower === "before") {
+                        beforeAdverbEnd = "ꤢ꤬ꤚꤟꤢꤩꤋꤢꤧ꤭";
+                        continue;
+                    }
+
                     // tomorrow / yesterday / today → after for, before modal marker
                     if (timeAdverbsEnd.has(lower)) {
                         const tTrans = getWordTranslation(token) || dict.get(lower) || token;
@@ -2438,19 +2472,52 @@
 
                 // Deferred prepositions (under/across/before/after/for/… and multi-word)
                 // always appear at end after object pronouns / nouns / noun phrases
+                // If sentence-final adverbial "before" is used, drop conjunction-form before from deferredPreps
                 if (deferredPreps.length > 0) {
                     for (const dp of deferredPreps) {
+                        if (beforeAdverbEnd && (dp === "ꤟꤤ꤬ꤒꤥ꤬ꤢ꤬ꤋꤢꤧ꤭" || dp === "ꤟꤤꤒꤥ꤬ꤢ꤬ꤋꤢꤧ꤭")) {
+                            continue;
+                        }
                         translatedWords.push(dp);
                     }
                 }
-                // tomorrow/yesterday after for, before modal (will/did marker added by caller)
-                if (deferredTimeAdverbs.length > 0) {
-                    for (const ta of deferredTimeAdverbs) {
-                        translatedWords.push(ta);
-                    }
-                }
-
+                // Time adverbs (today/yesterday/tomorrow) appended after negation below
                 let result = translatedWords.join(" ");
+
+                // ever (ꤔꤢꤪ) right after main verb
+                // e.g. I never ever forget you → I forget ever you never
+                if (everAdverb) {
+                    const subjectForms = new Set(["ꤠꤢ꤭", "ꤢꤧ꤬", "ꤕꤟꤢꤧ꤬", "ꤢꤧ꤬ꤞꤤ꤭", "ꤔꤟꤢꤧ꤬"]);
+                    const words = result.split(" ").filter(w => w.length > 0);
+                    let newWords = [];
+                    let inserted = false;
+                    for (let wi = 0; wi < words.length; wi++) {
+                        newWords.push(words[wi]);
+                        if (!inserted && !subjectForms.has(words[wi])) {
+                            newWords.push(everAdverb);
+                            inserted = true;
+                        }
+                    }
+                    if (!inserted) newWords.push(everAdverb);
+                    result = newWords.join(" ");
+                }
+                // used to / use to (ꤊꤟꤊꤣ꤭) right after main verb
+                // e.g. I used to live in X → I live used-to X in
+                if (usedToTranslation) {
+                    const subjectForms = new Set(["ꤠꤢ꤭", "ꤢꤧ꤬", "ꤕꤟꤢꤧ꤬", "ꤢꤧ꤬ꤞꤤ꤭", "ꤔꤟꤢꤧ꤬"]);
+                    const words = result.split(" ").filter(w => w.length > 0);
+                    let newWords = [];
+                    let inserted = false;
+                    for (let wi = 0; wi < words.length; wi++) {
+                        newWords.push(words[wi]);
+                        if (!inserted && !subjectForms.has(words[wi])) {
+                            newWords.push(usedToTranslation);
+                            inserted = true;
+                        }
+                    }
+                    if (!inserted) newWords.push(usedToTranslation);
+                    result = newWords.join(" ");
+                }
 
                 if (haveFound) {
                     if (isHaveWithV3 && v3Translation) {
@@ -2502,6 +2569,10 @@
                     const specialPhrases = ["ꤥ꤬ꤔꤢꤒꤟꤢꤧ꤬ꤚꤛꤢ", "ꤥ꤬ꤔꤢꤒꤟꤢꤧ꤬ꤒꤝꤟꤥ"];
                     if (specialPhrases.includes(haveTranslation)) {
                         result = haveTranslation;
+                    } else if (isHaveStart || haveTranslation === "ꤟꤢꤪꤟꤟꤢꤧ꤭") {
+                        // Has/Have/Had starting a question → ꤟꤢꤪꤟꤟꤢꤧ꤭ at END
+                        // e.g. Has he gone to school → he gone to school ꤟꤢꤪꤟꤟꤢꤧ꤭
+                        result = (result ? result + " " : "") + haveTranslation;
                     } else if (haveTranslation === "ꤥ꤬" || isMainVerbHave) {
                         // have/has/had after subject → ꤥ꤬ right after the FIRST noun
                         // e.g. I have a book in my big house
@@ -2526,41 +2597,40 @@
                 }
 
                 if (hasNegation) {
-                    // don't/doesn't/didn't/can't/won't/haven't after Verb, Object Pronoun, yet
-                    // BEFORE infinitive (ꤊꤟꤢꤦ …) and WH clause
+                    // All negatives at END of this clause (main clause),
+                    // before any subordinate clause attached by the caller.
+                    // e.g. I don't want to go to school → … school don't
+                    //      I won't go when she is here → … school won't | she is here when
                     let negToUse = negativeTranslation || "ꤒꤥ꤬";
-                    if (isDonStart && foundNegationWord) {
-                        const fl = foundNegationWord.toLowerCase().replace(/[.,;!?]+$/, "");
-                        if (fl === "don't" || fl === "do not") {
-                            negToUse = "ꤒꤢꤧ꤭ꤗꤟꤢꤩ";
-                        }
+                    if (foundNegationWord) {
+                        negToUse = getNegativeTranslation(foundNegationWord) || negToUse;
                     }
-                    if (!result.includes(negToUse)) {
-                        const words = result.split(" ").filter(w => w.length > 0);
-                        const subjectForms = new Set(["ꤠꤢ꤭", "ꤢꤧ꤬", "ꤕꤟꤢꤧ꤬", "ꤢꤧ꤬ꤞꤤ꤭", "ꤔꤟꤢꤧ꤬"]);
-                        const objectForms = new Set(["ꤠꤢ꤭", "ꤢꤧ꤬", "ꤕꤟꤢꤧ꤬", "ꤢꤧ꤬ꤞꤤ꤭", "ꤔꤟꤢꤧ꤬"]);
-                        const yetForm = "ꤟꤤ";
-                        const infTo = "ꤊꤟꤢꤦ";
-                        let insertAt = words.length;
-                        for (let wi = 0; wi < words.length; wi++) {
-                            if (words[wi] === infTo) { insertAt = wi; break; }
-                        }
-                        // Prefer after "yet" if present before infinitive
-                        for (let wi = 0; wi < insertAt; wi++) {
-                            if (words[wi] === yetForm) insertAt = wi + 1;
-                        }
-                        // No infinitive: after first verb (+ object) (+ yet)
-                        if (insertAt === words.length) {
-                            let pos = 0;
-                            while (pos < words.length && subjectForms.has(words[pos])) pos++;
-                            if (pos < words.length) pos++; // verb
-                            if (pos < words.length && objectForms.has(words[pos])) pos++;
-                            if (pos < words.length && words[pos] === yetForm) pos++;
-                            insertAt = pos;
-                        }
-                        words.splice(insertAt, 0, negToUse);
+                    if (negToUse && !result.includes(negToUse)) {
+                        result = (result ? result + " " : "") + negToUse;
+                    } else if (negToUse && result.includes(negToUse)) {
+                        // move existing neg token(s) to the end
+                        const words = result.split(" ").filter(w => w.length > 0 && w !== negToUse);
+                        words.push(negToUse);
                         result = words.join(" ");
                     }
+                }
+                // today/yesterday/tomorrow after negation, still end of main clause
+                if (deferredTimeAdverbs.length > 0) {
+                    for (const ta of deferredTimeAdverbs) {
+                        if (!result.includes(ta)) {
+                            result = (result ? result + " " : "") + ta;
+                        }
+                    }
+                }
+                // never at end of main clause (before subordinate)
+                // e.g. I never forget you → I forget you never
+                if (neverTranslation) {
+                    result = (result ? result + " " : "") + neverTranslation;
+                }
+                // sentence-final adverbial before (no subordinate)
+                // e.g. I never ever eat this before → … never ꤢ꤬ꤚꤟꤢꤩꤋꤢꤧ꤭
+                if (beforeAdverbEnd) {
+                    result = (result ? result + " " : "") + beforeAdverbEnd;
                 }
 
                 // Modal (will/can/should) on main clause before -ever words and before return
@@ -2659,7 +2729,8 @@
                     }
                 }
 
-                const rawSentences = text.split(/(?<=[.,;!?])\s*/).filter(s => s.trim().length > 0);
+                // Split only on sentence enders — not commas (commas join clauses: If X, Y when Z)
+                const rawSentences = text.split(/(?<=[.!?])\s+/).filter(s => s.trim().length > 0);
                 if (rawSentences.length === 0) return "";
 
                 const translatedSentences = rawSentences.map(sentence => {
@@ -3238,6 +3309,8 @@
                         // e.g. I will eat after you go → I eat will you go after
                         // Conjunctions at end of sub clause: after, before, when, unless,
                         // even if, while, during, as soon as, although, even though, though
+                        // when (and similar) after the subordinate verb/content
+                        // e.g. … when they talk → … they talk ꤢ꤬ꤋꤢꤧ꤭
                         const conjAtEndOfSub = new Set([
                             "after", "before", "when", "unless", "even if", "while",
                             "during", "as soon as", "although", "even though", "though",
@@ -3255,15 +3328,19 @@
                             if (beforeResult.text.length > 0) {
                                 result += " " + beforeResult.text;
                             }
-                            if (!putConjAtEnd) {
-                                result += " " + timeTranslation;
-                            }
-                            result += " " + secondaryConjunctions[secondaryType];
-                            if (afterResult.text.length > 0) {
-                                result += " " + afterResult.text;
-                            }
                             if (putConjAtEnd) {
+                                // they talk + when + because + you choose them
                                 result += " " + timeTranslation;
+                                result += " " + secondaryConjunctions[secondaryType];
+                                if (afterResult.text.length > 0) {
+                                    result += " " + afterResult.text;
+                                }
+                            } else {
+                                result += " " + timeTranslation;
+                                result += " " + secondaryConjunctions[secondaryType];
+                                if (afterResult.text.length > 0) {
+                                    result += " " + afterResult.text;
+                                }
                             }
                         } else {
                             let timeResult = translatePhrase(timeTokens, false, false, false, false, null, false, null, null);
