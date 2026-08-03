@@ -4,11 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Kayah Translator Test</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kay+Pho+Du:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             box-sizing: border-box;
             margin: 0;
-            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+            font-family: "Kay Pho Du", serif;
         }
         body {
             background: #FFC0CB;
@@ -17,6 +20,8 @@
             justify-content: center;
             align-items: center;
             padding: 1.5rem;
+            font-family: "Kay Pho Du", serif;
+            font-weight: 400;
         }
         .card {
             max-width: 960px;
@@ -54,7 +59,8 @@
             line-height: 1.6;
             min-height: 120px;
             resize: vertical;
-            font-family: 'Segoe UI', 'Noto Sans Kayah Li', sans-serif;
+            font-family: "Kay Pho Du", serif;
+            font-weight: 400;
         }
         textarea:focus {
             outline: 2px solid #b0b0b0;
@@ -68,7 +74,36 @@
             word-break: break-word;
             border: 1px solid #e0e0e0;
             overflow-y: auto;
-            font-family: 'Segoe UI', 'Noto Sans Kayah Li', sans-serif;
+            font-family: "Kay Pho Du", serif;
+            font-weight: 400;
+        }
+        h1 {
+            font-family: "Kay Pho Du", serif;
+            font-weight: 700;
+        }
+        label {
+            font-family: "Kay Pho Du", serif;
+            font-weight: 600;
+        }
+        .kay-pho-du-regular {
+            font-family: "Kay Pho Du", serif;
+            font-weight: 400;
+            font-style: normal;
+        }
+        .kay-pho-du-medium {
+            font-family: "Kay Pho Du", serif;
+            font-weight: 500;
+            font-style: normal;
+        }
+        .kay-pho-du-semibold {
+            font-family: "Kay Pho Du", serif;
+            font-weight: 600;
+            font-style: normal;
+        }
+        .kay-pho-du-bold {
+            font-family: "Kay Pho Du", serif;
+            font-weight: 700;
+            font-style: normal;
         }
         @media (max-width: 500px) {
             .card {
@@ -205,6 +240,8 @@
                 ["everyone", "ꤕꤝꤟꤥꤕꤚꤟꤢꤧ꤬"],
                 ["tomorrow", "ꤏꤛꤢꤩꤕꤢ꤬ꤚꤥ꤭"],
                 ["yesterday", "ꤕꤢ꤭ꤟꤢꤩ꤬ꤔꤢꤨ꤬"],
+                ["years", "ꤔꤢ꤬"],
+                ["years old", "ꤔꤢ꤬ꤥ꤬"],
                 ["we'll", "ꤕꤟꤢꤧ꤬ꤕꤢ꤭"],
                 ["a meeting", "ꤒꤟꤢꤧ꤬ꤥ꤬ꤊꤢꤨ"],
                 ["train", "ꤜꤟꤥꤗꤤ꤬ꤢꤦ꤭"],
@@ -307,7 +344,7 @@
                 ["doesn't", "ꤒꤥ꤬"],
                 ["didn't", "ꤒꤥ꤬"],
                 ["not", "ꤒꤥ꤬"],
-                ["wasn't", "ꤒꤥ꤬"],
+                ["wasn't", "ꤥ꤬ꤒꤥ꤬"],
                 ["weren't", "ꤒꤥ꤬"],
                 ["can't", "ꤢ꤬ꤔꤟꤤꤒꤥ꤬"],
                 ["couldn't", "ꤒꤥ꤬"],
@@ -747,7 +784,7 @@
                 ["doesn't", "ꤒꤥ꤬"],
                 ["didn't", "ꤒꤥ꤬"],
                 ["not", "ꤒꤥ꤬"],
-                ["wasn't", "ꤒꤥ꤬"],
+                ["wasn't", "ꤥ꤬ꤒꤥ꤬"],
                 ["weren't", "ꤒꤥ꤬"],
                 ["can't", "ꤢ꤬ꤔꤟꤤꤒꤥ꤬"],
                 ["couldn't", "ꤒꤥ꤬"],
@@ -2051,6 +2088,43 @@
                         continue;
                     }
 
+                    // "years" / "years old" always BEFORE the number
+                    // e.g. 20 years old → ꤔꤢ꤬ꤥ꤬ 20
+                    if (lower === "years old" || lower === "years") {
+                        // already handled when number was seen; skip if so
+                        continue;
+                    }
+                    if (/^\d+$/.test(lower) || /^\d+$/.test(token.replace(/[.,;!?]+$/, ""))) {
+                        // look ahead for years / years old
+                        let yearsTrans = null;
+                        let skipYears = 0;
+                        if (i + 1 < tokens.length) {
+                            const n1 = tokens[i + 1].toLowerCase().replace(/[.,;!?]+$/, "");
+                            if (n1 === "years old") {
+                                yearsTrans = "ꤔꤢ꤬ꤥ꤬";
+                                skipYears = 1;
+                            } else if (n1 === "years") {
+                                // years old as two tokens?
+                                if (i + 2 < tokens.length && tokens[i + 2].toLowerCase().replace(/[.,;!?]+$/, "") === "old") {
+                                    yearsTrans = "ꤔꤢ꤬ꤥ꤬";
+                                    skipYears = 2;
+                                } else {
+                                    yearsTrans = "ꤔꤢ꤬";
+                                    skipYears = 1;
+                                }
+                            } else if (n1 === "year" || n1 === "year old") {
+                                yearsTrans = (n1 === "year old") ? "ꤔꤢ꤬ꤥ꤬" : "ꤔꤢ꤬";
+                                skipYears = 1;
+                            }
+                        }
+                        if (yearsTrans) {
+                            translatedWords.push(yearsTrans);
+                            translatedWords.push(token.replace(/[.,;!?]+$/, ""));
+                            i += skipYears;
+                            continue;
+                        }
+                    }
+
                     // "about" is deferred to end after object/possessive phrase (never inline)
                     if (lower === "about") {
                         if (!aboutTranslation) aboutTranslation = "ꤚꤤ꤬ꤊꤛꤢ꤭";
@@ -3166,7 +3240,8 @@
                         // even if, while, during, as soon as, although, even though, though
                         const conjAtEndOfSub = new Set([
                             "after", "before", "when", "unless", "even if", "while",
-                            "during", "as soon as", "although", "even though", "though"
+                            "during", "as soon as", "although", "even though", "though",
+                            "since"
                         ]);
                         const putConjAtEnd = conjAtEndOfSub.has(timeConjType);
 
