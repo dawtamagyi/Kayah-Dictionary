@@ -256,21 +256,6 @@
                     </div>
                 </div>
             </div>
-            <!-- Sync ID for this device (same ID = same approved words everywhere) -->
-            <div class="card" style="margin-bottom:1rem;">
-                <h2 class="admin-h">Device sync</h2>
-                <p style="font-size:0.9rem;color:#666;margin:0 0 0.6rem 0;">Enter the Sync ID from your admin so approved words appear on this phone or computer.</p>
-                <div class="admin-row">
-                    <div>
-                        <label for="userSyncIdInput">Sync ID</label>
-                        <input type="text" id="userSyncIdInput" placeholder="Sync ID from admin" autocomplete="off" />
-                    </div>
-                </div>
-                <div class="admin-btns">
-                    <button type="button" id="userSaveSyncBtn">Save &amp; load words</button>
-                </div>
-                <div class="admin-msg" id="userSyncMsg"></div>
-            </div>
             <!-- User suggest vocabulary (pending until admin approves) -->
             <div class="card">
                 <h2 class="admin-h">Suggest a word</h2>
@@ -295,28 +280,7 @@
         <!-- ADMIN PANEL (password protected) -->
         <div id="panelAdmin" class="panel">
             <div class="card" style="margin-bottom:1rem;">
-                <h2 class="admin-h">Cloud sync (all devices)</h2>
-                <p style="font-size:0.9rem;color:#666;margin:0 0 0.6rem 0;">Approved words sync to every phone and computer that uses the same Sync ID. Create once, then share the Sync ID with users.</p>
-                <div class="admin-row">
-                    <div>
-                        <label for="syncIdInput">Sync ID</label>
-                        <input type="text" id="syncIdInput" placeholder="Paste or create a Sync ID" autocomplete="off" />
-                    </div>
-                </div>
-                <div class="admin-btns">
-                    <button type="button" id="createSyncBtn">Create new Sync ID</button>
-                    <button type="button" id="saveSyncBtn" class="secondary">Save Sync ID</button>
-                    <button type="button" id="pullSyncBtn" class="secondary">Pull now</button>
-                    <button type="button" id="pushSyncBtn" class="secondary">Push now</button>
-                </div>
-                <div class="admin-msg" id="syncMsg"></div>
-            </div>
-            <div class="card" style="margin-bottom:1rem;">
                 <h2 class="admin-h">Pending approval</h2>
-                <p style="font-size:0.85rem;color:#666;margin:0 0 0.5rem 0;">Suggestions from other phones appear here after cloud sync. Use the same Sync ID on every device.</p>
-                <div class="admin-btns" style="margin-top:0;">
-                    <button type="button" id="refreshPendingBtn" class="secondary">Refresh pending</button>
-                </div>
                 <div class="admin-count" id="pendingCountLabel">0 pending</div>
                 <div id="pendingListArea"><div class="admin-empty">No pending suggestions.</div></div>
             </div>
@@ -944,20 +908,9 @@
 
             // --------------------------------------------------------------
             //  APPROVED vocab (translator) + PENDING (user suggestions)
-            //  Cloud sync via jsonblob.com (Pantry was offline)
-            //  Sync ID = JSONBlob ID. Payload: { approved: [], pending: [] }
             // --------------------------------------------------------------
-            const CUSTOM_VOCAB_KEY = "kayahCustomVocab";      // approved only (local cache)
+            const CUSTOM_VOCAB_KEY = "kayahCustomVocab";      // approved only
             const PENDING_VOCAB_KEY = "kayahPendingVocab";    // awaiting admin approval
-            const SYNC_ID_KEY = "kayahSyncId";
-            const JSONBLOB_BASE = "https://jsonblob.com/api/jsonBlob";
-
-            function getSyncId() {
-                return (localStorage.getItem(SYNC_ID_KEY) || "").trim();
-            }
-            function setSyncId(id) {
-                localStorage.setItem(SYNC_ID_KEY, (id || "").trim());
-            }
 
             function loadApprovedEntries() {
                 try {
@@ -981,137 +934,21 @@
             function savePendingEntries(entries) {
                 localStorage.setItem(PENDING_VOCAB_KEY, JSON.stringify(entries));
             }
-
-            function applyApprovedToDict(entries) {
-                if (!Array.isArray(entries)) return;
-                for (const item of entries) {
-                    if (!item || typeof item.en !== "string" || typeof item.kayah !== "string") continue;
-                    const en = item.en.trim().toLowerCase();
-                    const kayah = item.kayah.trim();
-                    if (!en || !kayah) continue;
-                    dict.set(en, kayah);
-                }
-            }
             function loadCustomVocab() {
                 try {
-                    applyApprovedToDict(loadApprovedEntries());
+                    const entries = loadApprovedEntries();
+                    for (const item of entries) {
+                        if (!item || typeof item.en !== "string" || typeof item.kayah !== "string") continue;
+                        const en = item.en.trim().toLowerCase();
+                        const kayah = item.kayah.trim();
+                        if (!en || !kayah) continue;
+                        dict.set(en, kayah);
+                    }
                 } catch (e) {
                     console.warn("Failed to load custom vocab:", e);
                 }
             }
-
-            async function cloudPullAll() {
-                const id = getSyncId();
-                if (!id) return null;
-                try {
-                    const res = await fetch(JSONBLOB_BASE + "/" + encodeURIComponent(id), {
-                        headers: { "Accept": "application/json" }
-                    });
-                    if (!res.ok) return null;
-                    const data = await res.json();
-                    return {
-                        approved: Array.isArray(data.approved) ? data.approved : (Array.isArray(data.entries) ? data.entries : []),
-                        pending: Array.isArray(data.pending) ? data.pending : []
-                    };
-                } catch (e) {
-                    console.warn("Cloud pull failed:", e);
-                    return null;
-                }
-            }
-            async function cloudPushAll(approved, pending) {
-                const id = getSyncId();
-                if (!id) return false;
-                const body = JSON.stringify({
-                    approved: approved || loadApprovedEntries(),
-                    pending: pending || loadPendingEntries()
-                });
-                try {
-                    const res = await fetch(JSONBLOB_BASE + "/" + encodeURIComponent(id), {
-                        method: "PUT",
-                        headers: { "Content-Type": "application/json", "Accept": "application/json" },
-                        body: body
-                    });
-                    return res.ok;
-                } catch (e) {
-                    console.warn("Cloud push failed:", e);
-                    return false;
-                }
-            }
-            async function cloudPullApproved() {
-                const all = await cloudPullAll();
-                return all ? all.approved : null;
-            }
-            async function cloudPushApproved(entries) {
-                return cloudPushAll(entries, loadPendingEntries());
-            }
-            async function cloudPullPending() {
-                const all = await cloudPullAll();
-                return all ? all.pending : null;
-            }
-            async function cloudPushPending(entries) {
-                return cloudPushAll(loadApprovedEntries(), entries);
-            }
-            async function createNewPantry() {
-                try {
-                    const payload = {
-                        approved: loadApprovedEntries(),
-                        pending: loadPendingEntries()
-                    };
-                    const res = await fetch(JSONBLOB_BASE, {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                            "Accept": "application/json"
-                        },
-                        body: JSON.stringify(payload)
-                    });
-                    if (!res.ok) throw new Error("Create failed HTTP " + res.status);
-                    // ID is in Location header or X-jsonblob-id
-                    let blobId = res.headers.get("X-jsonblob-id") || res.headers.get("x-jsonblob-id");
-                    if (!blobId) {
-                        const loc = res.headers.get("Location") || res.headers.get("location") || "";
-                        const m = loc.match(/jsonBlob\/([^\/\s]+)/i) || loc.match(/([^\/\s]+)$/);
-                        if (m) blobId = m[1];
-                    }
-                    if (!blobId) {
-                        // some environments hide custom headers; try body
-                        try {
-                            const data = await res.clone().json();
-                            blobId = data.id || data.blobId || data._id;
-                        } catch (e2) {}
-                    }
-                    if (!blobId) throw new Error("No blob ID in response headers");
-                    return blobId;
-                } catch (e) {
-                    console.warn("Create sync ID failed:", e);
-                    return null;
-                }
-            }
-            async function syncPullAndApply() {
-                const all = await cloudPullAll();
-                if (!all) return null;
-                if (Array.isArray(all.approved)) {
-                    saveApprovedEntries(all.approved);
-                    applyApprovedToDict(all.approved);
-                }
-                if (Array.isArray(all.pending)) {
-                    savePendingEntries(all.pending);
-                }
-                return all.approved;
-            }
-            async function syncPushAll() {
-                return cloudPushAll(loadApprovedEntries(), loadPendingEntries());
-            }
-
             loadCustomVocab();
-            // Pull shared approved words on startup (all devices)
-            (async function initialCloudPull() {
-                if (!getSyncId()) return;
-                const remote = await syncPullAndApply();
-                if (remote && window.translator) {
-                    // translation UI may not be ready yet; refresh later on load
-                }
-            })();
 
             // --------------------------------------------------------------
             //  ADJECTIVE MAP
@@ -4087,12 +3924,8 @@
                     tabTranslator.classList.remove("active");
                     panelAdmin.classList.add("active");
                     panelTranslator.classList.remove("active");
-                    if (syncIdInput) syncIdInput.value = getSyncId();
-                    (async function () {
-                        if (getSyncId()) await syncPullAndApply();
-                        renderPendingList();
-                        renderAdminList();
-                    })();
+                    renderPendingList();
+                    renderAdminList();
                 } else {
                     tabTranslator.classList.add("active");
                     tabAdmin.classList.remove("active");
@@ -4122,77 +3955,25 @@
                     }, 3000);
                 }
             }
-            userSubmitBtn.addEventListener("click", async function () {
+            userSubmitBtn.addEventListener("click", function () {
                 const en = userEnInput.value.trim();
                 const kayah = userKayahInput.value.trim();
                 if (!en || !kayah) {
                     showUserMsg("Both English and Kayah Li are required.", true);
                     return;
                 }
-                if (!getSyncId()) {
-                    showUserMsg("Set a Sync ID first under Device sync (same ID as admin), then submit again.", true);
-                    return;
-                }
-                showUserMsg("Sending to cloud…");
-                // Pull latest pending from cloud, merge, push back
-                const remoteAll = await cloudPullAll();
-                let pending = [];
-                if (remoteAll && Array.isArray(remoteAll.pending)) {
-                    pending = remoteAll.pending.slice();
-                } else {
-                    pending = loadPendingEntries().slice();
-                }
-                // avoid exact duplicates
-                const exists = pending.some(function (p) {
-                    return (p.en || "").toLowerCase() === en.toLowerCase() && (p.kayah || "") === kayah;
-                });
-                if (!exists) {
-                    pending.push({ en: en, kayah: kayah, at: Date.now() });
-                }
+                const pending = loadPendingEntries();
+                pending.push({ en: en, kayah: kayah, at: Date.now() });
                 savePendingEntries(pending);
-                const approved = (remoteAll && Array.isArray(remoteAll.approved))
-                    ? remoteAll.approved
-                    : loadApprovedEntries();
-                const ok = await cloudPushAll(approved, pending);
-                if (!ok) {
-                    showUserMsg("Could not send to cloud. Check internet and Sync ID, then try again.", true);
-                    return;
-                }
                 userEnInput.value = "";
                 userKayahInput.value = "";
-                showUserMsg("Sent! Admin will see it after Refresh pending (same Sync ID).");
+                showUserMsg("Submitted for admin approval. It will not appear in the translator until approved.");
             });
             userEnInput.addEventListener("keydown", function (e) {
                 if (e.key === "Enter") userKayahInput.focus();
             });
             userKayahInput.addEventListener("keydown", function (e) {
                 if (e.key === "Enter") userSubmitBtn.click();
-            });
-
-            // User device sync ID
-            const userSyncIdInput = document.getElementById("userSyncIdInput");
-            const userSaveSyncBtn = document.getElementById("userSaveSyncBtn");
-            const userSyncMsg = document.getElementById("userSyncMsg");
-            if (userSyncIdInput) userSyncIdInput.value = getSyncId();
-            function showUserSyncMsg(text, isError) {
-                userSyncMsg.textContent = text || "";
-                userSyncMsg.className = "admin-msg" + (isError ? " error" : "");
-            }
-            userSaveSyncBtn.addEventListener("click", async function () {
-                const id = userSyncIdInput.value.trim();
-                if (!id) {
-                    showUserSyncMsg("Enter a Sync ID from your admin.", true);
-                    return;
-                }
-                setSyncId(id);
-                showUserSyncMsg("Loading approved words…");
-                const remote = await syncPullAndApply();
-                if (remote) {
-                    showUserSyncMsg("Synced " + remote.length + " approved word(s) to this device.");
-                    updateTranslation();
-                } else {
-                    showUserSyncMsg("Saved Sync ID. Could not load words yet (check ID or network).", true);
-                }
             });
 
             // --------------------------------------------------------------
@@ -4256,7 +4037,7 @@
                 pendingListArea.innerHTML = html;
 
                 pendingListArea.querySelectorAll("[data-approve]").forEach(function (btn) {
-                    btn.addEventListener("click", async function () {
+                    btn.addEventListener("click", function () {
                         const i = parseInt(btn.getAttribute("data-approve"), 10);
                         const pending = loadPendingEntries();
                         if (!pending[i]) return;
@@ -4275,23 +4056,19 @@
                         }
                         saveApprovedEntries(approved);
                         dict.set(lower, item.kayah);
-                        // Push to cloud so all devices get the word
-                        await cloudPushApproved(approved);
-                        await cloudPushPending(pending);
                         renderPendingList();
                         renderAdminList();
-                        showAdminMsg('Approved "' + item.en + '" — synced to all devices.');
+                        showAdminMsg('Approved "' + item.en + '".');
                     });
                 });
                 pendingListArea.querySelectorAll("[data-reject]").forEach(function (btn) {
-                    btn.addEventListener("click", async function () {
+                    btn.addEventListener("click", function () {
                         const i = parseInt(btn.getAttribute("data-reject"), 10);
                         const pending = loadPendingEntries();
                         if (!pending[i]) return;
                         const en = pending[i].en;
                         pending.splice(i, 1);
                         savePendingEntries(pending);
-                        await cloudPushPending(pending);
                         renderPendingList();
                         showAdminMsg('Rejected "' + en + '".');
                     });
@@ -4339,22 +4116,21 @@
                     });
                 });
                 listArea.querySelectorAll("[data-del]").forEach(function (btn) {
-                    btn.addEventListener("click", async function () {
+                    btn.addEventListener("click", function () {
                         const i = parseInt(btn.getAttribute("data-del"), 10);
                         const entries = loadApprovedEntries();
                         if (!entries[i]) return;
                         if (!confirm('Delete approved "' + entries[i].en + '"?')) return;
                         entries.splice(i, 1);
                         saveApprovedEntries(entries);
-                        await cloudPushApproved(entries);
                         clearAdminForm();
                         renderAdminList();
-                        showAdminMsg("Deleted and synced.");
+                        showAdminMsg("Deleted.");
                     });
                 });
             }
 
-            saveBtn.addEventListener("click", async function () {
+            saveBtn.addEventListener("click", function () {
                 const en = enInput.value.trim();
                 const kayah = kayahInput.value.trim();
                 if (!en || !kayah) {
@@ -4385,7 +4161,6 @@
                     saveApprovedEntries(entries);
                 }
                 dict.set(en.toLowerCase(), kayah);
-                await cloudPushApproved(loadApprovedEntries());
                 clearAdminForm();
                 renderAdminList();
             });
@@ -4399,7 +4174,7 @@
                 exportBox.value = JSON.stringify(entries, null, 2);
                 showAdminMsg("Exported " + entries.length + " approved entries.");
             });
-            importBtn.addEventListener("click", async function () {
+            importBtn.addEventListener("click", function () {
                 const raw = exportBox.value.trim();
                 if (!raw) {
                     showAdminMsg("Paste JSON into the box first.", true);
@@ -4418,131 +4193,25 @@
                         dict.set(en.toLowerCase(), kayah);
                     }
                     saveApprovedEntries(cleaned);
-                    await cloudPushApproved(cleaned);
                     renderAdminList();
-                    showAdminMsg("Imported " + cleaned.length + " approved entries (synced).");
+                    showAdminMsg("Imported " + cleaned.length + " approved entries.");
                 } catch (e) {
                     showAdminMsg("Invalid JSON.", true);
                 }
             });
-            clearAllBtn.addEventListener("click", async function () {
+            clearAllBtn.addEventListener("click", function () {
                 if (!confirm("Delete ALL approved vocabulary?")) return;
                 saveApprovedEntries([]);
-                await cloudPushApproved([]);
                 clearAdminForm();
                 renderAdminList();
                 exportBox.value = "";
-                showAdminMsg("All approved entries cleared and synced.");
+                showAdminMsg("All approved entries cleared.");
             });
             enInput.addEventListener("keydown", function (e) {
                 if (e.key === "Enter") kayahInput.focus();
             });
             kayahInput.addEventListener("keydown", function (e) {
                 if (e.key === "Enter") saveBtn.click();
-            });
-
-            // Admin cloud sync controls
-            const syncIdInput = document.getElementById("syncIdInput");
-            const createSyncBtn = document.getElementById("createSyncBtn");
-            const saveSyncBtn = document.getElementById("saveSyncBtn");
-            const pullSyncBtn = document.getElementById("pullSyncBtn");
-            const pushSyncBtn = document.getElementById("pushSyncBtn");
-            const syncMsg = document.getElementById("syncMsg");
-            if (syncIdInput) syncIdInput.value = getSyncId();
-            function showSyncMsg(text, isError) {
-                syncMsg.textContent = text || "";
-                syncMsg.className = "admin-msg" + (isError ? " error" : "");
-            }
-            createSyncBtn.addEventListener("click", async function () {
-                showSyncMsg("Creating cloud Sync ID…");
-                const id = await createNewPantry();
-                if (!id) {
-                    showSyncMsg("Could not create Sync ID. Check network and try again.", true);
-                    return;
-                }
-                setSyncId(id);
-                syncIdInput.value = id;
-                if (userSyncIdInput) userSyncIdInput.value = id;
-                showSyncMsg("Created! Share this Sync ID with all users: " + id);
-            });
-            saveSyncBtn.addEventListener("click", async function () {
-                const id = syncIdInput.value.trim();
-                if (!id) {
-                    showSyncMsg("Enter a Sync ID first.", true);
-                    return;
-                }
-                setSyncId(id);
-                if (userSyncIdInput) userSyncIdInput.value = id;
-                showSyncMsg("Saved. Pulling…");
-                const remote = await syncPullAndApply();
-                renderPendingList();
-                renderAdminList();
-                showSyncMsg(remote ? ("Synced. " + remote.length + " approved word(s) loaded.") : "Saved Sync ID. Pull returned no data yet.");
-            });
-            pullSyncBtn.addEventListener("click", async function () {
-                if (!getSyncId()) {
-                    showSyncMsg("Set a Sync ID first.", true);
-                    return;
-                }
-                showSyncMsg("Pulling…");
-                const remote = await syncPullAndApply();
-                renderPendingList();
-                renderAdminList();
-                const pendingN = loadPendingEntries().length;
-                showSyncMsg(remote
-                    ? ("Pulled " + remote.length + " approved, " + pendingN + " pending.")
-                    : "Pull failed or empty.", !remote);
-            });
-            pushSyncBtn.addEventListener("click", async function () {
-                if (!getSyncId()) {
-                    showSyncMsg("Set a Sync ID first.", true);
-                    return;
-                }
-                showSyncMsg("Pushing…");
-                const ok = await syncPushAll();
-                showSyncMsg(ok ? "Pushed approved + pending to the cloud." : "Push failed. Check Sync ID / network.", !ok);
-            });
-
-            const refreshPendingBtn = document.getElementById("refreshPendingBtn");
-            if (refreshPendingBtn) {
-                refreshPendingBtn.addEventListener("click", async function () {
-                    if (!getSyncId()) {
-                        showAdminMsg("Set a Sync ID in Cloud sync first.", true);
-                        return;
-                    }
-                    showAdminMsg("Refreshing pending from cloud…");
-                    await syncPullAndApply();
-                    renderPendingList();
-                    renderAdminList();
-                    showAdminMsg("Pending list updated (" + loadPendingEntries().length + ").");
-                });
-            }
-
-            // Auto-pull every 10s when Sync ID is set (approved + pending)
-            setInterval(async function () {
-                if (!getSyncId()) return;
-                const all = await cloudPullAll();
-                if (!all) return;
-                if (Array.isArray(all.approved)) {
-                    saveApprovedEntries(all.approved);
-                    applyApprovedToDict(all.approved);
-                }
-                if (Array.isArray(all.pending)) {
-                    savePendingEntries(all.pending);
-                }
-                // refresh admin lists if admin panel is visible
-                if (panelAdmin && panelAdmin.classList.contains("active")) {
-                    renderPendingList();
-                    renderAdminList();
-                }
-            }, 10000);
-
-            // Initial pull after UI ready
-            window.addEventListener("load", async function () {
-                if (getSyncId()) {
-                    await syncPullAndApply();
-                    updateTranslation();
-                }
             });
 
             window.translator = { translateToKayah, translateToEnglish };
