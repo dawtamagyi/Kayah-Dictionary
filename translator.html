@@ -198,6 +198,7 @@
                 ["would like to", "ꤞꤢꤧꤐꤟꤢꤦ"],
                 ["need to", "ꤜꤥ꤬"],
                 ["love to", "ꤞꤢꤧꤐꤟꤢꤦ"],
+                ["if not", "ꤊꤤ꤬ ꤒꤥ꤬"],
                 ["if", "ꤊꤤ꤬"],
                 ["you", "ꤔꤟꤢꤧ꤬"],
                 ["select", "ꤔꤝꤥ"],
@@ -260,7 +261,7 @@
                 ["you guys", "ꤞꤤ꤭"],
                 ["just", "ꤊꤟꤢꤦ"],
                 ["reminding", "ꤘꤛꤢꤩꤞꤢꤧꤑꤢꤩ꤭"],
-                ["everyone", "ꤕꤝꤟꤥꤕꤚꤟꤢꤧ꤬"],
+                ["everyone", "ꤕꤝꤟꤥ꤭ꤕꤚꤟꤢꤧ꤬"],
                 ["tomorrow", "ꤏꤛꤢꤩꤕꤢ꤬ꤚꤥ꤭"],
                 ["yesterday", "ꤕꤢ꤭ꤟꤢꤩ꤬ꤔꤢꤨ꤬"],
                 ["year", "ꤔꤢ꤬"],
@@ -383,6 +384,8 @@
                 ["miss", "ꤔꤟꤢꤩ꤬ꤞꤌꤣ꤬"],
                 ["this", "ꤛꤢꤩ꤭"],
                 ["these", "ꤛꤢꤩ꤭"],
+                ["that's", "ꤔꤟꤣ꤬"],
+                ["thats", "ꤔꤟꤣ꤬"],
                 ["that", "ꤔꤌꤣ꤬"],
                 ["big", "ꤢ꤬ꤘꤢꤨ꤬"],
                 ["beautiful", "ꤢ꤬ꤒꤝꤟꤥ"],
@@ -524,6 +527,21 @@
                 ["gone", "ꤡꤛꤣꤓꤌꤣ꤭"],
                 ["known", "ꤞꤢꤧꤑꤢꤩ꤭ꤓꤌꤣ꤭"],
                 ["seen", "ꤗꤛꤢꤓꤛꤢꤩ꤬ꤔꤢꤪ"],
+                ["every single day", "ꤕꤝꤟꤥ꤭ꤑꤢꤩ꤭ꤑꤢꤩ꤭"],
+                ["every day", "ꤕꤝꤟꤥ꤭ꤑꤢꤩ꤭"],
+                ["every night", "ꤕꤝꤟꤥ꤭ꤟꤢꤩ"],
+                ["every time", "ꤕꤝꤟꤥ꤭ꤖꤟꤌꤣ"],
+                ["every morning", "ꤕꤝꤟꤥ꤭ꤚꤥ꤭"],
+                ["every body", "ꤕꤝꤟꤥ꤭ꤕꤚꤟꤢꤧ꤬"],
+                ["everybody", "ꤕꤝꤟꤥ꤭ꤕꤚꤟꤢꤧ꤬"],
+                ["every one", "ꤕꤝꤟꤥ꤭ꤕꤚꤟꤢꤧ꤬"],
+                ["every", "ꤕꤝꤟꤥ꤭"],
+                ["only", "ꤒꤌꤣ꤭"],
+                ["morning", "ꤗꤟꤢꤪꤜꤤ꤭"],
+                ["evening", "ꤗꤟꤢꤪꤟꤢꤩ"],
+                ["good morning", "ꤒꤟꤢꤧ꤬ꤚꤛꤢꤙꤢꤧ꤬ ꤗꤟꤢꤪꤜꤤ꤭"],
+                ["good evening", "ꤒꤟꤢꤧ꤬ꤚꤛꤢꤙꤢꤧ꤬ ꤗꤟꤢꤪꤟꤢꤩ"],
+                ["good night", "ꤒꤟꤢꤧ꤬ꤚꤛꤢꤙꤢꤧ꤬ ꤗꤟꤢꤪꤋꤤ"],
                 ["never", "ꤔꤢꤪꤒꤢ꤬ꤖꤟꤌꤣꤒꤥ꤬"],
                 ["ever", "ꤔꤢꤪ"],
                 ["heard of", "ꤔꤟꤤꤟꤌꤣ꤭ꤔꤢꤪ"],
@@ -3269,24 +3287,26 @@
                     result = (result ? result + " " : "") + deferredLets;
                 }
 
-                // never at end of main clause (before subordinate)
-                // e.g. I never forget you → I forget you never
-                // never → right after main verb
-                // I never eat food → I eat never food
+                // never → after main verb + object noun
+                // He never eats food → He eats food never
+                // She never eats → She eats never
+                // I never forget you → I forget you never
                 if (neverTranslation) {
-                    const subjectForms = new Set(["ꤠꤢ꤭", "ꤢꤧ꤬", "ꤕꤟꤢꤧ꤬", "ꤢꤧ꤬ꤞꤤ꤭", "ꤔꤟꤢꤧ꤬"]);
+                    const afterNever = new Set([
+                        "ꤢ꤬ꤋꤢꤧ꤭", "ꤟꤤꤒꤥ꤬ꤢ꤬ꤋꤢꤧ꤭", "ꤓꤌꤣ꤭ꤘꤣꤋꤛꤢꤩ꤭",
+                        "ꤒꤢ꤬ꤘꤢꤦ꤬ꤒꤟꤌꤣ", "ꤔꤌꤣ꤬ꤕꤢ꤭", "ꤊꤤ꤬", "ꤗꤟꤢꤩ꤬ꤒꤢꤩ꤭ꤚꤢꤪ",
+                        "ꤒꤥ꤬ꤟꤢꤩꤗꤢ꤬", "ꤒꤢ꤬ꤘꤣ꤬", "ꤗꤢ꤬ꤔꤢ", "ꤓꤌꤣ꤭ꤕꤢ꤭"
+                    ]);
                     const words = result.split(" ").filter(w => w.length > 0);
-                    let newWords = [];
-                    let inserted = false;
+                    let insertAt = words.length;
                     for (let wi = 0; wi < words.length; wi++) {
-                        newWords.push(words[wi]);
-                        if (!inserted && !subjectForms.has(words[wi])) {
-                            // first non-subject content word ≈ main verb
-                            newWords.push(neverTranslation);
-                            inserted = true;
+                        const bare = words[wi].replace(/[.,;!?꤯]+$/, "");
+                        if (afterNever.has(bare)) {
+                            insertAt = wi;
+                            break;
                         }
                     }
-                    if (!inserted) newWords.push(neverTranslation);
+                    const newWords = words.slice(0, insertAt).concat([neverTranslation], words.slice(insertAt));
                     result = newWords.join(" ");
                 }
                 // sentence-final adverbial before (no subordinate)
@@ -3944,8 +3964,10 @@
                             timeTokens.push(tokens[i]);
                         }
 
-                        // Sentence-initial "When/Before/After X, Y" → X + conj + Y
-                        // e.g. When the train arrived, we boarded → train arrived when | we boarded
+                        // Sentence-initial "When/Before/After X, Y" → X + conj , Y
+                        // when/before at END of first clause, before comma (or before period if no comma)
+                        // When the train arrived, we boarded → train arrived when , we boarded
+                        // When the train arrived. → train arrived when .
                         let frontedTimeConj = false;
                         if (timeConjIndex === 0 && mainTokens.length === 0) {
                             let commaIdx = -1;
@@ -3953,6 +3975,18 @@
                                 if (/,$/.test(timeTokens[i]) || timeTokens[i] === ",") {
                                     commaIdx = i;
                                     break;
+                                }
+                            }
+                            // tokens may have lost trailing commas — recover from cleanSentence
+                            if (commaIdx < 0 && typeof cleanSentence === "string" && cleanSentence.indexOf(",") >= 0) {
+                                const left = cleanSentence.split(",")[0];
+                                // count words in left after stripping the leading conj
+                                const leftWords = left.trim().split(/\s+/).filter(function (w) { return w.length > 0; });
+                                // leftWords includes "When"/"Before"/… as first word(s)
+                                const conjWordCount = timeConjSkip; // already matched at start
+                                const subWordCount = Math.max(0, leftWords.length - conjWordCount);
+                                if (subWordCount > 0 && subWordCount < timeTokens.length) {
+                                    commaIdx = subWordCount - 1;
                                 }
                             }
                             if (commaIdx >= 0) {
@@ -3964,22 +3998,29 @@
                             }
                         }
 
-                        // Fronted: sub-clause + conj + main (main may contain further before/when/…)
+                        // Fronted: sub-clause + conj + comma + main
                         if (frontedTimeConj) {
                             let timeTranslationFront = timeConjunctions.get(timeConjType);
                             if (timeTranslationFront === "WHEN_PLACEHOLDER") timeTranslationFront = "ꤢ꤬ꤋꤢꤧ꤭";
                             const subRes = translatePhrase(timeTokens, false, false, false, false, null, false, null, null);
+                            // Prefer original text after first comma so nested before/when keep commas
                             let mainText = mainTokens.join(" ").replace(/\s+/g, " ").trim();
-                            // recurse so nested before/when/because still apply
+                            if (typeof cleanSentence === "string" && cleanSentence.indexOf(",") >= 0) {
+                                const afterComma = cleanSentence.split(",").slice(1).join(",").trim();
+                                if (afterComma) mainText = afterComma;
+                            }
                             let mainOut = mainText ? translateToKayah(mainText) : "";
+                            // X when , Y   (conj at end of first clause, before comma)
                             let result = (subRes.text ? subRes.text + " " : "") + (timeTranslationFront || "");
+                            result += " ,";
                             if (mainOut) result += " " + mainOut;
                             result = result.replace(/\s+/g, " ").trim();
+                            result = result.replace(/\s*,\s*,/g, " ,");
                             if (trailingPunct) {
                                 if (trailingPunct === "?") result += "?";
                                 else if (trailingPunct === "꤯") result += "꤯";
                                 else if (trailingPunct === "!") result += "!";
-                                else result += trailingPunct;
+                                else if (trailingPunct !== ",") result += trailingPunct;
                             }
                             return result;
                         }
@@ -4110,7 +4151,7 @@
                             let afterSecondary = timeTokens.slice(secondaryIndex + secondarySkip);
 
                             // If beforeSecondary has a comma (doors closed, which was lucky because …)
-                            // keep only up to comma as time-sub; rest after time conj
+                            // keep only up to comma as time-sub; before/when right after closed, before comma
                             let midAfterComma = [];
                             if (putConjAtEnd) {
                                 let cIdx = -1;
@@ -4118,6 +4159,23 @@
                                     if (/,$/.test(beforeSecondary[i]) || beforeSecondary[i] === ",") {
                                         cIdx = i;
                                         break;
+                                    }
+                                }
+                                // recover comma lost in tokenization
+                                if (cIdx < 0 && typeof cleanSentence === "string" && cleanSentence.indexOf(",") >= 0) {
+                                    const conjRe = new RegExp("\\b" + String(timeConjType).replace(/\s+/g, "\\s+") + "\\b", "i");
+                                    const cm = cleanSentence.match(conjRe);
+                                    if (cm) {
+                                        const afterConj = cleanSentence.slice(cm.index + cm[0].length);
+                                        const commaPos = afterConj.indexOf(",");
+                                        if (commaPos >= 0) {
+                                            const leftPart = afterConj.slice(0, commaPos).trim();
+                                            const leftWords = leftPart.split(/\s+/).filter(function (w) { return w.length > 0; });
+                                            // only words that belong to beforeSecondary
+                                            if (leftWords.length > 0 && leftWords.length <= beforeSecondary.length) {
+                                                cIdx = leftWords.length - 1;
+                                            }
+                                        }
                                     }
                                 }
                                 if (cIdx >= 0) {
@@ -4156,6 +4214,7 @@
                         } else {
                             // Split at comma so "before the doors closed, which …"
                             // → doors closed + before | which …
+                            // before/when at end of that clause, before the comma
                             let timeSubTokens = timeTokens;
                             let afterCommaTokens = [];
                             if (putConjAtEnd) {
@@ -4164,6 +4223,23 @@
                                     if (/,$/.test(timeTokens[i]) || timeTokens[i] === ",") {
                                         cIdx = i;
                                         break;
+                                    }
+                                }
+                                // tokens may have lost trailing commas — recover from cleanSentence
+                                if (cIdx < 0 && typeof cleanSentence === "string" && cleanSentence.indexOf(",") >= 0) {
+                                    // find text after the time conj word in cleanSentence
+                                    const conjRe = new RegExp("\\b" + timeConjType.replace(/\s+/g, "\\s+") + "\\b", "i");
+                                    const cm = cleanSentence.match(conjRe);
+                                    if (cm) {
+                                        const afterConj = cleanSentence.slice(cm.index + cm[0].length);
+                                        const commaPos = afterConj.indexOf(",");
+                                        if (commaPos >= 0) {
+                                            const leftPart = afterConj.slice(0, commaPos).trim();
+                                            const leftWords = leftPart.split(/\s+/).filter(function (w) { return w.length > 0; });
+                                            if (leftWords.length > 0 && leftWords.length <= timeTokens.length) {
+                                                cIdx = leftWords.length - 1;
+                                            }
+                                        }
                                     }
                                 }
                                 if (cIdx >= 0) {
@@ -4226,6 +4302,19 @@
                         for (let i = ifIndex + 1; i < tokens.length; i++) {
                             ifTokens.push(tokens[i]);
                         }
+                        // "if not, …" → if + not stay together; not is not deferred to end
+                        let ifNotPrefix = "";
+                        if (ifTokens.length > 0 && ifTokens[0].toLowerCase().replace(/[.,;!?]+$/, "") === "not") {
+                            ifNotPrefix = "ꤒꤥ꤬";
+                            ifTokens = ifTokens.slice(1);
+                            // drop bare comma token after not
+                            if (ifTokens.length > 0 && ifTokens[0].replace(/[.,;!?]+$/, "") === "") {
+                                ifTokens = ifTokens.slice(1);
+                            }
+                            while (ifTokens.length > 0 && ifTokens[0] === ",") {
+                                ifTokens = ifTokens.slice(1);
+                            }
+                        }
 
                         // Sentence-initial If X, Y → if + X + Y(with will at end)
                         // If you come, I will go → if you come I go will
@@ -4251,7 +4340,15 @@
                             let mainText = mainClause.join(" ").replace(/\s+/g, " ").trim();
                             let mainOut = mainText ? translateToKayah(mainText) : "";
                             let result = "ꤊꤤ꤬";
+                            if (ifNotPrefix) result += " " + ifNotPrefix;
                             if (ifRes.text) result += " " + ifRes.text;
+                            // can/will/could/would inside if-clause → end of if-clause
+                            if (ifRes.modalInfo) {
+                                let ifModal = ifRes.modalInfo.translation;
+                                if (ifRes.modalInfo.type === "will" || ifRes.modalInfo.type === "would") ifModal = "ꤕꤢ꤭";
+                                else if (ifRes.modalInfo.type === "can" || ifRes.modalInfo.type === "could" || ifRes.modalInfo.type === "may") ifModal = "ꤢ꤬ꤔꤟꤤꤕꤚꤢꤧ";
+                                result += " " + ifModal;
+                            }
                             if (mainOut) result += " " + mainOut;
                             result = result.replace(/\s+/g, " ").trim();
                             if (trailingPunct) {
@@ -4296,6 +4393,12 @@
                             result = (result ? result + " " : "") + "ꤟꤟꤢꤧ꤭";
                             result += " ꤊꤤ꤬";
                             if (ifResult.text) result += " " + ifResult.text;
+                            if (ifResult.modalInfo) {
+                                let ifModal = ifResult.modalInfo.translation;
+                                if (ifResult.modalInfo.type === "will" || ifResult.modalInfo.type === "would") ifModal = "ꤕꤢ꤭";
+                                else if (ifResult.modalInfo.type === "can" || ifResult.modalInfo.type === "could" || ifResult.modalInfo.type === "may") ifModal = "ꤢ꤬ꤔꤟꤤꤕꤚꤢꤧ";
+                                result += " " + ifModal;
+                            }
                             result = result.replace(/\s+/g, " ").trim();
                             if (trailingPunct) {
                                 if (trailingPunct === "?") result += "?";
@@ -4315,8 +4418,16 @@
                         } else {
                             result = "ꤊꤤ꤬";
                         }
+                        if (ifNotPrefix) result += " " + ifNotPrefix;
                         if (ifResult.text.length > 0) {
                             result += " " + ifResult.text;
+                        }
+                        // can/will/could/would inside if-clause → end of if-clause
+                        if (ifResult.modalInfo) {
+                            let ifModal = ifResult.modalInfo.translation;
+                            if (ifResult.modalInfo.type === "will" || ifResult.modalInfo.type === "would") ifModal = "ꤕꤢ꤭";
+                            else if (ifResult.modalInfo.type === "can" || ifResult.modalInfo.type === "could" || ifResult.modalInfo.type === "may") ifModal = "ꤢ꤬ꤔꤟꤤꤕꤚꤢꤧ";
+                            result += " " + ifModal;
                         }
 
                         result = result.replace(/\s+/g, " ").trim();
