@@ -331,7 +331,7 @@
                 ["teacher", "ꤞꤢꤚꤢ/ꤗꤟꤌꤣ"],
                 ["finish", "ꤗꤟꤢꤩ꤬ꤓꤌꤣ꤭"],
                 ["homework", "ꤜꤤ꤬ꤟꤤ꤬ꤘꤢꤪ"],
-                ["stop", "ꤥ꤬ꤊꤟꤊꤣ"],
+                ["stop", "ꤗꤟꤢꤩ꤬ꤥ꤬ꤊꤟꤊꤣ"],
                 ["car", "ꤜꤟꤥꤡꤢꤧ"],
                 ["raining", "ꤊꤟꤢꤩꤡꤢꤦ꤬"],
                 ["rain", "ꤊꤟꤢꤩꤡꤢꤦ꤬"],
@@ -549,6 +549,12 @@
                 ["great", "ꤢ꤬ꤚꤛꤢ"],
                 ["good", "ꤢ꤬ꤚꤛꤢ"],
                 ["still", "STILL_PLACEHOLDER"],
+                ["again", "ꤕꤟꤥꤞꤛꤢ"],
+                ["both of you", "ꤞꤤ꤭ꤔꤛꤢꤩ꤭ꤕꤚꤟꤢꤧ꤬"],
+                ["example", "ꤢ꤬ꤚꤢꤪ"],
+                ["e.g.", "ꤢ꤬ꤚꤢꤪ"],
+                ["e.g", "ꤢ꤬ꤚꤢꤪ"],
+                ["show", "ꤘꤣ꤬ꤜꤟꤌꤣ꤭"],
                 ["school", "ꤞꤛꤥꤜꤤ꤬ꤟꤥ꤭"],
                 ["food", "ꤏꤢꤧ꤬ꤢꤩ꤬"],
                 ["must", "ꤒꤥ꤭ꤙꤢꤧ꤬"],
@@ -1266,6 +1272,10 @@
                 if (["and", "or", "but", "so", "yet", "nor", "because", "if", "than", "as", "while", "although", "though", "unless", "whether"].includes(lower)) {
                     return false;
                 }
+                // prepositions — not nouns (fixes "this for you" treating for as noun)
+                if (["for", "to", "from", "with", "without", "about", "of", "at", "by", "in", "on", "under", "over", "into", "onto", "near", "after", "before", "during", "since", "until", "till", "across", "around", "through", "toward", "towards"].includes(lower)) {
+                    return false;
+                }
                 if (dict.has(lower)) {
                     const val = dict.get(lower);
                     if (val && val !== "HAVE_PLACEHOLDER" && val !== "DONE_PLACEHOLDER" && val !== "STILL_PLACEHOLDER" && val !== "GOING_TO_PLACEHOLDER" && val !== "TO_PLACEHOLDER" && val !== "WHEN_PLACEHOLDER" && !val.includes("|")) {
@@ -1587,14 +1597,22 @@
                 let deferredPreps = []; // prepositions moved to end after objects/nouns
                 let deferredTimeAdverbs = []; // tomorrow/yesterday after for, before modal
                 let deferredSoIntensifier = null; // "so" + ADJ → ꤜꤢ꤭ at end
-                // Imperative sentence-initial "Stop …" → rest + stop + ꤗꤟꤢꤩ at end of main
+                // Imperative "Stop + V-ing …" → rest + ꤗꤟꤢꤩ at end
+                // "Stop" without V-ing → ꤗꤟꤢꤩ꤬ꤥ꤬ꤊꤟꤊꤣ
                 let isStopStart = false;
                 if (tokens.length > 0) {
                     const fl0 = tokens[0].toLowerCase().replace(/[.,;!?]+$/, "");
-                    if (fl0 === "stop") isStopStart = true;
+                    if (fl0 === "stop") {
+                        const fl1 = tokens.length > 1 ? tokens[1].toLowerCase().replace(/[.,;!?]+$/, "") : "";
+                        // V-ing: doing, eating, going, ...
+                        if (fl1.endsWith("ing") && fl1.length > 3) {
+                            isStopStart = true;
+                        }
+                    }
                 }
                 let neverTranslation = null; // never at end of main clause
                 let everAdverb = null; // ever → after verb (ꤔꤢꤪ)
+                let againAdverb = null; // again → after main/sub verb (ꤕꤟꤥꤞꤛꤢ)
                 let usedToTranslation = null; // used to / use to → after main verb
                 let postVerbAux = null; // dare/might/had better/dare not → after main verb
                 let deferredDareNot = null; // dare not / dared not → end of main clause
@@ -2078,7 +2096,6 @@
                         skipWantTo--;
                         continue;
                     }
-
                     if (questionWordIndex !== -1 && i >= questionWordIndex && i <= verbIndex) {
                         continue;
                     }
@@ -2441,6 +2458,11 @@
                         everAdverb = getWordTranslation(token) || dict.get("ever") || "ꤔꤢꤪ";
                         continue;
                     }
+                    // again → after main/subordinate verb (ꤕꤟꤥꤞꤛꤢ)
+                    if (lower === "again") {
+                        againAdverb = getWordTranslation(token) || dict.get("again") || "ꤕꤟꤥꤞꤛꤢ";
+                        continue;
+                    }
                     // used to / use to → after main verb (ꤊꤟꤊꤣ꤭)
                     if (lower === "used to" || lower === "use to") {
                         usedToTranslation = getWordTranslation(token) || dict.get(lower) || "ꤊꤟꤊꤣ꤭";
@@ -2555,13 +2577,22 @@
                         continue;
                     }
 
-                    // stop: mid-sentence → ꤥ꤬ꤊꤟꤊꤣ; sentence-initial imperative deferred
+                    // stop + V-ing (sentence-initial) → defer ꤗꤟꤢꤩ to end
+                    // stop without V-ing → ꤗꤟꤢꤩ꤬ꤥ꤬ꤊꤟꤊꤣ
                     if (lower === "stop") {
                         if (isStopStart && i === 0) {
-                            // imperative Stop … → rest first, then stop + ꤗꤟꤢꤩ at end of main
+                            // Stop doing/eating… → rest first, ꤗꤟꤢꤩ at end
                             continue;
                         }
-                        translatedWords.push("ꤥ꤬ꤊꤟꤊꤣ");
+                        // stop + V-ing mid-clause → treat like imperative host at end
+                        if (i + 1 < tokens.length) {
+                            const nx = tokens[i + 1].toLowerCase().replace(/[.,;!?]+$/, "");
+                            if (nx.endsWith("ing") && nx.length > 3) {
+                                isStopStart = true;
+                                continue;
+                            }
+                        }
+                        translatedWords.push("ꤗꤟꤢꤩ꤬ꤥ꤬ꤊꤟꤊꤣ");
                         continue;
                     }
 
@@ -2648,15 +2679,21 @@
                                 j++;
                                 continue;
                             }
-                            // object pronoun after for: for me/you/him
-                            // also "for you doing this" → you + doing + this + for
+                            // object pronoun after for: for me/you/him → you for
+                            // "for you doing this" → you + doing + this + for
+                            // "for you to drink" → you for | to drink  (stop at pronoun before "to")
                             if (isSubject(tokens[j]) || tl === "me" || tl === "him" || tl === "her" || tl === "us" || tl === "them" || tl === "you") {
                                 nouns.push(getWordTranslation(tokens[j]) || getSubjectTranslation(tokens[j]) || tl);
                                 j++;
-                                // continue collecting gerund/verb + object (doing this)
+                                // if next is infinitive "to", stop — leave "to VERB" for main pass
+                                if (j < tokens.length) {
+                                    const tlNext = tokens[j].toLowerCase().replace(/[.,;!?]+$/, "");
+                                    if (tlNext === "to") break;
+                                }
+                                // continue collecting gerund/verb + object (doing this) only
                                 while (j < tokens.length) {
                                     const tl2 = tokens[j].toLowerCase().replace(/[.,;!?]+$/, "");
-                                    if (stopWords.has(tl2)) break;
+                                    if (stopWords.has(tl2) || tl2 === "to") break;
                                     if (isActionVerb(tokens[j]) || tl2 === "doing" || tl2 === "going" || tl2 === "coming" ||
                                         tl2 === "this" || tl2 === "that" || tl2 === "these" || tl2 === "those" ||
                                         isNoun(tokens[j])) {
@@ -2962,9 +2999,39 @@
                     }
                 }
 
-                // "still" follows the adjective or verb it modifies
+                                // "still" follows the main VERB or ADJECTIVE
+                // I'm still doing my homework → I'm doing still my homework
+                // I still want to drink this → I want to drink still this
+                // You are still good → You are good still
+                // It's still good → good still
+                // I still need to do my homework → I need to do still my homework
                 if (stillTranslation) {
-                    translatedWords.push(stillTranslation);
+                    // skip hosts: need to / want to / have to / going to / to / be-verb (still goes after adj/main verb)
+                    const skipHosts = new Set([
+                        "ꤜꤥ꤬",           // need (to)
+                        "ꤞꤢꤧꤐꤟꤢꤦ",     // want (may vary)
+                        "ꤊꤟꤢꤦ",         // to (infinitive)
+                        "ꤊꤢꤪ꤬ꤙꤢꤧ꤬",   // have to
+                        "ꤡꤛꤣꤘꤣ",       // going to (noun path)
+                        "ꤥ꤬",           // is/are/was/were/be — still after adjective instead
+                        "ꤠꤢ꤭ꤥ꤬"        // I'm
+                    ]);
+                    // also skip want-to translation forms if multi-token was collapsed
+                    const subjects = new Set(["ꤠꤢ꤭", "ꤢꤧ꤬", "ꤕꤟꤢꤧ꤬", "ꤢꤧ꤬ꤞꤤ꤭", "ꤔꤟꤢꤧ꤬"]);
+                    let inserted = false;
+                    let newTW = [];
+                    for (let i = 0; i < translatedWords.length; i++) {
+                        newTW.push(translatedWords[i]);
+                        if (inserted) continue;
+                        const w = translatedWords[i];
+                        if (subjects.has(w)) continue;
+                        if (skipHosts.has(w)) continue;
+                        // first real verb / adjective content word hosts still
+                        newTW.push(stillTranslation);
+                        inserted = true;
+                    }
+                    if (!inserted) newTW.push(stillTranslation);
+                    translatedWords = newTW;
                 }
 
                 if (nounForOn && onTranslation) {
@@ -3055,6 +3122,31 @@
                         }
                     }
                     if (!inserted) newWords.push(everAdverb);
+                    result = newWords.join(" ");
+                }
+                // again → after main verb (or subordinate verb when again is in sub-clause)
+                // Please come again → Please come again
+                // I will bring … again → I bring again …
+                // … when they come again → … they come again when
+                if (againAdverb) {
+                    const skipHosts = new Set([
+                        "ꤠꤢ꤭", "ꤢꤧ꤬", "ꤕꤟꤢꤧ꤬", "ꤢꤧ꤬ꤞꤤ꤭", "ꤔꤟꤢꤧ꤬", // subjects
+                        "ꤋꤛꤢꤞꤢꤧꤘꤥ꤭", // please
+                        "ꤠꤢ꤭ꤥ꤬", // I'm
+                        "ꤥ꤬" // be
+                    ]);
+                    const words = result.split(" ").filter(w => w.length > 0);
+                    let newWords = [];
+                    let inserted = false;
+                    for (let wi = 0; wi < words.length; wi++) {
+                        newWords.push(words[wi]);
+                        if (!inserted && !skipHosts.has(words[wi])) {
+                            // first real verb/content word hosts again
+                            newWords.push(againAdverb);
+                            inserted = true;
+                        }
+                    }
+                    if (!inserted) newWords.push(againAdverb);
                     result = newWords.join(" ");
                 }
                 // used to / use to (ꤊꤟꤊꤣ꤭) right after main verb
@@ -3375,6 +3467,15 @@
             // --------------------------------------------------------------
             function translateToKayah(text) {
                 if (!text.trim()) return "";
+
+                // Enter / newline → separate sentences (keep line breaks in output)
+                if (/\r?\n/.test(text)) {
+                    const lines = text.split(/\r?\n/);
+                    return lines.map(function (line) {
+                        if (!line.trim()) return "";
+                        return translateToKayah(line);
+                    }).join("\n");
+                }
 
                 const trimmed = text.trim();
                 const lowerTrimmed = trimmed.toLowerCase();
