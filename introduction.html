@@ -1,6 +1,135 @@
 <!DOCTYPE html>
 <html lang="kyu">
 <head>
+<!-- Service Worker - Enables Offline After First Visit -->
+<script>
+(function() {
+  // Check if browser supports Service Workers
+  if ('serviceWorker' in navigator) {
+    // Create the Service Worker code as a Blob URL
+    const swCode = `
+// ============================================================
+// SERVICE WORKER - Karenni Dictionary Offline Cache
+// ============================================================
+
+const CACHE_NAME = 'karenni-dictionary-v1';
+const OFFLINE_URLS = [
+  '/',
+  '/index.html',
+  '/introduction.html',
+  '/learning.html',
+  '/proverb.html',
+  '/calendar.html',
+  '/contact.html',
+  '/translator.html'
+];
+
+// Install - Cache all files
+self.addEventListener('install', function(event) {
+  event.waitUntil(
+    caches.open(CACHE_NAME)
+      .then(function(cache) {
+        console.log('[SW] Caching all files for offline use...');
+        return cache.addAll(OFFLINE_URLS);
+      })
+      .then(function() {
+        console.log('[SW] All files cached successfully!');
+        return self.skipWaiting();
+      })
+  );
+});
+
+// Activate - Clean old caches
+self.addEventListener('activate', function(event) {
+  event.waitUntil(
+    caches.keys().then(function(cacheNames) {
+      return Promise.all(
+        cacheNames.map(function(cacheName) {
+          if (cacheName !== CACHE_NAME) {
+            console.log('[SW] Deleting old cache:', cacheName);
+            return caches.delete(cacheName);
+          }
+        })
+      );
+    }).then(function() {
+      console.log('[SW] Service Worker activated!');
+      return self.clients.claim();
+    })
+  );
+});
+
+// Fetch - Serve from cache first
+self.addEventListener('fetch', function(event) {
+  event.respondWith(
+    caches.match(event.request)
+      .then(function(response) {
+        if (response) {
+          return response;
+        }
+        var fetchRequest = event.request.clone();
+        return fetch(fetchRequest).then(function(response) {
+          if (!response || response.status !== 200 || response.type !== 'basic') {
+            return response;
+          }
+          var responseToCache = response.clone();
+          caches.open(CACHE_NAME)
+            .then(function(cache) {
+              cache.put(event.request, responseToCache);
+            });
+          return response;
+        });
+      })
+  );
+});
+
+console.log('[SW] Service Worker loaded successfully!');
+`;
+
+    // Create a blob URL for the Service Worker
+    const blob = new Blob([swCode], { type: 'application/javascript' });
+    const swUrl = URL.createObjectURL(blob);
+
+    // Register the Service Worker
+    navigator.serviceWorker.register(swUrl)
+      .then(function(registration) {
+        console.log('[SW] Service Worker registered successfully!');
+        console.log('[SW] Offline mode enabled after first visit.');
+      })
+      .catch(function(error) {
+        console.log('[SW] Service Worker registration failed:', error);
+        // Fallback: Try registering with a relative path if blob fails
+        if (navigator.serviceWorker) {
+          navigator.serviceWorker.register('/sw.js')
+            .then(function(reg) {
+              console.log('[SW] Fallback registration successful!');
+            })
+            .catch(function(err) {
+              console.log('[SW] Fallback also failed:', err);
+            });
+        }
+      });
+
+    // Also try to register via sw.js if it exists (for compatibility)
+    setTimeout(function() {
+      navigator.serviceWorker.getRegistration().then(function(reg) {
+        if (!reg) {
+          navigator.serviceWorker.register('/sw.js')
+            .then(function(reg) {
+              console.log('[SW] Fallback sw.js registered!');
+            })
+            .catch(function() {
+              // Silent fail - blob registration should work
+            });
+        }
+      });
+    }, 1000);
+  } else {
+    console.log('[SW] Service Workers not supported in this browser.');
+    console.log('[SW] Website will still work, but may need internet.');
+  }
+})();
+</script>
+<!-- End of Service Worker -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia">
