@@ -587,6 +587,18 @@
                 ["tired", "ꤞꤢꤧꤕꤚꤢ"],
 
                 // ---------- ADVERB mark XXXXXX----------
+                ["always", "ꤕꤝꤟꤥ꤭ꤖꤟꤌꤣ"],
+                ["almost always", "ꤕꤝꤟꤥ꤭ꤖꤟꤌꤣ"],
+                ["usually", "ꤢꤧꤒꤢ꤬ꤊꤤ꤬"],
+                ["normally", "ꤢꤧꤒꤢ꤬ꤊꤤ꤬"],
+                ["generally", "ꤢꤧꤒꤢ꤬ꤊꤤ꤬"],
+                ["often", "ꤒꤢ꤬ꤗꤥ꤭ꤒꤢ꤬ꤗꤥ꤭"],
+                ["frequently", "ꤒꤢ꤬ꤗꤥ꤭ꤒꤢ꤬ꤗꤥ꤭"],
+                ["sometimes", "ꤒꤢ꤬ꤖꤟꤌꤣꤒꤢ꤬ꤋꤛꤢ꤬"],
+                ["occasionally", "ꤒꤢ꤬ꤖꤟꤌꤣꤖꤟꤌꤣ"],
+                ["seldom", "ꤑꤟꤢꤩꤒꤢ꤬ꤖꤟꤌꤣ"],
+                ["rarely", "ꤑꤟꤢꤩꤒꤢ꤬ꤖꤟꤌꤣ"],
+                ["hardly ever", "ꤑꤟꤢꤩꤒꤢ꤬ꤖꤟꤌꤣ"],
                 ["again", "ꤕꤟꤥꤞꤛꤢ"],
                 ["away", "ꤒꤢ꤬ꤖꤢ꤭ꤐꤛꤢꤩ꤬"],
                 ["back", "ꤋꤛꤢꤩ꤭"],
@@ -1002,17 +1014,44 @@
                 const words = text.split(/\s+/).filter(w => w.length > 0);
                 let i = 0;
                 while (i < words.length) {
-                    const lowerWord = words[i].toLowerCase().replace(/[.,;!?]+$/, "");
+                    // Strip trailing punct for lookup, but keep mid-sentence , ; : and quotes as tokens
+                    const rawWord = words[i];
+                    const lowerWord = rawWord.toLowerCase().replace(/[.,;:!?"']+$/, "");
                     if (lowerWord === "a" || lowerWord === "an") {
+                        // still preserve trailing comma after article if any
+                        const artPunct = rawWord.match(/([,;:]+)$/);
                         i++;
+                        if (artPunct) tokens.push(artPunct[1]);
                         continue;
                     }
                     let matched = false;
                     for (let n = 4; n >= 2; n--) {
                         if (i + n <= words.length) {
-                            const phrase = words.slice(i, i + n).join(" ");
+                            // build phrase from words without trailing punct on last word for dict lookup
+                            const slice = words.slice(i, i + n);
+                            const cleanSlice = slice.map((w, idx) => {
+                                if (idx === n - 1) return w.replace(/[.,;:!?"']+$/, "");
+                                return w.replace(/[.,;:!?"']+$/, "");
+                            });
+                            const phrase = cleanSlice.join(" ");
                             if (dict.has(phrase.toLowerCase())) {
                                 tokens.push(phrase);
+                                // preserve trailing punct from last word of phrase
+                                const lastPunct = slice[n - 1].match(/([,;:!?"']+)$/);
+                                if (lastPunct) {
+                                    // sentence-final . ! ? handled at sentence level; keep mid-sentence , ;
+                                    const p = lastPunct[1];
+                                    if (/[,;:]/.test(p) || (i + n < words.length && /[,;]/.test(p))) {
+                                        tokens.push(p.replace(/[.!?]+/g, "") || p);
+                                    } else if (/[,;]/.test(p)) {
+                                        tokens.push(p.replace(/[.!?]/g, ""));
+                                    }
+                                    // always keep commas/semicolons
+                                    if (/[,;]/.test(p)) {
+                                        const only = p.replace(/[^,;]/g, "");
+                                        if (only && tokens[tokens.length - 1] !== only) tokens.push(only);
+                                    }
+                                }
                                 i += n;
                                 matched = true;
                                 break;
@@ -1020,19 +1059,27 @@
                         }
                     }
                     if (!matched) {
-                        // keep trailing punct separate so "leave." still matches time-conj scans
                         let w = words[i];
-                        const m = w.match(/^(.*?)([.,;!?]+)$/);
+                        const m = w.match(/^(.*?)([.,;:!?"']+)$/);
                         if (m && m[1].length > 0) {
                             tokens.push(m[1]);
-                            // trailing punct handled at sentence level
+                            const p = m[2];
+                            // Keep commas/semicolons/colons as tokens (mid-sentence pauses)
+                            const keep = p.replace(/[.!?]+/g, "");
+                            if (keep) tokens.push(keep);
+                            // . ! ? left to sentence-level trailingPunct when at end
                         } else {
                             tokens.push(w);
                         }
                         i++;
                     }
                 }
-                return tokens;
+                // clean accidental empty / duplicate punct tokens
+                return tokens.filter((t, idx, arr) => {
+                    if (!t) return false;
+                    if (/^[,;:]+$/.test(t) && idx > 0 && arr[idx - 1] === t) return false;
+                    return true;
+                });
             }
 
             function isNegativeWord(token) {
@@ -1544,6 +1591,8 @@
                     }
                 }
                 let neverTranslation = null; // never at end of main clause
+                let freqFrontTrans = null; // always/usually/sometimes… → start of Kayah clause
+                let freqAfterVerbTrans = null; // often/seldom/rarely/almost always → after main verb
                 let likeAsNeedThat = false; // after comparison like/as, next verb gets ꤔꤌꤣ꤬
                 let everAdverb = null; // ever → after verb (ꤔꤢꤪ)
                 let againAdverb = null; // again → after main/sub verb (ꤕꤟꤥꤞꤛꤢ)
@@ -1557,7 +1606,7 @@
                 let skipNext = false;
                 let skipTokens = 0;
                 let skipPrepCount = 0;
-                const timeAdverbsEnd = new Set(["yesterday"]); // today & tomorrow stay in English sentence order
+                const timeAdverbsEnd = new Set([]); // yesterday/tomorrow/today stay in English sentence order (front stays front, end stays end)
                 let lastContentIdx = tokens.length - 1;
                 while (lastContentIdx >= 0 && !String(tokens[lastContentIdx]).replace(/[.,;!?]+$/, "").length) lastContentIdx--;
                 const lastContentLower = lastContentIdx >= 0
@@ -1754,9 +1803,6 @@
                         }
                     }
                 }
-
-                // WH + to + VERB handled in second-pass (no fixed phrases):
-                // → ꤊꤟꤢꤦ + VERB + WH
 
                 if (haveFound && !isHaveWithV3 && nounTokenIndex === -1 && !isAuxiliaryHave) {
                     for (let i = haveTokenIndex + 1; i < tokens.length; i++) {
@@ -2043,6 +2089,11 @@
                     }
 
                     const token = tokens[i];
+                    // Keep English comma / semicolon / colon pauses in Kayah Li output
+                    if (/^[,;:"']+$/.test(token)) {
+                        translatedWords.push(token);
+                        continue;
+                    }
                     const lower = token.toLowerCase().replace(/[.,;!?]+$/, "");
 
 
@@ -2231,7 +2282,7 @@
 
 
 
-                    // Mid-sentence "whose" + noun → whose then noun (no question marker)
+                    // Mid-sentence "whose" + noun → whose then noun
                     // e.g. I don't know whose book on the table
                     // → Subject + verb + negative + whose + noun + noun + on
                     if (lower === "whose" && i + 1 < tokens.length) {
@@ -2501,6 +2552,50 @@
                     if (lower === "about") {
                         if (!aboutTranslation) aboutTranslation = "ꤚꤤ꤬ꤊꤛꤢ꤭";
                         continue;
+                    }
+
+                    // Frequency adverbs — fixed Kayah position regardless of English position
+                    // Front: always, almost always, usually, normally, generally, sometimes, occasionally, seldom, rarely, hardly ever
+                    // After main verb: often, frequently
+                    {
+                        const freqFront = {
+                            "always": "ꤕꤝꤟꤥ꤭ꤖꤟꤌꤣ",
+                            "almost always": "ꤕꤝꤟꤥ꤭ꤖꤟꤌꤣ",
+                            "usually": "ꤢꤧꤒꤢ꤬ꤊꤤ꤬",
+                            "normally": "ꤢꤧꤒꤢ꤬ꤊꤤ꤬",
+                            "generally": "ꤢꤧꤒꤢ꤬ꤊꤤ꤬",
+                            "sometimes": "ꤒꤢ꤬ꤖꤟꤌꤣꤒꤢ꤬ꤋꤛꤢ꤬",
+                            "occasionally": "ꤒꤢ꤬ꤖꤟꤌꤣꤖꤟꤌꤣ",
+                            "seldom": "ꤑꤟꤢꤩꤒꤢ꤬ꤖꤟꤌꤣ",
+                            "rarely": "ꤑꤟꤢꤩꤒꤢ꤬ꤖꤟꤌꤣ",
+                            "hardly ever": "ꤑꤟꤢꤩꤒꤢ꤬ꤖꤟꤌꤣ"
+                        };
+                        const freqAfter = {
+                            "often": "ꤒꤢ꤬ꤗꤥ꤭ꤒꤢ꤬ꤗꤥ꤭",
+                            "frequently": "ꤒꤢ꤬ꤗꤥ꤭ꤒꤢ꤬ꤗꤥ꤭"
+                        };
+                        // multi-word first
+                        if (i + 1 < tokens.length) {
+                            const two = (lower + " " + tokens[i + 1].toLowerCase().replace(/[.,;!?]+$/, "")).trim();
+                            if (freqFront[two]) {
+                                freqFrontTrans = freqFront[two];
+                                skipNext = true;
+                                continue;
+                            }
+                            if (freqAfter[two]) {
+                                freqAfterVerbTrans = freqAfter[two];
+                                skipNext = true;
+                                continue;
+                            }
+                        }
+                        if (freqFront[lower]) {
+                            freqFrontTrans = freqFront[lower];
+                            continue;
+                        }
+                        if (freqAfter[lower]) {
+                            freqAfterVerbTrans = freqAfter[lower];
+                            continue;
+                        }
                     }
 
                     // never / have never / has never / had never → end of main clause
@@ -2930,9 +3025,45 @@
                         continue;
                     }
 
+                    // "to" + VERB (VERB mark group) → ꤊꤟꤢꤦ + verb
+                    // To go, … → ꤊꤟꤢꤦ go
+                    // I need to eat → need-to already phrase; lone "to" + verb still ꤊꤟꤢꤦ
                     if (lower === "to" && i + 1 < tokens.length) {
                         const nextToken = tokens[i + 1];
-                        if (isActionVerb(nextToken) || isPastParticiple(nextToken)) {
+                        const nl = nextToken.toLowerCase().replace(/[.,;!?]+$/, "");
+                        const verbGroup = isActionVerb(nextToken) || isPastParticiple(nextToken) ||
+                            nl.endsWith("ing") ||
+                            ["go","goes","going","went","gone","eat","eats","eating","ate","eaten",
+                             "do","does","doing","did","done","see","sees","seeing","saw","seen",
+                             "come","comes","coming","came","take","takes","taking","took","taken",
+                             "make","makes","making","made","say","says","saying","said",
+                             "know","knows","knowing","knew","known","tell","tells","telling","told",
+                             "help","helps","helping","helped","show","shows","showing","showed",
+                             "give","gives","giving","gave","given","get","gets","getting","got",
+                             "find","finds","finding","found","work","works","working","worked",
+                             "play","plays","playing","played","run","runs","running","read","reads",
+                             "write","writes","writing","wrote","written","live","lives","living","lived",
+                             "stay","stays","staying","stayed","leave","leaves","leaving","left",
+                             "start","starts","starting","started","stop","stops","stopping","stopped",
+                             "learn","learns","learning","learned","teach","teaches","teaching","taught",
+                             "buy","buys","buying","bought","call","calls","calling","called",
+                             "wait","waits","waiting","waited","walk","walks","walking","walked",
+                             "cry","cries","crying","cried","love","loves","loving","loved",
+                             "want","wants","wanting","wanted","need","needs","needing","needed",
+                             "think","thinks","thinking","thought","hear","hears","hearing","heard",
+                             "feel","feels","feeling","felt","sit","sits","sitting","sat",
+                             "drive","drives","driving","driven","follow","follows","following","followed",
+                             "look","looks","looking","looked","watch","watches","watching","watched",
+                             "listen","listens","listening","listened","speak","speaks","speaking","spoke",
+                             "talk","talks","talking","talked","open","opens","opening","opened",
+                             "close","closes","closing","closed","finish","finishes","finishing","finished",
+                             "begin","begins","beginning","began","begun","bring","brings","bringing","brought",
+                             "send","sends","sending","sent","use","uses","using","used","try","tries","trying","tried"
+                            ].includes(nl) ||
+                            (dict.has(nl) && !isNoun(nextToken) && !isAdjective(nextToken) && !isSubject(nextToken) &&
+                             !isNegativeWord(nextToken) && !isModalAtEnd(nextToken) && !isToBeVerb(nextToken) &&
+                             nl !== "the" && nl !== "a" && nl !== "an" && nl !== "and" && nl !== "or" && nl !== "but");
+                        if (verbGroup) {
                             translatedWords.push("ꤊꤟꤢꤦ");
                             if (firstVerbIndex === -1) firstVerbIndex = translatedWords.length - 1;
                             continue;
@@ -3308,6 +3439,8 @@
                     }
                 }
                 let result = translatedWords.join(" ");
+                // No space before English punctuation pauses
+                result = result.replace(/\s+([,;:!?])/g, "$1").replace(/\s+/g, " ").trim();
 
                 // ever (ꤔꤢꤪ) right after main verb
                 // e.g. I never ever forget you → I forget ever you never
@@ -3617,6 +3750,26 @@
                     result = (result ? result + " " : "") + deferredLets;
                 }
 
+                // Frequency front: always/usually/sometimes… → start of Kayah clause
+                if (freqFrontTrans) {
+                    result = freqFrontTrans + (result ? " " + result : "");
+                }
+                // Frequency after main verb: often/seldom/rarely/almost always
+                if (freqAfterVerbTrans) {
+                    const subjectForms = new Set(["ꤠꤢ꤭", "ꤢꤧ꤬", "ꤕꤟꤢꤧ꤬", "ꤢꤧ꤬ꤞꤤ꤭", "ꤔꤟꤢꤧ꤬", "ꤠꤢ꤭ꤥ꤬"]);
+                    const words = result.split(" ").filter(w => w.length > 0);
+                    let newWords = [];
+                    let inserted = false;
+                    for (let wi = 0; wi < words.length; wi++) {
+                        newWords.push(words[wi]);
+                        if (!inserted && !subjectForms.has(words[wi]) && !/^[,;:]+$/.test(words[wi])) {
+                            newWords.push(freqAfterVerbTrans);
+                            inserted = true;
+                        }
+                    }
+                    if (!inserted) newWords.push(freqAfterVerbTrans);
+                    result = newWords.join(" ");
+                }
                 // never → after main verb + object noun
                 // He never eats food → He eats food never
                 // She never eats → She eats never
@@ -3751,7 +3904,8 @@
                     }
                 }
 
-                // Split only on sentence enders — not commas (commas join clauses: If X, Y when Z)
+                // Split on sentence enders . ! ? (English punctuation kept in Kayah Li output).
+                // Commas join clauses within a sentence; translate per sentence pause.
                 const rawSentences = text.split(/(?<=[.!?])\s+/).filter(s => s.trim().length > 0);
                 if (rawSentences.length === 0) return "";
 
@@ -3777,7 +3931,7 @@
                         trailingPunct = "!";
                     } else if (endsWithPeriod) {
                         cleanSentence = sentence.slice(0, -1);
-                        trailingPunct = "꤯";
+                        trailingPunct = ".";
                     } else if (endsWithComma) {
                         cleanSentence = sentence.slice(0, -1);
                         trailingPunct = ",";
