@@ -105,6 +105,57 @@
             font-weight: 700;
             font-style: normal;
         }
+        .field-label-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.5rem;
+            margin: 0 0 0.4rem 0.3rem;
+        }
+        .field-label-row label {
+            margin: 0;
+            font-size: 0.95rem;
+            color: #444;
+            font-weight: 600;
+        }
+        .field-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+        .icon-btn {
+            appearance: none;
+            border: 1px solid #e0e0e0;
+            background: #fff;
+            color: #444;
+            border-radius: 999px;
+            width: 1.4rem;
+            height: 1.4rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 0.7rem;
+            line-height: 1;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+            transition: background 0.15s, border-color 0.15s, transform 0.1s;
+            padding: 0;
+        }
+        .icon-btn:hover {
+            background: #f5f5f5;
+            border-color: #ccc;
+        }
+        .icon-btn:active {
+            transform: scale(0.96);
+        }
+        .icon-btn[hidden] {
+            display: none !important;
+        }
+        .icon-btn.copied {
+            background: #e8f5e9;
+            border-color: #a5d6a7;
+            color: #2e7d32;
+        }
         @media (max-width: 500px) {
             .card {
                 padding: 1.5rem;
@@ -117,16 +168,27 @@
         <h1 style="text-align:center;margin:0 0 1rem 0;font-size:1.9rem;color:#1f1a14;font-weight:700;">Kayah Translator Test</h1>
         <div class="card">
         <div class="grid">
-            <div class="pair">
-                <div>
-                    <label for="inputText" style="display:block;margin:0 0 0.4rem 0.3rem;font-size:0.95rem;color:#444;font-weight:600;">English</label>
+                        <div class="pair">
+                    <div>
+                    <div class="field-label-row">
+                        <label for="inputText">English</label>
+                        <div class="field-actions">
+                            <button type="button" class="icon-btn" id="copyEnglishBtn" title="Copy English text" aria-label="Copy English text">📋</button>
+                            <button type="button" class="icon-btn" id="clearEnglishBtn" title="Clear English text" aria-label="Clear English text" hidden>✕</button>
+                        </div>
+                    </div>
                     <textarea id="inputText" placeholder="Type English …"></textarea>
-                </div>
-                <div>
-                    <label style="display:block;margin:0 0 0.4rem 0.3rem;font-size:0.95rem;color:#444;font-weight:600;">Kayah Li</label>
+                    </div>
+                    <div>
+                    <div class="field-label-row">
+                        <label>Kayah Li</label>
+                        <div class="field-actions">
+                            <button type="button" class="icon-btn" id="copyKayahBtn" title="Copy Kayah Li text" aria-label="Copy Kayah Li text">📋</button>
+                        </div>
+                    </div>
                     <div id="outputText" class="output-box" aria-readonly="true"></div>
+                    </div>
                 </div>
-            </div>
         </div>
     </div>
     <script>
@@ -159,6 +221,18 @@
 	
 	
 	// ---------- VERB mark XXX----------
+                ["brave", "ꤋꤢꤦ꤭ꤟꤢ꤭"],["braves", "ꤋꤢꤦ꤭ꤟꤢ꤭"],["braved", "ꤋꤢꤦ꤭ꤟꤢ꤭"],["braving", "ꤋꤢꤦ꤭ꤟꤢ꤭"],
+                ["change", "ꤞꤢꤧꤕꤜꤢꤪ꤬ꤓꤢꤨ꤬ꤜꤟꤛꤢ꤬"],["changes", "ꤞꤢꤧꤕꤜꤢꤪ꤬ꤓꤢꤨ꤬ꤜꤟꤛꤢ꤬"],["changed", "ꤞꤢꤧꤕꤜꤢꤪ꤬ꤓꤢꤨ꤬ꤜꤟꤛꤢ꤬"],["changing", "ꤞꤢꤧꤕꤜꤢꤪ꤬ꤓꤢꤨ꤬ꤜꤟꤛꤢ꤬"],
+                ["makes", "ꤗꤟꤢꤩ꤬"],["make", "ꤗꤟꤢꤩ꤬"],["making", "ꤗꤟꤢꤩ꤬"],["made", "ꤗꤟꤢꤩ꤬"],
+                ["supported", "ꤗꤟꤢꤩ꤬ꤡꤝꤟꤥ"],["support", "ꤗꤟꤢꤩ꤬ꤡꤝꤟꤥ"],["supports", "ꤗꤟꤢꤩ꤬ꤡꤝꤟꤥ"],["supporting", "ꤗꤟꤢꤩ꤬ꤡꤝꤟꤥ"],
+                ["worry", "ꤞꤢꤧꤕꤜꤟꤢꤧ꤭"],["worries", "ꤞꤢꤧꤕꤜꤟꤢꤧ꤭"],["worrying", "ꤞꤢꤧꤕꤜꤟꤢꤧ꤭"],["worried", "ꤞꤢꤧꤕꤜꤟꤢꤧ꤭"],
+                ["felt", "ꤒꤢ꤬ꤔꤟꤢꤩ꤬"],["feel", "ꤒꤢ꤬ꤔꤟꤢꤩ꤬"],["feels", "ꤒꤢ꤬ꤔꤟꤢꤩ꤬"],["feeling", "ꤒꤢ꤬ꤔꤟꤢꤩ꤬"],
+                ["tough", "ꤙꤢꤧ꤬"],
+                ["heard", "ꤔꤟꤤꤟꤌꤣ꤭"],["hear", "ꤔꤟꤤꤟꤌꤣ꤭"],["hears", "ꤔꤟꤤꤟꤌꤣ꤭"],["hearing", "ꤔꤟꤤꤟꤌꤣ꤭"],
+                ["happen", "ꤓꤝꤟꤥ꤭ꤓꤛꤢ꤬"],["happens", "ꤓꤝꤟꤥ꤭ꤓꤛꤢ꤬"],["happened", "ꤓꤝꤟꤥ꤭ꤓꤛꤢ꤬"],["happening", "ꤓꤝꤟꤥ꤭ꤓꤛꤢ꤬"],
+                ["grows", "ꤘꤢꤨ꤬ꤓꤛꤢ꤬"],["grow", "ꤘꤢꤨ꤬ꤓꤛꤢ꤬"],["growing", "ꤘꤢꤨ꤬ꤓꤛꤢ꤬"],["grew", "ꤘꤢꤨ꤬ꤓꤛꤢ꤬"],["grown", "ꤘꤢꤨ꤬ꤓꤛꤢ꤬"],
+                ["comfort", "ꤗꤟꤢꤩ꤬ꤞꤢꤧꤕꤜꤢꤪ꤬ꤗꤟꤥ꤬ꤊꤟꤢ꤬"],["comforts", "ꤗꤟꤢꤩ꤬ꤞꤢꤧꤕꤜꤢꤪ꤬ꤗꤟꤥ꤬ꤊꤟꤢ꤬"],["comforted", "ꤗꤟꤢꤩ꤬ꤞꤢꤧꤕꤜꤢꤪ꤬ꤗꤟꤥ꤬ꤊꤟꤢ꤬"],["comforting", "ꤗꤟꤢꤩ꤬ꤞꤢꤧꤕꤜꤢꤪ꤬ꤗꤟꤥ꤬ꤊꤟꤢ꤬"],
+                ["cooks", "ꤖꤥ꤭ꤢꤩ꤬"],["cook", "ꤖꤥ꤭ꤢꤩ꤬"],["cooking", "ꤖꤥ꤭ꤢꤩ꤬"],["cooked", "ꤖꤥ꤭ꤢꤩ꤬"],
 				["attend", "ꤟꤛꤢ꤭ꤓꤛꤢ꤬"],["attends", "ꤟꤛꤢ꤭ꤓꤛꤢ꤬"],["attending", "ꤟꤛꤢ꤭ꤓꤛꤢ꤬"],["attended", "ꤟꤛꤢ꤭ꤓꤛꤢ꤬"],
                 ["a meeting", "ꤒꤟꤢꤧ꤬ꤥ꤬ꤊꤢꤨ"],["meetings", "ꤒꤟꤢꤧ꤬ꤥ꤬ꤊꤢꤨ"],
                 ["add", "ꤏꤢꤨ꤬ꤔꤟꤌꤣ꤭"],["adds", "ꤏꤢꤨ꤬ꤔꤟꤌꤣ꤭"],["adding", "ꤏꤢꤨ꤬ꤔꤟꤌꤣ꤭"],["added", "ꤏꤢꤨ꤬ꤔꤟꤌꤣ꤭"],
@@ -198,10 +272,12 @@
                 ["evening", "ꤗꤟꤢꤪꤟꤢꤩ"],
                 ["every morning", "ꤕꤝꤟꤥ꤭ꤚꤥ꤭"],
                 ["feel", "ꤒꤢ꤬ꤔꤟꤢꤩ꤬"],["feels", "ꤒꤢ꤬ꤔꤟꤢꤩ꤬"],["feeled", "ꤒꤢ꤬ꤔꤟꤢꤩ꤬"],["feeling", "ꤒꤢ꤬ꤔꤟꤢꤩ꤬"],
+                ["figure", "ꤞꤢꤧꤑꤢꤩ꤭"],["figures", "ꤞꤢꤧꤑꤢꤩ꤭"],["figured", "ꤞꤢꤧꤑꤢꤩ꤭"],["figuring", "ꤞꤢꤧꤑꤢꤩ꤭"],
                 ["finish", "ꤗꤟꤢꤩ꤬ꤓꤌꤣ꤭"],["finishs", "ꤗꤟꤢꤩ꤬ꤓꤌꤣ꤭"],["finishing", "ꤗꤟꤢꤩ꤬ꤓꤌꤣ꤭"],["finished", "ꤗꤟꤢꤩ꤬ꤕꤜꤢꤦꤓꤌꤣ꤭"],
                 ["forget", "ꤏꤥ꤭ꤒꤢ꤬ꤕꤟꤢ꤬"],["forgets", "ꤏꤥ꤭ꤒꤢ꤬ꤕꤟꤢ꤬"],["forgeting", "ꤏꤥ꤭ꤒꤢ꤬ꤕꤟꤢ꤬"],["forgot", "ꤏꤥ꤭ꤒꤢ꤬ꤕꤟꤢ꤬"],["forgoten", "ꤏꤥ꤭ꤒꤢ꤬ꤕꤟꤢ꤬"],
                 ["get", "ꤔꤟꤤꤙꤢꤧ꤬"],["gets", "ꤔꤟꤤꤙꤢꤧ꤬"],["getting", "ꤔꤟꤤꤙꤢꤧ꤬"],["got", "ꤔꤟꤤꤙꤢꤧ꤬"],["gotten", "ꤔꤟꤤꤙꤢꤧ꤬"],
-				["give", "ꤘꤛꤢꤩ"],["gives", "ꤘꤛꤢꤩ"],["giving", "ꤘꤛꤢꤩ"],["gave", "ꤘꤛꤢꤩ"],["given", "ꤘꤛꤢꤩ"],
+				["chat", "ꤚꤢ꤭"],["chats", "ꤚꤢ꤭"],["chatting", "ꤚꤢ꤭"],["chatted", "ꤚꤢ꤭"],
+                ["give", "ꤘꤛꤢꤩ"],["gives", "ꤘꤛꤢꤩ"],["giving", "ꤘꤛꤢꤩ"],["gave", "ꤘꤛꤢꤩ"],["given", "ꤘꤛꤢꤩ"],
                 ["give up", "ꤜꤢ꤬ꤡꤟꤢꤨ"],
                 ["go", "ꤡꤛꤣ"],["goes", "ꤡꤛꤣ"],["going", "ꤡꤛꤣ"],["went", "ꤡꤛꤣ"],["gone", "ꤡꤛꤣ"],
                 ["go home", "ꤊꤟꤢ꤬ꤘꤣꤟꤤ꤬"],["goes home", "ꤊꤟꤢ꤬ꤘꤣꤟꤤ꤬"],["went home", "ꤊꤟꤢ꤬ꤘꤣꤟꤤ꤬"],["gone home", "ꤊꤟꤢ꤬ꤘꤣꤟꤤ꤬"],
@@ -219,6 +295,8 @@
 				
                 ["have", "HAVE_PLACEHOLDER"],
                 ["have a", "ꤥ꤬ꤘꤢꤦ꤬ꤔꤢ"],
+                ["has a", "ꤥ꤬ꤘꤢꤦ꤬ꤔꤢ"],
+                ["had a", "ꤥ꤬ꤘꤢꤦ꤬ꤔꤢ"],
                 ["have a good", "ꤥ꤬ꤔꤢꤒꤟꤢꤧ꤬ꤚꤛꤢ"],
                 ["have a great", "ꤥ꤬ꤔꤢꤒꤟꤢꤧ꤬ꤚꤛꤢ"],
                 ["have a nice", "ꤥ꤬ꤔꤢꤒꤟꤢꤧ꤬ꤒꤝꤟꤥ"],
@@ -240,7 +318,7 @@
                 ["live", "ꤥ꤬"],["lives", "ꤥ꤬"],["living", "ꤥ꤬ꤒꤟꤢ꤭"],["lived", "ꤥ꤬"],
                 ["look", "ꤗꤛꤢ"],["looks", "ꤗꤛꤢ"],["looked", "ꤗꤛꤢ"],["looking", "ꤗꤛꤢ"],
 				["look for", "ꤗꤛꤢꤕꤟꤢꤨ꤭"],["looked for", "ꤗꤛꤢꤕꤟꤢꤨ꤭"],["looking for", "ꤗꤛꤢꤕꤟꤢꤨ꤭"],["looks for", "ꤗꤛꤢꤕꤟꤢꤨ꤭"],
-                ["love", "ꤗꤟꤥ꤬ꤔꤟꤤ"],["loves", "ꤗꤟꤥ꤬ꤔꤟꤤ"],["loving", "ꤗꤟꤥ꤬ꤔꤟꤤ"],["loved", "ꤗꤟꤥ꤬ꤔꤟꤤ"],
+                ["love", "ꤗꤟꤥ꤬ꤔꤟꤤ"],["loves", "ꤗꤟꤥ꤬ꤔꤟꤤ"],["loving", "ꤒꤟꤢꤧ꤬ꤗꤟꤥ꤬ꤔꤟꤤ"],["loved", "ꤗꤟꤥ꤬ꤔꤟꤤ"],
                 ["love to", "ꤞꤢꤧꤐꤟꤢꤦ"],["loves to", "ꤞꤢꤧꤐꤟꤢꤦ"],["loving to", "ꤞꤢꤧꤐꤟꤢꤦ"],["loved to", "ꤞꤢꤧꤐꤟꤢꤦ"],
                 ["may", ""],
                 ["meet", "ꤗꤛꤢꤓꤛꤢꤩ꤬ꤏꤢꤦ꤬"],["meets", "ꤗꤛꤢꤓꤛꤢꤩ꤬ꤏꤢꤦ꤬"],["met", "ꤗꤛꤢꤓꤛꤢꤩ꤬ꤏꤢꤦ꤬"],["the meeting", "ꤒꤟꤢꤧ꤬ꤥ꤬ꤊꤢꤨ"],["meeting", "ꤗꤛꤢꤓꤛꤢꤩ꤬ꤏꤢꤦ꤬"],
@@ -274,14 +352,14 @@
                 ["study", "ꤤ꤬ꤞꤛꤥꤗꤟꤢꤩ꤬"],["studies", "ꤤ꤬ꤞꤛꤥꤗꤟꤢꤩ꤬"],["studied", "ꤤ꤬ꤞꤛꤥꤗꤟꤢꤩ꤬"],["studying", "ꤤ꤬ꤞꤛꤥꤗꤟꤢꤩ꤬"],
                 
                 ["take care", "ꤗꤛꤢꤋꤝꤢꤧ꤬ꤚꤛꤢ"],["take care of", "ꤗꤛꤢꤋꤝꤢꤧ꤬ꤚꤛꤢ"],
-                ["take her", "ꤞꤢꤨ꤭ꤢꤧ꤬"],["take him", "ꤞꤢꤨ꤭ꤢꤧ꤬"],["take me", "ꤞꤢꤨ꤭ꤠꤢ꤭"],["take them", "ꤞꤢꤨ꤭ꤢꤧ꤬ꤞꤤ꤭"],["take you", "ꤞꤢꤨ꤭ꤔꤟꤢꤧ꤬"],
+                
                 ["take medicine", "ꤥ꤭ꤒꤟꤢꤧ꤬ꤋꤢꤨ꤬"],
                 
                 ["take", "ꤖꤛꤢꤩ"],["takes", "ꤖꤛꤢꤩ"],["taking", "ꤖꤛꤢꤩ"],["took", "ꤖꤛꤢꤩ"],["taked", "ꤖꤛꤢꤩ"],["taken", "ꤖꤛꤢꤩ"],
                  ["talk", "ꤟꤢꤩꤙꤢꤧ꤬"], ["talks", "ꤟꤢꤩꤙꤢꤧ꤬"],["talking", "ꤟꤢꤩꤙꤢꤧ꤬"], ["talked", "ꤟꤢꤩꤙꤢꤧ꤬"],
                 ["teach", "ꤤ꤬ꤞꤛꤥꤒꤟꤢ꤭"],["teaches", "ꤤ꤬ꤞꤛꤥꤒꤟꤢ꤭"],["teaching", "ꤤ꤬ꤞꤛꤥꤒꤟꤢ꤭"],["taught", "ꤤ꤬ꤞꤛꤥꤒꤟꤢ꤭"],
                 ["tell", "ꤟꤢꤩꤏꤥ꤬"],["tells", "ꤟꤢꤩꤏꤥ꤬"],["telling", "ꤟꤢꤩꤏꤥ꤬"],["told", "ꤟꤢꤩꤏꤥ꤬"],
-                ["tell me", "ꤟꤢꤩꤏꤥ꤬ ꤠꤢ꤭"],
+                
                 ["think", "ꤒꤢ꤬ꤔꤟꤢꤩ꤬ꤔꤌꤣ꤬"],["thought", "ꤒꤢ꤬ꤔꤟꤢꤩ꤬ꤔꤌꤣ꤬"],["thought", "ꤒꤟꤢꤧ꤬ꤒꤢ꤬ꤔꤟꤢꤩ꤬"],
                 ["use to", "ꤊꤟꤊꤣ꤭"],["used to", "ꤊꤟꤊꤣ꤭"],
                 
@@ -299,6 +377,12 @@
                 
 
                 // ---------- NOUN mark XXXX----------
+                ["family", "ꤟꤤ꤬ꤖꤛꤢ꤭"],["families", "ꤟꤤ꤬ꤖꤛꤢ꤭"],
+                ["o'clock", "ꤗꤢꤦ꤭ꤙꤢꤧ꤬"],["oclock", "ꤗꤢꤦ꤭ꤙꤢꤧ꤬"],
+                ["times", "ꤏꤛꤣꤋꤢꤧ꤭"],["time", "ꤏꤛꤣꤋꤢꤧ꤭"],
+                ["story", "ꤒꤟꤢꤧ꤬ꤘꤛꤢ"],["stories", "ꤒꤟꤢꤧ꤬ꤘꤛꤢ"],
+                ["mother", "ꤗꤟꤌꤣ"],["mothers", "ꤗꤟꤌꤣ"],
+                ["things", "ꤒꤟꤢꤧ꤬"],["thing", "ꤒꤟꤢꤧ꤬"],
 				["reader", "ꤕꤚꤟꤢꤧ꤬ꤟꤣꤜꤤ꤬"],["a reader", "ꤕꤚꤟꤢꤧ꤬ꤟꤣꤜꤤ꤬ꤒꤣ꤬ꤕꤚꤟꤢꤧ꤬"],["readers", "ꤕꤚꤟꤢꤧ꤬ꤟꤣꤜꤤ꤬"],
 				["invitation", "ꤜꤤ꤬ꤢꤧꤟꤛꤢ꤭"],["invitations", "ꤜꤤ꤬ꤢꤧꤟꤛꤢ꤭"],
 				["bro", "ꤕꤟꤌꤣꤠꤟꤛꤢ"],
@@ -408,6 +492,29 @@
                 ["isn't", "ꤒꤥ꤬"],
                 ["it is", ""],
                 ["job", "ꤒꤟꤢꤧ꤬ꤗꤟꤢꤩ꤬"],
+                // Days of week (noun)
+                ["monday", "ꤗꤟꤢꤪꤒꤣ꤬ꤑꤢꤩ꤭"],
+                ["tuesday", "ꤗꤟꤢꤪꤔꤛꤢꤩ꤭ꤑꤢꤩ꤭"],
+                ["wednesday", "ꤗꤟꤢꤪꤞꤌꤣ꤭ꤑꤢꤩ꤭"],
+                ["thursday", "ꤗꤟꤢꤪꤜꤝꤟꤤ꤭ꤑꤢꤩ꤭"],
+                ["friday", "ꤗꤟꤢꤪꤑꤟꤢ꤭ꤑꤢꤩ꤭"],
+                ["saturday", "ꤗꤟꤢꤪꤊꤢ꤬ꤒꤟꤢꤪ꤬"],
+                ["sunday", "ꤗꤟꤢꤪꤑꤢꤩ꤭ꤘꤟꤌꤣ꤬"],
+                ["on monday", "ꤗꤟꤢꤪꤒꤣ꤬ꤑꤢꤩ꤭"],
+                ["on tuesday", "ꤗꤟꤢꤪꤔꤛꤢꤩ꤭ꤑꤢꤩ꤭"],
+                ["on wednesday", "ꤗꤟꤢꤪꤞꤌꤣ꤭ꤑꤢꤩ꤭"],
+                ["on thursday", "ꤗꤟꤢꤪꤜꤝꤟꤤ꤭ꤑꤢꤩ꤭"],
+                ["on friday", "ꤗꤟꤢꤪꤑꤟꤢ꤭ꤑꤢꤩ꤭"],
+                ["on saturday", "ꤗꤟꤢꤪꤊꤢ꤬ꤒꤟꤢꤪ꤬"],
+                ["on sunday", "ꤗꤟꤢꤪꤑꤢꤩ꤭ꤘꤟꤌꤣ꤬"],
+                ["mon.", "ꤗꤟꤢꤪꤒꤣ꤬ꤑꤢꤩ꤭"],["mon", "ꤗꤟꤢꤪꤒꤣ꤬ꤑꤢꤩ꤭"],
+                ["tue.", "ꤗꤟꤢꤪꤔꤛꤢꤩ꤭ꤑꤢꤩ꤭"],["tue", "ꤗꤟꤢꤪꤔꤛꤢꤩ꤭ꤑꤢꤩ꤭"],
+                ["wed.", "ꤗꤟꤢꤪꤞꤌꤣ꤭ꤑꤢꤩ꤭"],["wed", "ꤗꤟꤢꤪꤞꤌꤣ꤭ꤑꤢꤩ꤭"],
+                ["thu.", "ꤗꤟꤢꤪꤜꤝꤟꤤ꤭ꤑꤢꤩ꤭"],["thu", "ꤗꤟꤢꤪꤜꤝꤟꤤ꤭ꤑꤢꤩ꤭"],
+                ["fri.", "ꤗꤟꤢꤪꤑꤟꤢ꤭ꤑꤢꤩ꤭"],["fri", "ꤗꤟꤢꤪꤑꤟꤢ꤭ꤑꤢꤩ꤭"],
+                ["sat.", "ꤗꤟꤢꤪꤊꤢ꤬ꤒꤟꤢꤪ꤬"],["sat", "ꤗꤟꤢꤪꤊꤢ꤬ꤒꤟꤢꤪ꤬"],
+                ["sun.", "ꤗꤟꤢꤪꤑꤢꤩ꤭ꤘꤟꤌꤣ꤬"],["sun", "ꤗꤟꤢꤪꤑꤢꤩ꤭ꤘꤟꤌꤣ꤬"],
+
                 ["karenni", "ꤊꤢ꤬ꤛꤢ꤭ꤜꤟꤤ꤬"],
                 ["kayah li", "ꤊꤢ꤬ꤛꤢ꤭ꤜꤟꤤ꤬"],
                 ["knew", "ꤞꤢꤧꤑꤢꤩ꤭"],
@@ -512,8 +619,7 @@
                 ["what time is it?", "ꤙꤢꤗꤢꤦ꤭ꤙꤢꤧ꤬ꤒꤤ꤭ꤒꤢꤩ꤭?"],
                 ["what was", "ꤗꤢ꤬ꤒꤤ꤭ꤒꤢꤩ꤭"],
                 ["what were", "ꤗꤢ꤬ꤒꤤ꤭ꤒꤢꤩ꤭"],
-                ["what will", "ꤕꤢ꤭ꤒꤤ꤭ꤒꤢꤩ꤭"],
-                ["what will you do", "ꤔꤟꤢꤧ꤬ꤗꤟꤢꤩ꤬ ꤕꤢ꤭ꤒꤤ꤭ꤒꤢꤩ꤭"],
+                                ["what will you do", "ꤔꤟꤢꤧ꤬ꤗꤟꤢꤩ꤬ ꤕꤢ꤭ꤒꤤ꤭ꤒꤢꤩ꤭"],
                 ["whatever", "ꤒꤤ꤭ꤒꤢꤩ꤭ꤙꤢꤧ꤬ꤙꤢꤧ꤬"],
                 ["whenever", "ꤙꤤꤋꤢꤧ꤭ꤒꤢꤩꤙꤢꤧ꤬"],
                 ["where am", "ꤥ꤬ꤙꤤꤒꤢꤩ꤭"],
@@ -572,6 +678,11 @@
                 ["yrs old", "ꤔꤢ꤬"],
 
                 // ---------- ADJECTIVE mark XXXXX----------
+                ["young", "ꤔꤢ꤬ꤡꤟꤢꤧ"],
+                ["many", "ꤥ꤬ꤢꤧ"],
+                ["delicious", "ꤏꤢꤦ꤭ꤚꤥ꤭ꤠꤤ꤬"],
+                ["kind", "ꤞꤢꤧꤕꤜꤢꤪ꤬ꤗꤟꤥ꤬"],
+                ["kind", "ꤞꤢꤧꤕꤜꤢꤪ꤬ꤗꤟꤥ꤬"],
                 ["alone", "ꤒꤢꤦꤘꤢꤦ꤬"],
                 ["beautiful", "ꤢ꤬ꤒꤝꤟꤥ"],
                 ["big", "ꤢ꤬ꤘꤢꤨ꤬"],
@@ -587,6 +698,8 @@
                 ["tired", "ꤞꤢꤧꤕꤚꤢ"],
 
                 // ---------- ADVERB mark XXXXXX----------
+                ["together", "ꤚꤟꤥꤜꤢꤨ꤭"],
+                ["closely", "ꤖꤢꤦ꤬"],
                 ["always", "ꤕꤝꤟꤥ꤭ꤖꤟꤌꤣ"],
                 ["almost always", "ꤕꤝꤟꤥ꤭ꤖꤟꤌꤣ"],
                 ["usually", "ꤢꤧꤒꤢ꤬ꤊꤤ꤬"],
@@ -601,7 +714,8 @@
                 ["hardly ever", "ꤑꤟꤢꤩꤒꤢ꤬ꤖꤟꤌꤣ"],
                 ["again", "ꤕꤟꤥꤞꤛꤢ"],
                 ["away", "ꤒꤢ꤬ꤖꤢ꤭ꤐꤛꤢꤩ꤬"],
-                ["back", "ꤋꤛꤢꤩ꤭"],
+                ["back", "ꤊꤟꤢ꤬ꤋꤛꤢꤩ꤭"],
+                ["out", "ꤓꤢꤩ꤬"],
                 ["certainly", "ꤒꤟꤢ꤭ꤒꤟꤢꤩ꤬"],
                 ["early", "ꤚꤟꤥ꤬"],
                 ["ever", "ꤔꤢꤪ"],
@@ -609,11 +723,13 @@
                 ["how", "ꤖꤢꤨꤒꤢꤩ꤭"],
                 ["immediately", "ꤋꤥ꤭ꤑꤟꤢꤔꤢꤋꤥ꤭ꤑꤟꤢ"],
                 ["just", "ꤊꤟꤢꤦ"],
-                ["later", "ꤔꤥ꤬ꤕꤢ꤭"],
+                ["later", "ꤔꤥ꤬"],
                 ["never", "ꤒꤢ꤬ꤖꤟꤌꤣꤒꤥ꤬"],
                 ["not", "ꤒꤥ꤬"],
                 ["not only", "ꤒꤢꤦꤗꤟꤢꤒꤥ꤬"],
                 ["now", "ꤋꤥ꤭ꤑꤟꤢ"],
+                ["right", "ꤒꤥ꤭"],
+                ["wrong", "ꤒꤥ꤬ꤒꤥ꤭"],
                 ["only", "ꤒꤌꤣ꤭"],
                 ["quickly", "ꤕꤚꤛꤢ꤭ꤕꤚꤛꤢ꤭"],
                 ["rather", "ꤜꤣꤔꤢ"],
@@ -682,7 +798,7 @@
                 ["where are you from", "ꤔꤟꤢꤧ꤬ꤥ꤬ꤙꤤꤒꤢꤩ꤭ ꤟꤛꤢ꤭ꤟꤟꤢꤧ꤭"],
                 ["where to", "ꤘꤣꤙꤤꤒꤢꤩ꤭"],
                 ["who to", "ꤢꤨ꤭ꤕꤢꤩ꤭"],
-                ["with", "ꤊꤟꤊꤣ꤭ꤔꤢ"],
+                ["with", "ꤔꤢ"],
                 ["without", "ꤏꤥ꤭ꤘꤥ꤭"],
 
                 // ---------- CONJUNCTION mark XXXXXXXX----------
@@ -767,7 +883,12 @@
                 ["great", "ꤢ꤬ꤚꤛꤢ"],["greater", "ꤢ꤬ꤚꤛꤢꤜꤣ"],["greatest", "ꤢ꤬ꤚꤛꤢꤜꤣꤊꤜꤢꤪ꤭"],
                 ["alone", "ꤒꤢꤦꤘꤢꤦ꤬"],
                 ["little", "ꤕꤢ꤬ꤒꤤ"],
-                ["ugly", "ꤗꤢꤨ꤭ꤗꤟꤛꤢ"],["uglier", "ꤗꤢꤨ꤭ꤗꤟꤛꤢꤜꤣ"],["ugliest", "ꤗꤢꤨ꤭ꤗꤟꤛꤢꤜꤣꤊꤜꤢꤪ꤭"],
+                ["ugly", "ꤗꤢꤨ꤭ꤗꤟꤛꤢ"],
+                ["brave", "ꤋꤢꤦ꤭ꤟꤢ꤭"],
+                ["young", "ꤔꤢ꤬ꤡꤟꤢꤧ"],
+                ["many", "ꤥ꤬ꤢꤧ"],
+                ["delicious", "ꤏꤢꤦ꤭ꤚꤥ꤭ꤠꤤ꤬"],
+                ["kind", "ꤞꤢꤧꤕꤜꤢꤪ꤬ꤗꤟꤥ꤬"],["uglier", "ꤗꤢꤨ꤭ꤗꤟꤛꤢꤜꤣ"],["ugliest", "ꤗꤢꤨ꤭ꤗꤟꤛꤢꤜꤣꤊꤜꤢꤪ꤭"],
             ]);
 
             // ALL negative words with their specific translations
@@ -878,7 +999,7 @@
                 ["through", "ꤒꤢ꤬ꤜꤝꤥ"],
                 ["toward", "ꤒꤥ꤭ꤘꤣ"],
                 ["towards", "ꤒꤥ꤭ꤘꤣ"],
-                ["with", "ꤊꤟꤊꤣ꤭ꤔꤢ"],
+                ["with", "ꤔꤢ"],
                 ["without", "ꤏꤥ꤭ꤘꤥ꤭"],
                 ["because of", "ꤢ꤬ꤗꤟꤢꤩ꤬ꤒꤢꤩ꤭ꤚꤢꤪ"],
                 ["in front of", "ꤘꤣꤗꤢꤧ꤬ꤞꤢꤧ꤬ꤑꤢꤩ꤭"],
@@ -958,7 +1079,6 @@
             const exactPhraseKeys = new Set([
                 "how are you?", "how are you",
                 "what time is it?", "what time is it",
-                "tell me",
                 "to",
                 "when",
                                             ]);
@@ -974,13 +1094,19 @@
 
             // Set of action verbs (not nouns)
             const actionVerbs = new Set([
+                "cooks", "cook", "makes", "make", "supported", "support", "grows", "grow", "happen", "happens",
+                "comfort",
+                "grow",
+                "happen",
+                "feel",
+                "worry",
                 "go", "eat", "do", "see", "come", "take", "make", "say",
                 "know", "think", "hear", "find", "put", "run", "use", "write",
                 "speak", "read", "close", "open", "start", "finish", "arrive",
                 "board", "prove", "need", "want", "live", "stay", "tell", "ask",
                 "help", "watch", "drink", "work", "remember", "forget", "wait", "book",
-                "let", "teach", "stop", "rain", "lie", "add", "show", "give", "get",
-                "call", "send", "bring", "buy", "love", "hate", "play", "walk",
+                "let", "teach", "stop", "rain", "lie", "add", "show", "shows", "showed", "shown", "showing", "give", "get",
+                "call", "send", "bring", "brings", "brought", "bringing", "buy", "love", "hate", "play", "walk",
                 "listen", "learn", "teach", "build", "cook", "clean", "fix", "pick",
                 "choose", "select", "cry", "cried", "must"
             ]);
@@ -1010,48 +1136,55 @@
 
             function tokenizeEnglish(text) {
                 text = normalizeContractions(text);
+                // Split so words stuck to punctuation still tokenize:
+                // "Don't worry, later."This → " / Don't / worry / , / later / . / " / This
+                // Insert spaces around punctuation runs, then split
+                // Only split double quotes / curly double quotes — NOT apostrophes (don't, haven't)
+                let prepared = text
+                    .replace(/([“”"])/g, " $1 ")
+                    .replace(/([.,;:!?]+)/g, " $1 ")
+                    .replace(/\s+/g, " ")
+                    .trim();
                 const tokens = [];
-                const words = text.split(/\s+/).filter(w => w.length > 0);
+                const words = prepared.split(/\s+/).filter(w => w.length > 0);
                 let i = 0;
                 while (i < words.length) {
-                    // Strip trailing punct for lookup, but keep mid-sentence , ; : and quotes as tokens
                     const rawWord = words[i];
-                    const lowerWord = rawWord.toLowerCase().replace(/[.,;:!?"']+$/, "");
-                    if (lowerWord === "a" || lowerWord === "an") {
-                        // still preserve trailing comma after article if any
-                        const artPunct = rawWord.match(/([,;:]+)$/);
+                    // Pure punctuation token
+                    // pure double-quote / sentence punct only (keep apostrophe words intact)
+                    if (/^[.,;:!?“”"]+$/.test(rawWord)) {
+                        tokens.push(rawWord);
                         i++;
-                        if (artPunct) tokens.push(artPunct[1]);
+                        continue;
+                    }
+                    const lowerWord = rawWord.toLowerCase().replace(/[.,;:!?“”"]+/g, "");
+                    if (lowerWord === "a" || lowerWord === "an") {
+                        // Keep "a/an" when part of "have a" / "has a" / "had a"
+                        if (tokens.length > 0) {
+                            const prev = String(tokens[tokens.length - 1]).toLowerCase().replace(/[.,;!?]+$/, "");
+                            if (prev === "have" || prev === "has" || prev === "had") {
+                                tokens[tokens.length - 1] = prev + " a";
+                                i++;
+                                continue;
+                            }
+                        }
+                        i++;
                         continue;
                     }
                     let matched = false;
                     for (let n = 4; n >= 2; n--) {
                         if (i + n <= words.length) {
-                            // build phrase from words without trailing punct on last word for dict lookup
-                            const slice = words.slice(i, i + n);
-                            const cleanSlice = slice.map((w, idx) => {
-                                if (idx === n - 1) return w.replace(/[.,;:!?"']+$/, "");
-                                return w.replace(/[.,;:!?"']+$/, "");
-                            });
-                            const phrase = cleanSlice.join(" ");
+                            // stop if any part is pure punct
+                            let ok = true;
+                            const parts = [];
+                            for (let k = 0; k < n; k++) {
+                                if (/^[.,;:!?“”"‘’']+$/.test(words[i + k])) { ok = false; break; }
+                                parts.push(words[i + k].replace(/[.,;:!?“”"]+/g, ""));
+                            }
+                            if (!ok) continue;
+                            const phrase = parts.join(" ");
                             if (dict.has(phrase.toLowerCase())) {
                                 tokens.push(phrase);
-                                // preserve trailing punct from last word of phrase
-                                const lastPunct = slice[n - 1].match(/([,;:!?"']+)$/);
-                                if (lastPunct) {
-                                    // sentence-final . ! ? handled at sentence level; keep mid-sentence , ;
-                                    const p = lastPunct[1];
-                                    if (/[,;:]/.test(p) || (i + n < words.length && /[,;]/.test(p))) {
-                                        tokens.push(p.replace(/[.!?]+/g, "") || p);
-                                    } else if (/[,;]/.test(p)) {
-                                        tokens.push(p.replace(/[.!?]/g, ""));
-                                    }
-                                    // always keep commas/semicolons
-                                    if (/[,;]/.test(p)) {
-                                        const only = p.replace(/[^,;]/g, "");
-                                        if (only && tokens[tokens.length - 1] !== only) tokens.push(only);
-                                    }
-                                }
                                 i += n;
                                 matched = true;
                                 break;
@@ -1059,27 +1192,13 @@
                         }
                     }
                     if (!matched) {
-                        let w = words[i];
-                        const m = w.match(/^(.*?)([.,;:!?"']+)$/);
-                        if (m && m[1].length > 0) {
-                            tokens.push(m[1]);
-                            const p = m[2];
-                            // Keep commas/semicolons/colons as tokens (mid-sentence pauses)
-                            const keep = p.replace(/[.!?]+/g, "");
-                            if (keep) tokens.push(keep);
-                            // . ! ? left to sentence-level trailingPunct when at end
-                        } else {
-                            tokens.push(w);
-                        }
+                        // strip any leftover punct on the word itself
+                        const core = rawWord.replace(/^[.,;:!?“”"]+/, "").replace(/[.,;:!?“”"]+$/, "");
+                        if (core) tokens.push(core);
                         i++;
                     }
                 }
-                // clean accidental empty / duplicate punct tokens
-                return tokens.filter((t, idx, arr) => {
-                    if (!t) return false;
-                    if (/^[,;:]+$/.test(t) && idx > 0 && arr[idx - 1] === t) return false;
-                    return true;
-                });
+                return tokens.filter(t => t && t.length > 0);
             }
 
             function isNegativeWord(token) {
@@ -1234,6 +1353,14 @@
                 if (adjectiveMap.has(lower)) {
                     return false;
                 }
+                // demonstratives / relative that — not nouns (prevents kind family that → family that kind)
+                if (lower === "that" || lower === "this" || lower === "these" || lower === "those") {
+                    return false;
+                }
+                // time adverbs are not nouns (late tomorrow must not become tomorrow late)
+                if (lower === "tomorrow" || lower === "yesterday" || lower === "today" || lower === "tonight" || lower === "later") {
+                    return false;
+                }
                 if (whQuestionWords.has(lower) || lower === "whose" || lower === "what" || lower === "who" || lower === "when" || lower === "where" || lower === "why" || lower === "how" || lower === "which") {
                     return false;
                 }
@@ -1254,10 +1381,22 @@
                         if (actionVerbs.has(lower) || pastParticipleWords.has(lower)) {
                             return false;
                         }
+                        if (lower.endsWith("s") && lower.length > 2) {
+                            const base = lower.slice(0, -1);
+                            if (actionVerbs.has(base)) return false;
+                        }
+                        if (lower.endsWith("ed") && lower.length > 3) {
+                            const base = lower.slice(0, -2);
+                            if (actionVerbs.has(base) || actionVerbs.has(base + "e")) return false;
+                        }
+                        if (lower.endsWith("ing") && lower.length > 4) {
+                            const base = lower.slice(0, -3);
+                            if (actionVerbs.has(base) || actionVerbs.has(base + "e")) return false;
+                        }
                         return true;
                     }
                 }
-                const commonNouns = ["school", "home", "work", "church", "hotel", "box", "table", "water", "book", "name", "house", "day", "meeting", "train", "committee", "storm", "teacher", "homework", "girl", "leader", "doors", "seats", "food", "room", "ticket", "tickets", "plane", "bus", "night", "rain", "screenshot", "money", "country", "books", "girlfriend", "girlfriends", "idea"];
+                const commonNouns = ["school", "home", "work", "church", "hotel", "box", "table", "water", "book", "name", "house", "day", "meeting", "train", "committee", "storm", "teacher", "homework", "girl", "leader", "doors", "seats", "food", "room", "ticket", "tickets", "plane", "bus", "night", "rain", "screenshot", "money", "country", "books", "girlfriend", "girlfriends", "idea", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
                 if (commonNouns.includes(lower)) {
                     return true;
                 }
@@ -1483,8 +1622,7 @@
                     "who can": "ꤢꤨ꤭ꤕꤢꤩ꤭ꤢ꤬ꤔꤟꤤꤟꤟꤢꤧ꤭",
                     "who will": "ꤕꤢ꤭ꤗꤢ꤬ꤢꤨ꤭ꤕꤢꤩ꤭",
                     "who would": "ꤕꤢ꤭ꤗꤢ꤬ꤢꤨ꤭ꤕꤢꤩ꤭",
-                    "what will": "ꤕꤢ꤭ꤒꤤ꤭ꤒꤢꤩ꤭",
-                    "when will": "ꤕꤢ꤭ꤙꤤꤋꤢꤧ꤭ꤒꤢꤩ꤭",
+                                        "when will": "ꤕꤢ꤭ꤙꤤꤋꤢꤧ꤭ꤒꤢꤩ꤭",
                     "where will": "ꤙꤤꤒꤢꤩ꤭ꤕꤢ꤭ꤟꤟꤢꤧ꤭",
                     "how will": "ꤗꤟꤢꤩ꤬ꤕꤢ꤭ꤖꤢꤨꤒꤢꤩ꤭"
                 };
@@ -1960,6 +2098,13 @@
                 for (let i = 0; i < tokens.length; i++) {
                     const lower = tokens[i].toLowerCase().replace(/[.,;!?]+$/, "");
                     if (lower === "that" && i > 0) {
+                        // Relative "that" + verb (that cooks) stays in English order — no thatMarker reorder
+                        // Only mark when that is NP-final demonstrative-like (rare); skip marker for relative clauses
+                        const nextTok = i + 1 < tokens.length ? tokens[i + 1].toLowerCase().replace(/[.,;!?]+$/, "") : "";
+                        if (nextTok && (isActionVerb(tokens[i + 1]) || isToBeVerb(tokens[i + 1]) || nextTok === "is" || nextTok === "are" || nextTok === "was" || nextTok === "were" || nextTok === "will" || nextTok === "can" || nextTok === "cooks" || nextTok === "cook" || nextTok === "makes" || nextTok === "make")) {
+                            // relative clause — leave for in-order emission
+                            break;
+                        }
                         if (i - 1 >= 0) {
                             const prevToken = tokens[i - 1];
                             const prevLower = prevToken.toLowerCase().replace(/[.,;!?]+$/, "");
@@ -2082,10 +2227,8 @@
                     }
 
                     {
-                        const _dl = tokens[i].toLowerCase().replace(/[.,;!?]+$/, "");
-                        if (thatMarkerAdded && (_dl === "that" || _dl === "those" || _dl === "this" || _dl === "these")) {
-                            continue;
-                        }
+                        // relative "that" is emitted in place as ꤔꤌꤣ꤬ (English order)
+                        // do not skip demonstratives here
                     }
 
                     const token = tokens[i];
@@ -2102,17 +2245,52 @@
                         everWordTranslation = getWordTranslation(token) || dict.get(lower) || token;
                         continue;
                     }
-                    // mid-clause object WH (what/how/where/why/which) → end of this phrase/clause
-                    // Please tell me what you need → please tell me you need what
-                    // Skip when followed by "to" (handled by WH+to+VERB → … WH that)
-                    if ((lower === "what" || lower === "how" || lower === "where" || lower === "why" || lower === "which" || lower === "who")
+                    // mid-clause WH
+                    // who after noun → relative ꤕꤚꤟꤢꤧ꤬ꤘꤣ in place
+                    // who embedded interrogative (after know/tell/ask…) → ꤢꤨ꤭ꤕꤢꤩ꤭ in place
+                    // what/how/where/why/which → often end of clause (existing)
+                    if (lower === "who" && i > 0) {
+                        const nextIsTo = (i + 1 < tokens.length &&
+                            tokens[i + 1].toLowerCase().replace(/[.,;!?]+$/, "") === "to");
+                        // look at previous content token
+                        let prevL = "";
+                        for (let pj = i - 1; pj >= 0; pj--) {
+                            const pl = tokens[pj].toLowerCase().replace(/[.,;!?]+$/, "");
+                            if (!pl || /^[,;:]+$/.test(tokens[pj])) continue;
+                            prevL = pl;
+                            break;
+                        }
+                        const nounHints = new Set([
+                            "people","person","man","men","woman","women","teacher","teachers","student","students",
+                            "girl","girls","boy","boys","child","children","friend","friends","someone","somebody",
+                            "anyone","anybody","everyone","everybody","one","ones","guy","guys","person"
+                        ]);
+                        const isAfterNoun = isNoun(tokens[i - 1] || "") || nounHints.has(prevL) ||
+                            (dict.has(prevL) && !isActionVerb(tokens[i - 1] || "") && !isSubject(tokens[i - 1] || "") &&
+                             !isNegativeWord(tokens[i - 1] || "") && !isModalAtEnd(tokens[i - 1] || "") &&
+                             !["know","knows","knew","known","tell","tells","told","ask","asks","asked",
+                               "see","sees","saw","seen","hear","hears","heard","think","thought"].includes(prevL));
+                        if (isAfterNoun) {
+                            // relative who
+                            translatedWords.push("ꤕꤚꤟꤢꤧ꤬ꤘꤣ");
+                            continue;
+                        }
+                        // embedded interrogative who (I don't know who …)
+                        translatedWords.push("ꤢꤨ꤭ꤕꤢꤩ꤭");
+                        continue;
+                    }
+                    // which → English sentence order (ꤘꤣ), not deferred
+                    if (lower === "which") {
+                        translatedWords.push(getWordTranslation(token) || dict.get("which") || "ꤘꤣ");
+                        continue;
+                    }
+                    if ((lower === "what" || lower === "how" || lower === "where" || lower === "why")
                         && i > 0) {
                         const nextIsTo = (i + 1 < tokens.length &&
                             tokens[i + 1].toLowerCase().replace(/[.,;!?]+$/, "") === "to");
                         if (!nextIsTo) {
-                            const whT = getWordTranslation(token) || dict.get(lower) || token;
-                            if (!everWordTranslation) everWordTranslation = whT;
-                            else everWordTranslation = everWordTranslation + " " + whT;
+                            // mid-sentence what/how/where/why starts a second clause → keep in English order
+                            translatedWords.push(getWordTranslation(token) || dict.get(lower) || token);
                             continue;
                         }
                         // else fall through to WH + to + VERB handler
@@ -2296,20 +2474,98 @@
                         }
                     }
 
-                    // Skip "do", "does", "did" when they are used as auxiliary verbs in questions
+                    // Skip "do", "does", "did" when they are auxiliary in questions
                     if ((lower === "do" || lower === "does" || lower === "did") && isQuestion) {
-                        // Check if there's a main verb after it
                         let hasMainVerb = false;
                         for (let j = i + 1; j < tokens.length; j++) {
-                            if (isActionVerb(tokens[j]) || tokens[j].toLowerCase() === "want" || tokens[j].toLowerCase() === "need" || tokens[j].toLowerCase() === "come" || tokens[j].toLowerCase() === "go") {
+                            if (isActionVerb(tokens[j]) || tokens[j].toLowerCase() === "want" || tokens[j].toLowerCase() === "need" || tokens[j].toLowerCase() === "come" || tokens[j].toLowerCase() === "go" || tokens[j].toLowerCase() === "know") {
                                 hasMainVerb = true;
                                 break;
                             }
                         }
                         if (hasMainVerb) {
-                            continue; // Skip "do" in questions
+                            continue; // Skip auxiliary "do" in questions
                         }
                     }
+                    // Imperative / main-verb "do" (not question auxiliary) → ꤗꤟꤢꤩ꤬
+                    // Please, do your job. | If you know, do it now.
+                    if (lower === "do" && !isQuestion) {
+                        // auxiliary do in negatives already handled; plain do = main verb
+                        translatedWords.push("ꤗꤟꤢꤩ꤬");
+                        continue;
+                    }
+
+                    // Phrasal particle: give/take … back/out → verb + particle + objects
+                    // give me back → give back me
+                    // take your car back → take back your car
+                    // take it out → take out (it omitted)
+                    // take me out → take out me
+                    {
+                        const particleVerbs = new Set([
+                            "give","gives","gave","giving","given",
+                            "take","takes","took","taking","taken",
+                            "bring","brings","brought","bringing",
+                            "put","puts","putting",
+                            "get","gets","got","getting",
+                            "chat","chats","chatting","chatted",
+                            "call","calls","called","calling",
+                            "text","texts","texted","texting",
+                            "tell","tells","told","telling",
+                            "help","helps","helped","helping",
+                            "figure","figures","figured","figuring",
+                            "find","finds","found","finding",
+                            "work","works","worked","working",
+                            "point","points","pointed","pointing",
+                            "sort","sorts","sorted","sorting",
+                            "check","checks","checked","checking"
+                        ]);
+                        const particles = new Set(["back", "out"]);
+                        if (particleVerbs.has(lower)) {
+                            let partIdx = -1;
+                            let partWord = null;
+                            for (let j = i + 1; j < tokens.length && j <= i + 6; j++) {
+                                const jl = tokens[j].toLowerCase().replace(/[.,;!?]+$/, "");
+                                if (particles.has(jl)) { partIdx = j; partWord = jl; break; }
+                                // stop at clause boundary
+                                if (jl === "and" || jl === "but" || jl === "or" || jl === "when" || jl === "if" || jl === "because") break;
+                            }
+                            if (partIdx > i) {
+                                const verbTrans = getWordTranslation(token) || dict.get(lower) || token;
+                                const partTrans = getWordTranslation(tokens[partIdx]) || dict.get(partWord) || partWord;
+                                translatedWords.push(verbTrans);
+                                translatedWords.push(partTrans);
+                                // later after particle, before objects
+                                // I will chat you back later → chat back later you will
+                                let laterIdx = -1;
+                                for (let j = partIdx + 1; j < tokens.length && j <= partIdx + 3; j++) {
+                                    const jl = tokens[j].toLowerCase().replace(/[.,;!?]+$/, "");
+                                    if (jl === "later") { laterIdx = j; break; }
+                                    if (jl === "and" || jl === "but" || jl === "or") break;
+                                }
+                                if (laterIdx < 0) {
+                                    for (let j = i + 1; j < partIdx; j++) {
+                                        const jl = tokens[j].toLowerCase().replace(/[.,;!?]+$/, "");
+                                        if (jl === "later") { laterIdx = j; break; }
+                                    }
+                                }
+                                if (laterIdx >= 0) {
+                                    translatedWords.push(getWordTranslation(tokens[laterIdx]) || "ꤔꤥ꤬");
+                                }
+                                // emit objects between verb and particle (skip "it" and later)
+                                for (let j = i + 1; j < partIdx; j++) {
+                                    if (j === laterIdx) continue;
+                                    const jl = tokens[j].toLowerCase().replace(/[.,;!?]+$/, "");
+                                    if (jl === "it" || jl === "a" || jl === "an" || jl === "the" || jl === "later") continue;
+                                    translatedWords.push(getWordTranslation(tokens[j]) || getSubjectTranslation(tokens[j]) || tokens[j]);
+                                }
+                                // skip through particle and later if later was after particle
+                                skipTokens = Math.max(partIdx, laterIdx >= 0 ? laterIdx : partIdx) - i;
+                                continue;
+                            }
+                        }
+                    }
+
+
 
                     if (lower === "a" || lower === "an") {
                         continue;
@@ -2440,7 +2696,9 @@
                         if (wantToIndex !== -1 && i < wantToIndex) {
                             continue;
                         }
-                        translatedWords.push("ꤗꤢ꤬(ꤥ꤬)");
+                        // "be" always ꤥ꤬; am/is/are/was/were → ꤗꤢ꤬
+                        const beForm = (lower === "be") ? "ꤥ꤬" : "ꤗꤢ꤬";
+                        translatedWords.push(beForm);
                         if (firstVerbIndex === -1) firstVerbIndex = translatedWords.length - 1;
                         continue;
                     }
@@ -2890,8 +3148,18 @@
                         continue;
                     }
 
-                    // tomorrow / yesterday / today → after for, before modal marker
+                    // tomorrow / yesterday / today:
+                    // - if at start of English sentence → keep at start (inline)
+                    // - if later / at end → defer to end of clause (before punctuation / after main content)
                     if (timeAdverbsEnd.has(lower)) {
+                        // first content token? (allow leading punctuation skip)
+                        let firstContent = 0;
+                        while (firstContent < tokens.length && !String(tokens[firstContent]).replace(/[.,;!?]+$/, "").length) firstContent++;
+                        if (i === firstContent) {
+                            // keep front position
+                            translatedWords.push(getWordTranslation(token) || dict.get(lower) || token);
+                            continue;
+                        }
                         const tTrans = getWordTranslation(token) || dict.get(lower) || token;
                         if (tTrans && !deferredTimeAdverbs.includes(tTrans)) deferredTimeAdverbs.push(tTrans);
                         continue;
@@ -2919,19 +3187,24 @@
                                 j++;
                                 continue;
                             }
+                            // object pronoun for me/him/her → her for (stop; leave time adverbs after)
+                            if (tl === "me" || tl === "him" || tl === "her" || tl === "us" || tl === "them") {
+                                nouns.push(getWordTranslation(tokens[j]) || getSubjectTranslation(tokens[j]) || tl);
+                                j++;
+                                break; // for her every day → her for | every day
+                            }
                             // possessive + noun: for your help / for my book
-                            if (tl === "my" || tl === "your" || tl === "our" || tl === "his" || tl === "her" || tl === "their") {
+                            if (tl === "my" || tl === "your" || tl === "our" || tl === "his" || tl === "their") {
                                 nouns.push(getWordTranslation(tokens[j]));
                                 j++;
-                                // following noun (or verb-used-as-noun like "help")
                                 if (j < tokens.length) {
                                     const tl2 = tokens[j].toLowerCase().replace(/[.,;!?]+$/, "");
-                                    if (!stopWords.has(tl2)) {
+                                    if (!stopWords.has(tl2) && (isNoun(tokens[j]) || tl2 === "help")) {
                                         nouns.push(getWordTranslation(tokens[j]));
                                         j++;
                                     }
                                 }
-                                continue;
+                                break;
                             }
                             if (isNoun(tokens[j]) || tl === "committee" || tl === "leaders" || tl === "leader" ||
                                 tl === "day" || tl === "meeting" || tl === "house" || tl === "book" || tl === "books" ||
@@ -3102,20 +3375,31 @@
                             const tl = t.toLowerCase().replace(/[.,;!?]+$/, "");
                             return isNoun(t) || ["book","books","house","car","girl","box","table","school","room","food","money","country","girlfriend","boyfriend","boyfriends","girlfriends","idea"].includes(tl);
                         };
-                        // det + adj + noun → noun adj det
+                        // this/these at NP start stay front: this beautiful girl → this girl beautiful
+                        // that/those still: noun det (books those)
                         if (isAdjective(nextToken) && i + 2 < tokens.length && nounish(tokens[i + 2])) {
-                            translatedWords.push(getWordTranslation(tokens[i + 2]));
-                            translatedWords.push(getWordTranslation(nextToken));
-                            translatedWords.push(detTrans);
+                            if (lower === "this" || lower === "these") {
+                                translatedWords.push(detTrans);
+                                translatedWords.push(getWordTranslation(tokens[i + 2]));
+                                translatedWords.push(getWordTranslation(nextToken));
+                            } else {
+                                translatedWords.push(getWordTranslation(tokens[i + 2]));
+                                translatedWords.push(getWordTranslation(nextToken));
+                                translatedWords.push(detTrans);
+                            }
                             skipTokens = 2;
-                            // prevent first-pass thatMarker from adding a second ꤔꤌꤣ꤬
                             thatMarkerAdded = false;
                             continue;
                         }
-                        // det + noun → noun det
+                        // det + noun
                         if (nounish(nextToken)) {
-                            translatedWords.push(getWordTranslation(nextToken));
-                            translatedWords.push(detTrans);
+                            if (lower === "this" || lower === "these") {
+                                translatedWords.push(detTrans);
+                                translatedWords.push(getWordTranslation(nextToken));
+                            } else {
+                                translatedWords.push(getWordTranslation(nextToken));
+                                translatedWords.push(detTrans);
+                            }
                             skipNext = true;
                             thatMarkerAdded = false;
                             continue;
@@ -3127,10 +3411,12 @@
                     // I want a beautiful big girl → I want girl beautiful big
                     if (isAdjective(token)) {
                         const nounHints = new Set([
-                            "house","book","books","money","country","girl","box","table","hotel","school","room",
-                            "day","meeting","train","committee","storm","teacher","homework","leader","leaders",
+                            "house","book","books","money","country","girl","girls","box","table","hotel","school","room",
+                            "day","meeting","train","committee","storm","teacher","teachers","homework","leader","leaders",
                             "doors","seats","food","ticket","tickets","plane","bus","night","rain","screenshot",
-                            "names","boyfriend","girlfriend","boyfriends","girlfriends","idea","man","woman","boy"
+                            "names","boyfriend","girlfriend","boyfriends","girlfriends","idea","man","woman","boy","boys",
+                            "people","person","family","story","stories","mother","change","time","times","thing","things",
+                            "home","help","work","school"
                         ]);
                         // Collect consecutive adjectives starting at i
                         let adjList = [];
@@ -3147,12 +3433,18 @@
                             if (jl === "the" || jl === "a" || jl === "an") { j++; articleSkips++; continue; }
                             break;
                         }
-                        // Collect consecutive nouns
+                        // Collect consecutive nouns (stop before verbs)
                         let nounTransList = [];
                         let nounStart = j;
                         while (j < tokens.length) {
                             const ntl = tokens[j].toLowerCase().replace(/[.,;!?]+$/, "");
                             if (ntl === "the" || ntl === "a" || ntl === "an") { j++; continue; }
+                            // "brave young girl starts" — starts is verb, not noun
+                            if (isActionVerb(tokens[j]) || isToBeVerb(tokens[j])) break;
+                            if (ntl.endsWith("s") && ntl.length > 3) {
+                                const base = ntl.slice(0, -1);
+                                if (isActionVerb(base) || isActionVerb(tokens[j])) break;
+                            }
                             if (isNoun(tokens[j]) || nounHints.has(ntl)) {
                                 nounTransList.push(getWordTranslation(tokens[j]) || tokens[j]);
                                 j++;
@@ -3438,9 +3730,9 @@
                         }
                     }
                 }
-                let result = translatedWords.join(" ");
-                // No space before English punctuation pauses
-                result = result.replace(/\s+([,;:!?])/g, "$1").replace(/\s+/g, " ").trim();
+                // Normal spaces between Kayah words; punctuation kept as tokens
+                let result = translatedWords.map(w => (w === "." ? "꤯" : w)).join(" ");
+                result = result.replace(/\s+([,;:!?꤯"“”'‘’])/g, "$1").replace(/([“”"‘’])\s+/g, "$1 ").replace(/\s+/g, " ").trim();
 
                 // ever (ꤔꤢꤪ) right after main verb
                 // e.g. I never ever forget you → I forget ever you never
@@ -3712,8 +4004,9 @@
                         }
                     }
                     if (negToUse) {
-                        // remove mid-clause negatives then append at end
-                        // but keep a leading standalone "no" (ꤒꤥ꤬) e.g. No, I don't
+                        // remove mid-clause negatives then place at end of main clause
+                        // If a comma is present: Don't worry, … → worry don't ,
+                        // (negation before the first comma)
                         const words = result.split(" ").filter(w => w.length > 0);
                         let leadingNo = false;
                         if (words[0] === "ꤒꤥ꤬") {
@@ -3723,7 +4016,13 @@
                             if (idx === 0 && leadingNo) return true;
                             return w !== negToUse && w !== "ꤒꤥ꤬" && w !== "ꤒꤢꤧ꤭ꤗꤟꤢꤩ";
                         });
-                        filtered.push(negToUse);
+                        // Negation after main verb; before second clause (what/how/which)
+                        const secondMarks = new Set(["ꤒꤤ꤭ꤒꤢꤩ꤭","ꤖꤢꤨꤒꤢꤩ꤭","ꤘꤣ"]);
+                        let ins = filtered.length;
+                        for (let wi = 0; wi < filtered.length; wi++) {
+                            if (secondMarks.has(filtered[wi].replace(/[.,;!?꤯]+$/, ""))) { ins = wi; break; }
+                        }
+                        filtered.splice(ins, 0, negToUse);
                         result = filtered.join(" ");
                     }
                 }
@@ -3775,22 +4074,51 @@
                 // She never eats → She eats never
                 // I never forget you → I forget you never
                 if (neverTranslation) {
+                    // She will never forget how they… → She forget never will how they…
+                    const words = result.split(" ").filter(w => w.length > 0);
+                    const howForms = new Set(["ꤖꤢꤨꤒꤢꤩ꤭", "ꤜꤢꤩ꤭", "ꤒꤤ꤭ꤒꤢꤩ꤭"]); // how / what
                     const afterNever = new Set([
                         "ꤢ꤬ꤋꤢꤧ꤭", "ꤟꤤꤒꤥ꤬ꤢ꤬ꤋꤢꤧ꤭", "ꤓꤌꤣ꤭ꤘꤣꤋꤛꤢꤩ꤭",
                         "ꤒꤢ꤬ꤘꤢꤦ꤬ꤒꤟꤌꤣ", "ꤔꤌꤣ꤬ꤕꤢ꤭", "ꤊꤤ꤬", "ꤗꤟꤢꤩ꤬ꤒꤢꤩ꤭ꤚꤢꤪ",
                         "ꤒꤥ꤬ꤟꤢꤩꤗꤢ꤬", "ꤒꤢ꤬ꤘꤣ꤬", "ꤗꤢ꤬ꤔꤢ", "ꤓꤌꤣ꤭ꤕꤢ꤭"
                     ]);
-                    const words = result.split(" ").filter(w => w.length > 0);
                     let insertAt = words.length;
                     for (let wi = 0; wi < words.length; wi++) {
                         const bare = words[wi].replace(/[.,;!?꤯]+$/, "");
-                        if (afterNever.has(bare)) {
+                        if (howForms.has(bare) || afterNever.has(bare)) {
                             insertAt = wi;
                             break;
                         }
                     }
-                    const newWords = words.slice(0, insertAt).concat([neverTranslation], words.slice(insertAt));
-                    result = newWords.join(" ");
+                    // strip existing will, never; rebuild: [main before how] + never + will + [how…]
+                    const willForms = new Set(["ꤕꤢ꤭", "ꤕꤢ꤭ꤟꤟꤢꤧ꤭"]);
+                    let willTok = null;
+                    const cleaned = [];
+                    for (const w of words) {
+                        if (willForms.has(w)) { willTok = w; continue; }
+                        if (w === neverTranslation) continue;
+                        cleaned.push(w);
+                    }
+                    // find insert in cleaned
+                    let ins = cleaned.length;
+                    for (let wi = 0; wi < cleaned.length; wi++) {
+                        const bare = cleaned[wi].replace(/[.,;!?꤯]+$/, "");
+                        if (howForms.has(bare) || afterNever.has(bare)) { ins = wi; break; }
+                    }
+                    const out = cleaned.slice(0, ins);
+                    out.push(neverTranslation);
+                    // will often still in modalToken (not yet in result) — place after never before how
+                    if (willTok) {
+                        out.push(willTok);
+                    } else if (modalToken) {
+                        const ml = modalToken.toLowerCase().replace(/[.,;!?]+$/, "");
+                        if (ml === "will" || ml === "would") {
+                            out.push("ꤕꤢ꤭");
+                            modalToken = null; // consumed so later modalInfo won't duplicate
+                        }
+                    }
+                    out.push(...cleaned.slice(ins));
+                    result = out.join(" ");
                 }
                 // sentence-final adverbial before (no subordinate)
                 // e.g. I never ever eat this before → … never ꤢ꤬ꤚꤟꤢꤩꤋꤢꤧ꤭
@@ -3836,6 +4164,59 @@
                     result = reorderWhBeforeTimeConj(result);
                 }
 
+                // Dedupe will when never already placed will after never
+                if (result && neverTranslation && result.includes(neverTranslation)) {
+                    const parts = result.split(" ").filter(Boolean);
+                    let seenWill = false;
+                    const deduped = [];
+                    for (const w of parts) {
+                        if (w === "ꤕꤢ꤭" || w === "ꤕꤢ꤭ꤟꤟꤢꤧ꤭") {
+                            if (seenWill) continue;
+                            seenWill = true;
+                        }
+                        deduped.push(w);
+                    }
+                    result = deduped.join(" ");
+                }
+
+                // what/how second clause: place will after verb; end with ꤔꤌꤣ꤬
+                {
+                    const whatF = "ꤒꤤ꤭ꤒꤢꤩ꤭";
+                    const howF = "ꤖꤢꤨꤒꤢꤩ꤭";
+                    let parts = (result || "").split(" ").filter(Boolean);
+                    const wi = parts.findIndex(w => w === whatF || w === howF);
+                    if (wi >= 0) {
+                        const isWhat = parts[wi] === whatF;
+                        let willIdx = -1;
+                        for (let i = wi + 1; i < parts.length; i++) {
+                            if (parts[i] === "ꤕꤢ꤭" || parts[i] === "ꤕꤢ꤭ꤟꤟꤢꤧ꤭") { willIdx = i; break; }
+                        }
+                        // Pull will from modal if needed
+                        if (willIdx < 0 && modalToken) {
+                            const ml = modalToken.toLowerCase().replace(/[.,;!?]+$/, "");
+                            if (ml === "will" || ml === "would") {
+                                parts.push("ꤕꤢ꤭");
+                                willIdx = parts.length - 1;
+                                modalToken = null;
+                                modalInfo = null;
+                            }
+                        }
+                        if (willIdx >= 0) {
+                            const will = parts[willIdx];
+                            parts.splice(willIdx, 1);
+                            if (isWhat) {
+                                // what VERB will next → after first token after what
+                                parts.splice(Math.min(wi + 2, parts.length), 0, will);
+                            } else {
+                                // how … will at end of how-clause (before ꤔꤌꤣ꤬)
+                                parts.push(will);
+                            }
+                        }
+                        if (!parts.includes("ꤔꤌꤣ꤬")) parts.push("ꤔꤌꤣ꤬");
+                        result = parts.join(" ");
+                    }
+                }
+
                 return {
                     text: result,
                     hasNegation: hasNegation,
@@ -3856,6 +4237,54 @@
             // --------------------------------------------------------------
             //  Translate English → Kayah Li - Main function
             // --------------------------------------------------------------
+            
+            function dedupeWillAfterNever(s) {
+                if (!s || !s.includes("ꤒꤢ꤬ꤖꤟꤌꤣ")) return s;
+                const parts = s.split(" ").filter(Boolean);
+                let seenWill = false;
+                const out = [];
+                for (const w of parts) {
+                    const bare = w.replace(/[.,;!?꤯]+$/, "");
+                    if (bare === "ꤕꤢ꤭" || bare === "ꤕꤢ꤭ꤟꤟꤢꤧ꤭") {
+                        if (seenWill) continue;
+                        seenWill = true;
+                    }
+                    out.push(w);
+                }
+                return out.join(" ");
+            }
+
+
+            // Tag / confirmation questions: "You go?" "Right?" → attach ꤟꤟꤢꤧ꤭ to last word
+            // Skip when sentence already starts with WH / Do / Is / Aren't…
+            function attachConfirmQuestionMarker(result, endsWithQuestion, firstToken) {
+                if (!endsWithQuestion || !result) return result;
+                const ft = (firstToken || "").toLowerCase().replace(/[.,;!?]+$/, "");
+                const questionStarters = new Set([
+                    "what", "who", "whose", "when", "where", "why", "which", "how",
+                    "how many", "how much", "how about",
+                    "do", "does", "did",
+                    "is", "are", "was", "were", "am",
+                    "isn't", "aren't", "wasn't", "weren't",
+                    "can", "could", "will", "would", "may", "should", "shall",
+                    "have", "has", "had", "haven't", "hasn't", "hadn't"
+                ]);
+                // also "where is", "what is", "how are", …
+                if (questionStarters.has(ft)) return result;
+                const ftFirst = ft.split(/\s+/)[0];
+                if (questionStarters.has(ftFirst)) return result;
+                if (result.includes("ꤟꤟꤢꤧ꤭")) return result;
+                // Attach to last content word (strip trailing ? or punct first)
+                let s = result.replace(/\s*[?？]+\s*$/, "").trim();
+                if (!s) return result;
+                const parts = s.split(" ").filter(Boolean);
+                if (parts.length === 0) return result;
+                const last = parts[parts.length - 1].replace(/[.,;:!?꤯]+$/, "");
+                const punct = parts[parts.length - 1].slice(last.length);
+                parts[parts.length - 1] = last + "ꤟꤟꤢꤧ꤭" + punct;
+                return parts.join(" ");
+            }
+
             function translateToKayah(text) {
                 if (!text.trim()) return "";
 
@@ -3904,9 +4333,9 @@
                     }
                 }
 
-                // Split on sentence enders . ! ? (English punctuation kept in Kayah Li output).
-                // Commas join clauses within a sentence; translate per sentence pause.
-                const rawSentences = text.split(/(?<=[.!?])\s+/).filter(s => s.trim().length > 0);
+                // Translate between pauses: . , ? !  (each segment translated on its own)
+                // Period → ꤯; other marks stay English.
+                const rawSentences = text.split(/(?<=[.:,?!])\s*/).filter(s => s.trim().length > 0);
                 if (rawSentences.length === 0) return "";
 
                 const translatedSentences = rawSentences.map(sentence => {
@@ -3931,7 +4360,7 @@
                         trailingPunct = "!";
                     } else if (endsWithPeriod) {
                         cleanSentence = sentence.slice(0, -1);
-                        trailingPunct = ".";
+                        trailingPunct = "꤯";
                     } else if (endsWithComma) {
                         cleanSentence = sentence.slice(0, -1);
                         trailingPunct = ",";
@@ -4026,9 +4455,11 @@
                             let negTrans = null;
                             let yetTrans = null;
                             let mainWill = false;
+                            let mainCan = false;
                             for (let i = 0; i < mainTokens.length; i++) {
                                 const tl = mainTokens[i].toLowerCase().replace(/[.,;!?]+$/, "");
                                 if (tl === "will" || tl === "would") { mainWill = true; continue; }
+                                if (tl === "can" || tl === "could") { mainCan = true; continue; }
                                 if (negSet.has(tl) || negativeWords.has(tl)) {
                                     negTrans = getNegativeTranslation(mainTokens[i]);
                                     if (tl === "can't" || tl === "cannot") negTrans = "ꤢ꤬ꤔꤟꤤꤒꤥ꤬";
@@ -4049,22 +4480,51 @@
                             // Subordinate may contain will → short form on that clause
                             const subRes = translatePhrase(subTokens, false, false, false, false, null, false, null, null);
                             let subText = (subRes.text || "").replace(/\s+/g, " ").trim();
-                            // If sub has will modalInfo, append ꤕꤢ꤭
-                            if (subRes.modalInfo && (subRes.modalInfo.type === "will" || subRes.modalInfo.type === "would")) {
-                                subText = (subText ? subText + " " : "") + "ꤕꤢ꤭";
-                            }
+                            // will placed once below after full second clause
                             let mainText = (mainRes.text || "").replace(/\s+/g, " ").trim();
                             // strip any WH/neg that leaked into main
                             if (whClauseTrans[whKey]) {
                                 mainText = mainText.split(" ").filter(w => w !== whClauseTrans[whKey]).join(" ");
                             }
+                            // Main | WH | sub | (will on sub) | ꤔꤌꤣ꤬
+                            // I know don't | what | happen will next | ꤔꤌꤣ꤬
+                            // see | how | she grows will | ꤔꤌꤣ꤬
                             let r = mainText;
                             if (yetTrans) r = (r ? r + " " : "") + yetTrans;
                             if (negTrans) r = (r ? r + " " : "") + negTrans;
-                            // will at end of main clause before subordinate
-                            if (mainWill) r = (r ? r + " " : "") + "ꤕꤢ꤭";
-                            if (subText) r = (r ? r + " " : "") + subText;
-                            r = (r ? r + " " : "") + (whClauseTrans[whKey] || whKey);
+                            const subFirst = subTokens.length > 0 ? subTokens[0].toLowerCase().replace(/[.,;!?]+$/, "") : "";
+                            const subStartsWithSubject = subFirst && (isSubject(subTokens[0]) || ["i","you","he","she","we","they","it"].includes(subFirst));
+                            // what/how + SUBJECT → content then WH (eat what she wants → she wants what)
+                            // what + will/modal → WH then content (know what will happen → what happen will)
+                            if (subStartsWithSubject) {
+                                if (subText) r = (r ? r + " " : "") + subText;
+                                r = (r ? r + " " : "") + (whClauseTrans[whKey] || whKey);
+                            } else {
+                                r = (r ? r + " " : "") + (whClauseTrans[whKey] || whKey);
+                                if (subText) r = (r ? r + " " : "") + subText;
+                            }
+                            // place main modal (will/can) after main, before sub — already in main for will via strip
+                            // can/will after main content
+                            r = r.split(" ").filter(w => w !== "ꤕꤢ꤭" && w !== "ꤕꤢ꤭ꤟꤟꤢꤧ꤭" && w !== "ꤢ꤬ꤔꤟꤤꤕꤚꤢꤧ").join(" ");
+                            // Rebuild: mainText may need can/will inserted after main before sub
+                            // Simpler: append modal before WH/sub section
+                            let modalBits = [];
+                            if (mainWill) modalBits.push("ꤕꤢ꤭");
+                            if (mainCan) modalBits.push("ꤢ꤬ꤔꤟꤤꤕꤚꤢꤧ");
+                            if (subRes.modalInfo && (subRes.modalInfo.type === "will" || subRes.modalInfo.type === "would")) {
+                                if (!modalBits.includes("ꤕꤢ꤭")) modalBits.push("ꤕꤢ꤭");
+                            }
+                            if (modalBits.length) {
+                                // Insert modals after mainText portion: find split
+                                // mainText is prefix of r before sub/WH — insert after mainText
+                                if (mainText && r.startsWith(mainText)) {
+                                    const rest = r.slice(mainText.length).trim();
+                                    r = mainText + " " + modalBits.join(" ") + (rest ? " " + rest : "");
+                                } else {
+                                    r = (r ? r + " " : "") + modalBits.join(" ");
+                                }
+                            }
+                            if (!r.includes("ꤔꤌꤣ꤬")) r = (r ? r + " " : "") + "ꤔꤌꤣ꤬";
                             r = r.replace(/\s+/g, " ").trim();
                             if (trailingPunct === "?") r += "?";
                             else if (trailingPunct) r += trailingPunct;
@@ -4135,7 +4595,7 @@
                                     whNounModal = tokens[i];
                                 }
                             }
-                        } else if (whQuestionWords.has(first) && (isNoun(tokens[1]) || second === "house" || second === "book" || second === "books" || second === "money" || second === "country")) {
+                        } else if (!(advStarters.has(first) && !endsWithQuestion) && whQuestionWords.has(first) && (isNoun(tokens[1]) || second === "house" || second === "book" || second === "books" || second === "money" || second === "country")) {
                             isWhNounQuestion = true;
                             whNounWord = first;
                             whNounSubject = tokens[1];
@@ -4159,8 +4619,15 @@
                     let isWhQuestion = !isAdverbialStart && (
                         whQuestionKeys.has(firstToken) ||
                         ["what", "who", "whose", "when", "why", "which", "where", "how", "how many", "how much"].includes(firstToken) ||
-                        isDoStart || isWillStart || isCanStart || isCouldStart || isMayStart || isShouldStart
+                        (endsWithQuestion && (isDoStart || isWillStart || isCanStart || isCouldStart || isMayStart || isShouldStart))
                     );
+                    // Relative/subordinate: "which makes…", "what will happen…" without "?" → not WH-question inversion
+                    if (isWhQuestion && !endsWithQuestion && (firstToken === "which" || firstToken === "what" || firstToken === "how" || firstToken === "when")) {
+                        const second = tokens.length > 1 ? tokens[1].toLowerCase().replace(/[.,;!?]+$/, "") : "";
+                        if (second && (isActionVerb(tokens[1]) || isToBeVerb(tokens[1]) || ["makes","make","will","would","can","could","is","are","was","were","happens","happen"].includes(second))) {
+                            isWhQuestion = false;
+                        }
+                    }
 
                     // Check for modal before conjunction
                     let hasModalBeforeConjunction = false;
@@ -4522,6 +4989,25 @@
                             return result;
                         }
 
+                        // Pure adverbial clause: "when times were tough" (no main clause)
+                        // → times were tough when + ꤔꤌꤣ꤬
+                        if (timeConjIndex === 0 && mainTokens.length === 0 && timeTokens.length > 0 && !frontedTimeConj) {
+                            let timeTranslationOnly = timeConjunctions.get(timeConjType);
+                            if (timeTranslationOnly === "WHEN_PLACEHOLDER") timeTranslationOnly = "ꤢ꤬ꤋꤢꤧ꤭";
+                            const subOnly = translatePhrase(timeTokens, false, false, false, false, null, false, null, null);
+                            let result = (subOnly.text ? subOnly.text + " " : "") + (timeTranslationOnly || "");
+                            result = result.replace(/\s+/g, " ").trim();
+                            if (!result.includes("ꤔꤌꤣ꤬")) result += " ꤔꤌꤣ꤬";
+                            result = result.replace(/\s+/g, " ").trim();
+                            if (trailingPunct) {
+                                if (trailingPunct === "?") result += "?";
+                                else if (trailingPunct === "꤯") result += "꤯";
+                                else if (trailingPunct === "!") result += "!";
+                                else result += trailingPunct;
+                            }
+                            return result;
+                        }
+
                         let whCanExtract = extractLeadingWhCan(mainTokens);
                         mainTokens = whCanExtract.tokens;
                         let leadingWhCanPhrase = whCanExtract.phrase;
@@ -4772,6 +5258,11 @@
                         // ꤟꤟꤢꤧ꤭ already attached to main when isToBeQuestion (after adj/noun)
 
                         result = result.replace(/\s+/g, " ").trim();
+                        // subordinate time clause always ends with ꤔꤌꤣ꤬
+                        if (result && !result.includes("ꤔꤌꤣ꤬")) {
+                            result = result + " ꤔꤌꤣ꤬";
+                        }
+                        result = result.replace(/\s+/g, " ").trim();
                         if (trailingPunct) {
                             if (trailingPunct === "?") result += "?";
                             else if (trailingPunct === "꤯") result += "꤯";
@@ -4934,6 +5425,11 @@
                             result += " " + ifModal;
                         }
 
+                        result = result.replace(/\s+/g, " ").trim();
+                        // if-clause ends with ꤔꤌꤣ꤬
+                        if (result && !result.includes("ꤔꤌꤣ꤬")) {
+                            result = result + " ꤔꤌꤣ꤬";
+                        }
                         result = result.replace(/\s+/g, " ").trim();
                         if (trailingPunct) {
                             if (trailingPunct === "?") result += "?";
@@ -5436,11 +5932,12 @@
                         let bareWhoExtra = null;
                         if (firstToken === "who") {
                             const second = tokens.length > 1 ? tokens[1].toLowerCase().replace(/[.,;!?]+$/, "") : "";
-                            if (!["will","would","can","could","may","should","do","does","did","is","was","are","were"].includes(second)) {
-                                // bare "who" (not who will/can/do …)
+                            // Sentence-initial interrogative who → ꤢꤨ꤭ꤕꤢꤩ꤭ … ꤕꤢꤩ꤭
+                            // Who want to do / Who did this / Who ask …
+                            if (!["is","was","are","were","am"].includes(second)) {
                                 bareWhoFront = "ꤢꤨ꤭ꤕꤢꤩ꤭";
                                 bareWhoExtra = "ꤕꤢꤩ꤭";
-                                questionTranslation = null; // placed at front, not end
+                                questionTranslation = null;
                             }
                         }
 
@@ -5535,6 +6032,9 @@
                         }
                     }
 
+                    if (endsWithQuestion) {
+                        finalResult = attachConfirmQuestionMarker(finalResult, true, firstToken);
+                    }
                     if (trailingPunct) {
                         if (trailingPunct === "?") finalResult += "?";
                         else if (trailingPunct === "꤯") finalResult += "꤯";
@@ -5544,7 +6044,20 @@
                     return reorderWhBeforeTimeConj(finalResult);
                 });
 
-                return translatedSentences.join(" ");
+                // Post-pass: confirmation questions on any early-return path too
+                const withConfirm = translatedSentences.map(function (s, idx) {
+                    const orig = (rawSentences[idx] || "").trim();
+                    if (!orig.endsWith("?")) return s;
+                    const cleaned = orig.slice(0, -1).trim();
+                    const toks = tokenizeEnglish(cleaned);
+                    const ft = toks.length ? toks[0].toLowerCase().replace(/[.,;!?]+$/, "") : "";
+                    let body = (s || "").replace(/\s*[?？]+\s*$/, "").trim();
+                    body = attachConfirmQuestionMarker(body, true, ft);
+                    if (!body.endsWith("?")) body += "?";
+                    return body;
+                });
+
+                return dedupeWillAfterNever(withConfirm.join(" "));
             }
 
             // --------------------------------------------------------------
@@ -5575,7 +6088,99 @@
             // --------------------------------------------------------------
             const inputEl = document.getElementById("inputText");
             const outputEl = document.getElementById("outputText");
+            const copyEnglishBtn = document.getElementById("copyEnglishBtn");
+            const clearEnglishBtn = document.getElementById("clearEnglishBtn");
+            const copyKayahBtn = document.getElementById("copyKayahBtn");
 
+            function flashCopied(btn) {
+                if (!btn) return;
+                btn.classList.add("copied");
+                const prev = btn.textContent;
+                btn.textContent = "✓";
+                setTimeout(function () {
+                    btn.classList.remove("copied");
+                    btn.textContent = prev;
+                }, 900);
+            }
+
+            async function copyText(value, btn, selectEl) {
+                const textVal = (value || "");
+                if (!textVal.trim()) return;
+                try {
+                    // Select / highlight text in the source box
+                    if (selectEl) {
+                        if (selectEl.tagName === "TEXTAREA" || selectEl.tagName === "INPUT") {
+                            selectEl.focus();
+                            selectEl.select();
+                        } else {
+                            const range = document.createRange();
+                            range.selectNodeContents(selectEl);
+                            const sel = window.getSelection();
+                            sel.removeAllRanges();
+                            sel.addRange(range);
+                        }
+                    }
+                    if (navigator.clipboard && navigator.clipboard.writeText) {
+                        await navigator.clipboard.writeText(textVal);
+                    } else {
+                        const ta = document.createElement("textarea");
+                        ta.value = textVal;
+                        ta.style.position = "fixed";
+                        ta.style.left = "-9999px";
+                        document.body.appendChild(ta);
+                        ta.select();
+                        document.execCommand("copy");
+                        document.body.removeChild(ta);
+                    }
+                    flashCopied(btn);
+                } catch (e) {
+                    // Fallback: still try select + execCommand on a temp field
+                    try {
+                        const ta = document.createElement("textarea");
+                        ta.value = textVal;
+                        ta.style.position = "fixed";
+                        ta.style.left = "-9999px";
+                        document.body.appendChild(ta);
+                        ta.focus();
+                        ta.select();
+                        document.execCommand("copy");
+                        document.body.removeChild(ta);
+                        flashCopied(btn);
+                    } catch (e2) {
+                        console.warn("Copy failed", e2);
+                    }
+                }
+            }
+
+            function updateClearButtonVisibility() {
+                if (!clearEnglishBtn) return;
+                if (inputEl.value && inputEl.value.length > 0) {
+                    clearEnglishBtn.hidden = false;
+                    clearEnglishBtn.removeAttribute("hidden");
+                } else {
+                    clearEnglishBtn.hidden = true;
+                    clearEnglishBtn.setAttribute("hidden", "");
+                }
+            }
+
+            if (copyEnglishBtn) {
+                copyEnglishBtn.addEventListener("click", function () {
+                    copyText(inputEl.value, copyEnglishBtn, inputEl);
+                });
+            }
+            if (clearEnglishBtn) {
+                clearEnglishBtn.addEventListener("click", function () {
+                    inputEl.value = "";
+                    updateTranslation();
+                    updateClearButtonVisibility();
+                    inputEl.focus();
+                });
+            }
+            if (copyKayahBtn) {
+                copyKayahBtn.addEventListener("click", function () {
+                    copyText(outputEl.textContent || "", copyKayahBtn, outputEl);
+                });
+            }
             let currentDirection = "en2kayah";
 
             function updateTranslation() {
@@ -5589,7 +6194,10 @@
                 outputEl.textContent = result || " ";
             }
 
-            inputEl.addEventListener("input", updateTranslation);
+            inputEl.addEventListener("input", function () {
+                updateTranslation();
+                updateClearButtonVisibility();
+            });
 
             currentDirection = "en2kayah";
             inputEl.placeholder = "Type English …";
