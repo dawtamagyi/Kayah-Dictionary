@@ -1,27 +1,119 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="kyu">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Kayah Translator Test</title>
+    <title>ꤍꤟꤥꤕꤟꤥ꤬ꤓꤢꤩ꤬ꤢ꤬ꤖꤟꤌꤣ꤬</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Kay+Pho+Du:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <style>
         * {
             box-sizing: border-box;
             margin: 0;
             font-family: "Kay Pho Du", serif;
         }
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
         body {
             background: #FFC0CB;
             min-height: 100vh;
             display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 1.5rem;
+            flex-direction: column;
             font-family: "Kay Pho Du", serif;
             font-weight: 400;
+            position: relative;
+        }
+        .header-container {
+            box-shadow: 0px 2px 15px black;
+            width: 100vw;
+            position: relative;
+            left: 50%;
+            right: 50%;
+            margin-left: -50vw;
+            margin-right: -50vw;
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+        }
+        .header-row {
+            display: flex;
+            width: 100%;
+            height: 30px;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        .header-row-1 { background-color: red; }
+        .header-row-2 { background-color: white; }
+        .header-row-3 { background-color: blue; }
+        .header-row-2 h1 {
+            font-family: "Sofia", "Kay Pho Du", serif;
+            font-size: 20px;
+            text-shadow: 3px 3px 3px #ababab;
+            margin: 0;
+            color: #1f1a14;
+            font-weight: 700;
+        }
+        .menu-toggle {
+            position: fixed;
+            top: -4px;
+            left: 5px;
+            cursor: pointer;
+            font-size: 20px;
+            color: white;
+            border: none;
+            background: none;
+            padding: 4px;
+            z-index: 1000;
+        }
+        .menu-popup {
+            display: none;
+            position: fixed;
+            top: 40px;
+            left: 10px;
+            backdrop-filter: blur(10px);
+            border: 2px solid #ddd;
+            border-radius: 20px;
+            padding: 10px;
+            z-index: 1000;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            background: rgba(255,255,255,0.85);
+        }
+        .contact-btn, .introduction-btn, .learning-btn, .proverb-btn, .calendar-btn {
+            box-shadow: 0px 2px 5px black;
+            display: block;
+            padding: 8px 16px;
+            margin: 1px;
+            background: blue;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: "Kay Pho Du", serif;
+            text-decoration: none;
+            text-align: center;
+        }
+        .contact-btn:hover, .introduction-btn:hover, .learning-btn:hover, .proverb-btn:hover, .calendar-btn:hover {
+            background: red;
+        }
+        main.translator-main {
+            flex: 1 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 1.5rem;
+            width: 100%;
+        }
+        @media (max-width: 600px) {
+            .menu-toggle {
+                top: 0px;
+                left: 5px;
+            }
         }
         .card {
             max-width: 960px;
@@ -164,8 +256,25 @@
     </style>
 </head>
 <body>
+    <div class="header-container">
+        <div class="header-row header-row-1"></div>
+        <div class="header-row header-row-2">
+            <h1>ꤍꤟꤥꤕꤟꤥ꤬ꤓꤢꤩ꤬ꤢ꤬ꤖꤟꤌꤣ꤬</h1>
+        </div>
+        <div class="header-row header-row-3"></div>
+    </div>
+    <button class="menu-toggle" id="menuToggle" type="button" aria-label="Menu">☰</button>
+    <div class="menu-popup" id="menuPopup">
+        <a href="index.html" class="contact-btn">ꤍꤟꤥꤡꤟꤢꤪꤐꤟꤢ꤭</a>
+        <a href="introduction.html" class="introduction-btn">ꤒꤟꤢꤧ꤬ꤟꤢꤩꤙꤢꤧ꤬ꤋꤢ꤭ꤏꤛꤢꤩ</a>
+        <a href="learning.html" class="learning-btn">ꤟꤢꤩꤞꤛꤥ ꤜꤤ꤬ꤊꤢ꤬ꤛꤢ꤭ꤜꤟꤤ꤬</a>
+        <a href="proverb.html" class="proverb-btn">ꤍꤟꤥꤋꤢꤋꤥ꤬</a>
+        <a href="calendar.html" class="calendar-btn">ꤜꤤ꤬ꤔꤢ꤬ꤜꤢꤧ꤭</a>
+        <a href="contact.html" class="contact-btn">ꤕꤜꤝꤥ꤭ꤓꤢꤦ꤭</a>
+        <a href="translator.html" class="contact-btn">ꤍꤟꤥꤕꤟꤥ꤬ꤓꤢꤩ꤬ꤢ꤬ꤖꤟꤌꤣ꤬</a>
+    </div>
+    <main class="translator-main">
     <div style="max-width:960px;width:100%;display:flex;flex-direction:column;align-items:stretch;">
-        <h1 style="text-align:center;margin:0 0 1rem 0;font-size:1.9rem;color:#1f1a14;font-weight:700;">Kayah Translator Test</h1>
         <div class="card">
         <div class="grid">
                         <div class="pair">
@@ -191,6 +300,24 @@
                 </div>
         </div>
     </div>
+    </main>
+    <script>
+        (function () {
+            const menuToggle = document.getElementById('menuToggle');
+            const menuPopup = document.getElementById('menuPopup');
+            function toggleMenu() {
+                menuPopup.style.display = menuPopup.style.display === 'block' ? 'none' : 'block';
+            }
+            function hideMenuOnOutsideClick(event) {
+                if (!menuPopup.contains(event.target) && !menuToggle.contains(event.target)) {
+                    menuPopup.style.display = 'none';
+                }
+            }
+            if (menuToggle) menuToggle.addEventListener('click', toggleMenu);
+            document.addEventListener('click', hideMenuOnOutsideClick);
+            document.addEventListener('touchstart', hideMenuOnOutsideClick);
+        })();
+    </script>
     <script>
         (function() {
             // --------------------------------------------------------------
@@ -6065,7 +6192,408 @@
                 ["whereas", "ꤔꤌꤣ꤬ꤚꤢꤪ"],
                 ["whether", "ꤒꤣ꤬ꤊꤟꤊꤣ꤬"],
                 ["while", "ꤢ꤬ꤋꤢꤧ꤭ꤔꤌꤣ꤬"],
-                ["yet", "ꤟꤤ"]
+                ["yet", "ꤟꤤ"],
+["abandons", "ꤘꤛꤢ꤬ꤊꤛꤢ꤭"],
+                ["activated", "ꤘꤛꤢ꤬ꤔꤟꤌꤣ꤭ꤢ꤬ꤔꤢ꤬"],
+                ["adjusts", "ꤤ꤬ꤠꤟꤤ꤭ꤒꤥ꤭"],
+                ["adjusting", "ꤤ꤬ꤠꤟꤤ꤭ꤒꤥ꤭"],
+                ["adjusted", "ꤤ꤬ꤠꤟꤤ꤭ꤒꤥ꤭"],
+                ["admits", "ꤕꤜꤝꤥ꤭ꤔꤟꤌꤣ꤭"],
+                ["admited", "ꤕꤜꤝꤥ꤭ꤔꤟꤌꤣ꤭"],
+                ["advises", "ꤘꤛꤢꤩꤡꤛꤢ꤬"],
+                ["agrees", "ꤡꤟꤢꤨ꤭"],
+                ["agreed", "ꤡꤟꤢꤨ꤭"],
+                ["allows", "ꤕꤜꤝꤥ꤭"],
+                ["allowing", "ꤕꤜꤝꤥ꤭"],
+                ["allowed", "ꤕꤜꤝꤥ꤭"],
+                ["answers", "ꤟꤢꤩꤏꤥ꤬ꤔꤟꤤꤟꤊꤣ꤭ꤏꤢꤦ꤬"],
+                ["answering", "ꤟꤢꤩꤏꤥ꤬ꤔꤟꤤꤟꤊꤣ꤭ꤏꤢꤦ꤬"],
+                ["answered", "ꤟꤢꤩꤏꤥ꤬ꤔꤟꤤꤟꤊꤣ꤭ꤏꤢꤦ꤬"],
+                ["apologizes", "ꤊꤝꤤ꤭ꤞꤢꤧꤐꤟꤢꤪ꤬"],
+                ["apologized", "ꤊꤝꤤ꤭ꤞꤢꤧꤐꤟꤢꤪ꤬"],
+                ["appears", "ꤥ꤬ꤜꤟꤌꤣ꤭ꤓꤛꤢ꤬"],
+                ["appeared", "ꤥ꤬ꤜꤟꤌꤣ꤭ꤓꤛꤢ꤬"],
+                ["applauds", "ꤕꤜꤟꤛꤢꤒꤢ꤬ꤋꤢꤨ꤬"],
+                ["applies", "ꤘꤛꤢ꤬ꤓꤛꤢ꤬"],
+                ["applying", "ꤘꤛꤢ꤬ꤓꤛꤢ꤬"],
+                ["applied", "ꤘꤛꤢ꤬ꤓꤛꤢ꤬"],
+                ["approves", "ꤡꤟꤢꤨ꤭ꤢꤩ꤬"],
+                ["approving", "ꤡꤟꤢꤨ꤭ꤢꤩ꤬"],
+                ["approved", "ꤡꤟꤢꤨ꤭ꤢꤩ꤬"],
+                ["argues", "ꤊꤚꤢꤩ"],
+                ["arrests", "ꤕꤟꤢꤦ"],
+                ["arrested", "ꤕꤟꤢꤦ"],
+                ["asks", "ꤏꤢꤨ꤬ꤘꤝꤥ꤭"],
+                ["asking", "ꤏꤢꤨ꤬ꤘꤝꤥ꤭"],
+                ["asked", "ꤏꤢꤨ꤬ꤘꤝꤥ꤭"],
+                ["attacks", "ꤏꤢꤕꤟꤢ꤭"],
+                ["attacked", "ꤏꤢꤕꤟꤢ꤭"],
+                ["attacking", "ꤏꤢꤕꤟꤢ꤭"],
+                ["awakes", "ꤞꤢꤧꤔꤟꤢꤩ"],
+                ["bakes", "ꤞꤝꤤꤝꤥ꤭ꤢꤩ꤬"],
+                ["baking", "ꤞꤝꤤꤝꤥ꤭ꤢꤩ꤬"],
+                ["baked", "ꤞꤝꤤꤝꤥ꤭ꤢꤩ꤬"],
+                ["baptizes", "ꤕꤜꤝꤥ꤭ꤓꤛꤢꤩ꤭"],
+                ["barks", "ꤢꤪ꤬"],
+                ["barking", "ꤢꤪ꤬"],
+                ["barked", "ꤢꤪ꤬"],
+                ["beats", "ꤗꤟꤢꤦ꤭"],
+                ["befriends", "ꤙꤢꤪꤞꤝꤥꤔꤟꤤ"],
+                ["begs", "ꤊꤝꤤ꤭ꤒꤢ꤬ꤘꤢꤦ꤬"],
+                ["begging", "ꤊꤝꤤ꤭ꤒꤢ꤬ꤘꤢꤦ꤬"],
+                ["begins", "ꤡꤢꤓꤛꤢ꤬"],
+                ["beginning", "ꤡꤢꤓꤛꤢ꤬"],
+                ["believes", "ꤐꤟꤢꤦꤢꤩ꤬"],
+                ["believing", "ꤐꤟꤢꤦꤢꤩ꤬"],
+                ["believed", "ꤐꤟꤢꤦꤢꤩ꤬"],
+                ["bets", "ꤙꤛꤢ꤭"],
+                ["betrays", "ꤖꤢꤪ꤭ꤘꤛꤢ꤭ꤕꤛꤢꤩꤋꤛꤢꤡꤢꤪ"],
+                ["betraying", "ꤖꤢꤪ꤭ꤘꤛꤢ꤭ꤕꤛꤢꤩꤋꤛꤢꤡꤢꤪ"],
+                ["betrayed", "ꤖꤢꤪ꤭ꤘꤛꤢ꤭ꤕꤛꤢꤩꤋꤛꤢꤡꤢꤪ"],
+                ["blames", "ꤘꤛꤢ꤬ꤒꤟꤢꤧ꤬ꤞꤢꤦ"],
+                ["blows", "ꤢꤟꤌꤣ"],
+                ["blowing", "ꤢꤟꤌꤣ"],
+                ["boils", "ꤖꤥ꤭ꤙꤢꤪ"],
+                ["boiling", "ꤖꤥ꤭ꤙꤢꤪ"],
+                ["boiled", "ꤖꤥ꤭ꤙꤢꤪ"],
+                ["borrows", "ꤖꤛꤢꤩꤊꤟꤌꤣ"],
+                ["borrowing", "ꤖꤛꤢꤩꤊꤟꤌꤣ"],
+                ["brakes", "ꤤ꤬ꤐꤟꤤꤥ꤬ꤊꤟꤊꤣ"],
+                ["braking", "ꤤ꤬ꤐꤟꤤꤥ꤬ꤊꤟꤊꤣ"],
+                ["braked", "ꤤ꤬ꤐꤟꤤꤥ꤬ꤊꤟꤊꤣ"],
+                ["brushes", "ꤓꤢꤦ"],
+                ["brushing", "ꤓꤢꤦ"],
+                ["brushed", "ꤓꤢꤦ"],
+                ["builds", "ꤤ꤬ꤏꤢꤪ"],
+                ["buildings", "ꤟꤤ꤬"],
+                ["bullies", "ꤗꤟꤢꤩ꤬ꤡꤟꤛꤢꤩ꤭"],
+                ["burns", "ꤤ꤬ꤏꤢꤦꤢꤦ꤭"],
+                ["burning", "ꤢꤦ꤭"],
+                ["buries", "ꤤ꤬ꤜꤟꤌꤣ"],
+                ["buried", "ꤤ꤬ꤜꤟꤌꤣ"],
+                ["carries", "ꤐꤟꤢ"],
+                ["carrying", "ꤐꤟꤢ"],
+                ["carried", "ꤐꤟꤢ"],
+                ["catches", "ꤕꤟꤢꤦ"],
+                ["catching", "ꤕꤟꤢꤦ"],
+                ["ceases", "ꤒꤟꤢꤧ꤬ꤥ꤬ꤊꤟꤊꤣ"],
+                ["celebrates", "ꤗꤟꤢꤩ꤬ꤕꤝꤢꤧ꤬"],
+                ["celebrating", "ꤗꤟꤢꤩ꤬ꤕꤝꤢꤧ꤬"],
+                ["celebrated", "ꤗꤟꤢꤩ꤬ꤕꤝꤢꤧ꤬"],
+                ["certifies", "ꤒꤥ꤭ꤙꤢꤧ꤬ꤚꤢꤪ"],
+                ["certifying", "ꤒꤥ꤭ꤙꤢꤧ꤬ꤚꤢꤪ"],
+                ["certified", "ꤒꤥ꤭ꤙꤢꤧ꤬ꤚꤢꤪ"],
+                ["challenges", "ꤢꤧꤊꤟꤢꤦ"],
+                ["challenging", "ꤢꤧꤊꤟꤢꤦ"],
+                ["challenged", "ꤢꤧꤊꤟꤢꤦ"],
+                ["charges", "ꤙꤢꤩ꤬ꤒꤟꤢꤧ꤬ꤞꤢꤦ"],
+                ["charging", "ꤙꤢꤩ꤬ꤒꤟꤢꤧ꤬ꤞꤢꤦ"],
+                ["charged", "ꤙꤢꤩ꤬ꤒꤟꤢꤧ꤬ꤞꤢꤦ"],
+                ["cheats", "ꤢꤩ꤬ꤒꤟꤢꤦ꤭ꤥ꤭ꤕꤜꤢꤧ꤬"],
+                ["cheating", "ꤢꤩ꤬ꤒꤟꤢꤦ꤭ꤥ꤭ꤕꤜꤢꤧ꤬"],
+                ["cheated", "ꤢꤩ꤬ꤒꤟꤢꤦ꤭ꤥ꤭ꤕꤜꤢꤧ꤬"],
+                ["climbs", "ꤓꤛꤢ꤬"],
+                ["climbing", "ꤓꤛꤢ꤬"],
+                ["collects", "ꤤ꤬ꤓꤌꤣ꤬ꤕꤜꤢꤪ"],
+                ["collecting", "ꤤ꤬ꤓꤌꤣ꤬ꤕꤜꤢꤪ"],
+                ["collected", "ꤤ꤬ꤓꤌꤣ꤬ꤕꤜꤢꤪ"],
+                ["competes", "ꤘꤤꤡꤢꤧ꤭"],
+                ["competing", "ꤘꤤꤡꤢꤧ꤭"],
+                ["competed", "ꤘꤤꤡꤢꤧ꤭"],
+                ["complains", "ꤟꤢꤩꤙꤢꤧꤥ꤬ꤢꤧ"],
+                ["complaining", "ꤟꤢꤩꤙꤢꤧꤥ꤬ꤢꤧ"],
+                ["complained", "ꤟꤢꤩꤙꤢꤧꤥ꤬ꤢꤧ"],
+                ["confirms", "ꤙꤢꤩ꤬ꤊꤜꤟꤢꤪ꤬ꤗꤢ꤬"],
+                ["confirming", "ꤙꤢꤩ꤬ꤊꤜꤟꤢꤪ꤬ꤗꤢ꤬"],
+                ["confirmed", "ꤙꤢꤩ꤬ꤊꤜꤟꤢꤪ꤬ꤗꤢ꤬ꤊꤛꤢ꤭"],
+                ["connects", "ꤕꤜꤝꤥ꤭ꤓꤢꤦ꤭"],
+                ["connecting", "ꤥ꤬ꤕꤜꤝꤥ꤭ꤓꤢꤦ꤭"],
+                ["conquers", "ꤏꤢꤕꤟꤢꤩ"],
+                ["conquering", "ꤏꤢꤕꤟꤢꤩ"],
+                ["conquered", "ꤏꤢꤕꤟꤢꤩꤊꤛꤢ꤭"],
+                ["corrects", "ꤗꤟꤢꤩ꤬ꤒꤥ꤭"],
+                ["correcting", "ꤗꤟꤢꤩ꤬ꤒꤥ꤭"],
+                ["corrected", "ꤗꤟꤢꤩ꤬ꤒꤥ꤭ꤊꤛꤢ꤭"],
+                ["correctly", "ꤒꤥ꤭ꤙꤢꤧ꤬"],
+                ["coughing", "ꤒꤢ꤬ꤋꤢꤦꤥ꤬"],
+                ["counts", "ꤘꤛꤢ"],
+                ["counting", "ꤘꤛꤢ"],
+                ["counted", "ꤘꤛꤢ"],
+                ["disconnecting", "ꤥ꤬ꤕꤜꤝꤥ꤭ꤓꤢꤦ꤭ꤒꤥ꤬"],
+                ["disconnected", "ꤕꤜꤝꤥ꤭ꤓꤢꤦ꤭ꤥ꤬ꤒꤥ꤬"],
+                ["enters", "ꤔꤟꤌꤣ꤭"],
+                ["entered", "ꤔꤟꤌꤣ꤭"],
+                ["hospitalize", "ꤘꤛꤢ꤬ꤓꤛꤢ꤬ ꤒꤟꤢꤧ꤬ꤏꤝꤤꤟꤤ꤬ꤘꤢꤨ꤬"],
+                ["hospitalise", "ꤘꤛꤢ꤬ꤓꤛꤢ꤬ ꤒꤟꤢꤧ꤬ꤏꤝꤤꤟꤤ꤬ꤘꤢꤨ꤬"],
+                ["abed", "ꤘꤣꤜꤟꤢꤩꤗꤛꤢꤩ꤭ꤋꤢꤨ꤬"],
+                ["ably", "ꤕꤟꤢꤩꤔꤟꤤꤒꤟꤢ꤭ꤒꤟꤢꤩ꤬"],
+                ["accidentally", "ꤋꤛꤢꤩꤙꤢꤧ꤬"],
+                ["actually", "ꤊꤤ꤬ꤟꤢꤩꤜꤢ꤬ꤊꤥ꤭ꤗꤢ꤬"],
+                ["afar", "ꤐꤛꤢꤩ꤬"],
+                ["affirmatively", "ꤡꤢꤪꤒꤥ꤭"],
+                ["alike", "ꤚꤢ꤬ꤘꤢꤦ꤭ꤒꤥ꤭ꤙꤢꤧ꤬ꤞꤛꤢꤜꤢꤨ꤭"],
+                ["almost", "ꤊꤟꤢꤦꤚꤟꤢꤩ"],
+                ["alright", "Allright"],
+                ["also", "ꤊꤟꤌꤣ꤭"],
+                ["annoyingly", "ꤞꤢꤧꤕꤜꤢꤪ꤬ꤘꤢꤨ꤬ꤚꤛꤢꤜꤢ꤭"],
+                ["anon", "ꤑꤟꤢꤩ꤭ꤒꤛꤢ꤬ꤒꤥ꤬"],
+                ["anonymously", "ꤘꤣ꤬ꤜꤟꤌꤣ꤭ꤗꤝꤟꤤ꤭ ꤢ꤬ꤥ꤬ꤒꤥ꤬ꤚꤢꤪ"],
+                ["anytime", "ꤙꤤꤋꤢꤧ꤭ꤒꤢꤩ꤭꤮ ꤙꤢꤧ꤬ꤙꤢꤧ꤬"],
+                ["anyway", "ꤖꤢꤨ꤭ꤒꤢꤩ꤭ꤙꤢꤧ꤬"],
+                ["anywhere", "ꤙꤤꤒꤢꤩ꤭꤮ ꤒꤣ꤬ꤖꤥ꤬ꤙꤢꤧ꤬ꤙꤢꤧ꤬"],
+                ["aristocratically", "ꤋꤝꤤꤡꤢꤪꤖꤛꤢ꤬ꤊꤜꤝꤟꤤ꤭"],
+                ["aside", "ꤒꤢ꤬ꤖꤢ꤭ꤡꤛꤣꤋꤥꤊꤛꤢ꤭"],
+                ["assuredly", "ꤊꤜꤟꤢꤪ꤬ꤊꤜꤟꤢꤪ꤬ꤗꤢ꤬ꤗꤢ꤬"],
+                ["automatically", "ꤓꤝꤟꤥ꤭ꤓꤛꤢ꤬ꤘꤢꤦ꤬ꤒꤢꤧ꤭꤯ ꤥ꤬ꤓꤛꤢ꤬ꤘꤢꤦ꤬ꤒꤢꤧ꤭"],
+                ["awhile", "ꤒꤢ꤬ꤊꤤ꤬"],
+                ["backwards", "ꤞꤛꤢꤩꤊꤟꤢ꤬ꤋꤛꤢꤩ꤭"],
+                ["basically", "ꤢ꤬ꤋꤢ꤭ꤏꤛꤢꤩ"],
+                ["beautifully", "ꤒꤝꤟꤥꤒꤝꤟꤥꤚꤛꤢꤚꤛꤢ"],
+                ["beforehand", "ꤥ꤬ꤔꤟꤢꤩ꤬"],
+                ["behave", "ꤞꤢ꤭ꤚꤛꤢ꤭"],
+                ["betwixt and between", "ꤕꤢꤪ꤬ꤜꤣꤕꤢꤪ꤬ꤙꤢ꤭ꤒꤥ꤬"],
+                ["carefully", "ꤒꤟꤢ꤭ꤒꤟꤢꤩ꤬"],
+                ["clear", "ꤒꤟꤢ꤭ꤕꤜꤢꤨ ꤜꤟꤌꤣ꤭ꤜꤤ꤭"],
+                ["clearly", "ꤜꤟꤌꤣ꤭ꤕꤜꤥ꤭"],
+                ["cold", "ꤊꤟꤢꤩꤚꤟꤥꤊꤟꤢꤩꤏꤝꤤ"],
+                ["completely", "ꤜꤟꤢꤪ꤭ꤜꤟꤢꤒꤢ꤬ꤊꤜꤤ꤬"],
+                ["consequently", "ꤒꤢꤦꤚꤢꤪ"],
+                ["constantly", "ꤒꤢ꤬ꤗꤥ꤭"],
+                ["constructively", "ꤒꤟꤢꤧ꤬ꤒꤢ꤬ꤓꤝꤟꤥꤗꤟꤢꤩ꤬ꤡꤝꤟꤥ"],
+                ["continuously", "ꤜꤢ꤬ꤒꤟꤢꤦ꤭ꤒꤥ꤬"],
+                ["copiously", "ꤥ꤬ꤢꤧꤜꤣꤙꤢ꤭"],
+                ["courageously", "ꤋꤢꤦ꤭ꤟꤢ꤭"],
+                ["cunningly", "ꤊꤢ꤬ꤕꤜꤟꤛꤢ꤬"],
+                ["currently", "ꤋꤥ꤭ꤑꤟꤢ"],
+                ["daily", "ꤕꤝꤟꤥ꤭ꤑꤢꤩ꤭"],
+                ["definitely", "ꤢ꤬ꤒꤟꤢ꤭ꤢ꤬ꤒꤟꤢꤩ꤬"],
+                ["definitely not", "ꤔꤢꤒꤥ꤬"],
+                ["didactically", "ꤤ꤬ꤞꤛꤥꤤ꤬ꤞꤛꤢ꤬ꤓꤌꤣ꤭"],
+                ["directly", "ꤡꤢꤪꤡꤢꤦ"],
+                ["earlier", "ꤢ꤬ꤚꤟꤢꤩꤋꤢꤧ꤭"],
+                ["empty", "ꤊꤢꤪꤋꤢꤨ꤭"],
+                ["en masse", "ꤢ꤬ꤕꤜꤢꤨ꤬ꤢ꤬ꤖꤢꤧ꤬ ꤢ꤬ꤕꤜꤢꤪꤡꤢꤦ꤭ꤢ꤬ꤗꤟꤢꤨ꤬ꤚꤟꤥꤢꤧ"],
+                ["en route", "ꤊꤜꤛꤢꤜꤟꤥ꤬"],
+                ["equal", "ꤚꤢ꤬ꤘꤢꤦ꤭"],
+                ["erect", "ꤊꤢ꤬ꤓꤢꤪ꤬ꤡꤢꤪ"],
+                ["ergo", "ꤖꤢꤨꤔꤌꤣ꤬ꤚꤢꤪ"],
+                ["even", "ꤡꤢꤪ"],
+                ["expertly", "ꤞꤢꤧꤑꤢꤩ꤭ꤡꤟꤛꤢꤘꤢꤧ꤬"],
+                ["factually", "ꤒꤟꤢꤧ꤬ꤓꤝꤟꤥ꤭ꤓꤛꤢ꤬ꤒꤥ꤭ꤙꤢꤧ꤬"],
+                ["fairly", "ꤚꤢ꤬ꤘꤢꤦ꤭ꤒꤥ꤭ꤙꤢꤧ꤬"],
+                ["faster", "ꤕꤚꤛꤢ꤭"],
+                ["fastest", "ꤕꤚꤛꤢ꤭ꤜꤣꤊꤜꤢꤪ꤭"],
+                ["finally", "ꤘꤣꤋꤛꤢꤩ꤭ꤒꤢ꤬ꤘꤢꤦ꤬"],
+                ["firm", "ꤊꤜꤟꤢꤪ꤬ꤗꤢ꤬"],
+                ["forever", "ꤒꤢ꤬ꤡꤟꤢꤨ꤭ꤕꤚꤟꤢꤧ꤬"],
+                ["forward", "ꤘꤣꤑꤢꤩ꤭"],
+                ["frankly", "ꤜꤟꤢ꤭ꤜꤤ꤭"],
+                ["freely", "ꤜꤟꤢꤜꤟꤢꤜꤤ꤭ꤜꤤ꤭"],
+                ["gentlemanly", "ꤕꤚꤟꤢꤧ꤬ꤒꤝꤟꤥꤘꤢꤨ꤬ꤒꤝꤟꤥꤋꤢꤨ꤬ꤞꤢ꤭ꤚꤛꤢ꤭ꤘꤢꤨ꤬ꤋꤢꤨ꤬"],
+                ["gently", "ꤗꤝꤟꤥ꤭ꤕꤜꤤ꤭ꤞꤢ꤭ꤚꤛꤢ꤭"],
+                ["gorgeously", "ꤚꤟꤥꤢꤧꤒꤥ꤭ꤞꤢ꤭ꤚꤛꤢ꤭ꤞꤢ꤭ꤘꤢꤧ꤬"],
+                ["half", "ꤒꤣ꤬ꤊꤛꤢꤩ꤭"],
+                ["halfway", "ꤊꤜꤢ꤭ꤗꤢꤩ꤭"],
+                ["heartlessly", "ꤞꤢꤧꤕꤜꤢꤪ꤬ꤗꤢꤨ꤭ꤗꤟꤛꤢ"],
+                ["hereabouts", "ꤋꤢ꤭ꤜꤟꤢꤩꤙꤤꤛꤢꤩ꤭"],
+                ["hereto", "ꤒꤟꤣꤙꤤꤛꤢꤩ꤭"],
+                ["however", "ꤖꤢꤨꤒꤢꤩꤙꤢꤧ꤬ꤙꤢꤧ꤬"],
+                ["hurriedly", "ꤒꤢ꤬ꤕꤜꤟꤌꤣꤒꤢ꤬ꤕꤜꤟꤛꤢꤩ꤭"],
+                ["ideally", "ꤢ꤬ꤚꤛꤢꤜꤣꤊꤜꤢꤪ꤭"],
+                ["immensely", "ꤔꤛꤢ꤬ꤡꤢꤪꤜꤢ꤭"],
+                ["inadequate", "ꤜꤢ꤬ꤚꤢꤪ꤭ꤜꤢ꤬ꤚꤢꤩ꤬"],
+                ["initially", "ꤢ꤬ꤊꤢ꤬ꤜꤢꤨꤔꤌꤣ꤬"],
+                ["instead", "ꤥ꤬ꤒꤥ꤬ꤚꤢꤪ"],
+                ["interference", "ꤏꤤꤠꤟꤛꤢꤘꤤꤘꤛꤢ꤭"],
+                ["kindly", "ꤞꤢꤧꤕꤜꤢꤪ꤬ꤚꤛꤢ"],
+                ["meanwhile", "ꤙꤤꤔꤌꤣ꤬ꤢ꤬ꤋꤢꤧ꤭"],
+                ["mercilessly", "(ꤗꤟꤢꤩ꤬)ꤡꤢꤩ꤭ꤡꤢꤦ꤬"],
+                ["midway", "ꤊꤜꤛꤢꤊꤜꤢ꤭ꤗꤢꤩ꤭"],
+                ["mildly", "ꤡꤟꤢꤧꤔꤟꤛꤢ꤬"],
+                ["momentarily", "ꤒꤢ꤬ꤕꤜꤌꤣ꤬ꤒꤢ꤬ꤕꤜꤛꤢ"],
+                ["most", "ꤢꤧꤓꤛꤢ꤬ꤜꤣ"],
+                ["nearby", "ꤋꤢ꤭ꤏꤛꤢꤩ"],
+                ["nearly", "ꤊꤟꤢꤦꤚꤟꤢꤩ"],
+                ["negative marker", "ꤒꤥ꤬"],
+                ["numerically", "ꤒꤟꤢꤧ꤬ꤘꤛꤢꤗꤢꤔꤌꤣ꤬ꤗꤢ꤬"],
+                ["off", "ꤕꤟꤤ꤭"],
+                ["onward", "ꤒꤟꤢ꤭ꤕꤜꤢꤩ꤬ꤟꤛꤢ꤭"],
+                ["openly", "(ꤗꤟꤢꤩ꤬"],
+                ["outright", "ꤜꤟꤢ꤭ꤜꤤ꤭"],
+                ["overseas", "ꤘꤣꤓꤛꤢꤩ꤭ꤊꤟꤢꤩꤊꤜꤢꤪ꤭"],
+                ["peacefully", "ꤒꤢ꤬ꤡꤟꤢꤨꤒꤢ꤬ꤙꤢꤧꤕꤟꤢꤩ꤭ꤘꤝꤥ꤭ꤗꤟꤥ꤬ꤜꤢ꤭"],
+                ["perhaps", "ꤒꤢ꤬ꤚꤛꤢꤗꤢ꤬"],
+                ["personally", "ꤒꤣ꤬ꤕꤚꤟꤢꤧ꤬ꤒꤌꤣ꤭"],
+                ["pettishly", "ꤞꤢꤧꤕꤜꤢꤪ꤬ꤒꤢ꤬ꤊꤟꤢ꤬"],
+                ["plenty", "ꤜꤣꤙꤢ꤭ꤜꤢ꤭"],
+                ["polite", "ꤡꤟꤢꤧꤘꤢꤧ꤬"],
+                ["possibly", "ꤊꤥꤜꤢꤩ꤭"],
+                ["presently", "ꤑꤟꤢꤩ꤭ꤒꤛꤢ꤬ꤒꤥ꤬"],
+                ["previously", "ꤢ꤬ꤚꤟꤢꤩꤋꤢꤧ꤭"],
+                ["quite", "ꤜꤢ꤭"],
+                ["rapidly", "ꤢ꤬ꤕꤚꤛꤢ꤭"],
+                ["regularly", "ꤏꤛꤣꤋꤢꤧ꤭ꤒꤥ꤭"],
+                ["repeatedly", "ꤞꤛꤢꤒꤟꤢꤪ꤭ꤢ꤬ꤋꤢ꤭ꤜꤟꤢꤩ"],
+                ["respectfully", "ꤘꤛꤢ꤬ꤘꤢꤨ꤬ꤐꤟꤢꤦꤑꤟꤢꤜꤢ꤭"],
+                ["same", "ꤞꤛꤢ"],
+                ["scarce", "ꤊꤟꤛꤢ꤬"],
+                ["secretly", "ꤟꤌꤣ꤬"],
+                ["self", "ꤔꤟꤤꤘꤢꤦ꤬"],
+                ["selfishly", "ꤗꤛꤢꤘꤢꤨ꤬ꤔꤟꤤꤘꤢꤦ꤬"],
+                ["separately", "ꤥ꤬ꤋꤥꤗꤟꤢꤩ꤬ꤋꤥ"],
+                ["seriously", "ꤏꤢ꤭ꤕꤚꤟꤢꤧꤑꤢ꤬ꤡꤢꤧ꤭"],
+                ["shortly", "ꤏꤛꤢꤩꤕꤟꤢ꤭"],
+                ["similarly", "ꤞꤛꤢꤔꤢ"],
+                ["slowly", "ꤞꤢꤧꤘꤥ꤭"],
+                ["sneakily", "ꤗꤟꤢꤩ꤬ꤟꤊꤣ꤬ꤗꤟꤢꤩ꤬ꤞꤝꤢꤧ"],
+                ["somewhat", "ꤜꤢ꤬ꤊꤥ꤭ꤏꤢꤜꤟꤢꤩ"],
+                ["somewhere", "ꤒꤣ꤬ꤖꤥ꤬ꤖꤥ꤬"],
+                ["soon", "ꤑꤟꤢꤩ꤭ꤒꤛꤢ꤬ꤒꤥ꤬"],
+                ["sooth", "ꤢ꤬ꤒꤥ꤭ꤢ꤬ꤡꤢꤪ"],
+                ["suddenly", "ꤋꤛꤢ"],
+                ["surely", "ꤗꤟꤢ꤭ꤒꤟꤢ꤭ꤒꤟꤢꤩ꤬"],
+                ["swarm", "ꤊꤚꤌꤣ꤭"],
+                ["swiftly", "ꤕꤚꤛꤢ꤭ꤕꤚꤛꤢ꤭"],
+                ["tight", "ꤊꤜꤟꤢꤪ꤬ꤗꤢ꤬"],
+                ["truly", "ꤏꤢ꤭ꤕꤚꤟꤢꤧꤏꤢ꤭ꤗꤛꤢ꤭"],
+                ["ultimately", "ꤢ꤬ꤔꤥ꤬ꤒꤢ꤬ꤘꤢꤦ꤬ꤚꤢꤪ"],
+                ["unforgivably", "ꤕꤜꤝꤥ꤭ꤡꤟꤛꤢꤒꤟꤢꤧ꤬ꤞꤢꤦꤒꤥ꤬"],
+                ["unlovely", "ꤒꤟꤢꤧ꤬ꤞꤢꤧꤐꤟꤢꤦꤥ꤬ꤒꤥ꤬"],
+                ["unoccupied", "ꤥ꤬ꤊꤥ꤭"],
+                ["warmly", "ꤜꤟꤢꤧ꤬ꤗꤟꤥ꤬"],
+                ["weekly", "ꤒꤣ꤬ꤊꤜꤢꤧꤒꤣ꤬ꤟꤢꤦ꤬"],
+                ["wholeheartedly", "ꤜꤟꤢꤪ꤭ꤞꤢꤨ꤬ꤜꤟꤢꤪ꤭ꤞꤢꤧ"],
+                ["yeah", "ꤗꤟꤢ"],
+                ["against", "ꤗꤟꤢꤩ꤬ꤒꤢ꤬ꤊꤢꤧ꤬"],
+                ["along", "ꤚꤝꤥ"],
+                ["amid", "ꤊꤜꤢ꤭ꤗꤢꤩ꤭ꤊꤢꤨ꤭"],
+                ["below", "ꤢ꤬ꤜꤟꤢꤧ꤭"],
+                ["beneath", "ꤢ꤬ꤜꤟꤢꤧ꤭"],
+                ["beside", "ꤋꤢ꤭ꤏꤛꤢꤩ"],
+                ["beyond", "ꤒꤢ꤬ꤜꤝꤥꤊꤛꤢ꤭"],
+                ["end", "ꤢ꤬ꤒꤢ꤬ꤘꤢꤦ꤬ꤊꤛꤢ꤭"],
+                ["ere", "ꤙꤤꤒꤟꤌꤣꤟꤤꤒꤥ꤬"],
+                ["except", "ꤗꤟꤢꤒꤥ꤬ꤗꤢ꤬"],
+                ["front", "ꤘꤣꤑꤢꤩ꤭"],
+                ["including", "ꤕꤟꤢ꤬"],
+                ["outside", "ꤘꤣꤢ꤬ꤊꤜꤢꤪ꤭"],
+                ["past", "ꤒꤢ꤬ꤜꤝꤥ"],
+                ["recently", "ꤕꤟꤢꤔꤢꤨ꤬"],
+                ["similar", "ꤞꤛꤢ"],
+                ["underneath", "ꤢ꤬ꤜꤟꤢꤧ꤭"],
+                ["up", "ꤓꤛꤢ꤬"],
+                ["upon", "ꤜꤟꤥ꤬"],
+                ["within", "ꤢ꤬ꤊꤢꤨ꤭"],
+                ["further", "ꤓꤌꤣ꤭ꤒꤥ꤬"],
+                ["then", "ꤓꤌꤣ꤭ꤚꤢꤪ"],
+                ["bye", "ꤡꤛꤣꤟꤢꤪ"],
+                ["AC", "alternating current"],
+                ["adj", "ꤍꤟꤥꤒꤟꤢ꤭ꤒꤟꤢꤩ꤬"],
+                ["adv", "ꤍꤟꤥꤗꤟꤢꤩ꤬ꤙꤢ꤭"],
+                ["app", "application"],
+                ["Apr.", "April ꤜꤤ꤬ꤕꤜꤢꤪ꤬ꤖꤟꤌꤣ꤬"],
+                ["BBC", "BBC=British Broadcasting Corporation"],
+                ["biz", "ꤒꤟꤢꤧ꤬ꤖꤛꤢꤩꤒꤟꤢꤧ꤬ꤗꤟꤢꤩ꤬"],
+                ["bl", "Bachelor of Law - ꤢꤨꤕꤢ꤬ꤒꤤ꤬ꤢ꤬ꤒꤟꤢꤧ꤬ꤡꤟꤛꤢꤘꤢꤧ꤬ꤒꤢ꤬ꤚꤛꤢꤩ꤭ꤊꤜꤟꤢꤪ꤬ꤗꤢ꤬"],
+                ["CEO", "Chief Executive Officer"],
+                ["copter", "ꤊꤟꤊꤣ꤭ꤞꤢꤪ꤬ꤖꤢꤪ꤭ꤚꤢ꤬ꤟꤢꤧ꤬"],
+                ["Ctrl", "Ctrl=control"],
+                ["dem.", "ꤍꤟꤥꤘꤣ꤬ꤜꤟꤌꤣ꤭"],
+                ["der", "ꤍꤟꤥꤢ꤬ꤚꤟꤌꤣ꤬"],
+                ["ESL", "ꤟꤢꤩꤞꤛꤥ ꤜꤤ꤬ꤊꤢꤨ꤭ꤜꤢ꤭ ꤞꤛꤢꤖꤢꤨ ꤜꤟꤢ꤭ꤍꤟꤥꤔꤛꤢꤩ꤭ꤡꤣ꤬ꤒꤣ꤬ꤡꤧꤣ꤬ (ꤢ꤬ꤚꤢꤪ"],
+                ["EST", "Eastern Standard Time"],
+                ["etc.", "et cetera (and so on)"],
+                ["fam", "ꤟꤤ꤬ꤖꤛꤢ꤭"],
+                ["hr.", "hour"],
+                ["IPA", "international Phonetic alphabet ꤟꤢꤩ꤬ꤋꤢꤨ꤬ꤏꤤ꤭ꤙꤢ꤬ ꤒꤟꤢꤧ꤬ꤔꤢꤪ꤭ꤢꤩ꤬ꤢ꤬ꤕꤚꤟꤢ꤬ ꤢ꤬ꤗꤢꤢ꤬ꤒꤢꤩ꤭ꤒꤢ꤬ꤟꤢꤩ꤬"],
+                ["KO", "ꤠꤢꤦꤕꤢꤩ"],
+                ["lab", "ꤟꤤ꤬ꤘꤢꤪꤜꤟꤢꤩꤙꤢꤩ꤭ꤖꤢꤧ ꤏꤤꤌꤤ"],
+                ["MA", "MA=Master of Arts ꤒꤢ꤬ꤔꤟꤢꤩ꤬ꤞꤤꤖꤢꤧꤒꤟꤥꤋꤢꤨ꤬ꤜꤣ (e.g Boe Meh"],
+                ["mercifully", "ꤙꤝꤤꤚꤛꤢꤕꤢ꤭"],
+                ["Mr", "ꤜꤤ꤬ꤕꤜꤢꤪ꤬ ꤘꤣ ꤊꤣꤔꤢꤪ꤭ꤢꤩ꤬ꤡꤟꤛꤢꤖꤢꤨ ꤕꤚꤟꤢꤧ꤬ꤋꤢꤨ꤭ꤕꤟꤢꤧ꤬ꤘꤛꤢ꤬ꤘꤢꤨ꤬ꤐꤟꤢꤦꤑꤟꤢꤜꤢꤨ꤭ ꤢ꤬ꤗꤝꤟꤤ꤭ꤘꤣꤑꤢꤩ꤭"],
+                ["Mrs", "ꤜꤤ꤬ꤕꤜꤢꤪ꤬ ꤘꤣ ꤊꤣꤔꤢꤪ꤭ꤢꤩ꤬ꤡꤟꤛꤢꤖꤢꤨ ꤕꤚꤟꤢꤧ꤬ꤗꤢꤪ꤬ꤕꤟꤢꤧ꤬ꤘꤛꤢ꤬ꤘꤢꤨ꤬ꤐꤟꤢꤦꤑꤟꤢꤜꤢꤨ꤭ ꤢ꤬ꤗꤝꤟꤤ꤭ꤘꤣꤑꤢꤩ꤭"],
+                ["MSc", "Master of Science ꤏꤤ꤬ꤜꤤ꤬ꤞꤢꤧꤞꤤꤖꤢꤧ ꤒꤟꤥꤋꤢꤨ꤬ꤜꤣ"],
+                ["NASA", "National Aeronautics and Space administration"],
+                ["num", "ꤗꤢꤒꤥ꤭"],
+                ["oz", "oz = Ounce"],
+                ["phr", "ꤜꤤ꤬ꤕꤚꤟꤥꤖꤢꤨ"],
+                ["prep", "ꤍꤟꤥꤐꤟꤢꤨ꤭"],
+                ["pron.", "ꤍꤟꤥꤢꤧ꤫ꤗꤝꤟꤤ꤭ ꤘꤥ꤭ꤒꤟꤥ"],
+                ["SIM", "Subscriber Identity Module"],
+                ["sis", "ꤠꤟꤛꤢꤕꤚꤟꤢꤧ꤬ꤗꤢꤪ꤬"],
+                ["SMS", "Short Message Service"],
+                ["UFO", "Unidentified Flying Object - ꤡꤢꤧꤐꤟꤌꤣ꤬ꤒꤣ꤬ꤗꤛꤢꤩ꤭ ꤘꤣꤢ꤬ꤞꤛꤢꤔꤢ ꤘꤤ꤭ꤙꤢꤩ꤭ꤐꤟꤌꤣ꤬ꤒꤢ꤬ꤟꤢꤩ꤬"],
+                ["UK", "United Kingdom"],
+                ["VIP", "Very Important Person-ꤕꤚꤟꤢꤧ꤬ꤘꤣ ꤢ꤬ꤜꤥ꤬ꤙꤢꤧ꤬ꤘꤢꤨ꤬ꤜꤢ꤭"],
+                ["www", "World Wide Web"],
+                ["xl", "ꤢ꤬ꤘꤢꤨ꤬ꤜꤣ"],
+                ["xs", "ꤢ꤬ꤕꤢ꤬ꤒꤤꤜꤣ"],
+                ["xxl", "ꤢ꤬ꤘꤢꤨ꤬ꤜꤣꤔꤛꤢꤩ꤭ꤖꤟꤌꤣ"],
+                ["xxxl", "ꤢ꤬ꤘꤢꤨ꤬ꤜꤣꤞꤌꤣ꤭ꤖꤟꤌꤣ"],
+                ["hers", "ꤢꤧ꤬ꤒꤢꤧ꤭"],
+                ["herself", "ꤢꤧ꤬ꤔꤟꤢꤩ"],
+                ["himself", "ꤢꤧ꤬ꤔꤟꤢꤩ"],
+                ["itself", "ꤢ꤬ꤔꤟꤢꤩ"],
+                ["none", "ꤒꤣ꤬ꤡꤣꤒꤥ꤬"],
+                ["ourselves", "ꤕꤟꤢꤧ꤬ꤔꤟꤢꤩ"],
+                ["several", "ꤒꤢ꤬ꤟꤢꤩ꤬"],
+                ["themselves", "ꤢꤧ꤬ꤞꤤ꤭ꤔꤟꤢꤩ"],
+                ["whatsoever", "ꤒꤤ꤭ꤒꤢꤩꤙꤢꤧ꤬ꤙꤢꤧ꤬"],
+                ["yourselves", "ꤞꤤ꤭ꤔꤟꤢꤩ"],
+                ["according to", "ꤡꤟꤢꤨ"],
+                ["adam", "ꤊꤟꤛꤢ꤭ꤔꤤ꤭"],
+                ["an", "ꤒꤣ꤬"],
+                ["anglo", "ꤊꤢꤨ꤭ꤜꤢ꤭ꤙꤢꤨ꤭"],
+                ["bend down", "ꤍꤟꤢꤪ꤬ꤒꤢ꤬ꤊꤢꤪ꤬"],
+                ["brothers and sisters", "ꤕꤟꤌꤣꤠꤟꤛꤢ"],
+                ["close to arriving", "ꤖꤢꤦ꤬ꤟꤛꤢ꤭ꤒꤟꤌꤣꤟꤢꤪ"],
+                ["co-", "ꤚꤟꤥꤜꤢꤨ꤭"],
+                ["conch", "ꤒꤢ꤬ꤗꤟꤛꤢꤩꤘꤢꤨ꤬"],
+                ["day after tomorrow", "ꤏꤛꤢꤩꤏꤥ꤭ꤠꤤ"],
+                ["descended from", "ꤒꤟꤢ꤭ꤊꤜꤝꤤ꤭ꤒꤟꤢ꤭ꤜꤛꤢ꤭"],
+                ["di", "ꤔꤛꤢꤩ꤭"],
+                ["dicey", "ꤒꤟꤢꤧ꤬ꤒꤢ꤬ꤚꤟꤢꤪ꤬ꤞꤢꤧꤞꤢꤧꤤ꤬ꤏꤢꤩ꤭ ꤥ꤬ꤢꤧ"],
+                ["dick", "ꤕꤚꤟꤢꤧ꤬ꤋꤢꤨ꤭ꤒꤢꤧ꤭"],
+                ["didn", "ꤒꤥ꤬"],
+                ["DIY", "Do It yourself"],
+                ["doesn", "ꤒꤥ꤬ ("],
+                ["don", "ꤒꤢꤧ꤭ꤗꤟꤢꤩ"],
+                ["dress up", "ꤒꤢ꤬ꤚꤤ꤬ꤏꤢꤨ꤬ꤏꤢꤧ"],
+                ["each", "ꤔꤢ"],
+                ["ex", "ꤢ꤬ꤜꤟꤛꤢꤩ꤬꤯ ꤜꤟꤛꤢꤩ꤬꤯"],
+                ["eye pain", "ꤏꤢꤧ꤭ꤗꤢꤧ꤬ꤞꤢꤧ꤬ꤕꤜꤢꤪ꤬"],
+                ["flip over", "ꤒꤢ꤬ꤊꤜꤌꤣ꤬ꤓꤛꤢ꤬"],
+                ["flow down", "ꤓꤝꤤꤒꤟꤢ꤭"],
+                ["flow in", "ꤓꤝꤤꤔꤟꤌꤣ꤭"],
+                ["flow out", "ꤓꤝꤤꤓꤢꤩ꤬"],
+                ["haven", "ꤔꤢꤪꤒꤥ꤬"],
+                ["How many?", "ꤙꤢꤒꤢꤩ꤭"],
+                ["How much?", "ꤙꤢꤒꤢꤩ꤭"],
+                ["kinda", "kinda=kind of"],
+                ["living room", "ꤏꤤ꤭ꤕꤚꤟꤛꤢꤩꤘꤢꤪ"],
+                ["methinks", "ꤠꤢ꤭ꤒꤢ꤬ꤔꤟꤢꤩ꤬ꤔꤌꤣ꤬"],
+                ["non", "ꤗꤟꤢꤒꤥ꤬"],
+                ["once upon a time", "ꤘꤣꤑꤢꤩꤔꤢꤨ꤬ꤔꤌꤣ꤬"],
+                ["outta", "outta=out of"],
+                ["peals of thunder", "ꤏꤛꤢꤩ꤬ꤜꤟꤛꤢ꤬ꤕꤜꤟꤛꤢ꤬ꤗꤟꤌꤣ"],
+                ["poppa", "ꤖꤢꤧ꤭"],
+                ["poppycock", "ꤍꤟꤥꤜꤢ꤬ꤏꤢ ꤥ꤬ꤒꤥ꤬"],
+                ["pretty much", "ꤊꤣꤖꤢꤦ꤬"],
+                ["question marker", "ꤒꤟꤢꤧ꤬ꤗꤢꤏꤢꤨꤘꤛꤢ꤭"],
+                ["re", "ꤞꤛꤢꤒꤣ꤬ꤟꤢꤦ꤬"],
+                ["seance", "ꤒꤟꤢꤧ꤬ꤥ꤬ꤊꤢꤨ"],
+                ["shadowy", "ꤋꤤꤜꤟꤢꤪ꤬"],
+                ["sino-", "ꤟꤢꤩ꤭"],
+                ["snuff out", "ꤗꤟꤢꤩ꤬ꤕꤟꤤ꤭"],
+                ["so far", "ꤒꤢ꤬ꤟꤢꤩ꤬"],
+                ["so much", "ꤏꤢꤦꤜꤢꤦ꤭"],
+                ["stuck together", "ꤤꤡꤢꤦ꤭"],
+                ["thenceforth", "ꤡꤢꤓꤛꤢ꤬ꤏꤛꤣꤋꤢꤧ꤭ꤙꤤꤔꤌꤣ꤬"],
+                ["uncomprehending", "ꤞꤢꤧꤑꤢꤩ꤭ꤒꤥ꤬"],
+                ["urban", "ꤋꤟꤊꤥꤠꤟꤤ꤭"],
+                ["vibrato", "ꤟꤢꤩꤚꤥ꤭ ꤕꤚꤟꤢ꤬ꤊꤢ꤬ꤒꤟꤢꤧ꤭"],
+                ["vintage", "ꤢ꤬ꤜꤟꤛꤢꤩ꤬"],
+                ["wild animals", "ꤒꤟꤢꤧ꤬ꤗꤟꤤ꤬ꤒꤟꤢꤧ꤬ꤗꤟꤛꤢ"],
             ]);
 
             // --------------------------------------------------------------
@@ -13025,7 +13553,7 @@
                             }
                         }
                         const laH = mapped;
-                        const haveIdx = laH.findIndex(t => t === "have" || t === "has" || t === "had");
+                        const haveIdx = laH.findIndex(t => t === "have" || t === "has" || t === "had" || t === "have a" || t === "has a" || t === "had a");
                         const alreadyIdx = laH.indexOf("already");
                         const v3Idx = laH.findIndex(t => v3.has(t));
                         const isHaveQ = (la[0] === "have" || la[0] === "has" || la[0] === "had") && tokens.length > 1;
@@ -13136,19 +13664,36 @@
                                 if (subjSet.has(la[i])) { subj = tokens[i]; break; }
                             }
                             if (subj) parts.push(getSubjectTranslation(subj) || getWordTranslation(subj) || subj);
-                            let num = null, noun = null;
+                            let num = null, noun = null, nounI = -1;
+                            const skipDet = new Set(["a","an","the"]);
+                            const timePrep = new Set(["after","before","during","since"]);
                             for (let i = haveIdx + 1; i < tokens.length; i++) {
                                 const tl = la[i];
-                                if (tl === "a" || tl === "an" || tl === "the") continue;
+                                if (skipDet.has(tl) || timePrep.has(tl)) continue;
                                 if (/^\d+$/.test(tl)) { num = tl; continue; }
+                                if (tl === "this" || tl === "that" || tl === "next" || tl === "last") continue;
                                 noun = tokens[i];
+                                nounI = i;
+                                break;
                             }
-                            if (noun) parts.push(getWordTranslation(noun) || dict.get(la[tokens.indexOf(noun)] || "") || noun);
+                            if (noun) parts.push(getWordTranslation(noun) || dict.get(String(noun).toLowerCase()) || noun);
                             parts.push("ꤥ꤬");
                             if (num) {
                                 const clf = (noun && /book/i.test(noun)) ? "ꤢꤨ" : (noun && /child/i.test(noun)) ? "ꤕꤚꤟꤢꤧ꤬" : "";
                                 parts.push(num + (clf ? " " + clf : ""));
                             }
+                            let afterW = null;
+                            for (let i = haveIdx + 1; i < tokens.length; i++) {
+                                if (i === nounI) continue;
+                                const tl = la[i];
+                                if (skipDet.has(tl) || tl === "have" || tl === "has" || tl === "had" || tl === "have a") continue;
+                                if (timePrep.has(tl)) {
+                                    afterW = getWordTranslation(tokens[i]) || dict.get(tl) || tokens[i];
+                                    continue;
+                                }
+                                parts.push(getWordTranslation(tokens[i]) || dict.get(tl) || tokens[i]);
+                            }
+                            if (afterW) parts.push(afterW);
                             let r = parts.filter(Boolean).join(" ").replace(/\s+/g, " ").trim();
                             if (trailingPunct === "?") r += "?";
                             else if (trailingPunct === "꤯") r += "꤯";
