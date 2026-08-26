@@ -2795,7 +2795,8 @@
                 ["pensioner", "ꤕꤚꤟꤢꤧ꤬ꤥ꤬ꤕꤟꤢꤪꤢꤩ꤬ ꤔꤢ꤬ꤘꤢꤨ꤬ꤜꤢꤧ꤭ꤊꤢꤧ꤬"],
                 ["pentagon", "ꤔꤟꤢ꤭ꤑꤟꤢ꤭ꤔꤟꤢ꤭"],
                 ["peon", "ꤜꤢꤨ꤬ꤜꤢꤩ ꤜꤟꤢꤩꤔꤢꤪ꤭ꤘꤣ ꤜꤢꤨꤊꤢꤨ꤭"],
-                ["people", "ꤕꤚꤟꤢꤧ꤬ꤜꤟꤢꤨ꤬"],
+                ["people", "ꤕꤚꤟꤢꤧ꤬"],
+                ["some people", "ꤕꤚꤟꤢꤧ꤬ꤒꤢ꤬ꤟꤢꤩ꤬"],
                 ["pepper", "ꤞꤢꤧ꤬ꤟꤛꤢ"],
                 ["percent", "ꤕꤝꤤꤙꤢꤧꤐꤟꤢꤧ꤬"],
                 ["perfume", "ꤓꤛꤢꤩ꤭ꤔꤟꤌꤣ꤬ꤗꤢꤦ"],
@@ -12428,6 +12429,123 @@
                                 parts.push("ꤔꤌꤣ꤬");
                             }
                             return parts.filter(Boolean).join(" ").replace(/\s+/g, " ").trim();
+                        }
+                    }
+
+                    
+                    // How many / How much questions (do not alter general have/can rules)
+                    // How many books do you have → you books have How many
+                    // How many books will you give him → you give him books will How many
+                    // How many people can you show the books → you show books can How many people
+                    {
+                        const nrm = function (s) {
+                            let x = String(s).toLowerCase().replace(/[.,;!?]+$/, "");
+                            x = x.replace(/[\u2019\u2018\u02bc\u0060]/g, "'");
+                            return x;
+                        };
+                        const la = tokens.map(nrm);
+                        const isHowMany = (la[0] === "how" && la[1] === "many") || (la[0] === "how many");
+                        const isHowMuch = (la[0] === "how" && la[1] === "much") || (la[0] === "how much");
+                        if (isHowMany || isHowMuch) {
+                            const subjSet = new Set(["i","you","we","they","he","she","it"]);
+                            const auxSet = new Set(["do","does","did"]);
+                            const modalSet = new Set(["will","would","can","could","might","may","should","must"]);
+                            const parts = [];
+                            // phrase start index after how many/much [noun?]
+                            let i = 0;
+                            if (la[0] === "how many" || la[0] === "how much") i = 1;
+                            else i = 2; // how + many/much
+
+                            // optional noun right after how many/much (books, people, money, children)
+                            let quantNoun = null;
+                            if (i < tokens.length && !auxSet.has(la[i]) && !modalSet.has(la[i]) && !subjSet.has(la[i])) {
+                                quantNoun = tokens[i];
+                                i++;
+                            }
+
+                            // skip do/does/did
+                            if (i < la.length && auxSet.has(la[i])) i++;
+
+                            // subject
+                            let subj = null;
+                            if (i < la.length && subjSet.has(la[i])) {
+                                subj = tokens[i];
+                                i++;
+                            }
+
+                            // rest: verb, objects, modals
+                            let modal = null;
+                            let verb = null;
+                            const objs = [];
+                            for (; i < tokens.length; i++) {
+                                const tl = la[i];
+                                if (tl === "a" || tl === "an" || tl === "the") continue;
+                                if (modalSet.has(tl)) { modal = tl; continue; }
+                                if (!verb) { verb = tokens[i]; continue; }
+                                objs.push(tokens[i]);
+                            }
+
+                            if (subj) parts.push(getSubjectTranslation(subj) || getWordTranslation(subj) || subj);
+                            if (verb) parts.push(getWordTranslation(verb) || dict.get(nrm(verb)) || verb);
+                            for (const o of objs) {
+                                parts.push(getWordTranslation(o) || dict.get(nrm(o)) || o);
+                            }
+                            // have/has/had possession form ꤥ꤬ when verb is have
+                            // if verb was have - getWordTranslation may already map
+                            if (modal === "will" || modal === "would") parts.push("ꤕꤢ꤭");
+                            else if (modal === "can" || modal === "could" || modal === "might") parts.push("ꤢ꤬ꤔꤟꤤꤕꤚꤢꤧ");
+                            else if (modal === "may") parts.push("ꤢ꤬ꤔꤟꤤꤏꤢꤜꤟꤢꤩ");
+                            else if (modal) parts.push(getWordTranslation(modal) || modal);
+
+                            // How many / How many people at end
+                            if (isHowMany && quantNoun && nrm(quantNoun) === "people") {
+                                parts.push("ꤙꤢꤕꤚꤟꤢꤧ꤬ꤒꤢꤩ꤭"); // How many people
+                            } else if (quantNoun) {
+                                // noun already placed? For "how many books do you have" noun should be before have
+                                // re-order: subject, noun, verb/have, How many
+                                // rebuild for have/need pattern
+                            }
+
+                            // Rebuild cleaner for common patterns
+                            const parts2 = [];
+                            if (subj) parts2.push(getSubjectTranslation(subj) || getWordTranslation(subj) || subj);
+                            // have/need: put quant noun before verb
+                            const vLow = verb ? nrm(verb) : "";
+                            if (verb && (vLow === "have" || vLow === "has" || vLow === "had" || vLow === "need" || vLow === "needs" || vLow === "needed")) {
+                                if (quantNoun && nrm(quantNoun) !== "people") {
+                                    parts2.push(getWordTranslation(quantNoun) || dict.get(nrm(quantNoun)) || quantNoun);
+                                }
+                                if (vLow === "have" || vLow === "has" || vLow === "had") parts2.push("ꤥ꤬");
+                                else parts2.push(getWordTranslation(verb) || dict.get(vLow) || verb);
+                                for (const o of objs) parts2.push(getWordTranslation(o) || dict.get(nrm(o)) || o);
+                            } else if (verb) {
+                                // give/show etc: verb objects then quant noun
+                                parts2.push(getWordTranslation(verb) || dict.get(vLow) || verb);
+                                for (const o of objs) parts2.push(getWordTranslation(o) || dict.get(nrm(o)) || o);
+                                if (quantNoun && nrm(quantNoun) !== "people") {
+                                    parts2.push(getWordTranslation(quantNoun) || dict.get(nrm(quantNoun)) || quantNoun);
+                                }
+                            } else if (quantNoun && nrm(quantNoun) !== "people") {
+                                parts2.push(getWordTranslation(quantNoun) || dict.get(nrm(quantNoun)) || quantNoun);
+                            }
+
+                            if (modal === "will" || modal === "would") parts2.push("ꤕꤢ꤭");
+                            else if (modal === "can" || modal === "could" || modal === "might") parts2.push("ꤢ꤬ꤔꤟꤤꤕꤚꤢꤧ");
+                            else if (modal === "may") parts2.push("ꤢ꤬ꤔꤟꤤꤏꤢꤜꤟꤢꤩ");
+                            else if (modal) parts2.push(getWordTranslation(modal) || modal);
+
+                            if (isHowMany && quantNoun && nrm(quantNoun) === "people") {
+                                parts2.push("ꤙꤢꤕꤚꤟꤢꤧ꤬ꤒꤢꤩ꤭");
+                            } else if (isHowMany) {
+                                parts2.push("ꤙꤢꤒꤢꤩ꤭");
+                            } else {
+                                parts2.push(getWordTranslation("how much") || "ꤙꤢꤒꤢꤩ꤭");
+                            }
+
+                            let r = parts2.filter(Boolean).join(" ").replace(/\s+/g, " ").trim();
+                            if (typeof trailingPunct !== "undefined" && trailingPunct === "?") r += "?";
+                            else if (typeof endsWithQuestion !== "undefined" && endsWithQuestion && !r.endsWith("?")) r += "?";
+                            return reorderWhBeforeTimeConj(r);
                         }
                     }
 
