@@ -4219,6 +4219,8 @@
                 ["coma", "ꤓꤛꤢ꤬ꤒꤢ꤬ꤕꤟꤢ꤬"],
                 ["combine", "ꤙꤢꤩ꤬ꤕꤜꤢꤪ"],
                 ["come in", "ꤊꤢ꤬ꤔꤟꤌꤣ꤭"],
+                ["comes in", "ꤊꤢ꤬ꤔꤟꤌꤣ꤭"],
+                ["in the morning", "ꤗꤟꤢꤪꤜꤤ꤭ꤋꤢꤧ꤭"],
                 ["come", "ꤟꤛꤢ꤭"],
                 ["command", "ꤕꤣꤒꤢ꤬ꤚꤤꤋꤝꤢꤧ꤬ꤔꤟꤤ"],
                 ["commence", "ꤡꤢꤓꤛꤢ꤬"],
@@ -5780,6 +5782,11 @@
                 ["__IN_CURRENT__", "ꤋꤥ꤭ꤑꤟꤢꤋꤢꤧ꤭"],
                 ["__PRIOR_TO__", "ꤟꤤꤒꤥ꤬ꤋꤢꤧ꤭"],
                 ["__NEW_YORK__", "New York"],
+                ["__WANT_ONLY__", "ꤞꤢꤧ"],
+                ["__IN_MORNING__", "ꤗꤟꤢꤪꤜꤤ꤭ꤋꤢꤧ꤭"],
+                ["__BE_PROG__", "ꤥ꤬"],
+                ["__GOING_TO_VERB__", "ꤊꤟꤢꤦ"],
+                ["__GOING_TO_NOUN__", "ꤡꤛꤣꤘꤣ"],
                 ["__PMARK__", "ꤗꤢꤦ꤭ꤙꤢꤧ꤬ꤗꤟꤢꤪꤟꤢꤩ"],
                 ["p.m", "ꤗꤢꤦ꤭ꤙꤢꤧ꤬ꤗꤟꤢꤪꤟꤢꤩ"],
                 ["p.m.", "ꤗꤢꤦ꤭ꤙꤢꤧ꤬ꤗꤟꤢꤪꤟꤢꤩ"],
@@ -6075,6 +6082,7 @@
                 ["great", "ꤢ꤬ꤚꤛꤢ"],
                 ["happy", "ꤞꤢꤧꤜꤟꤢꤪ꤭"],
                 ["late", "ꤒꤟꤢ꤭ꤔꤥ꤬"],
+                ["be late", "ꤒꤟꤢ꤭ꤔꤥ꤬"],
                 ["lazy", "ꤒꤢ꤬ꤊꤜꤢꤩ꤭"],
                 ["lucky", "ꤙꤝꤤꤚꤛꤢꤜꤢ꤭"],
                 ["new", "ꤢ꤬ꤞꤢꤧ꤭"],
@@ -7568,7 +7576,7 @@
                 ["don't", "ꤒꤥ꤬"],
                 ["doesn't", "ꤒꤥ꤬"],
                 ["didn't", "ꤒꤥ꤬"],
-                ["not", "ꤒꤥ꤬ꤟꤢꤪ"],
+                ["not", "ꤒꤥ꤬"],
                 ["wasn't", "ꤥ꤬ꤒꤥ꤬"],
                 ["weren't", "ꤒꤥ꤬"],
                 ["can't", "ꤢ꤬ꤔꤟꤤꤒꤥ꤬"],
@@ -7835,6 +7843,7 @@
                 text = text.replace(/\bin\s+current\b/gi, "__IN_CURRENT__");
                 text = text.replace(/\bprior\s+to\b/gi, "__PRIOR_TO__");
                 text = text.replace(/\bNew\s+York\b/gi, "__NEW_YORK__");
+                text = text.replace(/\bin\s+the\s+morning\b/gi, "__IN_MORNING__");
                 text = text.replace(/\b([AaPp])\.[Mm]\.?(?=\s|$|[^\w.])/g, function(_, ap) {
                     return ap.toLowerCase() === "a" ? "__AMARK__" : "__PMARK__";
                 });
@@ -8155,6 +8164,15 @@
                 if (lower === "__toverb__") return "ꤊꤟꤢꤦ";
                 if (lower === "__tonoun__") return "ꤘꤣ";
                 if (lower === "before") return "ꤟꤤꤒꤥ꤬ꤢ꤬ꤋꤢꤧ꤭";
+                if (lower === "be late") return "ꤒꤟꤢ꤭ꤔꤥ꤬";
+                if (lower === "__going_to_verb__") return "ꤊꤟꤢꤦ";
+                if (lower === "__be_prog__") return "ꤥ꤬";
+                if (lower === "__going_to_noun__") return "ꤡꤛꤣꤘꤣ";
+                if (lower === "come" || lower === "comes") return "ꤟꤛꤢ꤭";
+                if (lower === "come in" || lower === "comes in") return "ꤊꤢ꤬ꤔꤟꤌꤣ꤭";
+                if (lower === "in the morning") return "ꤗꤟꤢꤪꤜꤤ꤭ꤋꤢꤧ꤭";
+                if (lower === "__want_only__") return "ꤞꤢꤧ";
+                if (lower === "__in_morning__") return "ꤗꤟꤢꤪꤜꤤ꤭ꤋꤢꤧ꤭";
                 if (lower === "prior to") return "ꤟꤤꤒꤥ꤬ꤋꤢꤧ꤭";
                 if (lower === "move" || lower === "moves" || lower === "moving") return "ꤞꤢꤪꤞꤢꤦꤡꤛꤣ";
                 if (lower === "movement") return "ꤒꤟꤢꤧ꤬ꤞꤢꤪꤞꤢꤦꤡꤛꤣ";
@@ -12454,7 +12472,7 @@
                                 // try multiword come in
                                 parts.push("ꤢ꤬ꤔꤟꤤꤏꤢꤜꤟꤢꤩꤟꤟꤢꤧ꤭");
                                 let r = parts.filter(Boolean).join(" ").replace(/\s+/g, " ").trim();
-                                if (!r.endsWith("?")) r += "?";
+                                if (typeof trailingPunct !== "undefined" && trailingPunct === "?" && !r.endsWith("?")) r += "?";
                                 return reorderWhBeforeTimeConj(r);
                             }
                         }
@@ -12652,6 +12670,7 @@
                                 const tl = nrm(raw);
                                 if (tl === "" || tl === "," || tl === "a" || tl === "an" || tl === "the") continue;
                                 if (beSet.has(tl)) { parts.push("ꤥ꤬"); continue; }
+                                if (tl === "of") continue;
                                 if (tl === "age" || tl === "ages") { parts.push("ꤔꤢ꤬"); continue; }
                                 if (subjSet.has(tl)) parts.push(getSubjectTranslation(raw) || getWordTranslation(raw) || raw);
                                 else parts.push(getWordTranslation(raw) || dict.get(tl) || raw);
@@ -12662,6 +12681,627 @@
 
                     
                     
+                    
+                    
+                    
+                    
+                    // want + object + to + verb → keep "want" (not want to)
+                    {
+                        const nrm = function (s) {
+                            let x = String(s).toLowerCase().replace(/[.,;!?]+$/, "");
+                            x = x.replace(/[\u2019\u2018]/g, "'");
+                            return x;
+                        };
+                        const objSet = new Set(["me","you","him","her","us","them"]);
+                        const out = [];
+                        const la0 = tokens.map(nrm);
+                        for (let i = 0; i < tokens.length; i++) {
+                            const tl = nrm(tokens[i]);
+                            if (tl === "want to" || tl === "want" || tl === "wants") {
+                                let nxt = (i + 1 < tokens.length) ? nrm(tokens[i+1]) : "";
+                                // want to + object OR want + object
+                                if (tl === "want to" && objSet.has(nxt)) {
+                                    out.push("__WANT_ONLY__");
+                                    continue;
+                                }
+                                if ((tl === "want" || tl === "wants") && objSet.has(nxt)) {
+                                    out.push("__WANT_ONLY__");
+                                    continue;
+                                }
+                            }
+                            out.push(tokens[i]);
+                        }
+                        tokens = out;
+                    }
+
+                    
+                    
+                    
+                    // PRECLASSIFY going to: verb ꤊꤟꤢꤦ / drop am-is-are before going to + verb
+                    {
+                        const nrm = function (s) {
+                            return String(s).toLowerCase().replace(/[.,;!?]+$/, "");
+                        };
+                        const verbs = new Set(["do","be","go","come","eat","see","help","work","write","read","make","take","get","give","tell","show","ask","call","buy","play","run","stay","leave","start","stop","try","need","want","use","bring","send","find","keep","move","live","wait","sleep","cook","watch","listen","speak","talk","think","know","look"]);
+                        const out = [];
+                        let i = 0;
+                        while (i < tokens.length) {
+                            const t = nrm(tokens[i]);
+                            const n1 = i+1 < tokens.length ? nrm(tokens[i+1]) : "";
+                            const n2 = i+2 < tokens.length ? nrm(tokens[i+2]) : "";
+                            const n3 = i+3 < tokens.length ? nrm(tokens[i+3]) : "";
+                            const isTo = function (x) { return x === "to" || x === "__to_verb__" || x === "__to_noun__"; };
+                            if ((t === "am" || t === "is" || t === "are" || t === "was" || t === "were") && n1 === "going" && (n2 === "to be" || n2 === "to") && (n3 === "late" || nrm(tokens[i+4]||"") === "late")) {
+                                out.push("__BE_PROG__");
+                                out.push("__GOING_TO_VERB__");
+                                out.push("be late");
+                                i += (n3 === "late") ? 4 : 5;
+                                continue;
+                            }
+                            if (t === "going" && (n1 === "to be" || n1 === "to-be") && n2 === "late") {
+                                out.push("__GOING_TO_VERB__");
+                                out.push("be late");
+                                i += 3;
+                                continue;
+                            }
+                            if ((t === "am" || t === "is" || t === "are" || t === "was" || t === "were") && (n1 === "going to" || (n1 === "going" && isTo(n2)))) {
+                                const merged = n1 === "going to";
+                                const after = merged ? n2 : n3;
+                                const after2 = merged ? n3 : (i+4 < tokens.length ? nrm(tokens[i+4]) : "");
+                                if (after === "be" && after2 === "late") {
+                                    out.push("__BE_PROG__");
+                                    out.push("__GOING_TO_VERB__");
+                                    out.push("be late");
+                                    i += merged ? 4 : 5;
+                                    continue;
+                                }
+                                if (verbs.has(after) || after === "be") {
+                                    out.push("__BE_PROG__");
+                                    out.push("__GOING_TO_VERB__");
+                                    i += merged ? 2 : 3;
+                                    continue;
+                                }
+                            }
+                            if ((t === "going to") || (t === "going" && isTo(n1))) {
+                                if (n2 === "be" && i+3 < tokens.length && nrm(tokens[i+3]) === "late") {
+                                    out.push("__GOING_TO_VERB__");
+                                    out.push("be late");
+                                    i += 4;
+                                    continue;
+                                }
+                                if (verbs.has(n2) || n2 === "be") {
+                                    out.push("__GOING_TO_VERB__");
+                                    i += 2;
+                                    continue;
+                                }
+                            }
+                            if (t === "be" && n1 === "late") {
+                                out.push("be late");
+                                i += 2;
+                                continue;
+                            }
+                            out.push(tokens[i]);
+                            i++;
+                        }
+                        tokens = out;
+                    }
+
+                    
+                    
+                    
+                    
+                    // Noun + 's + Noun → drop 's (girlfriend's daughter → girlfriend daughter)
+                    // She's my girlfriend stays She is-ꤗꤢ꤬ (contraction, not possessive)
+                    {
+                        const nrm = function (s) {
+                            return String(s);
+                        };
+                        const out = [];
+                        const contr = new Set(["she's","he's","it's","that's","who's","what's","where's","there's","here's","i'm","you're","we're","they're","i've","we've","they've","i'd","he'd","she'd","we'd","they'd","i'll","he'll","she'll","we'll","they'll"]);
+                        for (let i = 0; i < tokens.length; i++) {
+                            const raw = String(tokens[i]);
+                            const low = raw.toLowerCase();
+                            if (contr.has(low.replace(/[.,;!?]+$/, ""))) {
+                                out.push(tokens[i]);
+                                continue;
+                            }
+                            if (/['’]s$/i.test(raw) && i + 1 < tokens.length) {
+                                out.push(raw.replace(/['’]s$/i, ""));
+                                continue;
+                            }
+                            out.push(tokens[i]);
+                        }
+                        tokens = out;
+                    }
+
+                    
+                    // This is my friend's house which is bigger than yours
+                    {
+                        const nrm = function (s) {
+                            return String(s).toLowerCase().replace(/[.,;!?]+$/, "");
+                        };
+                        const la = tokens.map(nrm);
+                        const wh = la.findIndex(t => t === "which" || t.startsWith("which"));
+                        const th = la.findIndex((t,i) => i > wh && (t === "than" || t === "more than"));
+                        if (wh >= 0 && th > wh) {
+                            const parts = [];
+                            const skip = new Set(["a","an","the"]);
+                            const be = new Set(["is","am","are","was","were"]);
+                            for (let i = 0; i < wh; i++) {
+                                const tl = la[i];
+                                if (skip.has(tl)) continue;
+                                if (be.has(tl) || tl === "this is" || tl === "that is") {
+                                    if (tl === "this is") { parts.push(getWordTranslation("this is") || "ꤛꤢꤩ꤭ꤗꤢ꤬"); continue; }
+                                    if (i > 0) { parts.push("ꤗꤢ꤬"); continue; }
+                                }
+                                parts.push(getSubjectTranslation(tokens[i]) || getWordTranslation(tokens[i]) || tokens[i]);
+                            }
+                            parts.push(getWordTranslation("which") || "ꤘꤣ");
+                            const cmpAdj = new Set(["bigger","bigger","older","younger","better","worse","smaller","larger","taller","shorter","stronger","weaker"]);
+                            const mid = [];
+                            const tail = [];
+                            for (let i = wh + 1; i < tokens.length; i++) {
+                                const tl = la[i];
+                                if (skip.has(tl) || be.has(tl) || tl === "than" || tl === "more than") continue;
+                                if (i < th || cmpAdj.has(tl) || /er$/.test(tl)) mid.push(getWordTranslation(tokens[i]) || dict.get(tl) || tokens[i]);
+                                else tail.push(getWordTranslation(tokens[i]) || dict.get(tl) || tokens[i]);
+                            }
+                            // if mid captured yours because than was first, split last non-er as tail
+                            parts.push(...mid);
+                            parts.push(getWordTranslation("than") || "ꤔꤢ");
+                            parts.push(...tail);
+                            parts.push("ꤔꤌꤣ꤬");
+                            let r = parts.filter(Boolean).join(" ").replace(/\s+/g, " ").trim();
+                            if (typeof trailingPunct !== "undefined" && trailingPunct) r += trailingPunct;
+                            return r;
+                        }
+                    }
+
+                    // Do you know how much I love you → you, know, Do-ꤟꤟꤢꤧ꤭, I, love, you, how much, ꤔꤌꤣ꤬
+                    {
+                        const nrm = function (s) {
+                            let x = String(s).toLowerCase().replace(/[.,;!?]+$/, "");
+                            x = x.replace(/[\u2019\u2018']/g, "'");
+                            return x;
+                        };
+                        const la = tokens.map(nrm);
+                        if ((la[0] === "do" || la[0] === "does" || la[0] === "did") && la.includes("know")) {
+                            const knowIdx = la.indexOf("know");
+                            const afterKnow = tokens.slice(knowIdx + 1);
+                            const afterLa = la.slice(knowIdx + 1);
+                            const objOnly = new Set(["me","you","him","her","us","them","it"]);
+                            const contentAfter = afterLa.filter(t => t && t !== "a" && t !== "an" && t !== "the");
+                            // Do you know him? → previous rule
+                            if (contentAfter.length <= 1 && contentAfter.every(t => objOnly.has(t))) {
+                                // fall through
+                            } else if (afterLa.length > 0) {
+                                const subjSet = new Set(["i","you","we","they","he","she","it"]);
+                                const objSet = new Set(["me","you","him","her","us","them"]);
+                                const parts = [];
+                                // subject after Do
+                                let subj = null;
+                                for (let i = 1; i < knowIdx; i++) {
+                                    if (subjSet.has(la[i])) { subj = tokens[i]; break; }
+                                }
+                                if (subj) parts.push(getSubjectTranslation(subj) || getWordTranslation(subj) || subj);
+                                parts.push(getWordTranslation("know") || "ꤞꤢꤧꤑꤢꤩ꤭");
+                                parts.push("ꤟꤟꤢꤧ꤭");
+                                // clause
+                                const howMuchAt = afterLa.findIndex((t,i) => t === "how much" || (t === "how" && afterLa[i+1] === "much"));
+                                const willAt = afterLa.findIndex(t => t === "will" || t === "won't");
+                                const ifAt = afterLa.findIndex(t => t === "if");
+                                let i = 0;
+                                while (i < afterLa.length) {
+                                    const tl = afterLa[i];
+                                    if (tl === "a" || tl === "an" || tl === "the" || tl === "it") { i++; continue; }
+                                    if (tl === "how" && afterLa[i+1] === "much") { i += 2; continue; }
+                                    if (tl === "how much") { i++; continue; }
+                                    if (tl === "will" || tl === "won't") { i++; continue; }
+                                    if (tl === "going" && afterLa[i+1] === "to") {
+                                        const nxt = afterLa[i+2] || "";
+                                        const nounish = new Set(["school","house","church","home","work","party","market","town"]);
+                                        if (nounish.has(nxt)) {
+                                            parts.push("ꤡꤛꤣ");
+                                            parts.push("ꤘꤣ");
+                                            i += 2;
+                                            continue;
+                                        }
+                                        parts.push("ꤊꤟꤢꤦ");
+                                        i += 2;
+                                        continue;
+                                    }
+                                    if (tl === "going to") { parts.push("ꤊꤟꤢꤦ"); i++; continue; }
+                                    if (tl === "__going_to_verb__") { parts.push("ꤊꤟꤢꤦ"); i++; continue; }
+                                    if (tl === "am" || tl === "is" || tl === "are" || tl === "was" || tl === "were" || tl === "__be_prog__" || tl === "'m" || tl === "i'm") {
+                                        parts.push("ꤥ꤬");
+                                        i++;
+                                        continue;
+                                    }
+                                    if (tl === "be late" || (tl === "be" && afterLa[i+1] === "late")) {
+                                        parts.push(getWordTranslation("be late") || "ꤒꤟꤢ꤭ꤔꤥ꤬");
+                                        i += (tl === "be late") ? 1 : 2;
+                                        continue;
+                                    }
+                                    if (tl === "for" && i + 1 < afterLa.length) {
+                                        const nxt = afterKnow[i+1];
+                                        parts.push(getSubjectTranslation(nxt) || getWordTranslation(nxt) || nxt);
+                                        parts.push("ꤑꤢꤩ꤭");
+                                        i += 2;
+                                        continue;
+                                    }
+                                    if (subjSet.has(tl) || objSet.has(tl)) parts.push(getSubjectTranslation(afterKnow[i]) || getWordTranslation(afterKnow[i]) || afterKnow[i]);
+                                    else parts.push(getWordTranslation(afterKnow[i]) || dict.get(tl) || afterKnow[i]);
+                                    i++;
+                                }
+                                if (howMuchAt >= 0) parts.push(getWordTranslation("how much") || "ꤙꤢꤒꤢꤩ꤭");
+                                if (willAt >= 0) parts.push("ꤕꤢ꤭");
+                                parts.push("ꤔꤌꤣ꤬");
+                                let r = parts.filter(Boolean).join(" ").replace(/\s+/g, " ").trim();
+                                if (typeof trailingPunct !== "undefined" && trailingPunct && trailingPunct !== "?") r += trailingPunct;
+                                return r;
+                            }
+                        }
+                    }
+
+                    // They will not come if it rains → They, come, not, will, if, rains, ꤔꤌꤣ꤬
+                    {
+                        const nrm = function (s) {
+                            let x = String(s).toLowerCase().replace(/[.,;!?]+$/, "");
+                            x = x.replace(/[\u2019\u2018]/g, "'");
+                            return x;
+                        };
+                        const la = tokens.map(nrm);
+                        const willIdx = la.findIndex(t => t === "will" || t === "won't" || t === "will not");
+                        const notIdx = la.findIndex(t => t === "not" || t === "n't");
+                        const ifIdx = la.findIndex(t => t === "if");
+                        const isWont = willIdx >= 0 && (la[willIdx] === "won't" || (la[willIdx] === "will" && notIdx === willIdx + 1));
+                        if (isWont && ifIdx > 0) {
+                            const subjSet = new Set(["i","you","we","they","he","she","it"]);
+                            const parts = [];
+                            const verbStart = (la[willIdx] === "won't") ? willIdx + 1 : notIdx + 1;
+                            // subject and anything before will
+                            for (let i = 0; i < willIdx; i++) {
+                                const tl = la[i];
+                                if (tl === "a" || tl === "an" || tl === "the" || tl === "it") continue;
+                                if (subjSet.has(tl)) parts.push(getSubjectTranslation(tokens[i]) || getWordTranslation(tokens[i]) || tokens[i]);
+                                else parts.push(getWordTranslation(tokens[i]) || dict.get(tl) || tokens[i]);
+                            }
+                            // main verb(s) until if
+                            for (let i = verbStart; i < ifIdx; i++) {
+                                const tl = la[i];
+                                if (tl === "a" || tl === "an" || tl === "the" || tl === "it" || tl === "not") continue;
+                                parts.push(getWordTranslation(tokens[i]) || dict.get(tl) || tokens[i]);
+                            }
+                            parts.push("ꤒꤥ꤬"); // not
+                            parts.push("ꤕꤢ꤭"); // will
+                            parts.push(getWordTranslation("if") || "ꤊꤤ꤬");
+                            for (let i = ifIdx + 1; i < tokens.length; i++) {
+                                const tl = la[i];
+                                if (tl === "a" || tl === "an" || tl === "the" || tl === "it") continue;
+                                if (subjSet.has(tl)) parts.push(getSubjectTranslation(tokens[i]) || getWordTranslation(tokens[i]) || tokens[i]);
+                                else parts.push(getWordTranslation(tokens[i]) || dict.get(tl) || tokens[i]);
+                            }
+                            parts.push("ꤔꤌꤣ꤬");
+                            let r = parts.filter(Boolean).join(" ").replace(/\s+/g, " ").trim();
+                            if (typeof trailingPunct !== "undefined" && trailingPunct) r += trailingPunct;
+                            return r;
+                        }
+                    }
+
+                    // I am going to do it for you → I, am-ꤥ꤬, going to-ꤊꤟꤢꤦ, do, you, for
+                    {
+                        const nrm = function (s) {
+                            return String(s).toLowerCase().replace(/[.,;!?]+$/, "");
+                        };
+                        const la = tokens.map(nrm);
+                        const gtv = la.findIndex(t => t === "__going_to_verb__" || t === "going to" || (t === "going" && la[la.indexOf(t)+1] === "to"));
+                        const beSet = new Set(["am","is","are","was","were","__be_prog__"]);
+                        const verbs = new Set(["do","does","did","be","go","come","eat","see","help","work","tell","show","make","take","get","give"]);
+                        const hasGoingToVerb = la.includes("__going_to_verb__") || (
+                            la.includes("going") && la.includes("to") && la.some(t => verbs.has(t) && t !== "to")
+                        );
+                        if (hasGoingToVerb && !la.includes("school") && la[0] !== "do") {
+                            const subjSet = new Set(["i","you","we","they","he","she","it"]);
+                            const objSet = new Set(["me","you","him","her","us","them"]);
+                            const parts = [];
+                            for (let i = 0; i < tokens.length; i++) {
+                                const tl = la[i];
+                                if (tl === "a" || tl === "an" || tl === "the" || tl === "it") continue;
+                                if (tl === "going" || tl === "to" || tl === "going to" || tl === "__going_to_verb__") continue;
+                                if (beSet.has(tl)) { parts.push("ꤥ꤬"); continue; }
+                                if (tl === "for" && i + 1 < tokens.length) {
+                                    const nxt = tokens[i+1];
+                                    parts.push(getSubjectTranslation(nxt) || getWordTranslation(nxt) || nxt);
+                                    parts.push("ꤑꤢꤩ꤭");
+                                    i++;
+                                    continue;
+                                }
+                                if (subjSet.has(tl) || objSet.has(tl)) parts.push(getSubjectTranslation(tokens[i]) || getWordTranslation(tokens[i]) || tokens[i]);
+                                else parts.push(getWordTranslation(tokens[i]) || dict.get(tl) || tokens[i]);
+                            }
+                            // insert going-to-verb after first be-ꤥ꤬ (or after subject)
+                            const bePos = parts.indexOf("ꤥ꤬");
+                            if (bePos >= 0) parts.splice(bePos + 1, 0, "ꤊꤟꤢꤦ");
+                            else if (parts.length) parts.splice(1, 0, "ꤊꤟꤢꤦ");
+                            let r = parts.filter(Boolean).join(" ").replace(/\s+/g, " ").trim();
+                            if (typeof trailingPunct !== "undefined" && trailingPunct) r += trailingPunct;
+                            return r;
+                        }
+                    }
+
+                    // Imperative Do it / Do for … (not question Do + subject)
+                    // Do it! → ꤗꤟꤢꤩ꤬ꤗ꤮!
+                    // Do it quickly → Do, quickly
+                    // Do it yourself → Do, yourself
+                    // Do for safety → Do, safety, for
+                    // Do it before he comes here → Do, he, comes, here, before, ꤔꤌꤣ꤬
+                    {
+                        const nrm = function (s) {
+                            let x = String(s).toLowerCase().replace(/[.,;!?]+$/, "");
+                            x = x.replace(/[\u2019\u2018]/g, "'");
+                            return x;
+                        };
+                        const la = tokens.map(nrm);
+                        const subjSet = new Set(["i","you","we","they","he","she","it"]);
+                        // Question: Do + subject pronoun (you/I/we/they/he/she) — leave previous rule
+                        if (la[0] === "do" && !(la[1] && subjSet.has(la[1]) && la[1] !== "it")) {
+                            const objSet = new Set(["me","you","him","her","us","them"]);
+                            const subSet = new Set(["because","if","when","before","after","unless","although","though","while","since"]);
+                            const negSet = new Set(["don't","doesn't","didn't","won't","wouldn't","doesnt","dont"]);
+                            const endSubs = new Set(["when","before","after","until","once"]);
+                            const parts = [];
+                            const bang = (typeof trailingPunct !== "undefined" && trailingPunct === "!");
+                            // Do it! short
+                            const restAll = la.slice(1).filter(t => t && t !== "it" && t !== "a" && t !== "an" && t !== "the");
+                            if (restAll.length === 0 && bang) {
+                                let r = "ꤗꤟꤢꤩ꤬ꤗ꤮!";
+                                return r;
+                            }
+                            parts.push("ꤗꤟꤢꤩ꤬");
+                            let subAt = la.findIndex(t => subSet.has(t));
+                            const endMain = subAt > 0 ? subAt : tokens.length;
+                            let i = 1;
+                            while (i < endMain) {
+                                const tl = la[i];
+                                if (tl === "it" || tl === "a" || tl === "an" || tl === "the") { i++; continue; }
+                                if (tl === "for" && i + 1 < endMain) {
+                                    const nxt = tokens[i+1];
+                                    parts.push(getWordTranslation(nxt) || dict.get(la[i+1]) || nxt);
+                                    parts.push("ꤑꤢꤩ꤭");
+                                    i += 2;
+                                    continue;
+                                }
+                                if (objSet.has(tl) || subjSet.has(tl)) parts.push(getSubjectTranslation(tokens[i]) || getWordTranslation(tokens[i]) || tokens[i]);
+                                else parts.push(getWordTranslation(tokens[i]) || dict.get(tl) || tokens[i]);
+                                i++;
+                            }
+                            if (subAt > 0) {
+                                const subWord = la[subAt];
+                                if (!endSubs.has(subWord)) {
+                                    parts.push(getWordTranslation(tokens[subAt]) || dict.get(subWord) || tokens[subAt]);
+                                }
+                                let k = subAt + 1;
+                                const subNeg = [];
+                                while (k < tokens.length) {
+                                    const tl = la[k];
+                                    if (negSet.has(tl)) { subNeg.push("ꤒꤥ꤬"); k++; continue; }
+                                    if (tl === "it" || tl === "a" || tl === "an" || tl === "the") { k++; continue; }
+                                    if ((tl === "am" || tl === "is" || tl === "are" || tl === "was" || tl === "were" || tl === "__be_prog__") && k+1 < tokens.length && (la[k+1] === "going" || la[k+1] === "going to" || la[k+1] === "__going_to_verb__" || la[k+1] === "__be_prog__")) { k++; continue; }
+                                    if (tl === "__be_prog__") { k++; continue; }
+                                    if ((tl === "want" || tl === "wants" || tl === "want to") && k + 1 < tokens.length) {
+                                        const nxt = la[k+1];
+                                        if (nxt === "to" || tl === "want to") {
+                                            const after = (tl === "want to") ? nxt : (k+2 < tokens.length ? la[k+2] : "");
+                                            if (!objSet.has(nxt) && nxt === "to" || tl === "want to") {
+                                                parts.push(getWordTranslation("want to") || "ꤞꤢꤧꤐꤟꤢꤦ");
+                                                if (tl !== "want to") k++;
+                                                k++;
+                                                continue;
+                                            }
+                                        }
+                                    }
+                                    if (tl === "to") { parts.push("ꤊꤟꤢꤦ"); k++; continue; }
+                                    if (objSet.has(tl) || subjSet.has(tl)) parts.push(getSubjectTranslation(tokens[k]) || getWordTranslation(tokens[k]) || tokens[k]);
+                                    else parts.push(getWordTranslation(tokens[k]) || dict.get(tl) || tokens[k]);
+                                    k++;
+                                }
+                                parts.push(...subNeg);
+                                if (endSubs.has(subWord)) {
+                                    parts.push(subWord === "before" ? "ꤟꤤꤒꤥ꤬ꤢ꤬ꤋꤢꤧ꤭" : (subWord === "when" ? "ꤢ꤬ꤋꤢꤧ꤭" : (getWordTranslation(tokens[subAt]) || tokens[subAt])));
+                                }
+                                parts.push("ꤔꤌꤣ꤬");
+                            }
+                            let r = parts.filter(Boolean).join(" ").replace(/\s+/g, " ").trim();
+                            if (typeof trailingPunct !== "undefined" && trailingPunct) r += trailingPunct;
+                            return r;
+                        }
+                    }
+
+                    // come in the morning → come + in the morning (not come in)
+                    {
+                        const nrm = function (s) {
+                            return String(s).toLowerCase().replace(/[.,;!?]+$/, "");
+                        };
+                        const out = [];
+                        for (let i = 0; i < tokens.length; i++) {
+                            const t = nrm(tokens[i]);
+                            const n1 = i+1 < tokens.length ? nrm(tokens[i+1]) : "";
+                            const n2 = i+2 < tokens.length ? nrm(tokens[i+2]) : "";
+                            if ((t === "come" || t === "comes") && (n1 === "in the morning" || n1 === "__in_morning__")) {
+                                out.push(tokens[i]);
+                                out.push("__IN_MORNING__");
+                                i++;
+                                continue;
+                            }
+                            if ((t === "come" || t === "comes") && n1 === "in" && (n2 === "morning" || n2 === "the")) {
+                                out.push(tokens[i]);
+                                out.push("__IN_MORNING__");
+                                i += (n2 === "the" && i+3 < tokens.length && nrm(tokens[i+3]) === "morning") ? 3 : 2;
+                                continue;
+                            }
+                            out.push(tokens[i]);
+                        }
+                        tokens = out;
+                    }
+
+                    // No need to show me → need, show, me, No
+                    // No need to do it for him → need, do, him, for, No
+                    // No need to tell her because she doesn’t want to come
+                    //   → need, tell, her, No, because, she, want to, come, doesn’t, ꤔꤌꤣ꤬
+                    {
+                        const nrm = function (s) {
+                            let x = String(s).toLowerCase().replace(/[.,;!?]+$/, "");
+                            x = x.replace(/[\u2019\u2018]/g, "'");
+                            return x;
+                        };
+                        const la = tokens.map(nrm);
+                        if (la[0] === "no" && (la[1] === "need" || la[1] === "need to")) {
+                            const subjSet = new Set(["i","you","we","they","he","she","it"]);
+                            const objSet = new Set(["me","you","him","her","us","them"]);
+                            const subSet = new Set(["because","if","when","before","after","unless","although","though","while","since"]);
+                            const negSet = new Set(["don't","doesn't","didn't","won't","wouldn't","do not","does not","did not","doesnt","dont"]);
+                            let subAt = la.findIndex(t => subSet.has(t));
+                            const endMain = subAt > 0 ? subAt : tokens.length;
+                            const parts = [];
+                            parts.push("ꤜꤥ꤬");
+                            let i = 2;
+                            if (la[1] === "need to") { /* consumed */ }
+                            if (i < endMain && la[i] === "to") i++;
+                            while (i < endMain) {
+                                const tl = la[i];
+                                if (tl === "a" || tl === "an" || tl === "the" || tl === "it" || tl === "to") { i++; continue; }
+                                if (tl === "for" && i + 1 < endMain) {
+                                    const nxt = tokens[i+1];
+                                    parts.push(getSubjectTranslation(nxt) || getWordTranslation(nxt) || nxt);
+                                    parts.push("ꤑꤢꤩ꤭");
+                                    i += 2;
+                                    continue;
+                                }
+                                if (objSet.has(tl) || subjSet.has(tl)) parts.push(getSubjectTranslation(tokens[i]) || getWordTranslation(tokens[i]) || tokens[i]);
+                                else parts.push(getWordTranslation(tokens[i]) || dict.get(tl) || tokens[i]);
+                                i++;
+                            }
+                            parts.push("ꤒꤥ꤬"); // No
+                            if (subAt > 0) {
+                                const subWord = la[subAt];
+                                const endSubs = new Set(["when","before","after","until","once"]);
+                                if (!endSubs.has(subWord)) {
+                                    parts.push(getWordTranslation(tokens[subAt]) || dict.get(subWord) || tokens[subAt]);
+                                }
+                                // subordinate tokens after because/when
+                                const subToks = [];
+                                const subNeg = [];
+                                let k = subAt + 1;
+                                while (k < tokens.length) {
+                                    const tl = la[k];
+                                    if (negSet.has(tl) || tl === "doesn't" || tl === "doesn’t") {
+                                        subNeg.push("ꤒꤥ꤬");
+                                        k++;
+                                        continue;
+                                    }
+                                    if (tl === "a" || tl === "an" || tl === "the" || tl === "it") { k++; continue; }
+                                    // want to + VERB (no object) keep want to
+                                    if ((tl === "want" || tl === "wants") && k + 1 < tokens.length && la[k+1] === "to") {
+                                        const afterTo = (k + 2 < tokens.length) ? la[k+2] : "";
+                                        if (objSet.has(afterTo) || subjSet.has(afterTo)) {
+                                            parts.push(getWordTranslation("want") || "ꤞꤢꤧ");
+                                            k++;
+                                            continue;
+                                        }
+                                        parts.push(getWordTranslation("want to") || "ꤞꤢꤧꤐꤟꤢꤦ");
+                                        k += 2;
+                                        continue;
+                                    }
+                                    if (tl === "to") {
+                                        parts.push("ꤊꤟꤢꤦ");
+                                        k++;
+                                        continue;
+                                    }
+                                    if (objSet.has(tl) || subjSet.has(tl)) parts.push(getSubjectTranslation(tokens[k]) || getWordTranslation(tokens[k]) || tokens[k]);
+                                    else parts.push(getWordTranslation(tokens[k]) || dict.get(tl) || tokens[k]);
+                                    k++;
+                                }
+                                parts.push(...subNeg);
+                                if (endSubs.has(subWord)) {
+                                    parts.push(subWord === "when" ? "ꤢ꤬ꤋꤢꤧ꤭" : (getWordTranslation(tokens[subAt]) || tokens[subAt]));
+                                }
+                                parts.push("ꤔꤌꤣ꤬");
+                            }
+                            let r = parts.filter(Boolean).join(" ").replace(/\s+/g, " ").trim();
+                            if (typeof trailingPunct !== "undefined" && trailingPunct) r += trailingPunct;
+                            return r;
+                        }
+                    }
+
+                    // twice of my age → my, age, twice
+                    {
+                        const nrm = function (s) {
+                            return String(s).toLowerCase().replace(/[.,;!?]+$/, "");
+                        };
+                        const la = tokens.map(nrm);
+                        const out = [];
+                        let i = 0;
+                        while (i < tokens.length) {
+                            if (la[i] === "twice" && i + 1 < tokens.length && la[i+1] === "of") {
+                                // collect NP after of until end or stop-word
+                                const stop = new Set(["when","because","but","and","if",","]);
+                                const np = [];
+                                let j = i + 2;
+                                while (j < tokens.length && !stop.has(la[j]) && la[j] !== "was" && la[j] !== "were") {
+                                    np.push(tokens[j]);
+                                    j++;
+                                }
+                                out.push(...np);
+                                out.push("twice");
+                                i = j;
+                                continue;
+                            }
+                            out.push(tokens[i]);
+                            i++;
+                        }
+                        tokens = out;
+                    }
+
+                    // noun of noun → B, A  and do not show "of"
+                    // 90% of people → people, 90%
+                    // Bank of America → America, Bank
+                    // Karenni community of Kansas → Kansas, Karenni, community
+                    // skip: because of, out of, twice of (previous rules)
+                    {
+                        const nrm = function (s) {
+                            return String(s).toLowerCase().replace(/[.,;!?]+$/, "");
+                        };
+                        const la = tokens.map(nrm);
+                        const ofIdx = la.findIndex(t => t === "of");
+                        if (ofIdx > 0 && ofIdx + 1 < tokens.length) {
+                            const prev = la[ofIdx - 1];
+                            if (prev !== "because" && prev !== "out" && prev !== "instead") {
+                                const subjSet = new Set(["i","you","we","they","he","she","it"]);
+                                const skipArt = new Set(["a","an","the"]);
+                                const tr = function (tok) {
+                                    const l = nrm(tok);
+                                    if (skipArt.has(l)) return "";
+                                    if (subjSet.has(l)) return getSubjectTranslation(tok) || getWordTranslation(tok) || tok;
+                                    return getWordTranslation(tok) || dict.get(l) || tok;
+                                };
+                                const before = [];
+                                for (let i = 0; i < ofIdx; i++) {
+                                    const x = tr(tokens[i]);
+                                    if (x) before.push(x);
+                                }
+                                const after = [];
+                                for (let i = ofIdx + 1; i < tokens.length; i++) {
+                                    const x = tr(tokens[i]);
+                                    if (x) after.push(x);
+                                }
+                                const parts = after.concat(before);
+                                let r = parts.filter(Boolean).join(" ").replace(/\s+/g, " ").trim();
+                                if (typeof trailingPunct !== "undefined" && trailingPunct) r += trailingPunct;
+                                return r;
+                            }
+                        }
+                    }
+
                     // I have no idea → I, idea, have, no
                     // He has no idea → He, idea, has, no
                     // Do not change have/has/had + V3 (perfect)
