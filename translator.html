@@ -12790,6 +12790,54 @@
                     
                     
                     
+                    
+                    // I'm not sure if I can help → I, sure, not-ꤒꤥ꤬, if, I, help, can, ꤔꤌꤣ꤬
+                    // I'm not sure if he will come → I, sure, not-ꤒꤥ꤬, if, he, come, will, ꤔꤌꤣ꤬
+                    {
+                        const nrm = function (s) {
+                            let x = String(s).toLowerCase().replace(/[.,;!?]+$/, "");
+                            x = x.replace(/[\u2019\u2018']/g, "'");
+                            return x;
+                        };
+                        const la = tokens.map(nrm);
+                        const sureIdx = la.findIndex(t => t === "sure");
+                        const ifIdx = la.findIndex(t => t === "if");
+                        const notHere = la.some(t => t === "not" || t === "n't");
+                        if (sureIdx >= 0 && ifIdx > sureIdx && notHere) {
+                            const subjSet = new Set(["i","you","we","they","he","she","it"]);
+                            const parts = [];
+                            // subject before sure (skip am/is/'m)
+                            for (let i = 0; i < sureIdx; i++) {
+                                const tl = la[i];
+                                if (tl === "am" || tl === "is" || tl === "are" || tl === "was" || tl === "were" || tl === "i'm" || tl === "not") continue;
+                                if (tl === "a" || tl === "an" || tl === "the") continue;
+                                if (subjSet.has(tl)) parts.push(getSubjectTranslation(tokens[i]) || getWordTranslation(tokens[i]) || tokens[i]);
+                                else parts.push(getWordTranslation(tokens[i]) || dict.get(tl) || tokens[i]);
+                            }
+                            parts.push(getWordTranslation("sure") || dict.get("sure") || tokens[sureIdx]);
+                            parts.push("ꤒꤥ꤬");
+                            parts.push(getWordTranslation("if") || "ꤊꤤ꤬");
+                            const modalSet = new Set(["can","could","will","would","may","might","shall","should"]);
+                            const held = [];
+                            for (let i = ifIdx + 1; i < tokens.length; i++) {
+                                const tl = la[i];
+                                if (tl === "a" || tl === "an" || tl === "the" || tl === "it") continue;
+                                if (modalSet.has(tl)) { held.push(tl); continue; }
+                                if (subjSet.has(tl)) parts.push(getSubjectTranslation(tokens[i]) || getWordTranslation(tokens[i]) || tokens[i]);
+                                else parts.push(getWordTranslation(tokens[i]) || dict.get(tl) || tokens[i]);
+                            }
+                            for (const m of held) {
+                                if (m === "can" || m === "could") parts.push(getWordTranslation("can") || "ꤢ꤬ꤔꤟꤤꤕꤚꤢꤧ");
+                                else if (m === "will" || m === "would") parts.push("ꤕꤢ꤭");
+                                else parts.push(getWordTranslation(m) || m);
+                            }
+                            parts.push("ꤔꤌꤣ꤬");
+                            let r = parts.filter(Boolean).join(" ").replace(/\s+/g, " ").trim();
+                            if (typeof trailingPunct !== "undefined" && trailingPunct) r += trailingPunct;
+                            return r;
+                        }
+                    }
+
                     // Noun + 's + Noun → drop 's (girlfriend's daughter → girlfriend daughter)
                     // She's my girlfriend stays She is-ꤗꤢ꤬ (contraction, not possessive)
                     {
