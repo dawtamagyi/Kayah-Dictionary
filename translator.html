@@ -4449,6 +4449,7 @@
                 ["cure", "ꤊꤟꤢꤨꤐꤢ꤬"],
                 ["curse", "ꤤ꤬ꤏꤢꤪ꤭ꤟꤢ꤭"],
                 ["cut", "ꤗꤟꤢꤩ꤬ꤒꤟꤢꤦ꤭"],
+                ["mess up", "ꤒꤢ꤬ꤞꤢꤪꤙꤢꤪꤙꤤ꤭"],
                 ["cutting", "ꤤ꤬ꤡꤤ꤬"],
                 ["dally", "ꤖꤛꤢꤩꤏꤛꤣꤋꤢꤧ꤭"],
                 ["damage", "ꤗꤟꤢꤩ꤬ꤕꤛꤢꤩ"],
@@ -8055,6 +8056,7 @@
                 text = text.replace(/\bwanna\b/gi, "__WANNA__");
                 text = text.replace(/\bwant\s+to\s+to\b/gi, "__WANT_TO__");
                 text = text.replace(/\bwant\s+to\b/gi, "__WANT_TO__");
+                text = text.replace(/\bmess\s+up\b/gi, "__MESS_UP__");
                 text = text.replace(/\bprior\s+to\b/gi, "__PRIOR_TO__");
                 text = text.replace(/,/g, " , ");
                 text = text.replace(/\bfirst\s+time\b/gi, "__FIRST_TIME__");
@@ -8431,6 +8433,7 @@
                 if (lower === "__used_to__") return "ꤊꤟꤊꤣ꤭";
                 if (lower === "__wanna__") return "ꤞꤢꤧ";
                 if (lower === "__want_to__") return "ꤞꤢꤧꤐꤟꤢꤦ";
+                if (lower === "__mess_up__") return "ꤒꤢ꤬ꤞꤢꤪꤙꤢꤪꤙꤤ꤭";
                 if (lower === "__need_to__") return "ꤜꤥ꤬";
                 if (lower === "__want_to__") return "ꤞꤢꤧꤐꤟꤢꤦ";
                 if (lower === "__like_to__") return "ꤞꤢꤧ";
@@ -12195,6 +12198,69 @@
 
                 const trimmed = text.trim();
                 const lowerTrimmed = trimmed.toLowerCase();
+
+                if (/have to be careful next time if they don['’]?t want to eat/i.test(trimmed)) {
+                    const tw = t => getWordTranslation(t) || getSubjectTranslation(t) || dict.get(String(t).toLowerCase()) || t;
+                    return [(getSubjectTranslation("we") || tw("We")), tw("have to") || "ꤊꤢꤪ꤬ꤙꤢꤧ꤬", tw("be") || "ꤥ꤬", tw("careful"), tw("next time") || (tw("next")+" "+tw("time")), tw("if"), tw("they"), tw("want to") || "ꤞꤢꤧꤐꤟꤢꤦ", tw("eat"), "ꤒꤥ꤬", "ꤔꤌꤣ꤬"].join(" ");
+                }
+                if (/have to be careful next time because they don['’]?t want to eat/i.test(trimmed)) {
+                    const tw = t => getWordTranslation(t) || getSubjectTranslation(t) || dict.get(String(t).toLowerCase()) || t;
+                    const subj = /^I\b/i.test(trimmed) ? "ꤠꤢ꤭" : (getSubjectTranslation("we") || tw("We"));
+                    return [subj, tw("have to") || "ꤊꤢꤪ꤬ꤙꤢꤧ꤬", tw("be") || "ꤥ꤬", tw("careful"), tw("next time") || (tw("next")+" "+tw("time")), tw("because"), tw("they"), tw("want to") || "ꤞꤢꤧꤐꤟꤢꤦ", tw("eat"), "ꤒꤥ꤬", "ꤔꤌꤣ꤬"].join(" ");
+                }
+
+
+                if (/^You have to be careful next time before they eat/i.test(trimmed)) {
+                    const tw = t => getWordTranslation(t) || getSubjectTranslation(t) || dict.get(String(t).toLowerCase()) || t;
+                    return [tw("You"), tw("have to") || "ꤊꤢꤪ꤬ꤙꤢꤧ꤬", tw("be") || "ꤥ꤬", tw("careful"), tw("next time") || (tw("next")+" "+tw("time")), tw("they"), tw("eat"), tw("before"), "ꤔꤌꤣ꤬"].join(" ");
+                }
+                if (/^You must be careful next time$/i.test(trimmed)) {
+                    const tw = t => getWordTranslation(t) || getSubjectTranslation(t) || dict.get(String(t).toLowerCase()) || t;
+                    return [tw("You"), tw("must"), tw("be") || "ꤥ꤬", tw("careful"), tw("next time") || (tw("next")+" "+tw("time"))].join(" ");
+                }
+
+
+                if (/^We must be careful next time before they eat food/i.test(trimmed)) {
+                    const tw = t => getWordTranslation(t) || getSubjectTranslation(t) || dict.get(String(t).toLowerCase()) || t;
+                    return [tw("We"), tw("must"), tw("be") || "ꤥ꤬", tw("careful"), tw("next time") || (tw("next")+" "+tw("time")), tw("they"), tw("eat"), tw("food"), tw("before"), "ꤔꤌꤣ꤬"].join(" ");
+                }
+                if (/^We must be careful next time before they eat/i.test(trimmed)) {
+                    const tw = t => getWordTranslation(t) || getSubjectTranslation(t) || dict.get(String(t).toLowerCase()) || t;
+                    return [tw("We"), tw("must"), tw("be") || "ꤥ꤬", tw("careful"), tw("next time") || (tw("next")+" "+tw("time")), tw("they"), tw("eat"), tw("before"), "ꤔꤌꤣ꤬"].join(" ");
+                }
+                if (/^We must be careful next time/i.test(trimmed)) {
+                    const tw = t => getWordTranslation(t) || getSubjectTranslation(t) || dict.get(String(t).toLowerCase()) || t;
+                    return [tw("We"), tw("must"), tw("be") || "ꤥ꤬", tw("careful"), tw("next time") || (tw("next")+" "+tw("time"))].join(" ");
+                }
+
+
+                if (/^You have to be careful next time/i.test(trimmed)) {
+                    const tw = t => getWordTranslation(t) || getSubjectTranslation(t) || dict.get(String(t).toLowerCase()) || t;
+                    return [tw("You"), tw("have to") || "ꤊꤢꤪ꤬ꤙꤢꤧ꤬", tw("be") || "ꤥ꤬", tw("careful"), tw("next time") || (tw("next")+" "+tw("time"))].join(" ");
+                }
+                if (/^I will be careful next time/i.test(trimmed)) {
+                    const tw = t => getWordTranslation(t) || getSubjectTranslation(t) || dict.get(String(t).toLowerCase()) || t;
+                    return ["ꤠꤢ꤭", tw("be") || "ꤥ꤬", tw("careful"), tw("next time") || (tw("next")+" "+tw("time")), tw("will")].join(" ");
+                }
+
+
+                if (/^We will be careful next time/i.test(trimmed)) {
+                    const tw = t => getWordTranslation(t) || getSubjectTranslation(t) || dict.get(String(t).toLowerCase()) || t;
+                    return [tw("We"), tw("be") || "ꤥ꤬", tw("careful"), tw("next time") || (tw("next") + " " + tw("time")), tw("will")].join(" ");
+                }
+                if (/^We have be careful next time/i.test(trimmed) || /^We have to be careful next time/i.test(trimmed)) {
+                    const tw = t => getWordTranslation(t) || getSubjectTranslation(t) || dict.get(String(t).toLowerCase()) || t;
+                    return [tw("We"), tw("have to") || "ꤊꤢꤪ꤬ꤙꤢꤧ꤬", tw("be") || "ꤥ꤬", tw("careful"), tw("next time") || (tw("next") + " " + tw("time"))].join(" ");
+                }
+                if (/appreciate for those who were given/i.test(trimmed)) {
+                    const tw = t => getWordTranslation(t) || getSubjectTranslation(t) || dict.get(String(t).toLowerCase()) || t;
+                    return [tw("We"), tw("have to") || "ꤊꤢꤪ꤬ꤙꤢꤧ꤬", tw("appreciate"), tw("those"), tw("for"), "ꤕꤚꤟꤢꤧ꤬ꤘꤣ", tw("given"), tw("their"), tw("time"), tw("cooking"), tw("for"), tw("and"), tw("preparing"), tw("food"), tw("for")].join(" ");
+                }
+                if (/Don['’]?t try to mess up/i.test(trimmed)) {
+                    const tw = t => getWordTranslation(t) || dict.get(String(t).toLowerCase()) || t;
+                    return [tw("try"), "ꤊꤟꤢꤦ", tw("mess up") || "ꤒꤢ꤬ꤞꤢꤪꤙꤢꤪꤙꤤ꤭", tw("with"), tw("those"), "ꤕꤚꤟꤢꤧ꤬ꤘꤣ", tw("action"), tw("without"), "ꤒꤢꤧ꤭ꤗꤟꤢꤩ"].join(" ");
+                }
+
 
                 if (/^thin cut$/i.test(trimmed)) {
                     return (getWordTranslation("cut") || dict.get("cut") || "ꤗꤟꤢꤩ꤬ꤒꤟꤢꤦ꤭") + " " + (getWordTranslation("thin") || "ꤙꤢꤦ꤭");
