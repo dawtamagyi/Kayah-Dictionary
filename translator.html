@@ -12327,7 +12327,7 @@
                     let q = bodyQ;
                     const bang = bodyQ.match(/^(.+?)!\s+(.+)$/);
                     if (bang) { frontRaw = bang[1]; q = bang[2]; }
-                    const whAux = q.match(/^(how|what|where|who|why|when|which)\s+(can|could|will|would|should|may|might|do|does|did)\s+(.+)$/i);
+                    const whAux = q.match(/^(how|what|where|who|why|when|which)\s+(can|could|will|would|should|may|might|do|does|did|is|are|was|were|am)\s+(.+)$/i);
                     const yn = !whAux && q.match(/^(can|could|will|would|should|may|might|do|does|did)\s+(.+)$/i);
                     if (whAux || yn) {
                         const tw = (w) => (typeof getWordTranslation === "function" && getWordTranslation(w)) || (dict && dict.get(String(w).toLowerCase())) || w;
@@ -12340,7 +12340,7 @@
                         if (whAux) {
                             const phrase = (whAux[1] + " " + whAux[2]).toLowerCase();
                             const fixed = { "how can": "ꤖꤢꤨꤒꤢꤩ꤭ꤢ꤬ꤔꤟꤤꤟꤟꤢꤧ꤭", "how did": "ꤖꤢꤨꤒꤢꤩ꤭", "how do": "ꤖꤢꤨꤒꤢꤩ꤭", "how does": "ꤖꤢꤨꤒꤢꤩ꤭", "what did": "ꤒꤤ꤭ꤒꤢꤩ꤭", "where did": "ꤙꤤꤒꤢꤩ꤭", "who did": "ꤗꤢ꤬ꤢꤨ꤭ꤕꤢꤩ꤭", "why did": "ꤢ꤬ꤗꤟꤢꤩ꤬ꤒꤢꤩ꤭", "when did": "ꤙꤤꤋꤢꤧ꤭ꤒꤢꤩ꤭" };
-                            tail = fixed[phrase] || (dict && (dict.get(phrase) || dict.get(whAux[1].toLowerCase()))) || tw(whAux[1]);
+                            tail = fixed[phrase] || (phrase === "what can" ? "ꤒꤤ꤭ꤒꤢꤩ꤭ꤢ꤬ꤔꤟꤤꤟꤟꤢꤧ꤭" : ((dict && (dict.get(phrase) || dict.get(whAux[1].toLowerCase()))) || tw(whAux[1])));
                             bodyWords = whAux[3].trim().split(/\s+/).filter(Boolean);
                         } else {
                             const a = yn[1].toLowerCase();
@@ -12351,7 +12351,49 @@
                             else tail = (tw(a) || a) + "ꤟꤟꤢꤧ꤭";
                         }
                         if (hasQ) tail += "?";
-                        return front.concat(bodyWords.map(tw), [tail]).join(" ");
+                        const clause = new Set(["if","when","unless","although","while","after","before","because","since"]);
+                        const idx = bodyWords.findIndex((w) => clause.has(String(w).toLowerCase()));
+                        const quant = new Set(["some","any"]);
+                        const rebuilt = [];
+                        for (let i = 0; i < bodyWords.length; i++) {
+                            const lw = String(bodyWords[i]).toLowerCase();
+                            if (lw === "going" && String(bodyWords[i+1] || "").toLowerCase() === "to") {
+                                rebuilt.push("__GT__");
+                                i++;
+                                continue;
+                            }
+                            if (quant.has(lw) && bodyWords[i+1] && !clause.has(String(bodyWords[i+1]).toLowerCase())) {
+                                rebuilt.push(bodyWords[i+1], bodyWords[i]);
+                                i++;
+                                continue;
+                            }
+                            rebuilt.push(bodyWords[i]);
+                        }
+                        const mapped = rebuilt.map((w) => w === "__GT__" ? "ꤊꤟꤢꤦ" : (String(w).toLowerCase() === "do" ? "ꤗꤟꤢꤩ꤬" : tw(w)));
+                        if (idx >= 0) return front.concat(mapped.slice(0, idx), [tail], mapped.slice(idx)).join(" ");
+                        return front.concat(mapped, [tail]).join(" ");
+                    }
+                }
+
+                {
+                    const rawAny = String(text).replace(/[’‘´′ʼ]/g,"'").replace(/[?!.]+$/,"").trim();
+                    if (/\b(some|any)\b/i.test(rawAny) && !/^(how|what|where|who|why|when|which|can|could|will|do|does|did)\b/i.test(rawAny)) {
+                        const tw = (w) => (typeof getWordTranslation === "function" && getWordTranslation(w)) || (dict && dict.get(String(w).toLowerCase())) || w;
+                        let words = rawAny.split(/\s+/).filter(Boolean);
+                        const neg = new Set(["doesn't","doesnt","don't","dont","didn't","didnt","not"]);
+                        const clause = new Set(["if","when","unless","although","while","after","before","because","since"]);
+                        const negTok = [];
+                        words = words.filter((w) => { if (neg.has(w.toLowerCase())) { negTok.push(w); return false; } return true; });
+                        const out = [];
+                        for (let i = 0; i < words.length; i++) {
+                            const lw = words[i].toLowerCase();
+                            if ((lw === "some" || lw === "any") && words[i+1] && !clause.has(words[i+1].toLowerCase())) {
+                                out.push(words[i+1], words[i]);
+                                i++;
+                            } else out.push(words[i]);
+                        }
+                        const negOut = negTok.map((w) => /^n'?t$|not/i.test(w) || /n't$/i.test(w) ? (tw(w) === w ? tw("doesn't") : tw(w)) : tw(w));
+                        return out.map(tw).concat(negOut).join(" ");
                     }
                 }
 
