@@ -34,12 +34,32 @@
   .menu-popup a .mi { width: 24px; height: 24px; flex: none; }
   .menu-popup a .mc { width: 20px; height: 20px; margin-left: auto; flex: none; color: #8b919a; }
   .menu-popup a span { flex: 1; }
+  body.word header.bar, body.word .search { display: none; }
+  header.wordbar { display: none; position: sticky; top: 0; z-index: 20; height: 56px; align-items: center; background: #1e88e5; color: #fff; }
+  body.word header.wordbar { display: flex; }
+  header.wordbar button { width: 44px; height: 44px; border: 0; background: transparent; color: #fff; display: flex; align-items: center; justify-content: center; padding: 0; }
+  header.wordbar .back { width: auto; gap: 2px; font-size: 18px; padding-left: 4px; }
+  header.wordbar .tools { margin-left: auto; display: flex; }
+  header.wordbar button:disabled { opacity: .35; }
+  #starWord svg { fill: none; }
+  #starWord.on svg { fill: currentColor; }
+  #detail h2 { font-size: 22px; font-weight: 500; }
 </style>
 </head>
 <body>
 <header class="bar">
   <button class="menu-toggle" id="menuToggle" aria-label="Menu"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/></svg></button>
   <h1>ꤍꤟꤥꤡꤟꤢꤪꤐꤟꤢ꤭</h1>
+</header>
+<header class="wordbar">
+  <button class="back" id="backWord" type="button"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg><span>ꤍꤟꤥꤡꤟꤢꤪꤐꤟꤢ꤭</span></button>
+  <div class="tools">
+    <button id="prevWord" type="button" aria-label="Previous"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="19 20 9 12 19 4 19 20"/><line x1="5" x2="5" y1="19" y2="5"/></svg></button>
+    <button id="nextWord" type="button" aria-label="Next"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 4 15 12 5 20 5 4"/><line x1="19" x2="19" y1="5" y2="19"/></svg></button>
+    <button id="starWord" type="button" aria-label="Star"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></button>
+    <button id="speakWord" type="button" aria-label="Speak"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg></button>
+    <button id="shareWord" type="button" aria-label="Share"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"/><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"/></svg></button>
+  </div>
 </header>
 <div class="menu-popup" id="menuPopup">
   <p class="app-menu-title">Main Menu</p>
@@ -109,6 +129,8 @@ function search(term) {
   return close.slice(0, 40).map(function (item) { return item[1]; });
 }
 function showList() {
+  document.body.classList.remove("word");
+  openEntry = null;
   detail.style.display = "none";
   detail.innerHTML = "";
   list.style.display = "";
@@ -126,13 +148,48 @@ function showList() {
     speakers[i].onclick = function () { speak(this.getAttribute("data-speak")); };
   }
 }
+function findIndex(entry) {
+  for (let i = 0; i < ENTRIES.length; i++) if (ENTRIES[i].slug === entry.slug) return i;
+  return -1;
+}
 function showDetail(entry) {
+  openEntry = entry;
+  document.body.classList.add("word");
   list.style.display = "none";
   const examples = (entry.examples || []).map(function (line) { return "<p>" + esc(line) + "</p>"; }).join("");
+  const ipa = entry.ipa ? " /" + esc(entry.ipa) + "/" : "";
   detail.style.display = "block";
-  detail.innerHTML = '<button class="back" id="back">← ꤍꤟꤥꤡꤟꤢꤪꤐꤟꤢ꤭</button><h2>' + esc(entry.en) + '</h2><p><b>(' + esc(entry.pos) + ')</b> ' + esc(entry.kyu) + '</p>' + (entry.ipa ? "<p>" + esc(entry.ipa) + "</p>" : "") + (entry.grammar ? "<p>" + esc(entry.grammar) + "</p>" : "") + examples;
-  document.getElementById("back").onclick = showList;
+  detail.innerHTML = "<h2>" + esc(entry.en) + ipa + "</h2><p><b>(" + esc(entry.pos) + ")</b> " + esc(entry.kyu) + "</p>" + (entry.grammar ? "<p>" + esc(entry.grammar) + "</p>" : "") + examples;
+  const index = findIndex(entry);
+  document.getElementById("prevWord").disabled = index <= 0;
+  document.getElementById("nextWord").disabled = index < 0 || index >= ENTRIES.length - 1;
+  document.getElementById("starWord").classList.toggle("on", localStorage.getItem("kyu-star:" + entry.slug) === "1");
+  window.scrollTo(0, 0);
 }
+let openEntry = null;
+document.getElementById("backWord").onclick = showList;
+document.getElementById("prevWord").onclick = function () {
+  const index = findIndex(openEntry);
+  if (index > 0) showDetail(ENTRIES[index - 1]);
+};
+document.getElementById("nextWord").onclick = function () {
+  const index = findIndex(openEntry);
+  if (index >= 0 && index < ENTRIES.length - 1) showDetail(ENTRIES[index + 1]);
+};
+document.getElementById("starWord").onclick = function () {
+  if (!openEntry) return;
+  const key = "kyu-star:" + openEntry.slug;
+  const on = localStorage.getItem(key) !== "1";
+  localStorage.setItem(key, on ? "1" : "0");
+  this.classList.toggle("on", on);
+};
+document.getElementById("speakWord").onclick = function () { if (openEntry) speak(openEntry.en); };
+document.getElementById("shareWord").onclick = function () {
+  if (!openEntry) return;
+  const text = openEntry.en + " (" + openEntry.pos + ") " + openEntry.kyu;
+  if (navigator.share) navigator.share({ title: openEntry.en, text: text });
+  else if (navigator.clipboard) navigator.clipboard.writeText(text);
+};
 q.addEventListener("input", showList);
 clearBtn.onclick = function () { q.value = ""; showList(); q.focus(); };
 document.getElementById("searchForm").onsubmit = function (event) { event.preventDefault(); };
