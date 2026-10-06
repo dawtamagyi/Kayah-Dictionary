@@ -915,9 +915,9 @@
                 ["bureaucracy", "ꤘꤢꤨ꤭ꤋꤢꤨ꤬ ꤒꤟꤢꤧ꤬ꤕꤣꤜꤟꤢꤩꤊꤜꤥ꤭"],
                 ["bureaucrat", "ꤕꤚꤟꤢꤧ꤬ꤕꤟꤢꤦꤗꤢ꤬ ꤘꤢꤨ꤭ꤋꤢꤨ꤬ꤋꤢ꤭ꤜꤟꤢꤩ"],
                 ["burglars", "ꤕꤚꤟꤢꤧ꤬ꤕꤟꤢꤦꤖꤢꤩ꤬ ꤛꤢꤧꤕꤜꤢꤧꤖꤢꤩ꤬ ꤢꤨ꤭"],
-                ["Burma", "ꤗꤟꤛꤢ꤬ꤊꤟꤢꤩ"],
+                ["Burma", "ꤗꤟꤛꤢ꤬ꤜꤟꤢꤪ꤬"],
                 ["Burman", "ꤗꤟꤛꤢ꤬ꤜꤟꤢꤪ꤬"],
-                ["Burmese", "ꤗꤟꤛꤢ꤬ꤍꤟꤥ"],
+                ["Burmese", "ꤗꤟꤛꤢ꤬ꤜꤟꤢꤪ꤬ꤖꤢꤨ"],
                 ["bus", "ꤜꤟꤥꤗꤤ꤬"],
                 ["bus station", "ꤜꤟꤢꤩꤥ꤬ꤊꤟꤊꤣ ꤜꤟꤥꤙꤢꤋꤢ꤭ꤜꤟꤢꤩ"],
                 ["bus stop", "ꤜꤟꤥꤙꤢꤋꤢ꤭ꤜꤟꤢꤩ ꤥ꤬ꤊꤟꤊꤣ"],
@@ -3765,7 +3765,7 @@
                 ["sweetheart", "ꤋꤥ꤭ꤕꤚꤟꤢꤧ꤬ꤗꤢꤪ꤬"],
                 ["sweetsop", "ꤞꤎꤢꤪ꤬ꤞꤢꤧ꤬ꤒꤢ꤬ꤕꤚꤢꤨ"],
                 ["swiftness", "ꤢ꤬ꤕꤚꤛꤢ꤭ꤜꤤ"],
-                ["swimming pool", "ꤤ꤬ꤐꤟꤥ꤭ꤓꤛꤢꤩ꤭ꤢꤪ꤬(ꤘꤢꤨ꤬)"],
+                ["swimming pool", "ꤒꤢ꤬ꤐꤟꤢꤧꤓꤛꤢꤩ꤭ꤢꤪ꤬"],
                 ["sword", "ꤔꤢꤧ"],
                 ["sympathy", "ꤒꤟꤢꤧ꤬ꤞꤢꤧꤐꤟꤢꤪ꤬ꤊꤜꤢ꤬ꤙꤢꤧ꤬"],
                 ["symptom", "ꤒꤟꤢꤧ꤬ꤏꤝꤤꤗꤢꤜꤟꤛꤣ꤭"],
@@ -6234,6 +6234,9 @@
                 ["sun.", "ꤗꤟꤢꤪꤑꤢꤩ꤭ꤘꤟꤌꤣ꤬"],
                 ["karenni", "ꤊꤢ꤬ꤛꤢ꤭ꤜꤟꤤ꤬"],
                 ["kayah li", "ꤊꤢ꤬ꤛꤢ꤭ꤜꤟꤤ꤬"],
+                ["red kayah", "ꤊꤢ꤬ꤛꤢ꤭ꤜꤟꤤ꤬"],
+                ["gutter", "ꤟꤤ꤬ꤊꤛꤢ꤭ꤡꤌꤣ꤭ꤓꤛꤢꤩ꤭ꤊꤜꤥ꤭"],
+                ["english-kayah li", "ꤊꤢꤨ꤭ꤜꤢ꤭-ꤊꤢ꤬ꤛꤢ꤭ꤜꤟꤤ꤬"],
                 ["last", "ꤘꤣꤋꤛꤢꤩ꤭"],
                 ["last week", "ꤢ꤬ꤚꤟꤢꤩꤒꤣ꤬ꤊꤜꤢꤧ"],
                 ["last month", "ꤢ꤬ꤚꤟꤢꤩꤒꤣ꤬ꤜꤢꤧ꤭"],
@@ -8469,7 +8472,7 @@
                         return true;
                     }
                 }
-                const commonNouns = ["school", "home", "work", "church", "hotel", "box", "table", "water", "book", "name", "house", "day", "meeting", "train", "committee", "storm", "teacher", "homework", "girl", "leader", "doors", "seats", "food", "room", "ticket", "tickets", "plane", "bus", "night", "rain", "screenshot", "money", "country", "books", "girlfriend", "girlfriends", "idea", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
+                const commonNouns = ["burma", "burmese", "red kayah", "gutter", "bible", "swimming pool", "school", "home", "work", "church", "hotel", "box", "table", "water", "book", "name", "house", "day", "meeting", "train", "committee", "storm", "teacher", "homework", "girl", "leader", "doors", "seats", "food", "room", "ticket", "tickets", "plane", "bus", "night", "rain", "screenshot", "money", "country", "books", "girlfriend", "girlfriends", "idea", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
                 if (commonNouns.includes(lower)) {
                     return true;
                 }
@@ -8567,6 +8570,17 @@
 
             function getWordTranslation(word) {
                 if (String(word).toLowerCase().replace(/[.,;!?]+$/, "") === "be") return "ꤥ꤬";
+                if (/[()\/-]/.test(String(word)) && !/^[꤀-꤯]/.test(String(word))) {
+                    const rawMark = String(word);
+                    const hit = (b) => (dict && (dict.get(String(b).toLowerCase()) || dict.get(b))) || b;
+                    const paren = rawMark.match(/^\((.+)\)$/);
+                    if (paren) return "(" + hit(paren[1]) + ")";
+                    if (rawMark.includes("/")) return rawMark.split(/\s*\/\s*/).map(hit).join("/");
+                    if (rawMark.includes("-")) {
+                        const bits = rawMark.split(/\s*-\s*/).filter(Boolean);
+                        if (bits.length > 1) return bits.map(hit).join("-");
+                    }
+                }
                 {
                     const raw = String(word).toLowerCase().replace(/[.,;!?]+$/, "");
                     const stemFix = { piti: "pity", shame: "shame", hurt: "hurt", heart: "heart", use: "use", help: "help", care: "care", hope: "hope", fear: "fear", pain: "pain", rest: "rest", thought: "thought", power: "power", harm: "harm" };
@@ -12320,6 +12334,76 @@
             function translateToKayah(text) {
                 if (!text.trim()) return "";
                 {
+                    const wrapped = String(text).trim().match(/^\((.+)\)\s*$/);
+                    if (wrapped) {
+                        const inner = translateToKayah(wrapped[1]);
+                        return "(" + String(inner || "").trim() + ")";
+                    }
+                }
+                if (/[()\/]|\s-\s|[-]/.test(text) && /[A-Za-z]/.test(text)) {
+                    const tw = (w) => (typeof getWordTranslation === "function" && getWordTranslation(w)) || (dict && dict.get(String(w).toLowerCase())) || w;
+                    const one = (w) => tw(String(w).trim());
+                    let replaced = String(text).replace(/\(([^()]+)\)/g, function(_, inner) {
+                        return "(" + one(inner) + ")";
+                    });
+                    replaced = replaced.replace(/([A-Za-z0-9]+)\s*\/\s*([A-Za-z0-9]+)/g, function(_, a, b) {
+                        return one(a) + "/" + one(b);
+                    });
+                    replaced = replaced.replace(/([A-Za-z][A-Za-z ]*?)\s*-\s*([A-Za-z][A-Za-z ]*)/g, function(_, a, b) {
+                        return one(a) + "-" + one(b);
+                    });
+                    if (replaced !== text && !/[A-Za-z]{2,}/.test(replaced.replace(/[()\/-]/g, " "))) return replaced.replace(/[?!.]+$/, "").trim();
+                }
+
+                {
+                    const rawL = String(text).replace(/[’‘´′ʼ]/g, "'").replace(/[?!.]+$/, "").trim();
+                    if (/^let'?s\b/i.test(rawL)) {
+                        const tw = (w) => (typeof getWordTranslation === "function" && getWordTranslation(w)) || (dict && dict.get(String(w).toLowerCase())) || w;
+                        const isAdj = (w) => typeof adjectiveMap !== "undefined" && adjectiveMap.has(String(w).toLowerCase());
+                        const poss = new Set(["my","your","his","her","our","their","its"]);
+                        let words = rawL.replace(/^let'?s\s+/i, "").split(/\s+/).filter(Boolean);
+                        const out = [];
+                        for (let i = 0; i < words.length; i++) {
+                            const lw = words[i].toLowerCase();
+                            if (lw === "go" && String(words[i + 1] || "").toLowerCase() === "back") { out.push("ꤊꤟꤢ꤬ꤋꤛꤢꤩ꤭"); i++; continue; }
+                            if (lw === "to") { out.push("ꤘꤣ"); continue; }
+                            if (isAdj(lw) && words[i + 1]) {
+                                const nxt = words[i + 1];
+                                if (poss.has(String(words[i - 1] || "").toLowerCase()) && out.length) {
+                                    out.push(nxt, words[i]);
+                                    i++;
+                                    continue;
+                                }
+                                out.push(nxt, words[i]);
+                                i++;
+                                continue;
+                            }
+                            out.push(tw(words[i]));
+                        }
+                        const fixed = [];
+                        for (let i = 0; i < out.length; i++) {
+                            fixed.push(out[i] === "ꤘꤣ" || /[꤀-꤯]/.test(out[i]) ? out[i] : tw(out[i]));
+                        }
+                        fixed.push(tw("let's") || "ꤘꤛꤢꤩ");
+                        return fixed.join(" ").replace(/\s+/g, " ").trim();
+                    }
+                }
+
+                {
+                    const rawB = String(text).replace(/[’‘´′ʼ]/g, "'").replace(/[?!.]+$/, "").trim();
+                    const been = rawB.match(/^(.+?)\s+(have|has|had) been\s+(\w+ing)(?:\s+(for|to|at|with))?\s*(.*)$/i);
+                    if (been) {
+                        const tw = (w) => (typeof getWordTranslation === "function" && getWordTranslation(w)) || (dict && dict.get(String(w).toLowerCase())) || w;
+                        const subj = been[1].trim().split(/\s+/).filter(Boolean).map(tw);
+                        const ing = been[3];
+                        const prep = been[4] ? " " + been[4].toLowerCase() : "";
+                        const rest = (been[5] || "").trim().split(/\s+/).filter(Boolean).map(tw);
+                        const verb = tw(ing + prep) === (ing + prep) ? tw(ing) + (prep ? " " + tw(prep.trim()) : "") : tw(ing + prep);
+                        return subj.concat(["ꤥ꤬", verb], rest, ["ꤟꤢꤪ"]).join(" ").replace(/\s+/g, " ").trim();
+                    }
+                }
+
+                {
                     const srcQ = String(text).replace(/[’‘´′ʼ]/g, "'").trim();
                     const hasQ = /[?？]\s*$/.test(srcQ);
                     const bodyQ = srcQ.replace(/[?？]+\s*$/g, "").trim();
@@ -12350,9 +12434,9 @@
                             else if (a === "do" || a === "does" || a === "did") tail = "ꤟꤟꤢꤧ꤭";
                             else tail = (tw(a) || a) + "ꤟꤟꤢꤧ꤭";
                         }
-                        if (hasQ) tail += "?";
                         const clause = new Set(["if","when","unless","although","while","after","before","because","since"]);
                         const idx = bodyWords.findIndex((w) => clause.has(String(w).toLowerCase()));
+                        if (hasQ && idx < 0) tail += "?";
                         const quant = new Set(["some","any"]);
                         const rebuilt = [];
                         for (let i = 0; i < bodyWords.length; i++) {
@@ -12370,8 +12454,9 @@
                             rebuilt.push(bodyWords[i]);
                         }
                         const mapped = rebuilt.map((w) => w === "__GT__" ? "ꤊꤟꤢꤦ" : (String(w).toLowerCase() === "do" ? "ꤗꤟꤢꤩ꤬" : tw(w)));
-                        if (idx >= 0) return front.concat(mapped.slice(0, idx), [tail], mapped.slice(idx)).join(" ");
-                        return front.concat(mapped, [tail]).join(" ");
+                        const out = idx >= 0 ? front.concat(mapped.slice(0, idx), [tail], mapped.slice(idx)) : front.concat(mapped, [tail]);
+                        if (hasQ && idx >= 0 && out.length) out[out.length - 1] = out[out.length - 1] + "?";
+                        return out.join(" ");
                     }
                 }
 
@@ -12598,6 +12683,14 @@
                             add("by themselves", "ꤊꤟꤊꤣ꤭ꤘꤢꤦ꤭ ꤢꤧ꤬ꤞꤤ꤭ꤒꤢꤧ꤭");
                             add("by itself", "ꤊꤟꤊꤣ꤭ꤘꤢꤦ꤬ ꤢ꤬ꤒꤢꤧ꤭");
                             add("own", "ꤔꤟꤤꤘꤢꤦ꤬");
+                            add("go back", "ꤊꤟꤢ꤬ꤋꤛꤢꤩ꤭");
+                            add("burma", "ꤗꤟꤛꤢ꤬ꤜꤟꤢꤪ꤬");
+                            add("burmese", "ꤗꤟꤛꤢ꤬ꤜꤟꤢꤪ꤬ꤖꤢꤨ");
+                            add("red kayah", "ꤊꤢ꤬ꤛꤢ꤭ꤜꤟꤤ꤬");
+                            add("swimming pool", "ꤒꤢ꤬ꤐꤟꤢꤧꤓꤛꤢꤩ꤭ꤢꤪ꤬");
+                            add("gutter", "ꤟꤤ꤬ꤊꤛꤢ꤭ꤡꤌꤣ꤭ꤓꤛꤢꤩ꤭ꤊꤜꤥ꤭");
+                            add("bible", "ꤜꤤ꤬ꤡꤢ꤭ꤏꤢꤧ꤭");
+                            add("english-kayah li", "ꤊꤢꤨ꤭ꤜꤢ꤭-ꤊꤢ꤬ꤛꤢ꤭ꤜꤟꤤ꤬");
                             add("much", "ꤢꤧ");
                             add("refuse", "ꤡꤟꤢꤨ꤭ꤒꤥ꤬");
                             add("refused", "ꤡꤟꤢꤨ꤭ꤒꤥ꤬");
@@ -25493,6 +25586,14 @@
                             add("by themselves", "ꤊꤟꤊꤣ꤭ꤘꤢꤦ꤭ ꤢꤧ꤬ꤞꤤ꤭ꤒꤢꤧ꤭");
                             add("by itself", "ꤊꤟꤊꤣ꤭ꤘꤢꤦ꤬ ꤢ꤬ꤒꤢꤧ꤭");
                             add("own", "ꤔꤟꤤꤘꤢꤦ꤬");
+                            add("go back", "ꤊꤟꤢ꤬ꤋꤛꤢꤩ꤭");
+                            add("burma", "ꤗꤟꤛꤢ꤬ꤜꤟꤢꤪ꤬");
+                            add("burmese", "ꤗꤟꤛꤢ꤬ꤜꤟꤢꤪ꤬ꤖꤢꤨ");
+                            add("red kayah", "ꤊꤢ꤬ꤛꤢ꤭ꤜꤟꤤ꤬");
+                            add("swimming pool", "ꤒꤢ꤬ꤐꤟꤢꤧꤓꤛꤢꤩ꤭ꤢꤪ꤬");
+                            add("gutter", "ꤟꤤ꤬ꤊꤛꤢ꤭ꤡꤌꤣ꤭ꤓꤛꤢꤩ꤭ꤊꤜꤥ꤭");
+                            add("bible", "ꤜꤤ꤬ꤡꤢ꤭ꤏꤢꤧ꤭");
+                            add("english-kayah li", "ꤊꤢꤨ꤭ꤜꤢ꤭-ꤊꤢ꤬ꤛꤢ꤭ꤜꤟꤤ꤬");
                             add("much", "ꤢꤧ");
                             add("refuse", "ꤡꤟꤢꤨ꤭ꤒꤥ꤬");
                             add("refused", "ꤡꤟꤢꤨ꤭ꤒꤥ꤬");
