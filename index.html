@@ -6,7 +6,7 @@
 <title>ꤍꤟꤥꤡꤟꤢꤪꤐꤟꤢ꤭</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Kay+Pho+Du:wght@400;600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Kay+Pho+Du:wght@400&family=Roboto:wght@400&display=swap" rel="stylesheet">
 <style>
   html, body { margin: 0; background: #e7eef6; color: #111; }
   body { max-width: 448px; margin: 0 auto; min-height: 100vh; background: #fff; box-shadow: 0 12px 40px rgba(15,23,42,.12); font-family: "Kay Pho Du", serif; font-size: 18px; }
@@ -23,19 +23,20 @@
   li button.word { flex: 1; min-width: 0; height: 80px; overflow: hidden; text-align: left; border: 0; background: transparent; padding: 0 16px; font: inherit; color: #111; display: flex; flex-direction: column; justify-content: center; }
   li .en { margin: 0; height: 24px; line-height: 24px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 18px; }
   li .sense { margin: 2px 0 0; height: 24px; line-height: 24px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 16px; }
-  li .pos { font-family: Roboto, sans-serif; font-weight: 700; margin-right: 4px; }
+  li .pos { font-family: Roboto, sans-serif; font-weight: 400; margin-right: 4px; }
   .speak { width: 56px; height: 80px; flex: none; border: 0; background: transparent; color: #111; }
   .del { width: 56px; flex: none; border: 0; background: transparent; color: #fff; }
   .del span { display: flex; width: 28px; height: 28px; margin: 0 auto; align-items: center; justify-content: center; border-radius: 50%; background: #8b919a; font-size: 18px; line-height: 1; }
-  #detail { display: none; padding: 16px; }
+  #detail p.ex { font-style: italic; }
   #detail h2 { margin: 0 0 8px; font-size: 22px; }
   .back { border: 0; background: transparent; color: #1e88e5; font: inherit; padding: 0 0 12px; }
   .menu-popup { display: none; position: fixed; top: 0; left: max(0px, calc(50% - 224px)); width: min(349px, 78vw); height: 100%; background: #fff; z-index: 40; overflow: auto; }
   .app-menu-title { margin: 0; height: 56px; display: flex; align-items: center; justify-content: center; background: #1e88e5; color: #fff; font-family: Roboto, sans-serif; font-size: 20px; }
-  .menu-popup a { display: flex; align-items: center; gap: 16px; min-height: 56px; padding: 14px 16px; border-bottom: 1px solid #e6e6e6; color: #111; text-decoration: none; font-size: 18px; }
-  .menu-popup a .mi { width: 24px; height: 24px; flex: none; }
+  .menu-popup a, .menu-popup a:link, .menu-popup a:visited, .menu-popup a:hover, .menu-popup a:active { display: flex; align-items: center; gap: 16px; height: 50px; min-height: 50px; max-height: 50px; box-sizing: border-box; padding: 0 16px; overflow: hidden; border-bottom: 1px solid #e6e6e6; color: #111111; text-decoration: none; font-family: "Kay Pho Du", serif; font-size: 18px; font-weight: 400; }
+  .menu-popup a .mi { width: 24px; height: 24px; flex: none; color: #111111; }
   .menu-popup a .mc { width: 20px; height: 20px; margin-left: auto; flex: none; color: #8b919a; }
-  .menu-popup a span { flex: 1; }
+  .menu-popup a span { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 24px; color: #111111; font-size: 18px; font-family: "Kay Pho Du", serif; font-weight: 400; }
+  .menu-popup a:nth-of-type(even) { background: #f3f6fb; }
   body.word header.bar, body.word .search { display: none; }
   header.wordbar { display: none; position: sticky; top: 0; z-index: 20; height: 56px; align-items: center; background: #1e88e5; color: #fff; }
   body.word header.wordbar { display: flex; }
@@ -46,6 +47,11 @@
   #starWord svg { fill: none; }
   #starWord.on svg { fill: currentColor; }
   #detail h2 { font-size: 22px; font-weight: 500; }
+
+b, strong, h1, h2, h3, th, em, header, ul, li, p, a, span, button, .menu-popup, .menu-popup a, .menu-popup a span, .app-menu-title {
+  font-weight: 400 !important;
+  font-synthesis: none !important;
+}
 </style>
 </head>
 <body>
@@ -65,6 +71,7 @@
 </header>
 <div class="menu-popup" id="menuPopup">
   <p class="app-menu-title">Main Menu</p>
+  <a href="#" id="openDictionary"><svg class="mi" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><span>ꤍꤟꤥꤡꤟꤢꤪꤐꤟꤢ꤭</span><svg class="mc" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a>
   <a href="translator.html"><svg class="mi" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/></svg><span>ꤍꤟꤥꤕꤟꤥ꤬ꤓꤢꤩ꤬ꤢ꤬ꤖꤟꤌꤣ꤬</span><svg class="mc" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a>
   <a href="learning.html"><svg class="mi" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg><span>ꤟꤢꤩꤞꤛꤥ ꤜꤤ꤬ꤊꤢ꤬ꤛꤢ꤭ꤜꤟꤤ꤬</span><svg class="mc" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a>
   <a href="proverb.html"><svg class="mi" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z"/><path d="M5 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z"/></svg><span>ꤍꤟꤥ꤫ꤋꤢꤋꤥ꤬</span><svg class="mc" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a>
@@ -8980,10 +8987,10 @@ function showDetail(entry) {
   openEntry = entry;
   document.body.classList.add("word");
   list.style.display = "none";
-  const examples = (entry.examples || []).map(function (line) { return "<p>" + esc(line) + "</p>"; }).join("");
+  const examples = (entry.examples || []).map(function (line) { return "<p class=\"ex\">" + esc(line) + "</p>"; }).join("");
   const ipa = entry.ipa ? " /" + esc(entry.ipa) + "/" : "";
   detail.style.display = "block";
-  detail.innerHTML = "<h2>" + esc(entry.en) + ipa + "</h2><p><b>(" + esc(entry.pos) + ")</b> " + esc(entry.kyu) + "</p>" + (entry.grammar ? "<p>" + esc(entry.grammar) + "</p>" : "") + examples;
+  detail.innerHTML = "<h2>" + esc(entry.en) + ipa + "</h2><p><span>(" + esc(entry.pos) + ")</span> " + esc(entry.kyu) + "</p>" + (entry.grammar ? "<p>" + esc(entry.grammar) + "</p>" : "") + examples;
   const index = findIndex(entry);
   document.getElementById("prevWord").disabled = index <= 0;
   document.getElementById("nextWord").disabled = index < 0 || index >= ENTRIES.length - 1;
@@ -9022,7 +9029,7 @@ document.getElementById("shareWord").onclick = function () {
 q.addEventListener("input", showList);
 clearBtn.onclick = function () { q.value = ""; showList(); q.focus(); };
 document.getElementById("searchForm").onsubmit = function (event) { event.preventDefault(); };
-document.getElementById("openHistory").onclick = function (event) { event.preventDefault(); showSaved("history"); };
+document.getElementById("openDictionary").onclick = function (event) { event.preventDefault(); menu.style.display = "none"; showList(); };
 document.getElementById("openFavorite").onclick = function (event) { event.preventDefault(); showSaved("favorite"); };
 if (location.hash === "#history") showSaved("history");
 else if (location.hash === "#favorite") showSaved("favorite");

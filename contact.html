@@ -7,7 +7,7 @@
 	<title>ꤕꤜꤝꤥ꤭ꤓꤢꤦ꤭</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Kay+Pho+Du:wght@600;700&family=Noto+Serif+Myanmar:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kay+Pho+Du:wght@400&family=Noto+Serif+Myanmar:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <style>
         html, body {
@@ -231,9 +231,12 @@ body {
   align-items: center;
   box-sizing: border-box;
   width: 100% !important;
-  min-height: 56px !important;
+  height: 50px !important;
+  min-height: 50px !important;
+  max-height: 50px !important;
   margin: 0 !important;
-  padding: 14px 16px !important;
+  padding: 0 16px !important;
+  overflow: hidden !important;
   background: #ffffff !important;
   color: #111111 !important;
   border: none !important;
@@ -249,7 +252,9 @@ body {
 }
 .menu-popup a .mi { width: 24px !important; height: 24px !important; flex: none; color: #3a3a3a; }
 .menu-popup a .mc { width: 20px !important; height: 20px !important; margin-left: auto; flex: none; color: #8b919a; }
-.menu-popup a span { flex: 1; font-size: 18px !important; line-height: 1.35; }
+.menu-popup a:link, .menu-popup a:visited, .menu-popup a:hover, .menu-popup a:active { color: #111111 !important; font-size: 18px !important; font-family: "Kay Pho Du", serif !important; font-weight: 400 !important; }
+.menu-popup a span { flex: 1; min-width: 0; color: #111111 !important; font-size: 18px !important; font-family: "Kay Pho Du", serif !important; font-weight: 400 !important; line-height: 24px !important; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.menu-popup a:nth-of-type(even) { background: #f3f6fb !important; }
 .menu-popup a:hover,
 .index-btn:hover, .contact-btn:hover, .translator-btn:hover, .introduction-btn:hover, .learning-btn:hover, .proverb-btn:hover, .calendar-btn:hover {
   background: #e3f2fd !important;
@@ -317,6 +322,11 @@ input, textarea, .output-box {
 .nav-btn:hover, .icon-btn:hover { background: #1565c0 !important; }
 .video-item p { color: #ffffff !important; font-size: 18px !important; }
 iframe { max-width: 100% !important; }
+
+b, strong, h1, h2, h3, th, em, .menu-popup, .menu-popup a, .menu-popup a span, .app-menu-title, main, main *, .container, .container * {
+  font-weight: 400 !important;
+  font-synthesis: none !important;
+}
 </style>
 </head>
 <body>
