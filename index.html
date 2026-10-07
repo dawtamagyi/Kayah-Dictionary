@@ -27,7 +27,9 @@
   .speak { width: 56px; height: 80px; flex: none; border: 0; background: transparent; color: #111; }
   .del { width: 56px; flex: none; border: 0; background: transparent; color: #fff; }
   .del span { display: flex; width: 28px; height: 28px; margin: 0 auto; align-items: center; justify-content: center; border-radius: 50%; background: #8b919a; font-size: 18px; line-height: 1; }
-  #detail p.ex { font-style: italic; }
+  #detail { display: none; box-sizing: border-box; padding: 20px 28px 32px !important; background: #fff !important; }
+  #detail p { margin: 14px 0; }
+  #detail p.ex { font-style: italic; font-size: 14px; line-height: 1.45; }
   #detail h2 { margin: 0 0 8px; font-size: 22px; }
   .back { border: 0; background: transparent; color: #1e88e5; font: inherit; padding: 0 0 12px; }
   .menu-popup { display: none; position: fixed; top: 0; left: max(0px, calc(50% - 224px)); width: min(349px, 78vw); height: 100%; background: #fff; z-index: 40; overflow: auto; }
@@ -67,6 +69,7 @@ html body .example {
   font-style: italic !important;
   font-synthesis: style !important;
   font-weight: 400 !important;
+  font-size: 14px !important;
 }
 </style>
 </head>
