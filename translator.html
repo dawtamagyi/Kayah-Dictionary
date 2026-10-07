@@ -2451,6 +2451,7 @@ html body .example {
                 ["Jerusalem", "ꤛꤢ꤬ꤚꤢꤨꤏꤛꤢ꤬ꤜꤢꤩ꤬"],
                 ["jest", "ꤒꤟꤢꤧ꤬ꤗꤟꤢꤩ꤬ꤞꤢꤧꤑꤟꤢꤩ꤭"],
                 ["Jesus", "ꤛꤢꤩ꤬ꤏꤛꤢꤨ"],
+                ["Jesus Christ", "ꤛꤢꤩ꤬ꤏꤛꤢꤨꤋꤚꤤ"],
                 ["Jew", "ꤡꤛꤢꤨ꤭"],
                 ["jewel", "ꤜꤟꤢꤪꤞꤢꤩꤜꤟꤢꤪꤕꤚꤟꤥ꤬"],
                 ["jeweler", "ꤕꤚꤟꤢꤧ꤬ꤤ꤬ꤏꤢꤧ꤭ꤜꤟꤢꤪꤞꤢꤩꤜꤟꤢꤪꤕꤚꤟꤥ꤬"],
@@ -12549,6 +12550,28 @@ html body .example {
                         return "(" + String(inner || "").trim() + ")";
                     }
                 }
+                {
+                    const rawWill = String(text).replace(/[’‘´′ʼ]/g, "'").replace(/[?!.]+$/, "").trim();
+                    const bePoss = rawWill.match(/^(.+?)\s+will\s+be\s+(my|your|his|her|our|their)\s+(.+)$/i);
+                    if (bePoss) {
+                        const tw = (w) => (typeof getWordTranslation === "function" && getWordTranslation(w)) || (dict && dict.get(String(w).toLowerCase())) || w;
+                        const beMap = { my: "ꤓꤝꤟꤥ꤭ ꤠꤢ꤭", your: "ꤓꤝꤟꤥ꤭ ꤔꤟꤢꤧ꤬", his: "ꤓꤝꤟꤥ꤭ ꤢꤧ꤬", her: "ꤓꤝꤟꤥ꤭ ꤢꤧ꤬", our: "ꤓꤝꤟꤥ꤭ ꤕꤟꤢꤧ꤬", their: "ꤓꤝꤟꤥ꤭ ꤢꤧ꤬ꤞꤤ꤭" };
+                        const subj = bePoss[1].trim().split(/\s+/).filter(Boolean).map(tw);
+                        const noun = bePoss[3].trim().split(/\s+/).filter(Boolean).map(tw);
+                        return subj.concat([beMap[bePoss[2].toLowerCase()]], noun, ["ꤕꤢ꤭"]).join(" ").replace(/\s+/g, " ").trim();
+                    }
+                }
+                {
+                    const rawBe = String(text).replace(/[’‘´′ʼ]/g, "'").replace(/[?!.]+$/, "").trim();
+                    const beQ = rawBe.match(/^(am|is|are|was|were)\s+(\w+)\s+(\w+ing)\s+for\s+(.+)$/i);
+                    if (beQ) {
+                        const tw = (w) => (typeof getWordTranslation === "function" && getWordTranslation(w)) || (dict && dict.get(String(w).toLowerCase())) || w;
+                        const obj = beQ[4].trim().split(/\s+/).filter(Boolean).map(tw);
+                        const looking = tw(beQ[3] + " for");
+                        const verbFor = looking === (beQ[3] + " for").toLowerCase() || looking === beQ[3] + " for" ? tw(beQ[3]) + " " + tw("for") : looking;
+                        return [tw(beQ[2]), verbFor].concat(obj, ["ꤟꤟꤢꤧ꤭"]).join(" ").replace(/\s+/g, " ").trim();
+                    }
+                }
                 if (/[()\/]|\s-\s|[-]/.test(text) && /[A-Za-z]/.test(text)) {
                     const tw = (w) => (typeof getWordTranslation === "function" && getWordTranslation(w)) || (dict && dict.get(String(w).toLowerCase())) || w;
                     const one = (w) => tw(String(w).trim());
@@ -12899,6 +12922,14 @@ html body .example {
                             add("swimming pool", "ꤒꤢ꤬ꤐꤟꤢꤧꤓꤛꤢꤩ꤭ꤢꤪ꤬");
                             add("gutter", "ꤟꤤ꤬ꤊꤛꤢ꤭ꤡꤌꤣ꤭ꤓꤛꤢꤩ꤭ꤊꤜꤥ꤭");
                             add("bible", "ꤜꤤ꤬ꤡꤢ꤭ꤏꤢꤧ꤭");
+                            add("jesus", "ꤛꤢꤩ꤬ꤏꤛꤢꤨ");
+                            add("jesus christ", "ꤛꤢꤩ꤬ꤏꤛꤢꤨꤋꤚꤤ");
+                            add("be my", "ꤓꤝꤟꤥ꤭ ꤠꤢ꤭");
+                            add("be your", "ꤓꤝꤟꤥ꤭ ꤔꤟꤢꤧ꤬");
+                            add("be his", "ꤓꤝꤟꤥ꤭ ꤢꤧ꤬");
+                            add("be her", "ꤓꤝꤟꤥ꤭ ꤢꤧ꤬");
+                            add("be our", "ꤓꤝꤟꤥ꤭ ꤕꤟꤢꤧ꤬");
+                            add("be their", "ꤓꤝꤟꤥ꤭ ꤢꤧ꤬ꤞꤤ꤭");
                             add("english-kayah li", "ꤊꤢꤨ꤭ꤜꤢ꤭-ꤊꤢ꤬ꤛꤢ꤭ꤜꤟꤤ꤬");
                             add("much", "ꤢꤧ");
                             add("refuse", "ꤡꤟꤢꤨ꤭ꤒꤥ꤬");
@@ -25802,6 +25833,14 @@ html body .example {
                             add("swimming pool", "ꤒꤢ꤬ꤐꤟꤢꤧꤓꤛꤢꤩ꤭ꤢꤪ꤬");
                             add("gutter", "ꤟꤤ꤬ꤊꤛꤢ꤭ꤡꤌꤣ꤭ꤓꤛꤢꤩ꤭ꤊꤜꤥ꤭");
                             add("bible", "ꤜꤤ꤬ꤡꤢ꤭ꤏꤢꤧ꤭");
+                            add("jesus", "ꤛꤢꤩ꤬ꤏꤛꤢꤨ");
+                            add("jesus christ", "ꤛꤢꤩ꤬ꤏꤛꤢꤨꤋꤚꤤ");
+                            add("be my", "ꤓꤝꤟꤥ꤭ ꤠꤢ꤭");
+                            add("be your", "ꤓꤝꤟꤥ꤭ ꤔꤟꤢꤧ꤬");
+                            add("be his", "ꤓꤝꤟꤥ꤭ ꤢꤧ꤬");
+                            add("be her", "ꤓꤝꤟꤥ꤭ ꤢꤧ꤬");
+                            add("be our", "ꤓꤝꤟꤥ꤭ ꤕꤟꤢꤧ꤬");
+                            add("be their", "ꤓꤝꤟꤥ꤭ ꤢꤧ꤬ꤞꤤ꤭");
                             add("english-kayah li", "ꤊꤢꤨ꤭ꤜꤢ꤭-ꤊꤢ꤬ꤛꤢ꤭ꤜꤟꤤ꤬");
                             add("much", "ꤢꤧ");
                             add("refuse", "ꤡꤟꤢꤨ꤭ꤒꤥ꤬");
