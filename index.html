@@ -132,12 +132,41 @@ function esc(value) {
     return "&" + "quot;";
   });
 }
+function getVoices() {
+  return window.speechSynthesis ? speechSynthesis.getVoices() : [];
+}
+function pickVoice(lang) {
+  var voices = getVoices();
+  if (!voices.length) return null;
+  lang = (lang || "en-US").toLowerCase();
+  var exact = voices.find(function(v) { return v.lang && v.lang.toLowerCase() === lang; });
+  if (exact) return exact;
+  var prefix = lang.split("-")[0];
+  var partial = voices.find(function(v) { return v.lang && v.lang.toLowerCase().indexOf(prefix) === 0; });
+  return partial || null;
+}
 function speak(text, lang) {
   if (!window.speechSynthesis || !text) return;
-  const u = new SpeechSynthesisUtterance(text);
-  u.lang = lang || "my-MM";
+  // iOS PWA workaround: cancel any pending, then speak after voices are ready
   speechSynthesis.cancel();
-  speechSynthesis.speak(u);
+  function doSpeak() {
+    var u = new SpeechSynthesisUtterance(text);
+    u.lang = lang || "en-US";
+    var voice = pickVoice(u.lang);
+    if (voice) u.voice = voice;
+    // iOS often needs a tiny delay after cancel
+    setTimeout(function() { speechSynthesis.speak(u); }, 50);
+  }
+  if (getVoices().length) {
+    doSpeak();
+  } else {
+    speechSynthesis.onvoiceschanged = function() {
+      speechSynthesis.onvoiceschanged = null;
+      doSpeak();
+    };
+    // Force voices to load on some iOS versions
+    speechSynthesis.getVoices();
+  }
 }
 function speakAll(entry) {
   if (!window.speechSynthesis || !entry) return;
