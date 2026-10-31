@@ -66,6 +66,11 @@ html body #detail p.ex, html body .example {
   font-weight: 400 !important;
   font-size: 14px !important;
 }
+
+.line { display:flex; align-items:center; justify-content:space-between; gap:8px; }
+.line-text { flex:1; min-width:0; }
+.speak-inline { border:0; background:transparent; color:#1e88e5; padding:4px 8px; font-size:18px; cursor:pointer; flex:none; }
+.speak-inline:hover { color:#1565c0; }
 </style>
 </head>
 <body>
@@ -127,12 +132,31 @@ function esc(value) {
     return "&" + "quot;";
   });
 }
-function speak(text) {
+function speak(text, lang) {
   if (!window.speechSynthesis || !text) return;
   const u = new SpeechSynthesisUtterance(text);
-  u.lang = /[\uA900-\uA92F]/.test(text) ? "my-MM" : "en-US";
+  u.lang = lang || "my-MM";
   speechSynthesis.cancel();
   speechSynthesis.speak(u);
+}
+function speakAll(entry) {
+  if (!window.speechSynthesis || !entry) return;
+  speechSynthesis.cancel();
+  const parts = [];
+  if (entry.en) parts.push({ text: entry.en, lang: "en-US" });
+  if (entry.burmese) parts.push({ text: entry.burmese, lang: "my-MM" });
+  if (entry.kyu) parts.push({ text: entry.kyu, lang: "my-MM" });
+  if (!parts.length) return;
+  let i = 0;
+  function next() {
+    if (i >= parts.length) return;
+    const p = parts[i++];
+    const u = new SpeechSynthesisUtterance(p.text);
+    u.lang = p.lang;
+    u.onend = next;
+    speechSynthesis.speak(u);
+  }
+  next();
 }
 function parseCSV(str) {
   const rows = [];
@@ -209,6 +233,27 @@ function search(term) {
   });
   return close.slice(0, 50).map(function (item) { return item[1]; });
 }
+
+function uniqueByEnglish(rows) {
+  const seen = {};
+  const result = [];
+  for (let i = 0; i < rows.length; i++) {
+    const en = String(rows[i].en || "").toLowerCase().trim();
+    if (!en || seen[en]) continue;
+    seen[en] = true;
+    result.push(rows[i]);
+  }
+  return result;
+}
+function allForEnglish(en) {
+  const lower = String(en || "").toLowerCase().trim();
+  if (!lower) return [];
+  const matches = [];
+  for (let i = 0; i < ENTRIES.length; i++) {
+    if (String(ENTRIES[i].en || "").toLowerCase().trim() === lower) matches.push(ENTRIES[i]);
+  }
+  return matches;
+}
 function showList() {
   lastView = "search";
   document.body.classList.remove("word");
@@ -218,7 +263,7 @@ function showList() {
   list.style.display = "";
   const rows = q.value.trim() ? search(q.value) : [];
   clearBtn.hidden = !q.value;
-  paint(rows);
+  paint(uniqueByEnglish(rows));
 }
 function findIndex(entry) {
   for (let i = 0; i < ENTRIES.length; i++) if (ENTRIES[i].slug === entry.slug) return i;
@@ -268,16 +313,20 @@ function paint(rows, kind) {
   }
   list.innerHTML = rows.map(function (entry, index) {
     var sense = "<span class=\"pos\">(" + esc(entry.pos) + ")</span> " + esc(entry.kyu || "") + (entry.burmese ? " | " + esc(entry.burmese) : "");
-    var del = kind ? "<button class=\"del\" data-i=\"" + index + "\" aria-label=\"Delete\"><span>×</span></button>" : "<button class=\"speak\" data-speak=\"" + esc(entry.en) + "\" aria-label=\"Speak\"><svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><polygon points=\"11 5 6 9 2 9 2 15 6 15 11 19 11 5\"/><path d=\"M15.54 8.46a5 5 0 0 1 0 7.07\"/></svg></button>";
+    var del = kind ? "<button class=\"del\" data-i=\"" + index + "\" aria-label=\"Delete\"><span>×</span></button>" : "<button class=\"speak\" data-speak=\"" + esc(entry.burmese || entry.kyu || entry.en) + "\" aria-label=\"Speak\"><svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><polygon points=\"11 5 6 9 2 9 2 15 6 15 11 19 11 5\"/><path d=\"M15.54 8.46a5 5 0 0 1 0 7.07\"/></svg></button>";
     return "<li><button class=\"word\" data-i=\"" + index + "\"><p class=\"en\">" + esc(entry.en) + "</p><p class=\"sense\">" + sense + "</p></button>" + del + "</li>";
   }).join("");
   const buttons = list.querySelectorAll(".word");
   for (let i = 0; i < buttons.length; i++) {
-    buttons[i].onclick = function () { showDetail(rows[Number(this.dataset.i)]); };
+    buttons[i].onclick = function () { showDetailGroup(rows[Number(this.dataset.i)].en); };
   }
   const speakers = list.querySelectorAll(".speak");
   for (let i = 0; i < speakers.length; i++) {
-    speakers[i].onclick = function () { speak(this.getAttribute("data-speak")); };
+    speakers[i].onclick = function () {
+      const idx = Number(this.closest("li").querySelector(".word").dataset.i);
+      const entry = rows[idx];
+      if (entry) speakAll(entry);
+    };
   }
   const deletes = list.querySelectorAll(".del");
   for (let i = 0; i < deletes.length; i++) {
@@ -311,6 +360,45 @@ function showSaved(kind) {
   paint(savedEntries(kind), kind);
   window.scrollTo(0, 0);
 }
+
+function speakBtn(text, lang, label) {
+  if (!text) return "";
+  return "<button class=\"speak-inline\" data-text=\"" + esc(text) + "\" data-lang=\"" + (lang || "my-MM") + "\" aria-label=\"Speak " + label + "\" title=\"Speak " + label + "\">🔊</button>";
+}
+function wireSpeakButtons() {
+  const btns = detail.querySelectorAll(".speak-inline");
+  for (let i = 0; i < btns.length; i++) {
+    btns[i].onclick = function () {
+      speak(this.getAttribute("data-text"), this.getAttribute("data-lang"));
+    };
+  }
+}
+function showDetailGroup(en) {
+  const matches = allForEnglish(en);
+  if (!matches.length) return;
+  remember(matches[0]);
+  openEntry = matches[0];
+  document.body.classList.add("word");
+  list.style.display = "none";
+  let html = "<div class=\"line\"><h2 class=\"line-text\">" + esc(en) + "</h2>" + speakBtn(en, "en-US", "English") + "</div>";
+  for (let i = 0; i < matches.length; i++) {
+    const e = matches[i];
+    const examples = (e.examples || []).map(function (line) { return "<p class=\"ex\">" + esc(line) + "</p>"; }).join("");
+    // Kayah: try Kayah script; if TTS fails most browsers skip it, so also offer Burmese as proxy via data
+    html += "<div class=\"line\"><p class=\"line-text\"><span>(" + esc(e.pos) + ")</span> " + esc(e.kyu || "") + "</p></div>";
+    if (e.burmese) html += "<div class=\"line\"><p class=\"line-text\">" + esc(e.burmese) + "</p>" + speakBtn(e.burmese, "my-MM", "Burmese") + "</div>";
+    html += examples;
+    if (i < matches.length - 1) html += "<hr style=\"border:0;border-top:1px solid #eee;margin:16px 0\">";
+  }
+  detail.style.display = "block";
+  detail.innerHTML = html;
+  wireSpeakButtons();
+  const index = findIndex(matches[0]);
+  document.getElementById("prevWord").disabled = index <= 0;
+  document.getElementById("nextWord").disabled = index < 0 || index >= ENTRIES.length - 1;
+  document.getElementById("starWord").classList.toggle("on", localStorage.getItem("kyu-star:" + matches[0].slug) === "1");
+  window.scrollTo(0, 0);
+}
 function showDetail(entry) {
   remember(entry);
   openEntry = entry;
@@ -318,10 +406,11 @@ function showDetail(entry) {
   list.style.display = "none";
   const examples = (entry.examples || []).map(function (line) { return "<p class=\"ex\">" + esc(line) + "</p>"; }).join("");
   detail.style.display = "block";
-  detail.innerHTML = "<h2>" + esc(entry.en) + "</h2>" +
-    "<p><span>(" + esc(entry.pos) + ")</span> " + esc(entry.kyu || "") + "</p>" +
-    (entry.burmese ? "<p>" + esc(entry.burmese) + "</p>" : "") +
+  detail.innerHTML = "<div class=\"line\"><h2 class=\"line-text\">" + esc(entry.en) + "</h2>" + speakBtn(entry.en, "en-US", "English") + "</div>" +
+    "<div class=\"line\"><p class=\"line-text\"><span>(" + esc(entry.pos) + ")</span> " + esc(entry.kyu || "") + "</p></div>" +
+    (entry.burmese ? "<div class=\"line\"><p class=\"line-text\">" + esc(entry.burmese) + "</p>" + speakBtn(entry.burmese, "my-MM", "Burmese") + "</div>" : "") +
     examples;
+  wireSpeakButtons();
   const index = findIndex(entry);
   document.getElementById("prevWord").disabled = index <= 0;
   document.getElementById("nextWord").disabled = index < 0 || index >= ENTRIES.length - 1;
@@ -350,7 +439,7 @@ document.getElementById("starWord").onclick = function () {
   localStorage.setItem(key, on ? "1" : "0");
   this.classList.toggle("on", on);
 };
-document.getElementById("speakWord").onclick = function () { if (openEntry) speak(openEntry.en); };
+document.getElementById("speakWord").onclick = function () { if (openEntry) speakAll(openEntry); };
 document.getElementById("shareWord").onclick = function () {
   if (!openEntry) return;
   const text = openEntry.en + " (" + openEntry.pos + ") " + (openEntry.kyu || "") + (openEntry.burmese ? " / " + openEntry.burmese : "");
@@ -359,7 +448,13 @@ document.getElementById("shareWord").onclick = function () {
 };
 q.addEventListener("input", showList);
 clearBtn.onclick = function () { q.value = ""; showList(); q.focus(); };
-document.getElementById("searchForm").onsubmit = function (event) { event.preventDefault(); };
+document.getElementById("searchForm").onsubmit = function (event) {
+  event.preventDefault();
+  const term = q.value.trim();
+  if (!term) return;
+  const rows = uniqueByEnglish(search(term));
+  if (rows.length) showDetailGroup(rows[0].en);
+};
 document.getElementById("openDictionary").onclick = function (event) { event.preventDefault(); menu.style.display = "none"; showList(); };
 document.getElementById("openFavorite").onclick = function (event) { event.preventDefault(); showSaved("favorite"); };
 document.getElementById("openHistory").onclick = function (event) { event.preventDefault(); showSaved("history"); };
