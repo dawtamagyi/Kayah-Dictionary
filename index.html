@@ -27,11 +27,11 @@ header.bar h1 { margin: 0; font-size: 20px; font-weight: 500; }
 .search input::placeholder { font-family: Roboto, sans-serif; color: #8b919a; }
 .clear { width: 28px; height: 28px; border: 0; border-radius: 50%; background: #8b919a; color: #fff; font-size: 16px; }
 ul { list-style: none; margin: 0; padding: 0; }
-li { display: flex; align-items: center; width: 100%; height: 80px; min-height: 80px; max-height: 80px; overflow: hidden; box-sizing: border-box; border-bottom: 1px solid #e6e6e6; background: #fff; }
+li { display: flex; align-items: flex-start; width: 100%; min-height: 80px; overflow: hidden; box-sizing: border-box; border-bottom: 1px solid #e6e6e6; background: #fff; padding: 8px 0; }
 li:nth-child(even) { background: #f3f6fb; }
-li button.word { flex: 1; min-width: 0; height: 80px; overflow: hidden; text-align: left; border: 0; background: transparent; padding: 0 16px; font: inherit; color: #111; display: flex; flex-direction: column; justify-content: center; }
-li .en { margin: 0; height: 24px; line-height: 24px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 18px; }
-li .sense { margin: 2px 0 0; height: 24px; line-height: 24px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 16px; }
+li button.word { flex: 1; min-width: 0; overflow: hidden; text-align: left; border: 0; background: transparent; padding: 0 16px; font: inherit; color: #111; display: flex; flex-direction: column; justify-content: center; }
+li .en { margin: 0; line-height: 1.3; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 18px; font-weight: 500; }
+li .sense { margin: 2px 0 0; line-height: 1.3; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 15px; color: #444; }
 li .pos { font-family: Roboto, sans-serif; font-weight: 400; margin-right: 4px; }
 .speak { width: 56px; height: 80px; flex: none; border: 0; background: transparent; color: #111; }
 .del { width: 56px; flex: none; border: 0; background: transparent; color: #fff; }
@@ -373,24 +373,25 @@ function paint(rows, kind) {
     return;
   }
   list.innerHTML = rows.map(function (entry, index) {
-    var parts = [];
+    var main, line2, line3;
     if (searchLang === "kyu") {
-      parts.push(esc(entry.kyu || ""));
-      if (entry.burmese) parts.push(esc(entry.burmese));
-      parts.push(esc(entry.en));
+      main = entry.kyu || entry.en;
+      line2 = entry.burmese || "";
+      line3 = entry.en || "";
     } else if (searchLang === "bur") {
-      if (entry.burmese) parts.push(esc(entry.burmese));
-      parts.push(esc(entry.kyu || ""));
-      parts.push(esc(entry.en));
+      main = entry.burmese || entry.en;
+      line2 = (entry.pos ? "(" + entry.pos + ") " : "") + (entry.kyu || "");
+      line3 = entry.en || "";
     } else {
-      parts.push(esc(entry.en));
-      parts.push(esc(entry.kyu || ""));
-      if (entry.burmese) parts.push(esc(entry.burmese));
+      main = entry.en;
+      line2 = (entry.pos ? "(" + entry.pos + ") " : "") + (entry.kyu || "");
+      line3 = entry.burmese || "";
     }
-    var sense = parts.filter(Boolean).join(" | ");
     var del = kind ? "<button class=\"del\" data-i=\"" + index + "\" aria-label=\"Delete\"><span>×</span></button>" : "<button class=\"speak\" data-speak=\"" + esc(entry.burmese || entry.kyu || entry.en) + "\" aria-label=\"Speak\"><svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><polygon points=\"11 5 6 9 2 9 2 15 6 15 11 19 11 5\"/><path d=\"M15.54 8.46a5 5 0 0 1 0 7.07\"/></svg></button>";
-    var main = searchLang === "kyu" ? (entry.kyu || entry.en) : (searchLang === "bur" ? (entry.burmese || entry.en) : entry.en);
-    return "<li><button class=\"word\" data-i=\"" + index + "\"><p class=\"en\">" + esc(main) + "</p><p class=\"sense\">" + sense + "</p></button>" + del + "</li>";
+    return "<li><button class=\"word\" data-i=\"" + index + "\"><p class=\"en\">" + esc(main) + "</p>" +
+      (line2 ? "<p class=\"sense\">" + esc(line2) + "</p>" : "") +
+      (line3 ? "<p class=\"sense\">" + esc(line3) + "</p>" : "") +
+      "</button>" + del + "</li>";
   }).join("");
   const buttons = list.querySelectorAll(".word");
   for (let i = 0; i < buttons.length; i++) {
@@ -460,12 +461,13 @@ function showDetailGroup(key) {
   for (let i = 0; i < matches.length; i++) {
     const e = matches[i];
     const examples = (e.examples || []).map(function (line) { return "<p class=\"ex\">" + esc(line) + "</p>"; }).join("");
+    var posLine = e.pos ? "<p>(" + esc(e.pos) + ")</p>" : "";
     var enLine = "<div class=\"line\"><h2 class=\"line-text\">" + esc(e.en) + "</h2>" + speakBtn(e.en, "en-US", "English") + "</div>";
-    var kyuLine = "<div class=\"line\"><p class=\"line-text\"><span>(" + esc(e.pos) + ")</span> " + esc(e.kyu || "") + "</p></div>";
+    var kyuLine = "<div class=\"line\"><p class=\"line-text\">" + esc(e.kyu || "") + "</p></div>";
     var burLine = e.burmese ? "<div class=\"line\"><p class=\"line-text\">" + esc(e.burmese) + "</p>" + speakBtn(e.burmese, "my-MM", "Burmese") + "</div>" : "";
-    if (searchLang === "kyu") html += kyuLine + burLine + enLine;
-    else if (searchLang === "bur") html += burLine + kyuLine + enLine;
-    else html += enLine + kyuLine + burLine;
+    if (searchLang === "kyu") html += kyuLine + posLine + burLine + enLine;
+    else if (searchLang === "bur") html += burLine + posLine + kyuLine + enLine;
+    else html += enLine + posLine + kyuLine + burLine;
     html += examples;
     if (i < matches.length - 1) html += "<hr style=\"border:0;border-top:1px solid #eee;margin:16px 0\">";
   }
@@ -485,10 +487,11 @@ function showDetail(entry) {
   list.style.display = "none";
   const examples = (entry.examples || []).map(function (line) { return "<p class=\"ex\">" + esc(line) + "</p>"; }).join("");
   detail.style.display = "block";
+  var posLine = entry.pos ? "<p>(" + esc(entry.pos) + ")</p>" : "";
   var enLine = "<div class=\"line\"><h2 class=\"line-text\">" + esc(entry.en) + "</h2>" + speakBtn(entry.en, "en-US", "English") + "</div>";
-  var kyuLine = "<div class=\"line\"><p class=\"line-text\"><span>(" + esc(entry.pos) + ")</span> " + esc(entry.kyu || "") + "</p></div>";
+  var kyuLine = "<div class=\"line\"><p class=\"line-text\">" + esc(entry.kyu || "") + "</p></div>";
   var burLine = entry.burmese ? "<div class=\"line\"><p class=\"line-text\">" + esc(entry.burmese) + "</p>" + speakBtn(entry.burmese, "my-MM", "Burmese") + "</div>" : "";
-  var ordered = searchLang === "kyu" ? kyuLine + burLine + enLine : (searchLang === "bur" ? burLine + kyuLine + enLine : enLine + kyuLine + burLine);
+  var ordered = searchLang === "kyu" ? kyuLine + posLine + burLine + enLine : (searchLang === "bur" ? burLine + posLine + kyuLine + enLine : enLine + posLine + kyuLine + burLine);
   detail.innerHTML = ordered + examples;
   wireSpeakButtons();
   const index = findIndex(entry);
